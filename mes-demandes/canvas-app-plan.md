@@ -42,7 +42,7 @@ in the approved plan):
 | `Title` | String | Request title, shown as card title |
 | `Date_Soumission` | DateTime | Submission date; used for sort and relative date |
 | `Statut_Actuel` | Record (Choice) | Use `.Value` for the status text (`Soumis`, `En cours`, `Validé`, `Rejeté`, `Clôturé`) |
-| `Niveau_Urgence` | Record (Choice) | Use `.Value`; `"Élevé"` drives the red urgency stripe |
+| `Niveau_Urgence` | Record (Choice) | Use `.Value`; real choices are `Faible`/`Normal`/`Urgent`/`Critique` — `"Urgent"` or `"Critique"` drives the red urgency stripe (`"Élevé"` does NOT exist) |
 | `Type_Demande_ID` | Record (Lookup) | Use `.Value` for the display text |
 | `Service_Actuel_ID` | Record (Lookup) | Use `.Value` for the display text |
 | `Agent_Demandeur` | Record (Person) | Use `.Email` to filter to the connected user (`User().Email`) |
@@ -79,7 +79,8 @@ been updated with `StartScreen: =MesDemandes`.
 - Text secondary: `RGBA(107,114,128,1)` (gray) — small header line, meta text.
 - Text tertiary: `RGBA(156,163,175,1)` (lighter gray) — relative date, empty state.
 - Urgency accent: `RGBA(220,38,38,1)` (red) — left stripe on cards where
-  `Niveau_Urgence.Value = "Élevé"`.
+  `Niveau_Urgence.Value = "Urgent" || Niveau_Urgence.Value = "Critique"`
+  (corrected 2026-07-04: the column's real choices are Faible/Normal/Urgent/Critique — "Élevé" never existed).
 - Layout strategy: AutoLayout throughout (`GroupContainer`, Variant `AutoLayout`),
   Vertical direction for the screen/header/content stacks, Horizontal direction for
   the card root (stripe + content side by side). Responsive Tablet/Web format.
@@ -195,7 +196,7 @@ stripe on each card.
 
 Properties available for this control:
 - `Fill` — `=RGBA(...)`; for the urgency stripe:
-  `=If(ThisItem.Niveau_Urgence.Value = "Élevé", ColorUrgent, RGBA(255,255,255,0))`
+  `=If(ThisItem.Niveau_Urgence.Value = "Urgent" || ThisItem.Niveau_Urgence.Value = "Critique", ColorUrgent, RGBA(255,255,255,0))`
 - `BorderColor`, `BorderThickness`, `BorderStyle`
 - `RadiusTopLeft`, `RadiusTopRight`, `RadiusBottomLeft`, `RadiusBottomRight` —
   rounded corners on the accent bar
@@ -282,7 +283,7 @@ color).
                AutoLayout content sizing)
                - `RectUrgencyStripe` (`Rectangle`): `Width: =4`,
                  `FillPortions: =0`,
-                 `Fill: =If(ThisItem.Niveau_Urgence.Value = "Élevé", ColorUrgent, RGBA(255,255,255,0))`,
+                 `Fill: =If(ThisItem.Niveau_Urgence.Value = "Urgent" || ThisItem.Niveau_Urgence.Value = "Critique", ColorUrgent, RGBA(255,255,255,0))`,
                  `RadiusTopLeft: =12`, `RadiusBottomLeft: =12`,
                  `RadiusTopRight: =0`, `RadiusBottomRight: =0`
                - `ContentContainer` (`GroupContainer`, Variant `AutoLayout`,

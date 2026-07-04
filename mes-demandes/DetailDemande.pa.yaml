@@ -317,7 +317,7 @@ Screens:
                                           Text: =varSelectedDemande.Niveau_Urgence.Value
                                           Size: =13
                                           FontWeight: =FontWeight.Semibold
-                                          Color: =If(varSelectedDemande.Niveau_Urgence.Value = "Élevé", RGBA(220, 38, 38, 1), RGBA(31, 41, 55, 1))
+                                          Color: =If(varSelectedDemande.Niveau_Urgence.Value = "Urgent" || varSelectedDemande.Niveau_Urgence.Value = "Critique", RGBA(220, 38, 38, 1), RGBA(31, 41, 55, 1))
                                           FillPortions: =1
                               - RowGestionnaire:
                                   Control: GroupContainer
