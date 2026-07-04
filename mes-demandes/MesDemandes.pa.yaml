@@ -1,0 +1,223 @@
+Screens:
+  MesDemandes:
+    Properties:
+      Fill: =ColorBackground
+    Children:
+      - ScreenContainer:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            Width: =Parent.Width
+            Height: =Parent.Height
+            Fill: =ColorBackground
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+          Children:
+            - HeaderContainer:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Fill: =ColorBackground
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Start
+                  LayoutGap: =8
+                  PaddingTop: =28
+                  PaddingBottom: =20
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  Height: =140
+                Children:
+                  - TxtBrand:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Assurances At-Takafulia"
+                        Size: =12
+                        FontWeight: =FontWeight.Normal
+                        Color: =ColorTextSecondary
+                        AutoHeight: =true
+                        Width: =Parent.Width - 56
+                  - TxtTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Mes demandes"
+                        Size: =28
+                        FontWeight: =FontWeight.Bold
+                        Color: =ColorAccent
+                        AutoHeight: =true
+                        Width: =Parent.Width - 56
+                  - RectAccentBar:
+                      Control: Rectangle
+                      Properties:
+                        FillPortions: =0
+                        Width: =56
+                        Height: =4
+                        Fill: =ColorAccent
+            - GalleryContainer:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Fill: =ColorBackground
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  PaddingBottom: =28
+                Children:
+                  - GalleryDemandes:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: |-
+                          =SortByColumns(
+                            Filter(Demandes, Agent_Demandeur.Email = User().Email),
+                            "Date_Soumission",
+                            SortOrder.Descending
+                          )
+                        FillPortions: =0
+                        Width: =Parent.Width - 56
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        WrapCount: =1
+                        TemplateSize: =150
+                        TemplatePadding: =14
+                        Fill: =RGBA(0, 0, 0, 0)
+                        TemplateFill: =RGBA(0, 0, 0, 0)
+                        OnSelect: |-
+                          =Set(varSelectedDemande, ThisItem);
+                          Navigate(DetailDemande, ScreenTransition.Fade)
+                      Children:
+                        - CardContainer:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              Fill: =ColorCardWhite
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              DropShadow: =DropShadow.Semilight
+                            Children:
+                              - RectUrgencyStripe:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =0
+                                    Width: =4
+                                    Fill: =If(ThisItem.Niveau_Urgence.Value = "Élevé", ColorUrgent, RGBA(255, 255, 255, 0))
+                              - ContentContainer:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =1
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutAlignItems: =LayoutAlignItems.Start
+                                    LayoutGap: =6
+                                    PaddingTop: =16
+                                    PaddingBottom: =16
+                                    PaddingLeft: =18
+                                    PaddingRight: =18
+                                  Children:
+                                    - TxtCardTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Title
+                                          Size: =16
+                                          FontWeight: =FontWeight.Bold
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - BadgeStatut:
+                                        Control: Badge
+                                        Properties:
+                                          Content: =ThisItem.Statut_Actuel.Value
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          FillPortions: =0
+                                          Width: =96
+                                          Height: =28
+                                          LayoutMinWidth: =96
+                                          BasePaletteColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Soumis", RGBA(229, 231, 235, 1),
+                                              "En cours", RGBA(219, 234, 254, 1),
+                                              "Validé", RGBA(209, 250, 229, 1),
+                                              "Rejeté", RGBA(254, 226, 226, 1),
+                                              "Clôturé", RGBA(219, 226, 254, 1),
+                                              RGBA(229, 231, 235, 1)
+                                            )
+                                          FontColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Soumis", RGBA(55, 65, 81, 1),
+                                              "En cours", RGBA(30, 64, 175, 1),
+                                              "Validé", RGBA(6, 95, 70, 1),
+                                              "Rejeté", RGBA(153, 27, 27, 1),
+                                              "Clôturé", RGBA(30, 27, 120, 1),
+                                              RGBA(55, 65, 81, 1)
+                                            )
+                                    - TxtType:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            ="Type : " & ThisItem.Type_Demande_ID.Value
+                                          Size: =13
+                                          Color: =ColorTextSecondary
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtService:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            ="Service : " & ThisItem.Service_Actuel_ID.Value
+                                          Size: =13
+                                          Color: =ColorTextSecondary
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtRelativeDate:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            =With(
+                                              {
+                                                _hrs: DateDiff(ThisItem.Date_Soumission, Now(), TimeUnit.Hours)
+                                              },
+                                              If(
+                                                _hrs < 24,
+                                                "il y a " & _hrs & If(_hrs = 1, " heure", " heures"),
+                                                With(
+                                                  {_days: RoundDown(_hrs / 24, 0)},
+                                                  "il y a " & _days & If(_days = 1, " jour", " jours")
+                                                )
+                                              )
+                                            )
+                                          Size: =12
+                                          Color: =ColorTextTertiary
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                        - RectCardClick:
+                            Control: Rectangle
+                            Properties:
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              Fill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =0
+                              OnSelect: |-
+                                =Set(varSelectedDemande, ThisItem);
+                                Navigate(DetailDemande, ScreenTransition.Fade)
+                  - TxtEmptyState:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Aucune demande pour le moment."
+                        Size: =14
+                        Color: =ColorTextTertiary
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Width: =Parent.Width - 56
+                        Visible: =GalleryDemandes.AllItemsCount = 0
