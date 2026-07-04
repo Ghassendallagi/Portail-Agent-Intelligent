@@ -80,7 +80,7 @@ Screens:
                 Properties:
                   FillPortions: =1
                   Fill: =RGBA(249, 250, 251, 1)
-                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutDirection: =If(DetailDemande.Size = ScreenSize.Small, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutGap: =20
                   PaddingLeft: =28
@@ -91,7 +91,7 @@ Screens:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        FillPortions: =2
+                        FillPortions: =If(DetailDemande.Size = ScreenSize.Small, 0, 2)
                         Height: |-
                           =166 + (5
                             + If(Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)), 1, 0)

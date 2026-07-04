@@ -13,7 +13,8 @@
       "mcp__plugin_power-pages_microsoft-learn__microsoft_docs_search",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit -m 'État stable : MesDemandes + DetailDemande 2 colonnes desktop OK *)"
+      "Bash(git commit -m 'État stable : MesDemandes + DetailDemande 2 colonnes desktop OK *)",
+      "Bash(git commit -m 'Responsive DetailDemande : 2 colonnes desktop / empilé mobile, validé en Play réel aux deux tailles *)"
     ]
   }
 }
