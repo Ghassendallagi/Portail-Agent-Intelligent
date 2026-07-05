@@ -16,7 +16,11 @@
       "Bash(git commit -m 'État stable : MesDemandes + DetailDemande 2 colonnes desktop OK *)",
       "Bash(git commit -m 'Responsive DetailDemande : 2 colonnes desktop / empilé mobile, validé en Play réel aux deux tailles *)",
       "Read(//c/Users/gdallegi/AppData/Local/Temp/claude/C--Users-gdallegi-Documents-pfe-powerapps-work/014742eb-c9e2-411d-92cd-bafec4e50eb8/scratchpad/server-state3/**)",
-      "Read(//c/Users/gdallegi/AppData/Local/Temp/claude/C--Users-gdallegi-Documents-pfe-powerapps-work/014742eb-c9e2-411d-92cd-bafec4e50eb8/scratchpad/server-state3//**)"
+      "Read(//c/Users/gdallegi/AppData/Local/Temp/claude/C--Users-gdallegi-Documents-pfe-powerapps-work/014742eb-c9e2-411d-92cd-bafec4e50eb8/scratchpad/server-state3//**)",
+      "Read(//c/Users/gdallegi/Documents/pfe/phase3-final/**)",
+      "Bash(python -c ' *)",
+      "Bash(python -)",
+      "Bash(git commit -m 'Actions Valider/Rejeter/Transférer/Clôturer implémentées — poussées, App Checker propre, EN ATTENTE de validation par test réel *)"
     ]
   }
 }

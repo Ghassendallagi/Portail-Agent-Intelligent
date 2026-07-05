@@ -2,6 +2,7 @@ Screens:
   DetailDemande:
     Properties:
       Fill: =RGBA(249, 250, 251, 1)
+      OnVisible: =Set(varActionDialog, "")
     Children:
       - DetailScreenContainer:
           Control: GroupContainer
@@ -97,6 +98,20 @@ Screens:
                             + If(Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)), 1, 0)
                             + If(Not(IsBlank(varSelectedDemande.Date_Cloture)), 1, 0)
                           ) * 38
+                          + If(
+                              (UserRole = "Admin"
+                                  || ((UserRole = "Gestionnaire" || UserRole = "Superviseur")
+                                      && varSelectedDemande.Service_Actuel_ID.Value = UserServiceLabel))
+                                  && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
+                                      || varSelectedDemande.Statut_Actuel.Value = "En cours"),
+                              112, 0
+                          )
+                          + If(
+                              varSelectedDemande.Statut_Actuel.Value = "Validé"
+                                  && (UserRole = "Admin"
+                                      || (UserRole = "Agent" && varSelectedDemande.Agent_Demandeur.Email = User().Email)),
+                              84, 0
+                          )
                         Fill: =RGBA(249, 250, 251, 1)
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -375,6 +390,121 @@ Screens:
                                           FontWeight: =FontWeight.Semibold
                                           Color: =RGBA(31, 41, 55, 1)
                                           FillPortions: =1
+                        - ActionsCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =96
+                              Fill: =RGBA(255, 255, 255, 1)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =6
+                              PaddingTop: =14
+                              PaddingBottom: =14
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              DropShadow: =DropShadow.Semilight
+                              Visible: |-
+                                =(UserRole = "Admin"
+                                    || ((UserRole = "Gestionnaire" || UserRole = "Superviseur")
+                                        && varSelectedDemande.Service_Actuel_ID.Value = UserServiceLabel))
+                                    && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
+                                        || varSelectedDemande.Statut_Actuel.Value = "En cours")
+                            Children:
+                              - TxtActionsLabel:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Actions"
+                                    Size: =13
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =0
+                                    AutoHeight: =true
+                              - ActionButtonsRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =40
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutGap: =10
+                                  Children:
+                                    - BtnValider:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Valider"
+                                          Appearance: ='ButtonCanvas.Appearance'.Primary
+                                          BasePaletteColor: =RGBA(6, 95, 70, 1)
+                                          FillPortions: =1
+                                          Height: =40
+                                          OnSelect: =Set(varActionDialog, "valider")
+                                    - BtnRejeter:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Rejeter"
+                                          Appearance: ='ButtonCanvas.Appearance'.Primary
+                                          BasePaletteColor: =RGBA(220, 38, 38, 1)
+                                          FillPortions: =1
+                                          Height: =40
+                                          OnSelect: |-
+                                            =Set(varActionDialog, "rejeter");
+                                            Reset(InpMotifRejet)
+                                    - BtnTransferer:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Transférer"
+                                          Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                          FillPortions: =1
+                                          Height: =40
+                                          DisplayMode: |-
+                                            =If(
+                                                varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                                    && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)),
+                                                DisplayMode.Edit,
+                                                DisplayMode.Disabled
+                                            )
+                                          Tooltip: ="Transfert possible uniquement après prise en charge (statut En cours et gestionnaire assigné)"
+                                          OnSelect: |-
+                                            =Set(varActionDialog, "transferer");
+                                            Reset(DdServiceCible)
+                        - ClotureCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =68
+                              Fill: =RGBA(255, 255, 255, 1)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              PaddingTop: =14
+                              PaddingBottom: =14
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              DropShadow: =DropShadow.Semilight
+                              Visible: |-
+                                =varSelectedDemande.Statut_Actuel.Value = "Validé"
+                                    && (UserRole = "Admin"
+                                        || (UserRole = "Agent" && varSelectedDemande.Agent_Demandeur.Email = User().Email))
+                            Children:
+                              - BtnCloturer:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="Confirmer la réception"
+                                    Appearance: ='ButtonCanvas.Appearance'.Primary
+                                    BasePaletteColor: =RGBA(6, 95, 70, 1)
+                                    FillPortions: =0
+                                    Height: =40
+                                    OnSelect: =Set(varActionDialog, "cloturer")
                   - SideColumn:
                       Control: GroupContainer
                       Variant: AutoLayout
@@ -528,3 +658,179 @@ Screens:
                                     AutoHeight: =true
                                     Width: =Parent.Width
                                     Visible: =GalleryHistorique.AllItemsCount = 0
+      - DialogOverlay:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            X: =0
+            Y: =0
+            Width: =Parent.Width
+            Height: =Parent.Height
+            Visible: =Not(IsBlank(varActionDialog))
+          Children:
+            - RectDialogScrim:
+                Control: Rectangle
+                Properties:
+                  X: =0
+                  Y: =0
+                  Width: =Parent.Width
+                  Height: =Parent.Height
+                  Fill: =RGBA(17, 24, 39, 0.45)
+                  BorderThickness: =0
+                  OnSelect: =Set(varActionDialog, "")
+            - DialogCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =(Parent.Height - Self.Height) / 2
+                  Width: =If(DetailDemande.Size = ScreenSize.Small, Parent.Width - 40, 440)
+                  Height: |-
+                    =Switch(
+                        varActionDialog,
+                        "rejeter", 330,
+                        "transferer", 280,
+                        210
+                    )
+                  Fill: =RGBA(255, 255, 255, 1)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =12
+                  PaddingTop: =20
+                  PaddingBottom: =20
+                  PaddingLeft: =20
+                  PaddingRight: =20
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  DropShadow: =DropShadow.Regular
+                Children:
+                  - TxtDialogTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          =Switch(
+                              varActionDialog,
+                              "valider", "Confirmer la validation ?",
+                              "rejeter", "Rejeter la demande",
+                              "transferer", "Transférer la demande",
+                              "cloturer", "Confirmer la réception ?",
+                              ""
+                          )
+                        Size: =17
+                        FontWeight: =FontWeight.Bold
+                        Color: =RGBA(31, 41, 55, 1)
+                        FillPortions: =0
+                        AutoHeight: =true
+                  - TxtDialogBody:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          ="« " & varSelectedDemande.Title & " » — " & Switch(
+                              varActionDialog,
+                              "valider", "la demande passera au statut Validé.",
+                              "rejeter", "indiquez le motif du rejet (obligatoire).",
+                              "transferer", "choisissez le service destinataire.",
+                              "cloturer", "vous confirmez la bonne réception ; la demande sera clôturée.",
+                              ""
+                          )
+                        Size: =13
+                        Color: =RGBA(107, 114, 128, 1)
+                        FillPortions: =0
+                        AutoHeight: =true
+                  - InpMotifRejet:
+                      Control: ModernTextInput
+                      Properties:
+                        FillPortions: =0
+                        Height: =96
+                        Type: =TextInputType.Multiline
+                        Placeholder: ="Motif du rejet…"
+                        AccessibleLabel: ="Motif du rejet (obligatoire)"
+                        Visible: =varActionDialog = "rejeter"
+                  - DdServiceCible:
+                      Control: ModernDropdown
+                      Properties:
+                        FillPortions: =0
+                        Height: =40
+                        Items: =Filter(Services_Siege, Title <> varSelectedDemande.Service_Actuel_ID.Value)
+                        ItemDisplayText: =ThisItem.Title
+                        AccessibleLabel: ="Service destinataire du transfert"
+                        Visible: =varActionDialog = "transferer"
+                  - DialogButtonsRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =40
+                        Fill: =RGBA(0, 0, 0, 0)
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                        LayoutGap: =10
+                      Children:
+                        - BtnDialogAnnuler:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Annuler"
+                              Appearance: ='ButtonCanvas.Appearance'.Secondary
+                              FillPortions: =0
+                              Width: =120
+                              Height: =40
+                              OnSelect: =Set(varActionDialog, "")
+                        - BtnDialogConfirmer:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="Confirmer"
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =If(varActionDialog = "rejeter", RGBA(220, 38, 38, 1), RGBA(6, 95, 70, 1))
+                              FillPortions: =0
+                              Width: =140
+                              Height: =40
+                              DisplayMode: |-
+                                =If(
+                                    (varActionDialog = "rejeter" && IsBlank(Trim(InpMotifRejet.Text)))
+                                        || (varActionDialog = "transferer" && IsBlank(DdServiceCible.Selected.ID)),
+                                    DisplayMode.Disabled,
+                                    DisplayMode.Edit
+                                )
+                              OnSelect: |-
+                                =Switch(
+                                    varActionDialog,
+                                    "valider",
+                                    IfError(
+                                        Patch(Demandes, varSelectedDemande, {Statut_Actuel: {Value: "Validé"}}),
+                                        Notify("Échec de la validation : " & FirstError.Message, NotificationType.Error),
+                                        Set(varActionDialog, "");
+                                        Refresh(Demandes);
+                                        Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                        Notify("Demande validée.", NotificationType.Success)
+                                    ),
+                                    "rejeter",
+                                    IfError(
+                                        Patch(Demandes, varSelectedDemande, {Statut_Actuel: {Value: "Rejeté"}, Motif_Rejet: Trim(InpMotifRejet.Text)}),
+                                        Notify("Échec du rejet : " & FirstError.Message, NotificationType.Error),
+                                        Set(varActionDialog, "");
+                                        Refresh(Demandes);
+                                        Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                        Notify("Demande rejetée.", NotificationType.Success)
+                                    ),
+                                    "transferer",
+                                    IfError(
+                                        Patch(Demandes, varSelectedDemande, {Service_Actuel_ID: {Id: DdServiceCible.Selected.ID, Value: DdServiceCible.Selected.Title}}),
+                                        Notify("Échec du transfert : " & FirstError.Message, NotificationType.Error),
+                                        Set(varActionDialog, "");
+                                        Refresh(Demandes);
+                                        Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                        Notify("Demande transférée.", NotificationType.Success)
+                                    ),
+                                    "cloturer",
+                                    IfError(
+                                        Patch(Demandes, varSelectedDemande, {Statut_Actuel: {Value: "Clôturé"}}),
+                                        Notify("Échec de la clôture : " & FirstError.Message, NotificationType.Error),
+                                        Set(varActionDialog, "");
+                                        Refresh(Demandes);
+                                        Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                        Notify("Réception confirmée, demande clôturée.", NotificationType.Success)
+                                    )
+                                )
