@@ -47,8 +47,8 @@ Screens:
                               FillPortions: =0
                               Width: =28
                               Height: =28
-                              AccessibleLabel: ="Retour vers Mes demandes"
-                              OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                              AccessibleLabel: ="Retour"
+                              OnSelect: =Back(ScreenTransition.Fade)
                         - TxtBack:
                             Control: ModernText
                             Properties:
@@ -57,7 +57,7 @@ Screens:
                               Color: =RGBA(6, 95, 70, 1)
                               FontWeight: =FontWeight.Semibold
                               AutoHeight: =true
-                              OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                              OnSelect: =Back(ScreenTransition.Fade)
                   - TxtDetailTitle:
                       Control: ModernText
                       Properties:

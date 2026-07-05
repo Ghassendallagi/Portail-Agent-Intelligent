@@ -1,7 +1,15 @@
 App:
   Properties:
     Theme: =PowerAppsTheme
-    StartScreen: =MesDemandes
+    StartScreen: |-
+      =Switch(
+          UserRole,
+          "Agent", MesDemandes,
+          "Gestionnaire", FileATraiter,
+          "Superviseur", FileATraiter,
+          "Admin", FileATraiter,
+          AccesNonConfigure
+      )
     BackEnabled: =false
     Formulas: |-
       =// ---- Takaful palette (shared named formulas) ----
@@ -11,3 +19,11 @@ App:
       ColorTextTertiary = RGBA(156,163,175,1);
       ColorCardWhite = RGBA(255,255,255,1);
       ColorUrgent = RGBA(220,38,38,1);
+      // ---- Détection de rôle (populations strictement séparées ; Membres_Services prioritaire) ----
+      UserRole = Coalesce(
+          LookUp(Membres_Services, Utilisateur.Email = User().Email, Role.Value),
+          LookUp(Agents, Email_Agent = User().Email, "Agent"),
+          "Inconnu"
+      );
+      UserServiceID = LookUp(Membres_Services, Utilisateur.Email = User().Email, Service_ID.Id);
+      UserServiceLabel = LookUp(Services_Siege, ID = UserServiceID, Title);

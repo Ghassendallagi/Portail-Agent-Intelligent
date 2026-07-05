@@ -31,7 +31,7 @@ Screens:
                   - TxtBrand:
                       Control: ModernText
                       Properties:
-                        Text: ="Assurances At-Takafulia"
+                        Text: ="Assurances At-Takafulia · " & UserRole
                         Size: =12
                         FontWeight: =FontWeight.Normal
                         Color: =ColorTextSecondary

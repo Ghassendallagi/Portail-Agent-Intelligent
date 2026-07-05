@@ -1,0 +1,63 @@
+Screens:
+  AccesNonConfigure:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+    Children:
+      - ANCScreenContainer:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            Width: =Parent.Width
+            Height: =Parent.Height
+            Fill: =RGBA(249, 250, 251, 1)
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+          Children:
+            - ANCCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =180
+                  Width: =If(AccesNonConfigure.Size = ScreenSize.Small, Parent.Width - 56, 480)
+                  Fill: =RGBA(255, 255, 255, 1)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutJustifyContent: =LayoutJustifyContent.Center
+                  LayoutGap: =12
+                  PaddingTop: =24
+                  PaddingBottom: =24
+                  PaddingLeft: =24
+                  PaddingRight: =24
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  DropShadow: =DropShadow.Semilight
+                Children:
+                  - TxtANCBrand:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Assurances At-Takafulia"
+                        Size: =12
+                        Color: =RGBA(107, 114, 128, 1)
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Width: =Parent.Width - 48
+                  - RectANCBar:
+                      Control: Rectangle
+                      Properties:
+                        FillPortions: =0
+                        Width: =56
+                        Height: =4
+                        Fill: =RGBA(6, 95, 70, 1)
+                  - TxtANCMessage:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Votre accès n'est pas encore configuré. Contactez l'administrateur du portail."
+                        Size: =15
+                        Color: =RGBA(31, 41, 55, 1)
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Width: =Parent.Width - 48
