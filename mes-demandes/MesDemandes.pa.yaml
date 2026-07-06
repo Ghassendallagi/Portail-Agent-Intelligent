@@ -2,6 +2,8 @@ Screens:
   MesDemandes:
     Properties:
       Fill: =ColorBackground
+      OnVisible: |-
+        =UpdateContext({ctxMDTab: "encours"})
     Children:
       - ScreenContainer:
           Control: GroupContainer
@@ -85,19 +87,169 @@ Screens:
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutOverflowY: =LayoutOverflow.Scroll
+                  LayoutGap: =10
                   PaddingLeft: =28
                   PaddingRight: =28
                   PaddingBottom: =28
                 Children:
+                  - TabsRowMD:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =48
+                        AlignInContainer: =AlignInContainer.Start
+                        Width: =Min(Parent.Width - 56, 460)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =8
+                      Children:
+                        - TabEnCours:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              FillPortions: =1
+                              Fill: =RGBA(0, 0, 0, 0)
+                            Children:
+                              - TxtTabEnCours:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="En cours"
+                                    Size: =14
+                                    FontWeight: =If(ctxMDTab = "encours", FontWeight.Semibold, FontWeight.Normal)
+                                    Color: =If(ctxMDTab = "encours", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    X: =0
+                                    Y: =13
+                                    Width: =Parent.Width
+                              - RectTabEnCours:
+                                  Control: Rectangle
+                                  Properties:
+                                    X: =0
+                                    Y: =Parent.Height - 3
+                                    Width: =Parent.Width
+                                    Height: =3
+                                    Fill: =If(ctxMDTab = "encours", RGBA(6, 95, 70, 1), RGBA(229, 231, 235, 1))
+                              - RectTabEnCoursClick:
+                                  Control: Rectangle
+                                  Properties:
+                                    X: =0
+                                    Y: =0
+                                    Width: =Parent.Width
+                                    Height: =Parent.Height
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    BorderThickness: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxMDTab: "encours"})
+                        - TabTerminees:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              FillPortions: =1
+                              Fill: =RGBA(0, 0, 0, 0)
+                            Children:
+                              - TxtTabTerminees:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Terminées"
+                                    Size: =14
+                                    FontWeight: =If(ctxMDTab = "terminees", FontWeight.Semibold, FontWeight.Normal)
+                                    Color: =If(ctxMDTab = "terminees", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    X: =0
+                                    Y: =13
+                                    Width: =Parent.Width
+                              - RectTabTerminees:
+                                  Control: Rectangle
+                                  Properties:
+                                    X: =0
+                                    Y: =Parent.Height - 3
+                                    Width: =Parent.Width
+                                    Height: =3
+                                    Fill: =If(ctxMDTab = "terminees", RGBA(6, 95, 70, 1), RGBA(229, 231, 235, 1))
+                              - RectTabTermineesClick:
+                                  Control: Rectangle
+                                  Properties:
+                                    X: =0
+                                    Y: =0
+                                    Width: =Parent.Width
+                                    Height: =Parent.Height
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    BorderThickness: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxMDTab: "terminees"})
+                        - TabToutes:
+                            Control: GroupContainer
+                            Variant: ManualLayout
+                            Properties:
+                              FillPortions: =1
+                              Fill: =RGBA(0, 0, 0, 0)
+                            Children:
+                              - TxtTabToutes:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Toutes"
+                                    Size: =14
+                                    FontWeight: =If(ctxMDTab = "toutes", FontWeight.Semibold, FontWeight.Normal)
+                                    Color: =If(ctxMDTab = "toutes", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    X: =0
+                                    Y: =13
+                                    Width: =Parent.Width
+                              - RectTabToutes:
+                                  Control: Rectangle
+                                  Properties:
+                                    X: =0
+                                    Y: =Parent.Height - 3
+                                    Width: =Parent.Width
+                                    Height: =3
+                                    Fill: =If(ctxMDTab = "toutes", RGBA(6, 95, 70, 1), RGBA(229, 231, 235, 1))
+                              - RectTabToutesClick:
+                                  Control: Rectangle
+                                  Properties:
+                                    X: =0
+                                    Y: =0
+                                    Width: =Parent.Width
+                                    Height: =Parent.Height
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    BorderThickness: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxMDTab: "toutes"})
                   - GalleryDemandes:
                       Control: Gallery
                       Variant: Vertical
                       Properties:
                         Items: |-
-                          =SortByColumns(
-                            Filter(Demandes, Agent_Demandeur.Email = User().Email),
-                            "Date_Soumission",
-                            SortOrder.Descending
+                          =If(
+                              ctxMDTab = "encours",
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Agent_Demandeur.Email = User().Email
+                                          && (Statut_Actuel.Value = "Soumis"
+                                              || Statut_Actuel.Value = "En cours"
+                                              || Statut_Actuel.Value = "Validé")
+                                  ),
+                                  "Date_Soumission", SortOrder.Descending
+                              ),
+                              ctxMDTab = "terminees",
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Agent_Demandeur.Email = User().Email
+                                          && (Statut_Actuel.Value = "Clôturé"
+                                              || Statut_Actuel.Value = "Rejeté")
+                                  ),
+                                  "Date_Soumission", SortOrder.Descending
+                              ),
+                              SortByColumns(
+                                  Filter(Demandes, Agent_Demandeur.Email = User().Email),
+                                  "Date_Soumission", SortOrder.Descending
+                              )
                           )
                         FillPortions: =0
                         Width: =Parent.Width - 56
@@ -237,7 +389,13 @@ Screens:
                   - TxtEmptyState:
                       Control: ModernText
                       Properties:
-                        Text: ="Aucune demande pour le moment."
+                        Text: |-
+                          =Switch(
+                              ctxMDTab,
+                              "encours", "Aucune demande en cours.",
+                              "terminees", "Aucune demande terminée.",
+                              "Aucune demande pour le moment."
+                          )
                         Size: =14
                         Color: =ColorTextTertiary
                         Align: =Align.Center
