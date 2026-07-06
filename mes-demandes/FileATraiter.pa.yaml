@@ -82,13 +82,25 @@ Screens:
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutGap: =8
                       Children:
-                        - TabFTATraiter:
+                        - TbFTATraiter:
                             Control: GroupContainer
-                            Variant: ManualLayout
+                            Variant: AutoLayout
                             Properties:
-                              Width: =(Parent.Width - If(UserRole = "Admin", 8, 16)) / If(UserRole = "Admin", 2, 3)
+                              FillPortions: =1
+                              Fill: =RGBA(0, 0, 0, 0)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =6
                             Children:
-                              - TxtTabFTATraiter:
+                              - RectTbFTATraiterZone:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =1
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    BorderThickness: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxFTTab: "atraiter"})
+                              - TxtTbFTATraiter:
                                   Control: ModernText
                                   Properties:
                                     Text: ="À traiter"
@@ -97,35 +109,36 @@ Screens:
                                     Color: =If(ctxFTTab = "atraiter", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
                                     Align: =Align.Center
                                     AutoHeight: =true
-                                    X: =0
-                                    Y: =13
-                                    Width: =Parent.Width
-                              - RectTabFTATraiter:
+                                    FillPortions: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxFTTab: "atraiter"})
+                              - RectTbFTATraiterLine:
                                   Control: Rectangle
                                   Properties:
-                                    X: =0
-                                    Y: =Parent.Height - 3
-                                    Width: =Parent.Width
+                                    FillPortions: =0
                                     Height: =3
                                     Fill: =If(ctxFTTab = "atraiter", RGBA(6, 95, 70, 1), RGBA(229, 231, 235, 1))
-                              - RectTabFTATraiterClick:
+                                    OnSelect: |-
+                                      =UpdateContext({ctxFTTab: "atraiter"})
+                        - TbFTTraitees:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =1
+                              Fill: =RGBA(0, 0, 0, 0)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =6
+                            Children:
+                              - RectTbFTTraiteesZone:
                                   Control: Rectangle
                                   Properties:
-                                    X: =0
-                                    Y: =0
-                                    Width: =Parent.Width
-                                    Height: =Parent.Height
+                                    FillPortions: =1
                                     Fill: =RGBA(0, 0, 0, 0)
                                     BorderThickness: =0
                                     OnSelect: |-
-                                      =UpdateContext({ctxFTTab: "atraiter"})
-                        - TabFTTraitees:
-                            Control: GroupContainer
-                            Variant: ManualLayout
-                            Properties:
-                              Width: =(Parent.Width - If(UserRole = "Admin", 8, 16)) / If(UserRole = "Admin", 2, 3)
-                            Children:
-                              - TxtTabFTTraitees:
+                                      =UpdateContext({ctxFTTab: "traitees"})
+                              - TxtTbFTTraitees:
                                   Control: ModernText
                                   Properties:
                                     Text: ="Traitées"
@@ -134,36 +147,37 @@ Screens:
                                     Color: =If(ctxFTTab = "traitees", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
                                     Align: =Align.Center
                                     AutoHeight: =true
-                                    X: =0
-                                    Y: =13
-                                    Width: =Parent.Width
-                              - RectTabFTTraitees:
+                                    FillPortions: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxFTTab: "traitees"})
+                              - RectTbFTTraiteesLine:
                                   Control: Rectangle
                                   Properties:
-                                    X: =0
-                                    Y: =Parent.Height - 3
-                                    Width: =Parent.Width
+                                    FillPortions: =0
                                     Height: =3
                                     Fill: =If(ctxFTTab = "traitees", RGBA(6, 95, 70, 1), RGBA(229, 231, 235, 1))
-                              - RectTabFTTraiteesClick:
+                                    OnSelect: |-
+                                      =UpdateContext({ctxFTTab: "traitees"})
+                        - TbFTTransferees:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =1
+                              Fill: =RGBA(0, 0, 0, 0)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =6
+                              Visible: =UserRole <> "Admin"
+                            Children:
+                              - RectTbFTTransfereesZone:
                                   Control: Rectangle
                                   Properties:
-                                    X: =0
-                                    Y: =0
-                                    Width: =Parent.Width
-                                    Height: =Parent.Height
+                                    FillPortions: =1
                                     Fill: =RGBA(0, 0, 0, 0)
                                     BorderThickness: =0
                                     OnSelect: |-
-                                      =UpdateContext({ctxFTTab: "traitees"})
-                        - TabFTTransferees:
-                            Control: GroupContainer
-                            Variant: ManualLayout
-                            Properties:
-                              Width: =(Parent.Width - 16) / 3
-                              Visible: =UserRole <> "Admin"
-                            Children:
-                              - TxtTabFTTransferees:
+                                      =UpdateContext({ctxFTTab: "transferees"})
+                              - TxtTbFTTransferees:
                                   Control: ModernText
                                   Properties:
                                     Text: ="Transférées"
@@ -172,26 +186,15 @@ Screens:
                                     Color: =If(ctxFTTab = "transferees", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
                                     Align: =Align.Center
                                     AutoHeight: =true
-                                    X: =0
-                                    Y: =13
-                                    Width: =Parent.Width
-                              - RectTabFTTransferees:
+                                    FillPortions: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxFTTab: "transferees"})
+                              - RectTbFTTransfereesLine:
                                   Control: Rectangle
                                   Properties:
-                                    X: =0
-                                    Y: =Parent.Height - 3
-                                    Width: =Parent.Width
+                                    FillPortions: =0
                                     Height: =3
                                     Fill: =If(ctxFTTab = "transferees", RGBA(6, 95, 70, 1), RGBA(229, 231, 235, 1))
-                              - RectTabFTTransfereesClick:
-                                  Control: Rectangle
-                                  Properties:
-                                    X: =0
-                                    Y: =0
-                                    Width: =Parent.Width
-                                    Height: =Parent.Height
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    BorderThickness: =0
                                     OnSelect: |-
                                       =UpdateContext({ctxFTTab: "transferees"})
                   - GalleryATraiter:
