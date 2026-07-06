@@ -2,6 +2,8 @@ Screens:
   FileATraiter:
     Properties:
       Fill: =RGBA(249, 250, 251, 1)
+      OnVisible: |-
+        =UpdateContext({ctxFTTab: "atraiter"})
     Children:
       - FTScreenContainer:
           Control: GroupContainer
@@ -67,19 +69,107 @@ Screens:
                   PaddingRight: =28
                   PaddingBottom: =28
                 Children:
-                  - TxtFTSectionATraiter:
-                      Control: ModernText
+                  - TabsRowFT:
+                      Control: GroupContainer
+                      Variant: AutoLayout
                       Properties:
-                        Text: ="À traiter"
-                        Size: =16
-                        FontWeight: =FontWeight.Semibold
-                        Color: =RGBA(6, 95, 70, 1)
-                        AutoHeight: =true
-                        Width: =Parent.Width - 56
+                        FillPortions: =0
+                        Height: =42
+                        Fill: =RGBA(0, 0, 0, 0)
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =16
+                      Children:
+                        - TabATraiter:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Width: =92
+                              Fill: =RGBA(0, 0, 0, 0)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =4
+                            Children:
+                              - TxtTabATraiter:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="À traiter"
+                                    Size: =14
+                                    FontWeight: =If(ctxFTTab = "atraiter", FontWeight.Semibold, FontWeight.Normal)
+                                    Color: =If(ctxFTTab = "atraiter", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    OnSelect: |-
+                                      =UpdateContext({ctxFTTab: "atraiter"})
+                              - RectTabATraiter:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =3
+                                    Fill: =If(ctxFTTab = "atraiter", RGBA(6, 95, 70, 1), RGBA(0, 0, 0, 0))
+                        - TabTraitees:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Width: =84
+                              Fill: =RGBA(0, 0, 0, 0)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =4
+                            Children:
+                              - TxtTabTraitees:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Traitées"
+                                    Size: =14
+                                    FontWeight: =If(ctxFTTab = "traitees", FontWeight.Semibold, FontWeight.Normal)
+                                    Color: =If(ctxFTTab = "traitees", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    OnSelect: |-
+                                      =UpdateContext({ctxFTTab: "traitees"})
+                              - RectTabTraitees:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =3
+                                    Fill: =If(ctxFTTab = "traitees", RGBA(6, 95, 70, 1), RGBA(0, 0, 0, 0))
+                        - TabTransferees:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Width: =108
+                              Fill: =RGBA(0, 0, 0, 0)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =4
+                              Visible: =UserRole <> "Admin"
+                            Children:
+                              - TxtTabTransferees:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Transférées"
+                                    Size: =14
+                                    FontWeight: =If(ctxFTTab = "transferees", FontWeight.Semibold, FontWeight.Normal)
+                                    Color: =If(ctxFTTab = "transferees", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    OnSelect: |-
+                                      =UpdateContext({ctxFTTab: "transferees"})
+                              - RectTabTransferees:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =3
+                                    Fill: =If(ctxFTTab = "transferees", RGBA(6, 95, 70, 1), RGBA(0, 0, 0, 0))
                   - GalleryATraiter:
                       Control: Gallery
                       Variant: Vertical
                       Properties:
+                        Visible: =ctxFTTab = "atraiter"
                         Items: |-
                           =If(
                               UserRole = "Admin",
@@ -253,17 +343,168 @@ Screens:
                         Align: =Align.Center
                         AutoHeight: =true
                         Width: =Parent.Width - 56
-                        Visible: =GalleryATraiter.AllItemsCount = 0
-                  - TxtFTSectionTransferees:
+                        Visible: =ctxFTTab = "atraiter" && GalleryATraiter.AllItemsCount = 0
+                  - GalleryTraitees:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Visible: =ctxFTTab = "traitees"
+                        Items: |-
+                          =If(
+                              UserRole = "Admin",
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Statut_Actuel.Value = "Validé"
+                                          || Statut_Actuel.Value = "Rejeté"
+                                          || Statut_Actuel.Value = "Clôturé"
+                                  ),
+                                  "Date_Dernier_Mouvement", SortOrder.Descending
+                              ),
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Service_Actuel_ID.Value = UserServiceLabel
+                                          && (Statut_Actuel.Value = "Validé"
+                                              || Statut_Actuel.Value = "Rejeté"
+                                              || Statut_Actuel.Value = "Clôturé")
+                                  ),
+                                  "Date_Dernier_Mouvement", SortOrder.Descending
+                              )
+                          )
+                        FillPortions: =0
+                        Width: =Parent.Width - 56
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        WrapCount: =1
+                        TemplateSize: =150
+                        TemplatePadding: =14
+                        Fill: =RGBA(0, 0, 0, 0)
+                        TemplateFill: =RGBA(0, 0, 0, 0)
+                        OnSelect: |-
+                          =Set(varSelectedDemande, ThisItem);
+                          Navigate(DetailDemande, ScreenTransition.Fade)
+                      Children:
+                        - FTTCardContainer:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              DropShadow: =DropShadow.Semilight
+                            Children:
+                              - RectFTTUrgencyStripe:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =0
+                                    Width: =4
+                                    Fill: =If(ThisItem.Niveau_Urgence.Value = "Urgent" || ThisItem.Niveau_Urgence.Value = "Critique", RGBA(220, 38, 38, 1), RGBA(255, 255, 255, 0))
+                              - FTTContentContainer:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =1
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutAlignItems: =LayoutAlignItems.Start
+                                    LayoutGap: =6
+                                    PaddingTop: =16
+                                    PaddingBottom: =16
+                                    PaddingLeft: =18
+                                    PaddingRight: =18
+                                  Children:
+                                    - TxtFTTCardTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Title
+                                          Size: =16
+                                          FontWeight: =FontWeight.Bold
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - BadgeFTTStatut:
+                                        Control: Badge
+                                        Properties:
+                                          Content: =ThisItem.Statut_Actuel.Value
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          FillPortions: =0
+                                          Width: =96
+                                          Height: =28
+                                          LayoutMinWidth: =96
+                                          BasePaletteColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Validé", RGBA(209, 250, 229, 1),
+                                              "Rejeté", RGBA(254, 226, 226, 1),
+                                              "Clôturé", RGBA(219, 226, 254, 1),
+                                              RGBA(229, 231, 235, 1)
+                                            )
+                                          FontColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Validé", RGBA(6, 95, 70, 1),
+                                              "Rejeté", RGBA(153, 27, 27, 1),
+                                              "Clôturé", RGBA(30, 27, 120, 1),
+                                              RGBA(55, 65, 81, 1)
+                                            )
+                                    - TxtFTTCardService:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            ="Service : " & ThisItem.Service_Actuel_ID.Value & "  ·  Type : " & ThisItem.Type_Demande_ID.Value
+                                          Size: =13
+                                          Color: =RGBA(107, 114, 128, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtFTTCardAgent:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            ="Demandeur : " & ThisItem.Agent_Demandeur.DisplayName
+                                          Size: =13
+                                          Color: =RGBA(107, 114, 128, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtFTTCardDate:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            =If(
+                                              IsBlank(ThisItem.Date_Dernier_Mouvement),
+                                              "",
+                                              "dernier traitement le " & Text(ThisItem.Date_Dernier_Mouvement, DateTimeFormat.ShortDateTime24)
+                                            )
+                                          Size: =12
+                                          Color: =RGBA(156, 163, 175, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                        - RectFTTCardClick:
+                            Control: Rectangle
+                            Properties:
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              Fill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =0
+                              OnSelect: |-
+                                =Set(varSelectedDemande, ThisItem);
+                                Navigate(DetailDemande, ScreenTransition.Fade)
+                  - TxtFTEmptyTraitees:
                       Control: ModernText
                       Properties:
-                        Text: ="Transférées"
-                        Size: =16
-                        FontWeight: =FontWeight.Semibold
-                        Color: =RGBA(107, 114, 128, 1)
+                        Text: ="Aucune demande traitée."
+                        Size: =14
+                        Color: =RGBA(156, 163, 175, 1)
+                        Align: =Align.Center
                         AutoHeight: =true
                         Width: =Parent.Width - 56
-                        Visible: =UserRole <> "Admin"
+                        Visible: =ctxFTTab = "traitees" && GalleryTraitees.AllItemsCount = 0
                   - GalleryTransferees:
                       Control: Gallery
                       Variant: Vertical
@@ -288,7 +529,7 @@ Screens:
                               ),
                               Not(IsBlank(DemandeRec)) && DemandeRec.Service_Actuel_ID.Value <> UserServiceLabel
                           )
-                        Visible: =UserRole <> "Admin"
+                        Visible: =ctxFTTab = "transferees" && UserRole <> "Admin"
                         FillPortions: =0
                         Width: =Parent.Width - 56
                         Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
@@ -370,4 +611,4 @@ Screens:
                         Align: =Align.Center
                         AutoHeight: =true
                         Width: =Parent.Width - 56
-                        Visible: =UserRole <> "Admin" && GalleryTransferees.AllItemsCount = 0
+                        Visible: =ctxFTTab = "transferees" && UserRole <> "Admin" && GalleryTransferees.AllItemsCount = 0

@@ -104,7 +104,13 @@ Screens:
                                       && varSelectedDemande.Service_Actuel_ID.Value = UserServiceLabel))
                                   && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
                                       || varSelectedDemande.Statut_Actuel.Value = "En cours"),
-                              112, 0
+                              If(
+                                  IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
+                                      && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
+                                          || (varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                              && varSelectedDemande.Type_Modification.Value = "Transfert")),
+                                  158, 112
+                              ), 0
                           )
                           + If(
                               varSelectedDemande.Statut_Actuel.Value = "Validé"
@@ -395,7 +401,14 @@ Screens:
                             Variant: AutoLayout
                             Properties:
                               FillPortions: =0
-                              Height: =96
+                              Height: |-
+                                =If(
+                                    IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
+                                        && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
+                                            || (varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                                && varSelectedDemande.Type_Modification.Value = "Transfert")),
+                                    142, 96
+                                )
                               Fill: =RGBA(255, 255, 255, 1)
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -424,6 +437,20 @@ Screens:
                                     Color: =RGBA(107, 114, 128, 1)
                                     FillPortions: =0
                                     AutoHeight: =true
+                              - BtnPrendreEnCharge:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="Prendre en charge"
+                                    Appearance: ='ButtonCanvas.Appearance'.Primary
+                                    BasePaletteColor: =RGBA(6, 95, 70, 1)
+                                    FillPortions: =0
+                                    Height: =40
+                                    Visible: |-
+                                      =IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
+                                          && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
+                                              || (varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                                  && varSelectedDemande.Type_Modification.Value = "Transfert"))
+                                    OnSelect: =Set(varActionDialog, "prendre")
                               - ActionButtonsRow:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -712,6 +739,7 @@ Screens:
                         Text: |-
                           =Switch(
                               varActionDialog,
+                              "prendre", "Prendre en charge ?",
                               "valider", "Confirmer la validation ?",
                               "rejeter", "Rejeter la demande",
                               "transferer", "Transférer la demande",
@@ -729,6 +757,7 @@ Screens:
                         Text: |-
                           ="« " & varSelectedDemande.Title & " » — " & Switch(
                               varActionDialog,
+                              "prendre", "vous serez assigné comme gestionnaire de cette demande.",
                               "valider", "la demande passera au statut Validé.",
                               "rejeter", "indiquez le motif du rejet (obligatoire).",
                               "transferer", "choisissez le service destinataire.",
@@ -797,6 +826,25 @@ Screens:
                               OnSelect: |-
                                 =Switch(
                                     varActionDialog,
+                                    "prendre",
+                                    IfError(
+                                        Patch(Demandes, varSelectedDemande, {
+                                            Gestionnaire_Assigne: {
+                                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                                Claims: "i:0#.f|membership|" & Lower(User().Email),
+                                                DisplayName: User().FullName,
+                                                Email: User().Email,
+                                                Department: "",
+                                                JobTitle: "",
+                                                Picture: ""
+                                            }
+                                        }),
+                                        Notify("Échec de la prise en charge : " & FirstError.Message, NotificationType.Error),
+                                        Set(varActionDialog, "");
+                                        Refresh(Demandes);
+                                        Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                        Notify("Demande prise en charge — le statut se met à jour dans quelques secondes.", NotificationType.Success)
+                                    ),
                                     "valider",
                                     IfError(
                                         Patch(Demandes, varSelectedDemande, {Statut_Actuel: {Value: "Validé"}}),
