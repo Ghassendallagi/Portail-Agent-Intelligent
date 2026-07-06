@@ -86,8 +86,7 @@ Screens:
                             Control: GroupContainer
                             Variant: ManualLayout
                             Properties:
-                              FillPortions: =1
-                              Fill: =RGBA(0, 0, 0, 0)
+                              Width: =(Parent.Width - If(UserRole = "Admin", 8, 16)) / If(UserRole = "Admin", 2, 3)
                             Children:
                               - TxtTabFTATraiter:
                                   Control: ModernText
@@ -124,8 +123,7 @@ Screens:
                             Control: GroupContainer
                             Variant: ManualLayout
                             Properties:
-                              FillPortions: =1
-                              Fill: =RGBA(0, 0, 0, 0)
+                              Width: =(Parent.Width - If(UserRole = "Admin", 8, 16)) / If(UserRole = "Admin", 2, 3)
                             Children:
                               - TxtTabFTTraitees:
                                   Control: ModernText
@@ -162,8 +160,7 @@ Screens:
                             Control: GroupContainer
                             Variant: ManualLayout
                             Properties:
-                              FillPortions: =1
-                              Fill: =RGBA(0, 0, 0, 0)
+                              Width: =(Parent.Width - 16) / 3
                               Visible: =UserRole <> "Admin"
                             Children:
                               - TxtTabFTTransferees:

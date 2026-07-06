@@ -109,8 +109,7 @@ Screens:
                             Control: GroupContainer
                             Variant: ManualLayout
                             Properties:
-                              FillPortions: =1
-                              Fill: =RGBA(0, 0, 0, 0)
+                              Width: =(Parent.Width - 16) / 3
                             Children:
                               - TxtTabEnCours:
                                   Control: ModernText
@@ -147,8 +146,7 @@ Screens:
                             Control: GroupContainer
                             Variant: ManualLayout
                             Properties:
-                              FillPortions: =1
-                              Fill: =RGBA(0, 0, 0, 0)
+                              Width: =(Parent.Width - 16) / 3
                             Children:
                               - TxtTabTerminees:
                                   Control: ModernText
@@ -185,8 +183,7 @@ Screens:
                             Control: GroupContainer
                             Variant: ManualLayout
                             Properties:
-                              FillPortions: =1
-                              Fill: =RGBA(0, 0, 0, 0)
+                              Width: =(Parent.Width - 16) / 3
                             Children:
                               - TxtTabToutes:
                                   Control: ModernText
