@@ -39,15 +39,39 @@ Screens:
                         Color: =RGBA(107, 114, 128, 1)
                         AutoHeight: =true
                         Width: =Parent.Width - 56
-                  - TxtFTTitle:
-                      Control: ModernText
+                  - FTTitleRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
                       Properties:
-                        Text: ="File à traiter"
-                        Size: =28
-                        FontWeight: =FontWeight.Bold
-                        Color: =RGBA(6, 95, 70, 1)
-                        AutoHeight: =true
+                        FillPortions: =0
+                        Height: =42
                         Width: =Parent.Width - 56
+                        Fill: =RGBA(255, 255, 255, 0)
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =12
+                      Children:
+                        - TxtFTTitreMain:
+                            Control: ModernText
+                            Properties:
+                              Text: ="File à traiter"
+                              Size: =28
+                              FontWeight: =FontWeight.Bold
+                              Color: =RGBA(6, 95, 70, 1)
+                              AutoHeight: =true
+                              FillPortions: =1
+                        - BtnAlertesSLA:
+                            Control: ModernButton
+                            Properties:
+                              Text: =If(FileATraiter.Size = ScreenSize.Small, "SLA", "Alertes SLA")
+                              Appearance: ='ButtonCanvas.Appearance'.Secondary
+                              BasePaletteColor: =RGBA(6, 95, 70, 1)
+                              FillPortions: =0
+                              Width: =If(FileATraiter.Size = ScreenSize.Small, 64, 150)
+                              Height: =40
+                              AccessibleLabel: ="Ouvrir les alertes SLA"
+                              Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                              OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
                   - RectFTAccentBar:
                       Control: Rectangle
                       Properties:
@@ -76,10 +100,10 @@ Screens:
                         FillPortions: =0
                         Height: =48
                         AlignInContainer: =AlignInContainer.Start
-                        Width: =Min(Parent.Width - 56, 460)
+                        Width: =Min(Parent.Width - 56, 800)
                         Fill: =RGBA(0, 0, 0, 0)
                         LayoutDirection: =LayoutDirection.Horizontal
-                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutAlignItems: =LayoutAlignItems.End
                         LayoutGap: =8
                       Children:
                         - TbFTATraiter:

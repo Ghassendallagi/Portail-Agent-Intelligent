@@ -99,10 +99,10 @@ Screens:
                         FillPortions: =0
                         Height: =48
                         AlignInContainer: =AlignInContainer.Start
-                        Width: =Min(Parent.Width - 56, 460)
+                        Width: =Min(Parent.Width - 56, 800)
                         Fill: =RGBA(0, 0, 0, 0)
                         LayoutDirection: =LayoutDirection.Horizontal
-                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutAlignItems: =LayoutAlignItems.End
                         LayoutGap: =8
                       Children:
                         - TbMDEnCours:
