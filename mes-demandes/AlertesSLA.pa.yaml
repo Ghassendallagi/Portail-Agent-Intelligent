@@ -1,0 +1,547 @@
+Screens:
+  AlertesSLA:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+    Children:
+      - ASScreenContainer:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            Width: =Parent.Width
+            Height: =Parent.Height
+            Fill: =RGBA(249, 250, 251, 1)
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+          Children:
+            - ASHeaderContainer:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =140
+                  Fill: =RGBA(249, 250, 251, 1)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Start
+                  LayoutGap: =8
+                  PaddingTop: =28
+                  PaddingBottom: =20
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                Children:
+                  - TxtASBrand:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Assurances At-Takafulia · " & UserRole
+                        Size: =12
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(107, 114, 128, 1)
+                        AutoHeight: =true
+                        Width: =Parent.Width - 56
+                  - ASTitleRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =42
+                        Width: =Parent.Width - 56
+                        Fill: =RGBA(255, 255, 255, 0)
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =12
+                      Children:
+                        - IconASBack:
+                            Control: ModernIcon
+                            Properties:
+                              Icon: ="ArrowLeft"
+                              IconColor: =RGBA(6, 95, 70, 1)
+                              FillPortions: =0
+                              Width: =28
+                              Height: =28
+                              AccessibleLabel: ="Retour à la file à traiter"
+                              OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        - TxtASTitle:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Alertes SLA"
+                              Size: =28
+                              FontWeight: =FontWeight.Bold
+                              Color: =RGBA(6, 95, 70, 1)
+                              AutoHeight: =true
+                              FillPortions: =1
+                  - RectASAccentBar:
+                      Control: Rectangle
+                      Properties:
+                        FillPortions: =0
+                        Width: =56
+                        Height: =4
+                        Fill: =RGBA(6, 95, 70, 1)
+            - ASBody:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Fill: =RGBA(249, 250, 251, 1)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  LayoutGap: =10
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  PaddingBottom: =28
+                Children:
+                  - TxtASSectionRetard:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          ="En retard" & If(GalleryRetard.AllItemsCount > 0, " · " & GalleryRetard.AllItemsCount, "")
+                        Size: =16
+                        FontWeight: =FontWeight.Semibold
+                        Color: =RGBA(220, 38, 38, 1)
+                        AutoHeight: =true
+                        Width: =Parent.Width - 56
+                  - GalleryRetard:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: |-
+                          =If(
+                              UserRole = "Admin",
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Alerte_Retard_Active = true
+                                          && (Statut_Actuel.Value = "Soumis"
+                                              || Statut_Actuel.Value = "En cours")
+                                  ),
+                                  "Date_Soumission", SortOrder.Ascending
+                              ),
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Service_Actuel_ID.Value = UserServiceLabel
+                                          && Alerte_Retard_Active = true
+                                          && (Statut_Actuel.Value = "Soumis"
+                                              || Statut_Actuel.Value = "En cours")
+                                  ),
+                                  "Date_Soumission", SortOrder.Ascending
+                              )
+                          )
+                        FillPortions: =0
+                        Width: =Parent.Width - 56
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        WrapCount: =1
+                        TemplateSize: =205
+                        TemplatePadding: =14
+                        Fill: =RGBA(0, 0, 0, 0)
+                        TemplateFill: =RGBA(0, 0, 0, 0)
+                        OnSelect: |-
+                          =Set(varSelectedDemande, ThisItem);
+                          Navigate(DetailDemande, ScreenTransition.Fade)
+                      Children:
+                        - ASRCardContainer:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              DropShadow: =DropShadow.Semilight
+                            Children:
+                              - RectASRStripe:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =0
+                                    Width: =4
+                                    Fill: =RGBA(220, 38, 38, 1)
+                              - ASRContent:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =1
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutAlignItems: =LayoutAlignItems.Start
+                                    LayoutGap: =5
+                                    PaddingTop: =14
+                                    PaddingBottom: =14
+                                    PaddingLeft: =18
+                                    PaddingRight: =18
+                                  Children:
+                                    - TxtASRTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Title
+                                          Size: =16
+                                          FontWeight: =FontWeight.Bold
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - BadgeASRStatut:
+                                        Control: Badge
+                                        Properties:
+                                          Content: =ThisItem.Statut_Actuel.Value
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          FillPortions: =0
+                                          Width: =96
+                                          Height: =28
+                                          LayoutMinWidth: =96
+                                          BasePaletteColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Soumis", RGBA(229, 231, 235, 1),
+                                              "En cours", RGBA(219, 234, 254, 1),
+                                              "Validé", RGBA(209, 250, 229, 1),
+                                              "Rejeté", RGBA(254, 226, 226, 1),
+                                              "Clôturé", RGBA(219, 226, 254, 1),
+                                              RGBA(229, 231, 235, 1)
+                                            )
+                                          FontColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Soumis", RGBA(55, 65, 81, 1),
+                                              "En cours", RGBA(30, 64, 175, 1),
+                                              "Validé", RGBA(6, 95, 70, 1),
+                                              "Rejeté", RGBA(153, 27, 27, 1),
+                                              "Clôturé", RGBA(30, 27, 120, 1),
+                                              RGBA(55, 65, 81, 1)
+                                            )
+                                    - TxtASRSvcType:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            ="Service : " & ThisItem.Service_Actuel_ID.Value & "  ·  Type : " & ThisItem.Type_Demande_ID.Value
+                                          Size: =13
+                                          Color: =RGBA(107, 114, 128, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtASRDemandeur:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            ="Demandeur : " & ThisItem.Agent_Demandeur.DisplayName
+                                          Size: =13
+                                          Color: =RGBA(107, 114, 128, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtASRGestionnaire:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            =If(
+                                              IsBlank(ThisItem.Gestionnaire_Assigne.DisplayName),
+                                              "⚠ Non assignée",
+                                              "Gestionnaire : " & ThisItem.Gestionnaire_Assigne.DisplayName
+                                            )
+                                          Size: =13
+                                          FontWeight: |-
+                                            =If(
+                                              IsBlank(ThisItem.Gestionnaire_Assigne.DisplayName),
+                                              FontWeight.Semibold, FontWeight.Normal
+                                            )
+                                          Color: |-
+                                            =If(
+                                              IsBlank(ThisItem.Gestionnaire_Assigne.DisplayName),
+                                              RGBA(220, 38, 38, 1), RGBA(107, 114, 128, 1)
+                                            )
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtASRSoumission:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            =If(
+                                              IsBlank(ThisItem.Date_Soumission),
+                                              "Date de soumission inconnue",
+                                              "Soumise le " & Text(ThisItem.Date_Soumission, DateTimeFormat.ShortDateTime24) & " · " &
+                                              With(
+                                                {_hrs: DateDiff(ThisItem.Date_Soumission, Now(), TimeUnit.Hours)},
+                                                If(
+                                                  _hrs < 24,
+                                                  "il y a " & _hrs & If(_hrs = 1, " heure", " heures"),
+                                                  With(
+                                                    {_days: RoundDown(_hrs / 24, 0)},
+                                                    "il y a " & _days & If(_days = 1, " jour", " jours")
+                                                  )
+                                                )
+                                              )
+                                            )
+                                          Size: =12
+                                          Color: =RGBA(156, 163, 175, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtASRSLA:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            =With(
+                                              {
+                                                _sla: LookUp(Services_Siege, Title = ThisItem.Service_Actuel_ID.Value, SLA_Theorique_Heures),
+                                                _hrs: If(IsBlank(ThisItem.Date_Soumission), Blank(), DateDiff(ThisItem.Date_Soumission, Now(), TimeUnit.Hours))
+                                              },
+                                              If(
+                                                IsBlank(_sla) || IsBlank(_hrs),
+                                                "",
+                                                _hrs & "h écoulées / SLA " & _sla & "h"
+                                              )
+                                            )
+                                          Size: =13
+                                          FontWeight: =FontWeight.Semibold
+                                          Color: =RGBA(220, 38, 38, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                        - RectASRClick:
+                            Control: Rectangle
+                            Properties:
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              Fill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =0
+                              OnSelect: |-
+                                =Set(varSelectedDemande, ThisItem);
+                                Navigate(DetailDemande, ScreenTransition.Fade)
+                  - TxtASEmptyRetard:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Aucune demande en retard 🎉"
+                        Size: =14
+                        Color: =RGBA(6, 95, 70, 1)
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Width: =Parent.Width - 56
+                        Visible: =GalleryRetard.AllItemsCount = 0
+                  - TxtASSectionEcheance:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          ="Échéance proche" & If(GalleryEcheance.AllItemsCount > 0, " · " & GalleryEcheance.AllItemsCount, "")
+                        Size: =16
+                        FontWeight: =FontWeight.Semibold
+                        Color: =RGBA(217, 119, 6, 1)
+                        AutoHeight: =true
+                        Width: =Parent.Width - 56
+                  - GalleryEcheance:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: |-
+                          =If(
+                              UserRole = "Admin",
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Alerte_Echeance_Notifiee = true
+                                          && Alerte_Retard_Active = false
+                                          && (Statut_Actuel.Value = "Soumis"
+                                              || Statut_Actuel.Value = "En cours")
+                                  ),
+                                  "Date_Soumission", SortOrder.Ascending
+                              ),
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Service_Actuel_ID.Value = UserServiceLabel
+                                          && Alerte_Echeance_Notifiee = true
+                                          && Alerte_Retard_Active = false
+                                          && (Statut_Actuel.Value = "Soumis"
+                                              || Statut_Actuel.Value = "En cours")
+                                  ),
+                                  "Date_Soumission", SortOrder.Ascending
+                              )
+                          )
+                        FillPortions: =0
+                        Width: =Parent.Width - 56
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        WrapCount: =1
+                        TemplateSize: =205
+                        TemplatePadding: =14
+                        Fill: =RGBA(0, 0, 0, 0)
+                        TemplateFill: =RGBA(0, 0, 0, 0)
+                        OnSelect: |-
+                          =Set(varSelectedDemande, ThisItem);
+                          Navigate(DetailDemande, ScreenTransition.Fade)
+                      Children:
+                        - ASECardContainer:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              DropShadow: =DropShadow.Semilight
+                            Children:
+                              - RectASEStripe:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =0
+                                    Width: =4
+                                    Fill: =RGBA(217, 119, 6, 1)
+                              - ASEContent:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =1
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutAlignItems: =LayoutAlignItems.Start
+                                    LayoutGap: =5
+                                    PaddingTop: =14
+                                    PaddingBottom: =14
+                                    PaddingLeft: =18
+                                    PaddingRight: =18
+                                  Children:
+                                    - TxtASETitle:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Title
+                                          Size: =16
+                                          FontWeight: =FontWeight.Bold
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - BadgeASEStatut:
+                                        Control: Badge
+                                        Properties:
+                                          Content: =ThisItem.Statut_Actuel.Value
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          FillPortions: =0
+                                          Width: =96
+                                          Height: =28
+                                          LayoutMinWidth: =96
+                                          BasePaletteColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Soumis", RGBA(229, 231, 235, 1),
+                                              "En cours", RGBA(219, 234, 254, 1),
+                                              "Validé", RGBA(209, 250, 229, 1),
+                                              "Rejeté", RGBA(254, 226, 226, 1),
+                                              "Clôturé", RGBA(219, 226, 254, 1),
+                                              RGBA(229, 231, 235, 1)
+                                            )
+                                          FontColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Soumis", RGBA(55, 65, 81, 1),
+                                              "En cours", RGBA(30, 64, 175, 1),
+                                              "Validé", RGBA(6, 95, 70, 1),
+                                              "Rejeté", RGBA(153, 27, 27, 1),
+                                              "Clôturé", RGBA(30, 27, 120, 1),
+                                              RGBA(55, 65, 81, 1)
+                                            )
+                                    - TxtASESvcType:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            ="Service : " & ThisItem.Service_Actuel_ID.Value & "  ·  Type : " & ThisItem.Type_Demande_ID.Value
+                                          Size: =13
+                                          Color: =RGBA(107, 114, 128, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtASEDemandeur:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            ="Demandeur : " & ThisItem.Agent_Demandeur.DisplayName
+                                          Size: =13
+                                          Color: =RGBA(107, 114, 128, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtASEGestionnaire:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            =If(
+                                              IsBlank(ThisItem.Gestionnaire_Assigne.DisplayName),
+                                              "⚠ Non assignée",
+                                              "Gestionnaire : " & ThisItem.Gestionnaire_Assigne.DisplayName
+                                            )
+                                          Size: =13
+                                          FontWeight: |-
+                                            =If(
+                                              IsBlank(ThisItem.Gestionnaire_Assigne.DisplayName),
+                                              FontWeight.Semibold, FontWeight.Normal
+                                            )
+                                          Color: |-
+                                            =If(
+                                              IsBlank(ThisItem.Gestionnaire_Assigne.DisplayName),
+                                              RGBA(220, 38, 38, 1), RGBA(107, 114, 128, 1)
+                                            )
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtASESoumission:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            =If(
+                                              IsBlank(ThisItem.Date_Soumission),
+                                              "Date de soumission inconnue",
+                                              "Soumise le " & Text(ThisItem.Date_Soumission, DateTimeFormat.ShortDateTime24) & " · " &
+                                              With(
+                                                {_hrs: DateDiff(ThisItem.Date_Soumission, Now(), TimeUnit.Hours)},
+                                                If(
+                                                  _hrs < 24,
+                                                  "il y a " & _hrs & If(_hrs = 1, " heure", " heures"),
+                                                  With(
+                                                    {_days: RoundDown(_hrs / 24, 0)},
+                                                    "il y a " & _days & If(_days = 1, " jour", " jours")
+                                                  )
+                                                )
+                                              )
+                                            )
+                                          Size: =12
+                                          Color: =RGBA(156, 163, 175, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtASESLA:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            =With(
+                                              {
+                                                _sla: LookUp(Services_Siege, Title = ThisItem.Service_Actuel_ID.Value, SLA_Theorique_Heures),
+                                                _hrs: If(IsBlank(ThisItem.Date_Soumission), Blank(), DateDiff(ThisItem.Date_Soumission, Now(), TimeUnit.Hours))
+                                              },
+                                              If(
+                                                IsBlank(_sla) || IsBlank(_hrs),
+                                                "",
+                                                _hrs & "h écoulées / SLA " & _sla & "h"
+                                              )
+                                            )
+                                          Size: =13
+                                          FontWeight: =FontWeight.Semibold
+                                          Color: =RGBA(217, 119, 6, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                        - RectASEClick:
+                            Control: Rectangle
+                            Properties:
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              Fill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =0
+                              OnSelect: |-
+                                =Set(varSelectedDemande, ThisItem);
+                                Navigate(DetailDemande, ScreenTransition.Fade)
+                  - TxtASEmptyEcheance:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Aucune échéance proche."
+                        Size: =14
+                        Color: =RGBA(156, 163, 175, 1)
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Width: =Parent.Width - 56
+                        Visible: =GalleryEcheance.AllItemsCount = 0
