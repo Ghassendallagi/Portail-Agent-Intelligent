@@ -1,0 +1,370 @@
+Screens:
+  MesNotifications:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+      OnVisible: |-
+        =UpdateContext({ctxNotifTab: "nonlues"})
+    Children:
+      - NTScreenContainer:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            Width: =Parent.Width
+            Height: =Parent.Height
+            Fill: =RGBA(249, 250, 251, 1)
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+          Children:
+            - NTHeaderContainer:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =140
+                  Fill: =RGBA(249, 250, 251, 1)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Start
+                  LayoutGap: =8
+                  PaddingTop: =28
+                  PaddingBottom: =20
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                Children:
+                  - TxtNTBrand:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Assurances At-Takafulia · " & UserRole
+                        Size: =12
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(107, 114, 128, 1)
+                        AutoHeight: =true
+                        Width: =Parent.Width - 56
+                  - NTTitleRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =42
+                        Width: =Parent.Width - 56
+                        Fill: =RGBA(255, 255, 255, 0)
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =12
+                      Children:
+                        - IconNTBack:
+                            Control: ModernIcon
+                            Properties:
+                              Icon: ="ArrowLeft"
+                              IconColor: =RGBA(6, 95, 70, 1)
+                              FillPortions: =0
+                              Width: =28
+                              Height: =28
+                              AccessibleLabel: ="Retour"
+                              OnSelect: =Back(ScreenTransition.Fade)
+                        - TxtNTTitle:
+                            Control: ModernText
+                            Properties:
+                              Text: ="Notifications"
+                              Size: =28
+                              FontWeight: =FontWeight.Bold
+                              Color: =RGBA(6, 95, 70, 1)
+                              AutoHeight: =true
+                              FillPortions: =1
+                        - BtnNTToutLu:
+                            Control: ModernButton
+                            Properties:
+                              Text: =If(MesNotifications.Size = ScreenSize.Small, "Tout lu", "Tout marquer comme lu")
+                              Appearance: ='ButtonCanvas.Appearance'.Secondary
+                              BasePaletteColor: =RGBA(6, 95, 70, 1)
+                              FillPortions: =0
+                              Width: =If(MesNotifications.Size = ScreenSize.Small, 90, 210)
+                              Height: =40
+                              AccessibleLabel: ="Marquer toutes les notifications comme lues"
+                              Visible: |-
+                                =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                              OnSelect: |-
+                                =IfError(
+                                    UpdateIf(
+                                        Notifications,
+                                        Destinataire.Email = User().Email && IsRead = false,
+                                        {IsRead: true, ReadDate: Now()}
+                                    ),
+                                    Notify("Échec du marquage : " & FirstError.Message, NotificationType.Error),
+                                    Notify("Toutes les notifications ont été marquées comme lues.", NotificationType.Success)
+                                )
+                  - RectNTAccentBar:
+                      Control: Rectangle
+                      Properties:
+                        FillPortions: =0
+                        Width: =56
+                        Height: =4
+                        Fill: =RGBA(6, 95, 70, 1)
+            - NTBody:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Fill: =RGBA(249, 250, 251, 1)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  LayoutGap: =10
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  PaddingBottom: =28
+                Children:
+                  - TabsRowNT:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =48
+                        AlignInContainer: =AlignInContainer.Start
+                        Width: =Min(Parent.Width - 56, 800)
+                        Fill: =RGBA(0, 0, 0, 0)
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.End
+                        LayoutGap: =8
+                      Children:
+                        - TbNTNonLues:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =1
+                              Fill: =RGBA(0, 0, 0, 0)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =6
+                            Children:
+                              - RectTbNTNonLuesZone:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =1
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    BorderThickness: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxNotifTab: "nonlues"})
+                              - TxtTbNTNonLues:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Non lues"
+                                    Size: =14
+                                    FontWeight: =If(ctxNotifTab = "nonlues", FontWeight.Semibold, FontWeight.Normal)
+                                    Color: =If(ctxNotifTab = "nonlues", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    FillPortions: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxNotifTab: "nonlues"})
+                              - RectTbNTNonLuesLine:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =3
+                                    Fill: =If(ctxNotifTab = "nonlues", RGBA(6, 95, 70, 1), RGBA(229, 231, 235, 1))
+                                    OnSelect: |-
+                                      =UpdateContext({ctxNotifTab: "nonlues"})
+                        - TbNTToutes:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =1
+                              Fill: =RGBA(0, 0, 0, 0)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =6
+                            Children:
+                              - RectTbNTToutesZone:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =1
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    BorderThickness: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxNotifTab: "toutes"})
+                              - TxtTbNTToutes:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="Toutes"
+                                    Size: =14
+                                    FontWeight: =If(ctxNotifTab = "toutes", FontWeight.Semibold, FontWeight.Normal)
+                                    Color: =If(ctxNotifTab = "toutes", RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    FillPortions: =0
+                                    OnSelect: |-
+                                      =UpdateContext({ctxNotifTab: "toutes"})
+                              - RectTbNTToutesLine:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =3
+                                    Fill: =If(ctxNotifTab = "toutes", RGBA(6, 95, 70, 1), RGBA(229, 231, 235, 1))
+                                    OnSelect: |-
+                                      =UpdateContext({ctxNotifTab: "toutes"})
+                  - GalleryNotifications:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: |-
+                          =If(
+                              ctxNotifTab = "nonlues",
+                              SortByColumns(
+                                  Filter(
+                                      Notifications,
+                                      Destinataire.Email = User().Email && IsRead = false
+                                  ),
+                                  "Created", SortOrder.Descending
+                              ),
+                              SortByColumns(
+                                  Filter(
+                                      Notifications,
+                                      Destinataire.Email = User().Email
+                                  ),
+                                  "Created", SortOrder.Descending
+                              )
+                          )
+                        FillPortions: =0
+                        Width: =Parent.Width - 56
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        WrapCount: =1
+                        TemplateSize: =124
+                        TemplatePadding: =12
+                        Fill: =RGBA(0, 0, 0, 0)
+                        TemplateFill: =RGBA(0, 0, 0, 0)
+                        OnSelect: |-
+                          =Set(varNotifSel, ThisItem);
+                          If(
+                              Not(varNotifSel.IsRead),
+                              Patch(Notifications, varNotifSel, {IsRead: true, ReadDate: Now()})
+                          );
+                          Set(varDemandeNotif, LookUp(Demandes, ID = Value(varNotifSel.ObjectID)));
+                          If(
+                              IsBlank(varDemandeNotif),
+                              Notify("Demande introuvable — elle a probablement été supprimée.", NotificationType.Warning),
+                              Set(varSelectedDemande, varDemandeNotif);
+                              Navigate(DetailDemande, ScreenTransition.Fade)
+                          )
+                      Children:
+                        - NTCardContainer:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              Fill: =If(ThisItem.IsRead, RGBA(255, 255, 255, 1), RGBA(239, 246, 255, 1))
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              DropShadow: =DropShadow.Semilight
+                            Children:
+                              - RectNTTypeStripe:
+                                  Control: Rectangle
+                                  Properties:
+                                    FillPortions: =0
+                                    Width: =4
+                                    Fill: |-
+                                      =Switch(
+                                        ThisItem.Type_Notification.Value,
+                                        "Success", RGBA(6, 95, 70, 1),
+                                        "Validation", RGBA(6, 95, 70, 1),
+                                        "Refus", RGBA(220, 38, 38, 1),
+                                        "Error", RGBA(220, 38, 38, 1),
+                                        "Warning", RGBA(234, 88, 12, 1),
+                                        "Reminder", RGBA(217, 119, 6, 1),
+                                        "Information", RGBA(37, 99, 235, 1),
+                                        RGBA(107, 114, 128, 1)
+                                      )
+                              - NTContent:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =1
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutAlignItems: =LayoutAlignItems.Start
+                                    LayoutGap: =4
+                                    PaddingTop: =14
+                                    PaddingBottom: =14
+                                    PaddingLeft: =18
+                                    PaddingRight: =18
+                                  Children:
+                                    - TxtNTCardTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Title
+                                          Size: =15
+                                          FontWeight: =If(ThisItem.IsRead, FontWeight.Normal, FontWeight.Bold)
+                                          Color: =If(ThisItem.IsRead, RGBA(107, 114, 128, 1), RGBA(17, 24, 39, 1))
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                                    - TxtNTCardMessage:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =ThisItem.Message
+                                          Size: =13
+                                          Color: =If(ThisItem.IsRead, RGBA(156, 163, 175, 1), RGBA(107, 114, 128, 1))
+                                          AutoHeight: =false
+                                          Height: =38
+                                          Width: =Parent.Width - 36
+                                    - TxtNTCardDate:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: |-
+                                            =With(
+                                              {_hrs: DateDiff(ThisItem.Created, Now(), TimeUnit.Hours)},
+                                              If(
+                                                _hrs < 1,
+                                                "il y a moins d'une heure",
+                                                _hrs < 24,
+                                                "il y a " & _hrs & If(_hrs = 1, " heure", " heures"),
+                                                With(
+                                                  {_days: RoundDown(_hrs / 24, 0)},
+                                                  "il y a " & _days & If(_days = 1, " jour", " jours")
+                                                )
+                                              )
+                                            )
+                                          Size: =12
+                                          Color: =RGBA(156, 163, 175, 1)
+                                          AutoHeight: =true
+                                          Width: =Parent.Width - 36
+                        - RectNTCardClick:
+                            Control: Rectangle
+                            Properties:
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight
+                              Fill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =0
+                              OnSelect: |-
+                                =Set(varNotifSel, ThisItem);
+                                If(
+                                    Not(varNotifSel.IsRead),
+                                    Patch(Notifications, varNotifSel, {IsRead: true, ReadDate: Now()})
+                                );
+                                Set(varDemandeNotif, LookUp(Demandes, ID = Value(varNotifSel.ObjectID)));
+                                If(
+                                    IsBlank(varDemandeNotif),
+                                    Notify("Demande introuvable — elle a probablement été supprimée.", NotificationType.Warning),
+                                    Set(varSelectedDemande, varDemandeNotif);
+                                    Navigate(DetailDemande, ScreenTransition.Fade)
+                                )
+                  - TxtNTEmpty:
+                      Control: ModernText
+                      Properties:
+                        Text: |-
+                          =If(
+                              ctxNotifTab = "nonlues",
+                              "Aucune notification non lue.",
+                              "Aucune notification."
+                          )
+                        Size: =14
+                        Color: =RGBA(156, 163, 175, 1)
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Width: =Parent.Width - 56
+                        Visible: =GalleryNotifications.AllItemsCount = 0

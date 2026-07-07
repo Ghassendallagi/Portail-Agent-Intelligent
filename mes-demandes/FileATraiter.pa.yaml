@@ -60,6 +60,30 @@ Screens:
                               Color: =RGBA(6, 95, 70, 1)
                               AutoHeight: =true
                               FillPortions: =1
+                        - IconNotifFT:
+                            Control: ModernIcon
+                            Properties:
+                              Icon: ="Alert"
+                              IconColor: =RGBA(6, 95, 70, 1)
+                              FillPortions: =0
+                              Width: =28
+                              Height: =28
+                              AccessibleLabel: ="Ouvrir les notifications"
+                              OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        - BadgeNotifFT:
+                            Control: Badge
+                            Properties:
+                              Content: |-
+                                =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
+                              Appearance: ='BadgeCanvas.Appearance'.Filled
+                              BasePaletteColor: =RGBA(220, 38, 38, 1)
+                              FontColor: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Width: =32
+                              Height: =22
+                              LayoutMinWidth: =32
+                              Visible: |-
+                                =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
                         - BtnAlertesSLA:
                             Control: ModernButton
                             Properties:
