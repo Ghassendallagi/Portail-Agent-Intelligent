@@ -537,9 +537,6 @@ Screens:
                         TemplatePadding: =14
                         Fill: =RGBA(0, 0, 0, 0)
                         TemplateFill: =RGBA(0, 0, 0, 0)
-                        OnSelect: |-
-                          =Set(varSelectedDemande, ThisItem);
-                          Navigate(DetailDemande, ScreenTransition.Fade)
                       Children:
                         - CardContainer:
                             Control: GroupContainer
@@ -652,15 +649,25 @@ Screens:
                                           Color: =ColorTextTertiary
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
-                        - RectCardClick:
-                            Control: Rectangle
+                        - BtnCardClick:
+                            Control: Classic/Button
                             Properties:
                               X: =0
                               Y: =0
                               Width: =Parent.TemplateWidth
                               Height: =Parent.TemplateHeight
+                              Text: =""
                               Fill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =0
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =2
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              HoverBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
                               OnSelect: |-
                                 =Set(varSelectedDemande, ThisItem);
                                 Navigate(DetailDemande, ScreenTransition.Fade)

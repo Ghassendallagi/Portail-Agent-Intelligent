@@ -446,9 +446,6 @@ Screens:
                         TemplatePadding: =14
                         Fill: =RGBA(0, 0, 0, 0)
                         TemplateFill: =RGBA(0, 0, 0, 0)
-                        OnSelect: |-
-                          =Set(varSelectedDemande, ThisItem);
-                          Navigate(DetailDemande, ScreenTransition.Fade)
                       Children:
                         - ASRCardContainer:
                             Control: GroupContainer
@@ -456,7 +453,12 @@ Screens:
                             Properties:
                               Width: =Parent.TemplateWidth
                               Height: =Parent.TemplateHeight
-                              Fill: =RGBA(255, 255, 255, 1)
+                              Fill: |-
+                                =If(
+                                    IsBlank(ThisItem.Gestionnaire_Assigne.DisplayName),
+                                    RGBA(254, 242, 242, 1),
+                                    RGBA(255, 255, 255, 1)
+                                )
                               LayoutDirection: =LayoutDirection.Horizontal
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               RadiusTopLeft: =12
@@ -606,15 +608,25 @@ Screens:
                                           Color: =RGBA(220, 38, 38, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
-                        - RectASRClick:
-                            Control: Rectangle
+                        - BtnASRClick:
+                            Control: Classic/Button
                             Properties:
                               X: =0
                               Y: =0
                               Width: =Parent.TemplateWidth
                               Height: =Parent.TemplateHeight
+                              Text: =""
                               Fill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =0
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =2
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              HoverBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
                               OnSelect: |-
                                 =Set(varSelectedDemande, ThisItem);
                                 Navigate(DetailDemande, ScreenTransition.Fade)
@@ -675,9 +687,6 @@ Screens:
                         TemplatePadding: =14
                         Fill: =RGBA(0, 0, 0, 0)
                         TemplateFill: =RGBA(0, 0, 0, 0)
-                        OnSelect: |-
-                          =Set(varSelectedDemande, ThisItem);
-                          Navigate(DetailDemande, ScreenTransition.Fade)
                       Children:
                         - ASECardContainer:
                             Control: GroupContainer
@@ -835,15 +844,25 @@ Screens:
                                           Color: =RGBA(217, 119, 6, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
-                        - RectASEClick:
-                            Control: Rectangle
+                        - BtnASEClick:
+                            Control: Classic/Button
                             Properties:
                               X: =0
                               Y: =0
                               Width: =Parent.TemplateWidth
                               Height: =Parent.TemplateHeight
+                              Text: =""
                               Fill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =0
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =2
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              HoverBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
                               OnSelect: |-
                                 =Set(varSelectedDemande, ThisItem);
                                 Navigate(DetailDemande, ScreenTransition.Fade)

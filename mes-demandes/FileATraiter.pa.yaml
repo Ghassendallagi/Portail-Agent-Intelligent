@@ -533,9 +533,6 @@ Screens:
                         TemplatePadding: =14
                         Fill: =RGBA(0, 0, 0, 0)
                         TemplateFill: =RGBA(0, 0, 0, 0)
-                        OnSelect: |-
-                          =Set(varSelectedDemande, ThisItem);
-                          Navigate(DetailDemande, ScreenTransition.Fade)
                       Children:
                         - FTCardContainer:
                             Control: GroupContainer
@@ -652,15 +649,25 @@ Screens:
                                           Color: =RGBA(144, 144, 144, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
-                        - RectFTCardClick:
-                            Control: Rectangle
+                        - BtnFTCardClick:
+                            Control: Classic/Button
                             Properties:
                               X: =0
                               Y: =0
                               Width: =Parent.TemplateWidth
                               Height: =Parent.TemplateHeight
+                              Text: =""
                               Fill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =0
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =2
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              HoverBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
                               OnSelect: |-
                                 =Set(varSelectedDemande, ThisItem);
                                 Navigate(DetailDemande, ScreenTransition.Fade)
@@ -715,9 +722,6 @@ Screens:
                         TemplatePadding: =14
                         Fill: =RGBA(0, 0, 0, 0)
                         TemplateFill: =RGBA(0, 0, 0, 0)
-                        OnSelect: |-
-                          =Set(varSelectedDemande, ThisItem);
-                          Navigate(DetailDemande, ScreenTransition.Fade)
                       Children:
                         - FTTCardContainer:
                             Control: GroupContainer
@@ -818,15 +822,25 @@ Screens:
                                           Color: =RGBA(144, 144, 144, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
-                        - RectFTTCardClick:
-                            Control: Rectangle
+                        - BtnFTTCardClick:
+                            Control: Classic/Button
                             Properties:
                               X: =0
                               Y: =0
                               Width: =Parent.TemplateWidth
                               Height: =Parent.TemplateHeight
+                              Text: =""
                               Fill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =0
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =2
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              HoverBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
                               OnSelect: |-
                                 =Set(varSelectedDemande, ThisItem);
                                 Navigate(DetailDemande, ScreenTransition.Fade)
@@ -877,9 +891,6 @@ Screens:
                         TemplatePadding: =14
                         Fill: =RGBA(0, 0, 0, 0)
                         TemplateFill: =RGBA(0, 0, 0, 0)
-                        OnSelect: |-
-                          =Set(varSelectedDemande, ThisItem.DemandeRec);
-                          Navigate(DetailDemande, ScreenTransition.Fade)
                       Children:
                         - FTTransCardContainer:
                             Control: GroupContainer
@@ -930,15 +941,25 @@ Screens:
                                     Color: =RGBA(144, 144, 144, 1)
                                     AutoHeight: =true
                                     Width: =Parent.Width - 36
-                        - RectFTTransClick:
-                            Control: Rectangle
+                        - BtnFTTransClick:
+                            Control: Classic/Button
                             Properties:
                               X: =0
                               Y: =0
                               Width: =Parent.TemplateWidth
                               Height: =Parent.TemplateHeight
+                              Text: =""
                               Fill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =0
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =2
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              HoverBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
                               OnSelect: |-
                                 =Set(varSelectedDemande, ThisItem.DemandeRec);
                                 Navigate(DetailDemande, ScreenTransition.Fade)

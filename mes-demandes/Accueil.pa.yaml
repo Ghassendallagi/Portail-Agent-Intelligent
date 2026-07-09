@@ -1078,7 +1078,6 @@ Screens:
                         TemplatePadding: =6
                         Fill: =RGBA(0, 0, 0, 0)
                         TemplateFill: =RGBA(0, 0, 0, 0)
-                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
                       Children:
                         - ActCardContainer:
                             Control: GroupContainer
@@ -1156,15 +1155,25 @@ Screens:
                                           Color: =RGBA(144, 144, 144, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 32
-                        - RectActClick:
-                            Control: Rectangle
+                        - BtnActCardClick:
+                            Control: Classic/Button
                             Properties:
                               X: =0
                               Y: =0
                               Width: =Parent.TemplateWidth
                               Height: =Parent.TemplateHeight
+                              Text: =""
                               Fill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =0
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              BorderThickness: =2
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              HoverBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              RadiusTopLeft: =10
+                              RadiusTopRight: =10
+                              RadiusBottomLeft: =10
+                              RadiusBottomRight: =10
                               OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
                   - TxtACActiviteEmpty:
                       Control: ModernText
