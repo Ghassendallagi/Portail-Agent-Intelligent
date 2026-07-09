@@ -41,7 +41,7 @@ Screens:
                       Properties:
                         Text: ="Assurances At-Takafulia"
                         Size: =12
-                        Color: =RGBA(107, 114, 128, 1)
+                        Color: =RGBA(112, 112, 112, 1)
                         Align: =Align.Center
                         AutoHeight: =true
                         Width: =Parent.Width - 48
@@ -51,7 +51,7 @@ Screens:
                         FillPortions: =0
                         Width: =56
                         Height: =4
-                        Fill: =RGBA(6, 95, 70, 1)
+                        Fill: =RGBA(140, 12, 20, 1)
                   - TxtANCMessage:
                       Control: ModernText
                       Properties:

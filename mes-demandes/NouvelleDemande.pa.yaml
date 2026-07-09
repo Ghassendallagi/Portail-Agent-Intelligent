@@ -49,7 +49,7 @@ Screens:
                             Control: ModernIcon
                             Properties:
                               Icon: ="ArrowLeft"
-                              IconColor: =RGBA(6, 95, 70, 1)
+                              IconColor: =RGBA(140, 12, 20, 1)
                               FillPortions: =0
                               Width: =28
                               Height: =28
@@ -60,7 +60,7 @@ Screens:
                             Properties:
                               Text: ="Retour"
                               Size: =14
-                              Color: =RGBA(6, 95, 70, 1)
+                              Color: =RGBA(140, 12, 20, 1)
                               FontWeight: =FontWeight.Semibold
                               AutoHeight: =true
                               OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
@@ -70,7 +70,7 @@ Screens:
                         Text: ="Nouvelle demande"
                         Size: =24
                         FontWeight: =FontWeight.Bold
-                        Color: =RGBA(6, 95, 70, 1)
+                        Color: =RGBA(140, 12, 20, 1)
                         AutoHeight: =true
                         Width: =Parent.Width - 56
                   - RectNDAccentBar:
@@ -79,7 +79,7 @@ Screens:
                         FillPortions: =0
                         Width: =56
                         Height: =4
-                        Fill: =RGBA(6, 95, 70, 1)
+                        Fill: =RGBA(140, 12, 20, 1)
             - NDBody:
                 Control: GroupContainer
                 Variant: AutoLayout
@@ -130,7 +130,7 @@ Screens:
                                   Properties:
                                     Text: ="Titre de la demande *"
                                     Size: =13
-                                    Color: =RGBA(107, 114, 128, 1)
+                                    Color: =RGBA(112, 112, 112, 1)
                                     FillPortions: =0
                                     AutoHeight: =true
                               - InpNDTitre:
@@ -167,7 +167,7 @@ Screens:
                                   Properties:
                                     Text: ="Type de demande *"
                                     Size: =13
-                                    Color: =RGBA(107, 114, 128, 1)
+                                    Color: =RGBA(112, 112, 112, 1)
                                     FillPortions: =0
                                     AutoHeight: =true
                               - DdNDType:
@@ -204,7 +204,7 @@ Screens:
                                   Properties:
                                     Text: ="Service destinataire *"
                                     Size: =13
-                                    Color: =RGBA(107, 114, 128, 1)
+                                    Color: =RGBA(112, 112, 112, 1)
                                     FillPortions: =0
                                     AutoHeight: =true
                               - DdNDService:
@@ -241,7 +241,7 @@ Screens:
                                   Properties:
                                     Text: ="Niveau d'urgence"
                                     Size: =13
-                                    Color: =RGBA(107, 114, 128, 1)
+                                    Color: =RGBA(112, 112, 112, 1)
                                     FillPortions: =0
                                     AutoHeight: =true
                               - RadNDUrgence:
@@ -278,7 +278,7 @@ Screens:
                                   Properties:
                                     Text: ="Soumettre"
                                     Appearance: ='ButtonCanvas.Appearance'.Primary
-                                    BasePaletteColor: =RGBA(6, 95, 70, 1)
+                                    BasePaletteColor: =RGBA(140, 12, 20, 1)
                                     FillPortions: =0
                                     Width: =160
                                     Height: =40

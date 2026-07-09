@@ -3,12 +3,309 @@ Screens:
     Properties:
       Fill: =RGBA(249, 250, 251, 1)
     Children:
+      - RailAS:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            X: =0
+            Y: =0
+            Width: =300
+            Height: =Parent.Height
+            Fill: =RGBA(255, 255, 255, 1)
+            DropShadow: =DropShadow.Semilight
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutGap: =4
+            PaddingTop: =20
+            PaddingBottom: =20
+            PaddingLeft: =12
+            PaddingRight: =12
+            Visible: =AlertesSLA.Size <> ScreenSize.Small
+          Children:
+            - ImgLogoAS:
+                Control: Image
+                Properties:
+                  Image: =Logo
+                  FillPortions: =0
+                  Height: =60
+                  ImagePosition: =ImagePosition.Fit
+            - RectRailSepAS:
+                Control: Rectangle
+                Properties:
+                  FillPortions: =0
+                  Height: =16
+                  Fill: =RGBA(0, 0, 0, 0)
+            - NavASAccueil:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  Fill: =RGBA(140, 12, 20, 0.08)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                Children:
+                  - IcoASAccueil:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Home"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                  - LblASAccueil:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Accueil"
+                        Size: =14
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(112, 112, 112, 1)
+                        AutoHeight: =true
+                        FillPortions: =1
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+            - NavASMesDem:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  Fill: =RGBA(0, 0, 0, 0)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - IcoASMesDem:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Document"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                  - LblASMesDem:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Mes demandes"
+                        Size: =14
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(112, 112, 112, 1)
+                        AutoHeight: =true
+                        FillPortions: =1
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+            - NavASNouvelle:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  Fill: =RGBA(0, 0, 0, 0)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - IcoASNouvelle:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Add"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                  - LblASNouvelle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Nouvelle demande"
+                        Size: =14
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(112, 112, 112, 1)
+                        AutoHeight: =true
+                        FillPortions: =1
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+            - NavASFile:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  Fill: =RGBA(0, 0, 0, 0)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoASFile:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Briefcase"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                  - LblASFile:
+                      Control: ModernText
+                      Properties:
+                        Text: ="File à traiter"
+                        Size: =14
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(112, 112, 112, 1)
+                        AutoHeight: =true
+                        FillPortions: =1
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+            - NavASAlertes:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  Fill: =RGBA(0, 0, 0, 0)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoASAlertes:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Clock"
+                        IconColor: =RGBA(140, 12, 20, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                  - LblASAlertes:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Alertes SLA"
+                        Size: =14
+                        FontWeight: =FontWeight.Semibold
+                        Color: =RGBA(140, 12, 20, 1)
+                        AutoHeight: =true
+                        FillPortions: =1
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+            - NavASNotifs:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  Fill: =RGBA(0, 0, 0, 0)
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                Children:
+                  - IcoASNotifs:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Alert"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                  - LblASNotifs:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Notifications"
+                        Size: =14
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(112, 112, 112, 1)
+                        AutoHeight: =true
+                        FillPortions: =1
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                  - BdgASNotifs:
+                      Control: Badge
+                      Properties:
+                        Content: |-
+                          =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
+                        Appearance: ='BadgeCanvas.Appearance'.Filled
+                        BasePaletteColor: =RGBA(220, 38, 38, 1)
+                        FontColor: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Width: =30
+                        Height: =20
+                        LayoutMinWidth: =30
+                        Visible: |-
+                          =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+            - RectRailSpacerAS:
+                Control: Rectangle
+                Properties:
+                  FillPortions: =1
+                  Fill: =RGBA(0, 0, 0, 0)
+            - RectRailSeparatorAS:
+                Control: Rectangle
+                Properties:
+                  FillPortions: =0
+                  Height: =1
+                  Fill: =RGBA(229, 231, 235, 1)
+            - TxtRailUserAS:
+                Control: ModernText
+                Properties:
+                  Text: =User().FullName
+                  Size: =13
+                  FontWeight: =FontWeight.Semibold
+                  Color: =RGBA(55, 65, 81, 1)
+                  AutoHeight: =true
+                  FillPortions: =0
+            - TxtRailRoleAS:
+                Control: ModernText
+                Properties:
+                  Text: =UserRole
+                  Size: =12
+                  FontWeight: =FontWeight.Normal
+                  Color: =RGBA(112, 112, 112, 1)
+                  AutoHeight: =true
+                  FillPortions: =0
       - ASScreenContainer:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
-            Width: =Parent.Width
-            Height: =Parent.Height
+            X: =If(AlertesSLA.Size = ScreenSize.Small, 0, RailAS.Width)
+            Y: =0
+            Width: =Parent.Width - If(AlertesSLA.Size = ScreenSize.Small, 0, RailAS.Width)
+            Height: =Parent.Height - If(AlertesSLA.Size = ScreenSize.Small, 64, 0)
             Fill: =RGBA(249, 250, 251, 1)
             LayoutDirection: =LayoutDirection.Vertical
             LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -18,7 +315,7 @@ Screens:
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
-                  Height: =140
+                  Height: =104
                   Fill: =RGBA(249, 250, 251, 1)
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Start
@@ -28,15 +325,6 @@ Screens:
                   PaddingLeft: =28
                   PaddingRight: =28
                 Children:
-                  - TxtASBrand:
-                      Control: ModernText
-                      Properties:
-                        Text: ="Assurances At-Takafulia · " & UserRole
-                        Size: =12
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(107, 114, 128, 1)
-                        AutoHeight: =true
-                        Width: =Parent.Width - 56
                   - ASTitleRow:
                       Control: GroupContainer
                       Variant: AutoLayout
@@ -53,7 +341,7 @@ Screens:
                             Control: ModernIcon
                             Properties:
                               Icon: ="ArrowLeft"
-                              IconColor: =RGBA(6, 95, 70, 1)
+                              IconColor: =RGBA(140, 12, 20, 1)
                               FillPortions: =0
                               Width: =28
                               Height: =28
@@ -65,14 +353,14 @@ Screens:
                               Text: ="Alertes SLA"
                               Size: =28
                               FontWeight: =FontWeight.Bold
-                              Color: =RGBA(6, 95, 70, 1)
+                              Color: =RGBA(140, 12, 20, 1)
                               AutoHeight: =true
                               FillPortions: =1
                         - IconNotifAS:
                             Control: ModernIcon
                             Properties:
                               Icon: ="Alert"
-                              IconColor: =RGBA(6, 95, 70, 1)
+                              IconColor: =RGBA(140, 12, 20, 1)
                               FillPortions: =0
                               Width: =28
                               Height: =28
@@ -98,7 +386,7 @@ Screens:
                         FillPortions: =0
                         Width: =56
                         Height: =4
-                        Fill: =RGBA(6, 95, 70, 1)
+                        Fill: =RGBA(140, 12, 20, 1)
             - ASBody:
                 Control: GroupContainer
                 Variant: AutoLayout
@@ -240,7 +528,7 @@ Screens:
                                           Text: |-
                                             ="Service : " & ThisItem.Service_Actuel_ID.Value & "  ·  Type : " & ThisItem.Type_Demande_ID.Value
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtASRDemandeur:
@@ -249,7 +537,7 @@ Screens:
                                           Text: |-
                                             ="Demandeur : " & ThisItem.Agent_Demandeur.DisplayName
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtASRGestionnaire:
@@ -270,7 +558,7 @@ Screens:
                                           Color: |-
                                             =If(
                                               IsBlank(ThisItem.Gestionnaire_Assigne.DisplayName),
-                                              RGBA(220, 38, 38, 1), RGBA(107, 114, 128, 1)
+                                              RGBA(220, 38, 38, 1), RGBA(112, 112, 112, 1)
                                             )
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
@@ -295,7 +583,7 @@ Screens:
                                               )
                                             )
                                           Size: =12
-                                          Color: =RGBA(156, 163, 175, 1)
+                                          Color: =RGBA(144, 144, 144, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtASRSLA:
@@ -469,7 +757,7 @@ Screens:
                                           Text: |-
                                             ="Service : " & ThisItem.Service_Actuel_ID.Value & "  ·  Type : " & ThisItem.Type_Demande_ID.Value
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtASEDemandeur:
@@ -478,7 +766,7 @@ Screens:
                                           Text: |-
                                             ="Demandeur : " & ThisItem.Agent_Demandeur.DisplayName
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtASEGestionnaire:
@@ -499,7 +787,7 @@ Screens:
                                           Color: |-
                                             =If(
                                               IsBlank(ThisItem.Gestionnaire_Assigne.DisplayName),
-                                              RGBA(220, 38, 38, 1), RGBA(107, 114, 128, 1)
+                                              RGBA(220, 38, 38, 1), RGBA(112, 112, 112, 1)
                                             )
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
@@ -524,7 +812,7 @@ Screens:
                                               )
                                             )
                                           Size: =12
-                                          Color: =RGBA(156, 163, 175, 1)
+                                          Color: =RGBA(144, 144, 144, 1)
                                           AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtASESLA:
@@ -564,8 +852,201 @@ Screens:
                       Properties:
                         Text: ="Aucune échéance proche."
                         Size: =14
-                        Color: =RGBA(156, 163, 175, 1)
+                        Color: =RGBA(144, 144, 144, 1)
                         Align: =Align.Center
                         AutoHeight: =true
                         Width: =Parent.Width - 56
                         Visible: =GalleryEcheance.AllItemsCount = 0
+      - BarAS:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            X: =0
+            Y: =Parent.Height - 64
+            Width: =Parent.Width
+            Height: =64
+            Fill: =RGBA(255, 255, 255, 1)
+            DropShadow: =DropShadow.Regular
+            LayoutDirection: =LayoutDirection.Horizontal
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            Visible: =AlertesSLA.Size = ScreenSize.Small
+          Children:
+            - BEntASAccueil:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Fill: =RGBA(0, 0, 0, 0)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =2
+                  PaddingTop: =10
+                Children:
+                  - BIcoASAccueil:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Home"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                  - BLblASAccueil:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Accueil"
+                        Size: =10
+                        FontWeight: =FontWeight.Semibold
+                        Color: =RGBA(112, 112, 112, 1)
+                        AutoHeight: =true
+                        FillPortions: =0
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+            - BEntASMesDem:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Fill: =RGBA(0, 0, 0, 0)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - BIcoASMesDem:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Document"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                  - BLblASMesDem:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Demandes"
+                        Size: =10
+                        Color: =RGBA(112, 112, 112, 1)
+                        AutoHeight: =true
+                        FillPortions: =0
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+            - BEntASNouvelle:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Fill: =RGBA(0, 0, 0, 0)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Agent"
+                Children:
+                  - BIcoASNouvelle:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Add"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                  - BLblASNouvelle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Nouvelle"
+                        Size: =10
+                        Color: =RGBA(112, 112, 112, 1)
+                        AutoHeight: =true
+                        FillPortions: =0
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+            - BEntASFile:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Fill: =RGBA(0, 0, 0, 0)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoASFile:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Briefcase"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                  - BLblASFile:
+                      Control: ModernText
+                      Properties:
+                        Text: ="À traiter"
+                        Size: =10
+                        Color: =RGBA(112, 112, 112, 1)
+                        AutoHeight: =true
+                        FillPortions: =0
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+            - BEntASAlertes:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Fill: =RGBA(0, 0, 0, 0)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoASAlertes:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Clock"
+                        IconColor: =RGBA(140, 12, 20, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                  - BLblASAlertes:
+                      Control: ModernText
+                      Properties:
+                        Text: ="SLA"
+                        Size: =10
+                        Color: =RGBA(140, 12, 20, 1)
+                        AutoHeight: =true
+                        FillPortions: =0
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+            - BEntASNotifs:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =1
+                  Fill: =RGBA(0, 0, 0, 0)
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =2
+                  PaddingTop: =10
+                Children:
+                  - BIcoASNotifs:
+                      Control: ModernIcon
+                      Properties:
+                        Icon: ="Alert"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        Width: =22
+                        Height: =22
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                  - BLblASNotifs:
+                      Control: ModernText
+                      Properties:
+                        Text: ="Notifs"
+                        Size: =10
+                        Color: =RGBA(112, 112, 112, 1)
+                        AutoHeight: =true
+                        FillPortions: =0
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)

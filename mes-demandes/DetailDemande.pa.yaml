@@ -44,7 +44,7 @@ Screens:
                             Control: ModernIcon
                             Properties:
                               Icon: ="ArrowLeft"
-                              IconColor: =RGBA(6, 95, 70, 1)
+                              IconColor: =RGBA(140, 12, 20, 1)
                               FillPortions: =0
                               Width: =28
                               Height: =28
@@ -55,7 +55,7 @@ Screens:
                             Properties:
                               Text: ="Retour"
                               Size: =14
-                              Color: =RGBA(6, 95, 70, 1)
+                              Color: =RGBA(140, 12, 20, 1)
                               FontWeight: =FontWeight.Semibold
                               AutoHeight: =true
                               OnSelect: =Back(ScreenTransition.Fade)
@@ -65,7 +65,7 @@ Screens:
                         Text: ="Détail de la demande"
                         Size: =24
                         FontWeight: =FontWeight.Bold
-                        Color: =RGBA(6, 95, 70, 1)
+                        Color: =RGBA(140, 12, 20, 1)
                         AutoHeight: =true
                         Width: =Parent.Width - 56
                   - RectDetailAccentBar:
@@ -74,7 +74,7 @@ Screens:
                         FillPortions: =0
                         Width: =56
                         Height: =4
-                        Fill: =RGBA(6, 95, 70, 1)
+                        Fill: =RGBA(140, 12, 20, 1)
             - MainColumns:
                 Control: GroupContainer
                 Variant: AutoLayout
@@ -221,7 +221,7 @@ Screens:
                                         Properties:
                                           Text: ="Agent demandeur"
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           FillPortions: =0
                                           Width: =170
                                     - TxtValAgent:
@@ -248,7 +248,7 @@ Screens:
                                         Properties:
                                           Text: ="Date de soumission"
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           FillPortions: =0
                                           Width: =170
                                     - TxtValDateSoumission:
@@ -275,7 +275,7 @@ Screens:
                                         Properties:
                                           Text: ="Type de demande"
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           FillPortions: =0
                                           Width: =170
                                     - TxtValType:
@@ -302,7 +302,7 @@ Screens:
                                         Properties:
                                           Text: ="Service actuel"
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           FillPortions: =0
                                           Width: =170
                                     - TxtValService:
@@ -329,7 +329,7 @@ Screens:
                                         Properties:
                                           Text: ="Niveau d'urgence"
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           FillPortions: =0
                                           Width: =170
                                     - TxtValUrgence:
@@ -357,7 +357,7 @@ Screens:
                                         Properties:
                                           Text: ="Gestionnaire assigné"
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           FillPortions: =0
                                           Width: =170
                                     - TxtValGestionnaire:
@@ -385,7 +385,7 @@ Screens:
                                         Properties:
                                           Text: ="Date de clôture"
                                           Size: =13
-                                          Color: =RGBA(107, 114, 128, 1)
+                                          Color: =RGBA(112, 112, 112, 1)
                                           FillPortions: =0
                                           Width: =170
                                     - TxtValDateCloture:
@@ -434,23 +434,50 @@ Screens:
                                   Properties:
                                     Text: ="Actions"
                                     Size: =13
-                                    Color: =RGBA(107, 114, 128, 1)
+                                    Color: =RGBA(112, 112, 112, 1)
                                     FillPortions: =0
                                     AutoHeight: =true
-                              - BtnPrendreEnCharge:
-                                  Control: ModernButton
+                              - AssignRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
                                   Properties:
-                                    Text: ="Prendre en charge"
-                                    Appearance: ='ButtonCanvas.Appearance'.Primary
-                                    BasePaletteColor: =RGBA(6, 95, 70, 1)
                                     FillPortions: =0
                                     Height: =40
-                                    Visible: |-
-                                      =IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
-                                          && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
-                                              || (varSelectedDemande.Statut_Actuel.Value = "En cours"
-                                                  && varSelectedDemande.Type_Modification.Value = "Transfert"))
-                                    OnSelect: =Set(varActionDialog, "prendre")
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutGap: =10
+                                  Children:
+                                    - BtnPrendreEnCharge:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Prendre en charge"
+                                          Appearance: ='ButtonCanvas.Appearance'.Primary
+                                          BasePaletteColor: =RGBA(140, 12, 20, 1)
+                                          FillPortions: =1
+                                          Height: =40
+                                          Visible: |-
+                                            =IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
+                                                && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
+                                                    || (varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                                        && varSelectedDemande.Type_Modification.Value = "Transfert"))
+                                          OnSelect: =Set(varActionDialog, "prendre")
+                                    - BtnAssignerGestionnaire:
+                                        Control: ModernButton
+                                        Properties:
+                                          Text: ="Assigner à un gestionnaire"
+                                          Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                          FillPortions: =1
+                                          Height: =40
+                                          Visible: |-
+                                            =(UserRole = "Superviseur" || UserRole = "Admin")
+                                                && IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
+                                                && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
+                                                    || (varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                                        && varSelectedDemande.Type_Modification.Value = "Transfert"))
+                                          OnSelect: |-
+                                            =Set(varActionDialog, "assigner");
+                                            Reset(DdGestionnaireCible)
                               - ActionButtonsRow:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -548,7 +575,7 @@ Screens:
                               Text: ="Historique"
                               Size: =16
                               FontWeight: =FontWeight.Semibold
-                              Color: =RGBA(6, 95, 70, 1)
+                              Color: =RGBA(140, 12, 20, 1)
                               AutoHeight: =true
                               Width: =Parent.Width
                         - TimelineScroll:
@@ -612,7 +639,7 @@ Screens:
                                                       FillPortions: =0
                                                       Width: =10
                                                       Height: =10
-                                                      Fill: =RGBA(6, 95, 70, 1)
+                                                      Fill: =RGBA(140, 12, 20, 1)
                                           - TLContentContainer:
                                               Control: GroupContainer
                                               Variant: AutoLayout
@@ -642,7 +669,7 @@ Screens:
                                                       Text: |-
                                                         ="Statut : " & ThisItem.Statut_A_Ce_Moment
                                                       Size: =13
-                                                      Color: =RGBA(107, 114, 128, 1)
+                                                      Color: =RGBA(112, 112, 112, 1)
                                                       AutoHeight: =true
                                                       Width: =Parent.Width - 54
                                                 - TxtTLComment:
@@ -672,7 +699,7 @@ Screens:
                                                           )
                                                         )
                                                       Size: =12
-                                                      Color: =RGBA(156, 163, 175, 1)
+                                                      Color: =RGBA(144, 144, 144, 1)
                                                       AutoHeight: =true
                                                       Width: =Parent.Width - 54
                               - TxtEmptyTimeline:
@@ -680,7 +707,7 @@ Screens:
                                   Properties:
                                     Text: ="Aucun historique pour cette demande."
                                     Size: =14
-                                    Color: =RGBA(156, 163, 175, 1)
+                                    Color: =RGBA(144, 144, 144, 1)
                                     Align: =Align.Center
                                     AutoHeight: =true
                                     Width: =Parent.Width
@@ -717,6 +744,7 @@ Screens:
                         varActionDialog,
                         "rejeter", 330,
                         "transferer", 280,
+                        "assigner", 280,
                         210
                     )
                   Fill: =RGBA(255, 255, 255, 1)
@@ -743,6 +771,7 @@ Screens:
                               "valider", "Confirmer la validation ?",
                               "rejeter", "Rejeter la demande",
                               "transferer", "Transférer la demande",
+                              "assigner", "Assigner à un gestionnaire",
                               "cloturer", "Confirmer la réception ?",
                               ""
                           )
@@ -761,11 +790,12 @@ Screens:
                               "valider", "la demande passera au statut Validé.",
                               "rejeter", "indiquez le motif du rejet (obligatoire).",
                               "transferer", "choisissez le service destinataire.",
+                              "assigner", "choisissez le gestionnaire à qui l'assigner.",
                               "cloturer", "vous confirmez la bonne réception ; la demande sera clôturée.",
                               ""
                           )
                         Size: =13
-                        Color: =RGBA(107, 114, 128, 1)
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =0
                         AutoHeight: =true
                   - InpMotifRejet:
@@ -786,6 +816,20 @@ Screens:
                         ItemDisplayText: =ThisItem.Title
                         AccessibleLabel: ="Service destinataire du transfert"
                         Visible: =varActionDialog = "transferer"
+                  - DdGestionnaireCible:
+                      Control: ModernDropdown
+                      Properties:
+                        FillPortions: =0
+                        Height: =40
+                        Items: |-
+                          =Filter(
+                              Membres_Services,
+                              Role.Value = "Gestionnaire"
+                                  && Service_ID.Id = LookUp(Services_Siege, Title = varSelectedDemande.Service_Actuel_ID.Value, ID)
+                          )
+                        ItemDisplayText: =ThisItem.Utilisateur.DisplayName
+                        AccessibleLabel: ="Gestionnaire destinataire de l'assignation"
+                        Visible: =varActionDialog = "assigner"
                   - DialogButtonsRow:
                       Control: GroupContainer
                       Variant: AutoLayout
@@ -812,14 +856,22 @@ Screens:
                             Properties:
                               Text: ="Confirmer"
                               Appearance: ='ButtonCanvas.Appearance'.Primary
-                              BasePaletteColor: =If(varActionDialog = "rejeter", RGBA(220, 38, 38, 1), RGBA(6, 95, 70, 1))
+                              BasePaletteColor: |-
+                                =Switch(
+                                    varActionDialog,
+                                    "rejeter", RGBA(220, 38, 38, 1),
+                                    "valider", RGBA(6, 95, 70, 1),
+                                    "cloturer", RGBA(6, 95, 70, 1),
+                                    RGBA(140, 12, 20, 1)
+                                )
                               FillPortions: =0
                               Width: =140
                               Height: =40
                               DisplayMode: |-
                                 =If(
                                     (varActionDialog = "rejeter" && IsBlank(Trim(InpMotifRejet.Text)))
-                                        || (varActionDialog = "transferer" && IsBlank(DdServiceCible.Selected.ID)),
+                                        || (varActionDialog = "transferer" && IsBlank(DdServiceCible.Selected.ID))
+                                        || (varActionDialog = "assigner" && IsBlank(DdGestionnaireCible.Selected.ID)),
                                     DisplayMode.Disabled,
                                     DisplayMode.Edit
                                 )
@@ -871,6 +923,25 @@ Screens:
                                         Refresh(Demandes);
                                         Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
                                         Notify("Demande transférée.", NotificationType.Success)
+                                    ),
+                                    "assigner",
+                                    IfError(
+                                        Patch(Demandes, varSelectedDemande, {
+                                            Gestionnaire_Assigne: {
+                                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                                Claims: "i:0#.f|membership|" & Lower(DdGestionnaireCible.Selected.Utilisateur.Email),
+                                                DisplayName: DdGestionnaireCible.Selected.Utilisateur.DisplayName,
+                                                Email: DdGestionnaireCible.Selected.Utilisateur.Email,
+                                                Department: "",
+                                                JobTitle: "",
+                                                Picture: ""
+                                            }
+                                        }),
+                                        Notify("Échec de l'assignation : " & FirstError.Message, NotificationType.Error),
+                                        Set(varActionDialog, "");
+                                        Refresh(Demandes);
+                                        Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                        Notify("Demande assignée — le statut se met à jour dans quelques secondes.", NotificationType.Success)
                                     ),
                                     "cloturer",
                                     IfError(
