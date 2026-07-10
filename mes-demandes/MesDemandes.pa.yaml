@@ -9,489 +9,478 @@ Screens:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
-            X: =0
-            Y: =0
-            Width: =300
-            Height: =Parent.Height
-            Fill: =RGBA(255, 255, 255, 1)
             DropShadow: =DropShadow.Semilight
-            LayoutDirection: =LayoutDirection.Vertical
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
             LayoutGap: =4
-            PaddingTop: =20
             PaddingBottom: =20
             PaddingLeft: =12
             PaddingRight: =12
+            PaddingTop: =20
             Visible: =MesDemandes.Size <> ScreenSize.Small
+            Width: =300
           Children:
             - ImgLogoMD:
                 Control: Image
                 Properties:
-                  Image: =Logo
-                  FillPortions: =0
                   Height: =60
-                  ImagePosition: =ImagePosition.Fit
+                  Image: =Logo
             - RectRailSepMD:
                 Control: Rectangle
                 Properties:
-                  FillPortions: =0
-                  Height: =16
                   Fill: =RGBA(0, 0, 0, 0)
+                  Height: =16
             - NavMDAccueil:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
+                  Fill: =RGBA(140, 12, 20, 0.08)
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(140, 12, 20, 0.08)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                 Children:
                   - IcoMDAccueil:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Home"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Width: =22
                   - LblMDAccueil:
                       Control: ModernText
                       Properties:
-                        Text: ="Accueil"
-                        Size: =14
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Accueil"
             - NavMDMesDem:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(0, 0, 0, 0)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                   Visible: =UserRole = "Agent" || UserRole = "Admin"
                 Children:
                   - IcoMDMesDem:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Document"
                         IconColor: =RGBA(140, 12, 20, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Width: =22
                   - LblMDMesDem:
                       Control: ModernText
                       Properties:
-                        Text: ="Mes demandes"
-                        Size: =14
-                        FontWeight: =FontWeight.Semibold
-                        Color: =RGBA(140, 12, 20, 1)
                         AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
                         FillPortions: =1
+                        FontWeight: =FontWeight.Semibold
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Mes demandes"
             - NavMDNouvelle:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(0, 0, 0, 0)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                   Visible: =UserRole = "Agent" || UserRole = "Admin"
                 Children:
                   - IcoMDNouvelle:
                       Control: ModernIcon
                       Properties:
-                        Icon: ="Add"
-                        IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
                         Height: =22
+                        IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Width: =22
                   - LblMDNouvelle:
                       Control: ModernText
                       Properties:
-                        Text: ="Nouvelle demande"
-                        Size: =14
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
                         OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Nouvelle demande"
             - NavMDFile:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(0, 0, 0, 0)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                   Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
                 Children:
                   - IcoMDFile:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Briefcase"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Width: =22
                   - LblMDFile:
                       Control: ModernText
                       Properties:
-                        Text: ="File à traiter"
-                        Size: =14
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="File à traiter"
             - NavMDAlertes:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(0, 0, 0, 0)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                   Visible: =UserRole = "Superviseur" || UserRole = "Admin"
                 Children:
                   - IcoMDAlertes:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Clock"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Width: =22
                   - LblMDAlertes:
                       Control: ModernText
                       Properties:
-                        Text: ="Alertes SLA"
-                        Size: =14
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Alertes SLA"
+            - NavMDStats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoMDStats:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="DataBarVertical"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Width: =22
+                  - LblMDStats:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Statistiques"
             - NavMDNotifs:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(0, 0, 0, 0)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                 Children:
                   - IcoMDNotifs:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Alert"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Width: =22
                   - LblMDNotifs:
                       Control: ModernText
                       Properties:
-                        Text: ="Notifications"
-                        Size: =14
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Notifications"
                   - BdgMDNotifs:
                       Control: Badge
                       Properties:
-                        Content: |-
-                          =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
                         Appearance: ='BadgeCanvas.Appearance'.Filled
                         BasePaletteColor: =RGBA(220, 38, 38, 1)
+                        Content: =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
                         FontColor: =RGBA(255, 255, 255, 1)
-                        FillPortions: =0
-                        Width: =30
                         Height: =20
                         LayoutMinWidth: =30
-                        Visible: |-
-                          =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                        Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                        Width: =30
             - RectRailSpacerMD:
                 Control: Rectangle
                 Properties:
-                  FillPortions: =1
                   Fill: =RGBA(0, 0, 0, 0)
+                  FillPortions: =1
             - RectRailSeparatorMD:
                 Control: Rectangle
                 Properties:
-                  FillPortions: =0
-                  Height: =1
                   Fill: =RGBA(229, 231, 235, 1)
+                  Height: =1
             - TxtRailUserMD:
                 Control: ModernText
                 Properties:
-                  Text: =User().FullName
-                  Size: =13
-                  FontWeight: =FontWeight.Semibold
-                  Color: =RGBA(55, 65, 81, 1)
                   AutoHeight: =true
-                  FillPortions: =0
+                  Color: =RGBA(55, 65, 81, 1)
+                  FontWeight: =FontWeight.Semibold
+                  Size: =13
+                  Text: =User().FullName
             - TxtRailRoleMD:
                 Control: ModernText
                 Properties:
-                  Text: =UserRole
-                  Size: =12
-                  FontWeight: =FontWeight.Normal
-                  Color: =RGBA(112, 112, 112, 1)
                   AutoHeight: =true
-                  FillPortions: =0
+                  Color: =RGBA(112, 112, 112, 1)
+                  Size: =12
+                  Text: =UserRole
       - ScreenContainer:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
-            X: =If(MesDemandes.Size = ScreenSize.Small, 0, RailMD.Width)
-            Y: =0
-            Width: =Parent.Width - If(MesDemandes.Size = ScreenSize.Small, 0, RailMD.Width)
-            Height: =Parent.Height - If(MesDemandes.Size = ScreenSize.Small, 64, 0)
             Fill: =ColorBackground
-            LayoutDirection: =LayoutDirection.Vertical
+            Height: =Parent.Height - If(MesDemandes.Size = ScreenSize.Small, 64, 0)
             LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width - If(MesDemandes.Size = ScreenSize.Small, 0, RailMD.Width)
+            X: =If(MesDemandes.Size = ScreenSize.Small, 0, RailMD.Width)
           Children:
             - HeaderContainer:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =0
                   Fill: =ColorBackground
+                  FillPortions: =0
+                  Height: =104
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutAlignItems: =LayoutAlignItems.Start
                   LayoutGap: =8
-                  PaddingTop: =28
                   PaddingBottom: =20
                   PaddingLeft: =28
                   PaddingRight: =28
-                  Height: =104
+                  PaddingTop: =28
                 Children:
                   - TitleRow:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
+                        Fill: =RGBA(255, 255, 255, 0)
                         FillPortions: =0
                         Height: =42
-                        Width: =Parent.Width - 56
-                        Fill: =RGBA(255, 255, 255, 0)
-                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =12
+                        Width: =Parent.Width - 56
                       Children:
                         - TxtTitle:
                             Control: ModernText
                             Properties:
-                              Text: ="Mes demandes"
-                              Size: =28
-                              FontWeight: =FontWeight.Bold
-                              Color: =ColorAccent
                               AutoHeight: =true
+                              Color: =ColorAccent
                               FillPortions: =1
+                              FontWeight: =FontWeight.Bold
+                              Size: =28
+                              Text: ="Mes demandes"
                         - IconNotifMD:
                             Control: ModernIcon
                             Properties:
+                              AccessibleLabel: ="Ouvrir les notifications"
+                              Height: =28
                               Icon: ="Alert"
                               IconColor: =RGBA(140, 12, 20, 1)
-                              FillPortions: =0
-                              Width: =28
-                              Height: =28
-                              AccessibleLabel: ="Ouvrir les notifications"
                               OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                              Width: =28
                         - BadgeNotifMD:
                             Control: Badge
                             Properties:
-                              Content: |-
-                                =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
                               Appearance: ='BadgeCanvas.Appearance'.Filled
                               BasePaletteColor: =RGBA(220, 38, 38, 1)
+                              Content: =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
                               FontColor: =RGBA(255, 255, 255, 1)
-                              FillPortions: =0
-                              Width: =32
                               Height: =22
-                              LayoutMinWidth: =32
-                              Visible: |-
-                                =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                              Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
                         - BtnNouvelleDemande:
                             Control: ModernButton
                             Properties:
-                              Text: =If(MesDemandes.Size = ScreenSize.Small, "+", "+ Nouvelle demande")
+                              AccessibleLabel: ="Créer une nouvelle demande"
                               Appearance: ='ButtonCanvas.Appearance'.Primary
                               BasePaletteColor: =ColorAccent
-                              FillPortions: =0
-                              Width: =If(MesDemandes.Size = ScreenSize.Small, 44, 190)
                               Height: =40
-                              AccessibleLabel: ="Créer une nouvelle demande"
                               OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                              Text: =If(MesDemandes.Size = ScreenSize.Small, "+", "+ Nouvelle demande")
+                              Width: =If(MesDemandes.Size = ScreenSize.Small, 44, 190)
                   - RectAccentBar:
                       Control: Rectangle
                       Properties:
-                        FillPortions: =0
-                        Width: =56
-                        Height: =4
                         Fill: =ColorAccent
+                        Height: =4
+                        Width: =56
             - GalleryContainer:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
                   Fill: =ColorBackground
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Stretch
-                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =10
-                  PaddingTop: =16
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =28
                   PaddingLeft: =28
                   PaddingRight: =28
-                  PaddingBottom: =28
+                  PaddingTop: =16
                 Children:
                   - InpSearchMD:
                       Control: ModernTextInput
                       Properties:
-                        Type: =TextInputType.Search
-                        Placeholder: ="Rechercher une demande..."
-                        Default: =""
-                        FillPortions: =0
-                        Width: =Min(Parent.Width - 56, 800)
-                        Height: =40
-                        Size: =14
-                        RadiusTopLeft: =8
-                        RadiusTopRight: =8
-                        RadiusBottomLeft: =8
-                        RadiusBottomRight: =8
                         BorderColor: =RGBA(229, 231, 235, 1)
                         Fill: =RGBA(255, 255, 255, 1)
+                        Height: =40
+                        Placeholder: ="Rechercher une demande..."
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Type: =TextInputType.Search
+                        Width: =Min(Parent.Width - 56, 800)
                   - TabsRowMD:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
+                        AlignInContainer: =AlignInContainer.Start
                         FillPortions: =0
                         Height: =48
-                        AlignInContainer: =AlignInContainer.Start
-                        Width: =Min(Parent.Width - 56, 800)
-                        Fill: =RGBA(0, 0, 0, 0)
-                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =8
+                        Width: =Min(Parent.Width - 56, 800)
                       Children:
                         - BtnTbMDEnCours:
                             Control: ModernButton
                             Properties:
-                              Text: ="En cours"
-                              Icon: ="Clock"
-                              Layout: =ButtonLayout.IconBefore
-                              FillPortions: =1
-                              Height: =48
-                              RadiusTopLeft: =8
-                              RadiusTopRight: =8
-                              RadiusBottomLeft: =8
-                              RadiusBottomRight: =8
                               Appearance: =If(ctxMDTab = "encours", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxMDTab = "encours", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
                               Color: =If(ctxMDTab = "encours", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              FillPortions: =1
                               FontWeight: =If(ctxMDTab = "encours", FontWeight.Semibold, FontWeight.Normal)
+                              Height: =48
+                              Icon: ="Clock"
                               OnSelect: |-
                                 =UpdateContext({ctxMDTab: "encours"})
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Text: ="En cours"
                         - BtnTbMDTerminees:
                             Control: ModernButton
                             Properties:
-                              Text: ="Terminées"
-                              Icon: ="Checkmark"
-                              Layout: =ButtonLayout.IconBefore
-                              FillPortions: =1
-                              Height: =48
-                              RadiusTopLeft: =8
-                              RadiusTopRight: =8
-                              RadiusBottomLeft: =8
-                              RadiusBottomRight: =8
                               Appearance: =If(ctxMDTab = "terminees", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxMDTab = "terminees", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
                               Color: =If(ctxMDTab = "terminees", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              FillPortions: =1
                               FontWeight: =If(ctxMDTab = "terminees", FontWeight.Semibold, FontWeight.Normal)
+                              Height: =48
+                              Icon: ="Checkmark"
                               OnSelect: |-
                                 =UpdateContext({ctxMDTab: "terminees"})
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Text: ="Terminées"
                         - BtnTbMDToutes:
                             Control: ModernButton
                             Properties:
-                              Text: ="Toutes"
-                              Icon: ="Document"
-                              Layout: =ButtonLayout.IconBefore
-                              FillPortions: =1
-                              Height: =48
-                              RadiusTopLeft: =8
-                              RadiusTopRight: =8
-                              RadiusBottomLeft: =8
-                              RadiusBottomRight: =8
                               Appearance: =If(ctxMDTab = "toutes", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxMDTab = "toutes", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
                               Color: =If(ctxMDTab = "toutes", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              FillPortions: =1
                               FontWeight: =If(ctxMDTab = "toutes", FontWeight.Semibold, FontWeight.Normal)
+                              Height: =48
+                              Icon: ="Document"
                               OnSelect: |-
                                 =UpdateContext({ctxMDTab: "toutes"})
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Text: ="Toutes"
                   - GalleryDemandes:
                       Control: Gallery
                       Variant: Vertical
                       Properties:
+                        FillPortions: =0
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
                         Items: |-
                           =With(
                               {_q: Trim(InpSearchMD.Text)},
@@ -529,67 +518,53 @@ Screens:
                                   )
                               )
                           )
-                        FillPortions: =0
-                        Width: =Parent.Width - 56
-                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
-                        WrapCount: =1
-                        TemplateSize: =150
                         TemplatePadding: =14
-                        Fill: =RGBA(0, 0, 0, 0)
-                        TemplateFill: =RGBA(0, 0, 0, 0)
+                        TemplateSize: =150
+                        Width: =Parent.Width - 56
                       Children:
                         - CardContainer:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              Width: =Parent.TemplateWidth
-                              Height: =Parent.TemplateHeight
+                              DropShadow: =DropShadow.Semilight
                               Fill: =ColorCardWhite
-                              LayoutDirection: =LayoutDirection.Horizontal
+                              Height: =Parent.TemplateHeight
                               LayoutAlignItems: =LayoutAlignItems.Stretch
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
+                              LayoutDirection: =LayoutDirection.Horizontal
                               RadiusBottomLeft: =12
                               RadiusBottomRight: =12
-                              DropShadow: =DropShadow.Semilight
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =Parent.TemplateWidth
                             Children:
                               - RectUrgencyStripe:
                                   Control: Rectangle
                                   Properties:
-                                    FillPortions: =0
-                                    Width: =4
                                     Fill: =If(ThisItem.Niveau_Urgence.Value = "Urgent" || ThisItem.Niveau_Urgence.Value = "Critique", ColorUrgent, RGBA(255, 255, 255, 0))
+                                    Width: =4
                               - ContentContainer:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    FillPortions: =1
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutAlignItems: =LayoutAlignItems.Start
                                     LayoutGap: =6
-                                    PaddingTop: =16
                                     PaddingBottom: =16
                                     PaddingLeft: =18
                                     PaddingRight: =18
+                                    PaddingTop: =16
                                   Children:
                                     - TxtCardTitle:
                                         Control: ModernText
                                         Properties:
-                                          Text: =ThisItem.Title
-                                          Size: =16
-                                          FontWeight: =FontWeight.Bold
                                           AutoHeight: =true
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: =ThisItem.Title
                                           Width: =Parent.Width - 36
                                     - BadgeStatut:
                                         Control: Badge
                                         Properties:
-                                          Content: =ThisItem.Statut_Actuel.Value
                                           Appearance: ='BadgeCanvas.Appearance'.Tint
-                                          FillPortions: =0
-                                          Width: =96
-                                          Height: =28
-                                          LayoutMinWidth: =96
                                           BasePaletteColor: |-
                                             =Switch(
                                               ThisItem.Statut_Actuel.Value,
@@ -600,6 +575,7 @@ Screens:
                                               "Clôturé", RGBA(219, 226, 254, 1),
                                               RGBA(229, 231, 235, 1)
                                             )
+                                          Content: =ThisItem.Statut_Actuel.Value
                                           FontColor: |-
                                             =Switch(
                                               ThisItem.Statut_Actuel.Value,
@@ -610,27 +586,33 @@ Screens:
                                               "Clôturé", RGBA(30, 27, 120, 1),
                                               RGBA(55, 65, 81, 1)
                                             )
+                                          Height: =28
+                                          LayoutMinWidth: =96
+                                          Width: =96
                                     - TxtType:
                                         Control: ModernText
                                         Properties:
+                                          AutoHeight: =true
+                                          Color: =ColorTextSecondary
+                                          Size: =13
                                           Text: |-
                                             ="Type : " & ThisItem.Type_Demande_ID.Value
-                                          Size: =13
-                                          Color: =ColorTextSecondary
-                                          AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtService:
                                         Control: ModernText
                                         Properties:
+                                          AutoHeight: =true
+                                          Color: =ColorTextSecondary
+                                          Size: =13
                                           Text: |-
                                             ="Service : " & ThisItem.Service_Actuel_ID.Value
-                                          Size: =13
-                                          Color: =ColorTextSecondary
-                                          AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtRelativeDate:
                                         Control: ModernText
                                         Properties:
+                                          AutoHeight: =true
+                                          Color: =ColorTextTertiary
+                                          Size: =12
                                           Text: |-
                                             =With(
                                               {
@@ -645,35 +627,33 @@ Screens:
                                                 )
                                               )
                                             )
-                                          Size: =12
-                                          Color: =ColorTextTertiary
-                                          AutoHeight: =true
                                           Width: =Parent.Width - 36
                         - BtnCardClick:
                             Control: Classic/Button
                             Properties:
-                              X: =0
-                              Y: =0
-                              Width: =Parent.TemplateWidth
-                              Height: =Parent.TemplateHeight
-                              Text: =""
-                              Fill: =RGBA(0, 0, 0, 0)
-                              HoverFill: =RGBA(0, 0, 0, 0)
-                              PressedFill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =2
                               BorderColor: =RGBA(0, 0, 0, 0)
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Height: =Parent.TemplateHeight
                               HoverBorderColor: =RGBA(140, 12, 20, 1)
-                              PressedBorderColor: =RGBA(140, 12, 20, 1)
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
-                              RadiusBottomLeft: =12
-                              RadiusBottomRight: =12
+                              HoverFill: =RGBA(0, 0, 0, 0)
                               OnSelect: |-
                                 =Set(varSelectedDemande, ThisItem);
                                 Navigate(DetailDemande, ScreenTransition.Fade)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Text: =""
+                              Width: =Parent.TemplateWidth
                   - TxtEmptyState:
                       Control: ModernText
                       Properties:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Color: =ColorTextTertiary
+                        Size: =14
                         Text: |-
                           =Switch(
                               ctxMDTab,
@@ -681,64 +661,53 @@ Screens:
                               "terminees", "Aucune demande terminée.",
                               "Aucune demande pour le moment."
                           )
-                        Size: =14
-                        Color: =ColorTextTertiary
-                        Align: =Align.Center
-                        AutoHeight: =true
-                        Width: =Parent.Width - 56
                         Visible: =GalleryDemandes.AllItemsCount = 0
+                        Width: =Parent.Width - 56
       - BarMD:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
-            X: =0
-            Y: =Parent.Height - 64
-            Width: =Parent.Width
-            Height: =64
-            Fill: =RGBA(255, 255, 255, 1)
             DropShadow: =DropShadow.Regular
-            LayoutDirection: =LayoutDirection.Horizontal
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =64
             LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
             Visible: =MesDemandes.Size = ScreenSize.Small
+            Width: =Parent.Width
+            Y: =Parent.Height - 64
           Children:
             - BEntMDAccueil:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                 Children:
                   - BIcoMDAccueil:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Home"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Width: =22
                   - BLblMDAccueil:
                       Control: ModernText
                       Properties:
-                        Text: ="Accueil"
-                        Size: =10
-                        FontWeight: =FontWeight.Semibold
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(112, 112, 112, 1)
+                        FontWeight: =FontWeight.Semibold
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Accueil"
             - BEntMDMesDem:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                   Visible: =UserRole = "Agent" || UserRole = "Admin"
@@ -746,29 +715,25 @@ Screens:
                   - BIcoMDMesDem:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Document"
                         IconColor: =RGBA(140, 12, 20, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Width: =22
                   - BLblMDMesDem:
                       Control: ModernText
                       Properties:
-                        Text: ="Demandes"
-                        Size: =10
-                        Color: =RGBA(140, 12, 20, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(140, 12, 20, 1)
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Demandes"
             - BEntMDNouvelle:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                   Visible: =UserRole = "Agent"
@@ -776,29 +741,24 @@ Screens:
                   - BIcoMDNouvelle:
                       Control: ModernIcon
                       Properties:
-                        Icon: ="Add"
-                        IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
                         Height: =22
+                        IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Width: =22
                   - BLblMDNouvelle:
                       Control: ModernText
                       Properties:
-                        Text: ="Nouvelle"
-                        Size: =10
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Nouvelle"
             - BEntMDFile:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                   Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
@@ -806,29 +766,25 @@ Screens:
                   - BIcoMDFile:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Briefcase"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Width: =22
                   - BLblMDFile:
                       Control: ModernText
                       Properties:
-                        Text: ="À traiter"
-                        Size: =10
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="À traiter"
             - BEntMDAlertes:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                   Visible: =UserRole = "Superviseur" || UserRole = "Admin"
@@ -836,47 +792,67 @@ Screens:
                   - BIcoMDAlertes:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Clock"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Width: =22
                   - BLblMDAlertes:
                       Control: ModernText
                       Properties:
-                        Text: ="SLA"
-                        Size: =10
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="SLA"
+            - BEntMDStats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoMDStats:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="DataBarVertical"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblMDStats:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Stats"
             - BEntMDNotifs:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                 Children:
                   - BIcoMDNotifs:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Alert"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Width: =22
                   - BLblMDNotifs:
                       Control: ModernText
                       Properties:
-                        Text: ="Notifs"
-                        Size: =10
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Notifs"

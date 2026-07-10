@@ -9,492 +9,480 @@ Screens:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
-            X: =0
-            Y: =0
-            Width: =300
-            Height: =Parent.Height
-            Fill: =RGBA(255, 255, 255, 1)
             DropShadow: =DropShadow.Semilight
-            LayoutDirection: =LayoutDirection.Vertical
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
             LayoutGap: =4
-            PaddingTop: =20
             PaddingBottom: =20
             PaddingLeft: =12
             PaddingRight: =12
+            PaddingTop: =20
             Visible: =FileATraiter.Size <> ScreenSize.Small
+            Width: =300
           Children:
             - ImgLogoFT:
                 Control: Image
                 Properties:
-                  Image: =Logo
-                  FillPortions: =0
                   Height: =60
-                  ImagePosition: =ImagePosition.Fit
+                  Image: =Logo
             - RectRailSepFT:
                 Control: Rectangle
                 Properties:
-                  FillPortions: =0
-                  Height: =16
                   Fill: =RGBA(0, 0, 0, 0)
+                  Height: =16
             - NavFTAccueil:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
+                  Fill: =RGBA(140, 12, 20, 0.08)
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(140, 12, 20, 0.08)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                 Children:
                   - IcoFTAccueil:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Home"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Width: =22
                   - LblFTAccueil:
                       Control: ModernText
                       Properties:
-                        Text: ="Accueil"
-                        Size: =14
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Accueil"
             - NavFTMesDem:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(0, 0, 0, 0)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                   Visible: =UserRole = "Agent" || UserRole = "Admin"
                 Children:
                   - IcoFTMesDem:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Document"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Width: =22
                   - LblFTMesDem:
                       Control: ModernText
                       Properties:
-                        Text: ="Mes demandes"
-                        Size: =14
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Mes demandes"
             - NavFTNouvelle:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(0, 0, 0, 0)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                   Visible: =UserRole = "Agent" || UserRole = "Admin"
                 Children:
                   - IcoFTNouvelle:
                       Control: ModernIcon
                       Properties:
-                        Icon: ="Add"
-                        IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
                         Height: =22
+                        IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Width: =22
                   - LblFTNouvelle:
                       Control: ModernText
                       Properties:
-                        Text: ="Nouvelle demande"
-                        Size: =14
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
                         OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Nouvelle demande"
             - NavFTFile:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(0, 0, 0, 0)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                   Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
                 Children:
                   - IcoFTFile:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Briefcase"
                         IconColor: =RGBA(140, 12, 20, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Width: =22
                   - LblFTFile:
                       Control: ModernText
                       Properties:
-                        Text: ="File à traiter"
-                        Size: =14
-                        FontWeight: =FontWeight.Semibold
-                        Color: =RGBA(140, 12, 20, 1)
                         AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
                         FillPortions: =1
+                        FontWeight: =FontWeight.Semibold
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="File à traiter"
             - NavFTAlertes:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(0, 0, 0, 0)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                   Visible: =UserRole = "Superviseur" || UserRole = "Admin"
                 Children:
                   - IcoFTAlertes:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Clock"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Width: =22
                   - LblFTAlertes:
                       Control: ModernText
                       Properties:
-                        Text: ="Alertes SLA"
-                        Size: =14
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Alertes SLA"
+            - NavFTStats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoFTStats:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="DataBarVertical"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Width: =22
+                  - LblFTStats:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Statistiques"
             - NavFTNotifs:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   FillPortions: =0
                   Height: =44
-                  Fill: =RGBA(0, 0, 0, 0)
-                  RadiusTopLeft: =8
-                  RadiusTopRight: =8
-                  RadiusBottomLeft: =8
-                  RadiusBottomRight: =8
-                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
                   LayoutGap: =10
                   PaddingLeft: =12
                   PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
                 Children:
                   - IcoFTNotifs:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Alert"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Width: =22
                   - LblFTNotifs:
                       Control: ModernText
                       Properties:
-                        Text: ="Notifications"
-                        Size: =14
-                        FontWeight: =FontWeight.Normal
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Notifications"
                   - BdgFTNotifs:
                       Control: Badge
                       Properties:
-                        Content: |-
-                          =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
                         Appearance: ='BadgeCanvas.Appearance'.Filled
                         BasePaletteColor: =RGBA(220, 38, 38, 1)
+                        Content: =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
                         FontColor: =RGBA(255, 255, 255, 1)
-                        FillPortions: =0
-                        Width: =30
                         Height: =20
                         LayoutMinWidth: =30
-                        Visible: |-
-                          =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                        Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                        Width: =30
             - RectRailSpacerFT:
                 Control: Rectangle
                 Properties:
-                  FillPortions: =1
                   Fill: =RGBA(0, 0, 0, 0)
+                  FillPortions: =1
             - RectRailSeparatorFT:
                 Control: Rectangle
                 Properties:
-                  FillPortions: =0
-                  Height: =1
                   Fill: =RGBA(229, 231, 235, 1)
+                  Height: =1
             - TxtRailUserFT:
                 Control: ModernText
                 Properties:
-                  Text: =User().FullName
-                  Size: =13
-                  FontWeight: =FontWeight.Semibold
-                  Color: =RGBA(55, 65, 81, 1)
                   AutoHeight: =true
-                  FillPortions: =0
+                  Color: =RGBA(55, 65, 81, 1)
+                  FontWeight: =FontWeight.Semibold
+                  Size: =13
+                  Text: =User().FullName
             - TxtRailRoleFT:
                 Control: ModernText
                 Properties:
-                  Text: =UserRole
-                  Size: =12
-                  FontWeight: =FontWeight.Normal
-                  Color: =RGBA(112, 112, 112, 1)
                   AutoHeight: =true
-                  FillPortions: =0
+                  Color: =RGBA(112, 112, 112, 1)
+                  Size: =12
+                  Text: =UserRole
       - FTScreenContainer:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
-            X: =If(FileATraiter.Size = ScreenSize.Small, 0, RailFT.Width)
-            Y: =0
-            Width: =Parent.Width - If(FileATraiter.Size = ScreenSize.Small, 0, RailFT.Width)
-            Height: =Parent.Height - If(FileATraiter.Size = ScreenSize.Small, 64, 0)
             Fill: =RGBA(249, 250, 251, 1)
-            LayoutDirection: =LayoutDirection.Vertical
+            Height: =Parent.Height - If(FileATraiter.Size = ScreenSize.Small, 64, 0)
             LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width - If(FileATraiter.Size = ScreenSize.Small, 0, RailFT.Width)
+            X: =If(FileATraiter.Size = ScreenSize.Small, 0, RailFT.Width)
           Children:
             - FTHeaderContainer:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
+                  Fill: =RGBA(249, 250, 251, 1)
                   FillPortions: =0
                   Height: =104
-                  Fill: =RGBA(249, 250, 251, 1)
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutAlignItems: =LayoutAlignItems.Start
                   LayoutGap: =8
-                  PaddingTop: =28
                   PaddingBottom: =20
                   PaddingLeft: =28
                   PaddingRight: =28
+                  PaddingTop: =28
                 Children:
                   - FTTitleRow:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
+                        Fill: =RGBA(255, 255, 255, 0)
                         FillPortions: =0
                         Height: =42
-                        Width: =Parent.Width - 56
-                        Fill: =RGBA(255, 255, 255, 0)
-                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =12
+                        Width: =Parent.Width - 56
                       Children:
                         - TxtFTTitreMain:
                             Control: ModernText
                             Properties:
-                              Text: ="File à traiter"
-                              Size: =28
-                              FontWeight: =FontWeight.Bold
-                              Color: =RGBA(140, 12, 20, 1)
                               AutoHeight: =true
+                              Color: =RGBA(140, 12, 20, 1)
                               FillPortions: =1
+                              FontWeight: =FontWeight.Bold
+                              Size: =28
+                              Text: ="File à traiter"
                         - IconNotifFT:
                             Control: ModernIcon
                             Properties:
+                              AccessibleLabel: ="Ouvrir les notifications"
+                              Height: =28
                               Icon: ="Alert"
                               IconColor: =RGBA(140, 12, 20, 1)
-                              FillPortions: =0
-                              Width: =28
-                              Height: =28
-                              AccessibleLabel: ="Ouvrir les notifications"
                               OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                              Width: =28
                         - BadgeNotifFT:
                             Control: Badge
                             Properties:
-                              Content: |-
-                                =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
                               Appearance: ='BadgeCanvas.Appearance'.Filled
                               BasePaletteColor: =RGBA(220, 38, 38, 1)
+                              Content: =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
                               FontColor: =RGBA(255, 255, 255, 1)
-                              FillPortions: =0
-                              Width: =32
                               Height: =22
-                              LayoutMinWidth: =32
-                              Visible: |-
-                                =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                              Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
                         - BtnAlertesSLA:
                             Control: ModernButton
                             Properties:
-                              Text: =If(FileATraiter.Size = ScreenSize.Small, "SLA", "Alertes SLA")
+                              AccessibleLabel: ="Ouvrir les alertes SLA"
                               Appearance: ='ButtonCanvas.Appearance'.Secondary
                               BasePaletteColor: =RGBA(140, 12, 20, 1)
-                              FillPortions: =0
-                              Width: =If(FileATraiter.Size = ScreenSize.Small, 64, 150)
                               Height: =40
-                              AccessibleLabel: ="Ouvrir les alertes SLA"
-                              Visible: =UserRole = "Superviseur" || UserRole = "Admin"
                               OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                              Text: =If(FileATraiter.Size = ScreenSize.Small, "SLA", "Alertes SLA")
+                              Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                              Width: =If(FileATraiter.Size = ScreenSize.Small, 64, 150)
                   - RectFTAccentBar:
                       Control: Rectangle
                       Properties:
-                        FillPortions: =0
-                        Width: =56
-                        Height: =4
                         Fill: =RGBA(140, 12, 20, 1)
+                        Height: =4
+                        Width: =56
             - FTBody:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
                   Fill: =RGBA(249, 250, 251, 1)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Stretch
-                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =10
-                  PaddingTop: =16
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =28
                   PaddingLeft: =28
                   PaddingRight: =28
-                  PaddingBottom: =28
+                  PaddingTop: =16
                 Children:
                   - InpSearchFT:
                       Control: ModernTextInput
                       Properties:
-                        Type: =TextInputType.Search
-                        Placeholder: ="Rechercher une demande ou un demandeur..."
-                        Default: =""
-                        FillPortions: =0
-                        Width: =Min(Parent.Width - 56, 800)
-                        Height: =40
-                        Size: =14
-                        RadiusTopLeft: =8
-                        RadiusTopRight: =8
-                        RadiusBottomLeft: =8
-                        RadiusBottomRight: =8
                         BorderColor: =RGBA(229, 231, 235, 1)
                         Fill: =RGBA(255, 255, 255, 1)
+                        Height: =40
+                        Placeholder: ="Rechercher une demande ou un demandeur..."
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        Type: =TextInputType.Search
+                        Width: =Min(Parent.Width - 56, 800)
                   - TabsRowFT:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
+                        AlignInContainer: =AlignInContainer.Start
                         FillPortions: =0
                         Height: =48
-                        AlignInContainer: =AlignInContainer.Start
-                        Width: =Min(Parent.Width - 56, 800)
-                        Fill: =RGBA(0, 0, 0, 0)
-                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =8
+                        Width: =Min(Parent.Width - 56, 800)
                       Children:
                         - BtnTbFTATraiter:
                             Control: ModernButton
                             Properties:
-                              Text: ="À traiter"
-                              Icon: ="Briefcase"
-                              Layout: =ButtonLayout.IconBefore
-                              FillPortions: =1
-                              Height: =48
-                              RadiusTopLeft: =8
-                              RadiusTopRight: =8
-                              RadiusBottomLeft: =8
-                              RadiusBottomRight: =8
                               Appearance: =If(ctxFTTab = "atraiter", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxFTTab = "atraiter", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
                               Color: =If(ctxFTTab = "atraiter", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              FillPortions: =1
                               FontWeight: =If(ctxFTTab = "atraiter", FontWeight.Semibold, FontWeight.Normal)
+                              Height: =48
+                              Icon: ="Briefcase"
                               OnSelect: |-
                                 =UpdateContext({ctxFTTab: "atraiter"})
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Text: ="À traiter"
                         - BtnTbFTTraitees:
                             Control: ModernButton
                             Properties:
-                              Text: ="Traitées"
-                              Icon: ="Checkmark"
-                              Layout: =ButtonLayout.IconBefore
-                              FillPortions: =1
-                              Height: =48
-                              RadiusTopLeft: =8
-                              RadiusTopRight: =8
-                              RadiusBottomLeft: =8
-                              RadiusBottomRight: =8
                               Appearance: =If(ctxFTTab = "traitees", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxFTTab = "traitees", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
                               Color: =If(ctxFTTab = "traitees", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              FillPortions: =1
                               FontWeight: =If(ctxFTTab = "traitees", FontWeight.Semibold, FontWeight.Normal)
+                              Height: =48
+                              Icon: ="Checkmark"
                               OnSelect: |-
                                 =UpdateContext({ctxFTTab: "traitees"})
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Text: ="Traitées"
                         - BtnTbFTTransferees:
                             Control: ModernButton
                             Properties:
-                              Text: ="Transférées"
-                              Icon: ="ArrowRight"
-                              Layout: =ButtonLayout.IconBefore
-                              FillPortions: =1
-                              Height: =48
-                              RadiusTopLeft: =8
-                              RadiusTopRight: =8
-                              RadiusBottomLeft: =8
-                              RadiusBottomRight: =8
-                              Visible: =UserRole <> "Admin"
                               Appearance: =If(ctxFTTab = "transferees", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxFTTab = "transferees", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
                               Color: =If(ctxFTTab = "transferees", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              FillPortions: =1
                               FontWeight: =If(ctxFTTab = "transferees", FontWeight.Semibold, FontWeight.Normal)
+                              Height: =48
+                              Icon: ="ArrowRight"
                               OnSelect: |-
                                 =UpdateContext({ctxFTTab: "transferees"})
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Text: ="Transférées"
+                              Visible: =UserRole <> "Admin"
                   - GalleryATraiter:
                       Control: Gallery
                       Variant: Vertical
                       Properties:
-                        Visible: =ctxFTTab = "atraiter"
+                        FillPortions: =0
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
                         Items: |-
                           =With(
                               {_q: Trim(InpSearchFT.Text)},
@@ -525,67 +513,54 @@ Screens:
                                   )
                               )
                           )
-                        FillPortions: =0
-                        Width: =Parent.Width - 56
-                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
-                        WrapCount: =1
-                        TemplateSize: =150
                         TemplatePadding: =14
-                        Fill: =RGBA(0, 0, 0, 0)
-                        TemplateFill: =RGBA(0, 0, 0, 0)
+                        TemplateSize: =150
+                        Visible: =ctxFTTab = "atraiter"
+                        Width: =Parent.Width - 56
                       Children:
                         - FTCardContainer:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              Width: =Parent.TemplateWidth
-                              Height: =Parent.TemplateHeight
+                              DropShadow: =DropShadow.Semilight
                               Fill: =RGBA(255, 255, 255, 1)
-                              LayoutDirection: =LayoutDirection.Horizontal
+                              Height: =Parent.TemplateHeight
                               LayoutAlignItems: =LayoutAlignItems.Stretch
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
+                              LayoutDirection: =LayoutDirection.Horizontal
                               RadiusBottomLeft: =12
                               RadiusBottomRight: =12
-                              DropShadow: =DropShadow.Semilight
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =Parent.TemplateWidth
                             Children:
                               - RectFTUrgencyStripe:
                                   Control: Rectangle
                                   Properties:
-                                    FillPortions: =0
-                                    Width: =4
                                     Fill: =If(ThisItem.Niveau_Urgence.Value = "Urgent" || ThisItem.Niveau_Urgence.Value = "Critique", RGBA(220, 38, 38, 1), RGBA(255, 255, 255, 0))
+                                    Width: =4
                               - FTContentContainer:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    FillPortions: =1
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutAlignItems: =LayoutAlignItems.Start
                                     LayoutGap: =6
-                                    PaddingTop: =16
                                     PaddingBottom: =16
                                     PaddingLeft: =18
                                     PaddingRight: =18
+                                    PaddingTop: =16
                                   Children:
                                     - TxtFTCardTitle:
                                         Control: ModernText
                                         Properties:
-                                          Text: =ThisItem.Title
-                                          Size: =16
-                                          FontWeight: =FontWeight.Bold
                                           AutoHeight: =true
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: =ThisItem.Title
                                           Width: =Parent.Width - 36
                                     - BadgeFTStatut:
                                         Control: Badge
                                         Properties:
-                                          Content: =ThisItem.Statut_Actuel.Value
                                           Appearance: ='BadgeCanvas.Appearance'.Tint
-                                          FillPortions: =0
-                                          Width: =96
-                                          Height: =28
-                                          LayoutMinWidth: =96
                                           BasePaletteColor: |-
                                             =Switch(
                                               ThisItem.Statut_Actuel.Value,
@@ -598,6 +573,7 @@ Screens:
                                               "Clôturé", RGBA(219, 226, 254, 1),
                                               RGBA(229, 231, 235, 1)
                                             )
+                                          Content: =ThisItem.Statut_Actuel.Value
                                           FontColor: |-
                                             =Switch(
                                               ThisItem.Statut_Actuel.Value,
@@ -610,27 +586,33 @@ Screens:
                                               "Clôturé", RGBA(30, 27, 120, 1),
                                               RGBA(55, 65, 81, 1)
                                             )
+                                          Height: =28
+                                          LayoutMinWidth: =96
+                                          Width: =96
                                     - TxtFTCardService:
                                         Control: ModernText
                                         Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
                                           Text: |-
                                             ="Service : " & ThisItem.Service_Actuel_ID.Value & "  ·  Type : " & ThisItem.Type_Demande_ID.Value
-                                          Size: =13
-                                          Color: =RGBA(112, 112, 112, 1)
-                                          AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtFTCardAgent:
                                         Control: ModernText
                                         Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
                                           Text: |-
                                             ="Demandeur : " & ThisItem.Agent_Demandeur.DisplayName
-                                          Size: =13
-                                          Color: =RGBA(112, 112, 112, 1)
-                                          AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtFTCardDate:
                                         Control: ModernText
                                         Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(144, 144, 144, 1)
+                                          Size: =12
                                           Text: |-
                                             =With(
                                               {
@@ -645,47 +627,42 @@ Screens:
                                                 )
                                               )
                                             )
-                                          Size: =12
-                                          Color: =RGBA(144, 144, 144, 1)
-                                          AutoHeight: =true
                                           Width: =Parent.Width - 36
                         - BtnFTCardClick:
                             Control: Classic/Button
                             Properties:
-                              X: =0
-                              Y: =0
-                              Width: =Parent.TemplateWidth
-                              Height: =Parent.TemplateHeight
-                              Text: =""
-                              Fill: =RGBA(0, 0, 0, 0)
-                              HoverFill: =RGBA(0, 0, 0, 0)
-                              PressedFill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =2
                               BorderColor: =RGBA(0, 0, 0, 0)
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Height: =Parent.TemplateHeight
                               HoverBorderColor: =RGBA(140, 12, 20, 1)
-                              PressedBorderColor: =RGBA(140, 12, 20, 1)
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
-                              RadiusBottomLeft: =12
-                              RadiusBottomRight: =12
+                              HoverFill: =RGBA(0, 0, 0, 0)
                               OnSelect: |-
                                 =Set(varSelectedDemande, ThisItem);
                                 Navigate(DetailDemande, ScreenTransition.Fade)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Text: =""
+                              Width: =Parent.TemplateWidth
                   - TxtFTEmptyATraiter:
                       Control: ModernText
                       Properties:
-                        Text: ="Aucune demande à traiter."
-                        Size: =14
-                        Color: =RGBA(144, 144, 144, 1)
                         Align: =Align.Center
                         AutoHeight: =true
-                        Width: =Parent.Width - 56
+                        Color: =RGBA(144, 144, 144, 1)
+                        Size: =14
+                        Text: ="Aucune demande à traiter."
                         Visible: =ctxFTTab = "atraiter" && GalleryATraiter.AllItemsCount = 0
+                        Width: =Parent.Width - 56
                   - GalleryTraitees:
                       Control: Gallery
                       Variant: Vertical
                       Properties:
-                        Visible: =ctxFTTab = "traitees"
+                        FillPortions: =0
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
                         Items: |-
                           =With(
                               {_q: Trim(InpSearchFT.Text)},
@@ -714,67 +691,54 @@ Screens:
                                   )
                               )
                           )
-                        FillPortions: =0
-                        Width: =Parent.Width - 56
-                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
-                        WrapCount: =1
-                        TemplateSize: =150
                         TemplatePadding: =14
-                        Fill: =RGBA(0, 0, 0, 0)
-                        TemplateFill: =RGBA(0, 0, 0, 0)
+                        TemplateSize: =150
+                        Visible: =ctxFTTab = "traitees"
+                        Width: =Parent.Width - 56
                       Children:
                         - FTTCardContainer:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              Width: =Parent.TemplateWidth
-                              Height: =Parent.TemplateHeight
+                              DropShadow: =DropShadow.Semilight
                               Fill: =RGBA(255, 255, 255, 1)
-                              LayoutDirection: =LayoutDirection.Horizontal
+                              Height: =Parent.TemplateHeight
                               LayoutAlignItems: =LayoutAlignItems.Stretch
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
+                              LayoutDirection: =LayoutDirection.Horizontal
                               RadiusBottomLeft: =12
                               RadiusBottomRight: =12
-                              DropShadow: =DropShadow.Semilight
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =Parent.TemplateWidth
                             Children:
                               - RectFTTUrgencyStripe:
                                   Control: Rectangle
                                   Properties:
-                                    FillPortions: =0
-                                    Width: =4
                                     Fill: =If(ThisItem.Niveau_Urgence.Value = "Urgent" || ThisItem.Niveau_Urgence.Value = "Critique", RGBA(220, 38, 38, 1), RGBA(255, 255, 255, 0))
+                                    Width: =4
                               - FTTContentContainer:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
-                                    FillPortions: =1
-                                    Fill: =RGBA(0, 0, 0, 0)
                                     LayoutDirection: =LayoutDirection.Vertical
-                                    LayoutAlignItems: =LayoutAlignItems.Start
                                     LayoutGap: =6
-                                    PaddingTop: =16
                                     PaddingBottom: =16
                                     PaddingLeft: =18
                                     PaddingRight: =18
+                                    PaddingTop: =16
                                   Children:
                                     - TxtFTTCardTitle:
                                         Control: ModernText
                                         Properties:
-                                          Text: =ThisItem.Title
-                                          Size: =16
-                                          FontWeight: =FontWeight.Bold
                                           AutoHeight: =true
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: =ThisItem.Title
                                           Width: =Parent.Width - 36
                                     - BadgeFTTStatut:
                                         Control: Badge
                                         Properties:
-                                          Content: =ThisItem.Statut_Actuel.Value
                                           Appearance: ='BadgeCanvas.Appearance'.Tint
-                                          FillPortions: =0
-                                          Width: =96
-                                          Height: =28
-                                          LayoutMinWidth: =96
                                           BasePaletteColor: |-
                                             =Switch(
                                               ThisItem.Statut_Actuel.Value,
@@ -783,6 +747,7 @@ Screens:
                                               "Clôturé", RGBA(219, 226, 254, 1),
                                               RGBA(229, 231, 235, 1)
                                             )
+                                          Content: =ThisItem.Statut_Actuel.Value
                                           FontColor: |-
                                             =Switch(
                                               ThisItem.Statut_Actuel.Value,
@@ -791,73 +756,75 @@ Screens:
                                               "Clôturé", RGBA(30, 27, 120, 1),
                                               RGBA(55, 65, 81, 1)
                                             )
+                                          Height: =28
+                                          LayoutMinWidth: =96
+                                          Width: =96
                                     - TxtFTTCardService:
                                         Control: ModernText
                                         Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
                                           Text: |-
                                             ="Service : " & ThisItem.Service_Actuel_ID.Value & "  ·  Type : " & ThisItem.Type_Demande_ID.Value
-                                          Size: =13
-                                          Color: =RGBA(112, 112, 112, 1)
-                                          AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtFTTCardAgent:
                                         Control: ModernText
                                         Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
                                           Text: |-
                                             ="Demandeur : " & ThisItem.Agent_Demandeur.DisplayName
-                                          Size: =13
-                                          Color: =RGBA(112, 112, 112, 1)
-                                          AutoHeight: =true
                                           Width: =Parent.Width - 36
                                     - TxtFTTCardDate:
                                         Control: ModernText
                                         Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(144, 144, 144, 1)
+                                          Size: =12
                                           Text: |-
                                             =If(
                                               IsBlank(ThisItem.Date_Dernier_Mouvement),
                                               "",
                                               "dernier traitement le " & Text(ThisItem.Date_Dernier_Mouvement, DateTimeFormat.ShortDateTime24)
                                             )
-                                          Size: =12
-                                          Color: =RGBA(144, 144, 144, 1)
-                                          AutoHeight: =true
                                           Width: =Parent.Width - 36
                         - BtnFTTCardClick:
                             Control: Classic/Button
                             Properties:
-                              X: =0
-                              Y: =0
-                              Width: =Parent.TemplateWidth
-                              Height: =Parent.TemplateHeight
-                              Text: =""
-                              Fill: =RGBA(0, 0, 0, 0)
-                              HoverFill: =RGBA(0, 0, 0, 0)
-                              PressedFill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =2
                               BorderColor: =RGBA(0, 0, 0, 0)
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Height: =Parent.TemplateHeight
                               HoverBorderColor: =RGBA(140, 12, 20, 1)
-                              PressedBorderColor: =RGBA(140, 12, 20, 1)
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
-                              RadiusBottomLeft: =12
-                              RadiusBottomRight: =12
+                              HoverFill: =RGBA(0, 0, 0, 0)
                               OnSelect: |-
                                 =Set(varSelectedDemande, ThisItem);
                                 Navigate(DetailDemande, ScreenTransition.Fade)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Text: =""
+                              Width: =Parent.TemplateWidth
                   - TxtFTEmptyTraitees:
                       Control: ModernText
                       Properties:
-                        Text: ="Aucune demande traitée."
-                        Size: =14
-                        Color: =RGBA(144, 144, 144, 1)
                         Align: =Align.Center
                         AutoHeight: =true
-                        Width: =Parent.Width - 56
+                        Color: =RGBA(144, 144, 144, 1)
+                        Size: =14
+                        Text: ="Aucune demande traitée."
                         Visible: =ctxFTTab = "traitees" && GalleryTraitees.AllItemsCount = 0
+                        Width: =Parent.Width - 56
                   - GalleryTransferees:
                       Control: Gallery
                       Variant: Vertical
                       Properties:
+                        FillPortions: =0
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
                         Items: |-
                           =With(
                               {_q: Trim(InpSearchFT.Text)},
@@ -882,149 +849,131 @@ Screens:
                                       && (IsBlank(_q) || StartsWith(DemandeRec.Title, _q) || StartsWith(DemandeRec.Agent_Demandeur.DisplayName, _q))
                               )
                           )
-                        Visible: =ctxFTTab = "transferees" && UserRole <> "Admin"
-                        FillPortions: =0
-                        Width: =Parent.Width - 56
-                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
-                        WrapCount: =1
-                        TemplateSize: =126
                         TemplatePadding: =14
-                        Fill: =RGBA(0, 0, 0, 0)
-                        TemplateFill: =RGBA(0, 0, 0, 0)
+                        TemplateSize: =126
+                        Visible: =ctxFTTab = "transferees" && UserRole <> "Admin"
+                        Width: =Parent.Width - 56
                       Children:
                         - FTTransCardContainer:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              Width: =Parent.TemplateWidth
-                              Height: =Parent.TemplateHeight
+                              DropShadow: =DropShadow.Semilight
                               Fill: =RGBA(255, 255, 255, 0.65)
+                              Height: =Parent.TemplateHeight
                               LayoutDirection: =LayoutDirection.Vertical
-                              LayoutAlignItems: =LayoutAlignItems.Start
                               LayoutGap: =6
-                              PaddingTop: =14
                               PaddingBottom: =14
                               PaddingLeft: =18
                               PaddingRight: =18
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
+                              PaddingTop: =14
                               RadiusBottomLeft: =12
                               RadiusBottomRight: =12
-                              DropShadow: =DropShadow.Semilight
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =Parent.TemplateWidth
                             Children:
                               - TxtFTTransTitle:
                                   Control: ModernText
                                   Properties:
-                                    Text: =ThisItem.DemandeRec.Title
-                                    Size: =15
-                                    FontWeight: =FontWeight.Semibold
-                                    Color: =RGBA(112, 112, 112, 1)
                                     AutoHeight: =true
+                                    Color: =RGBA(112, 112, 112, 1)
+                                    FontWeight: =FontWeight.Semibold
+                                    Text: =ThisItem.DemandeRec.Title
                                     Width: =Parent.Width - 36
                               - BadgeFTTransferee:
                                   Control: Badge
                                   Properties:
-                                    Content: ="Transférée"
                                     Appearance: ='BadgeCanvas.Appearance'.Tint
-                                    FillPortions: =0
-                                    Width: =104
+                                    BasePaletteColor: =RGBA(229, 231, 235, 1)
+                                    Content: ="Transférée"
+                                    FontColor: =RGBA(75, 85, 99, 1)
                                     Height: =26
                                     LayoutMinWidth: =104
-                                    BasePaletteColor: =RGBA(229, 231, 235, 1)
-                                    FontColor: =RGBA(75, 85, 99, 1)
+                                    Width: =104
                               - TxtFTTransNowAt:
                                   Control: ModernText
                                   Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(144, 144, 144, 1)
+                                    Size: =13
                                     Text: |-
                                       ="Actuellement : " & ThisItem.DemandeRec.Service_Actuel_ID.Value & "  ·  Statut : " & ThisItem.DemandeRec.Statut_Actuel.Value
-                                    Size: =13
-                                    Color: =RGBA(144, 144, 144, 1)
-                                    AutoHeight: =true
                                     Width: =Parent.Width - 36
                         - BtnFTTransClick:
                             Control: Classic/Button
                             Properties:
-                              X: =0
-                              Y: =0
-                              Width: =Parent.TemplateWidth
-                              Height: =Parent.TemplateHeight
-                              Text: =""
-                              Fill: =RGBA(0, 0, 0, 0)
-                              HoverFill: =RGBA(0, 0, 0, 0)
-                              PressedFill: =RGBA(0, 0, 0, 0)
-                              BorderThickness: =2
                               BorderColor: =RGBA(0, 0, 0, 0)
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Height: =Parent.TemplateHeight
                               HoverBorderColor: =RGBA(140, 12, 20, 1)
-                              PressedBorderColor: =RGBA(140, 12, 20, 1)
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
-                              RadiusBottomLeft: =12
-                              RadiusBottomRight: =12
+                              HoverFill: =RGBA(0, 0, 0, 0)
                               OnSelect: |-
                                 =Set(varSelectedDemande, ThisItem.DemandeRec);
                                 Navigate(DetailDemande, ScreenTransition.Fade)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Text: =""
+                              Width: =Parent.TemplateWidth
                   - TxtFTEmptyTransferees:
                       Control: ModernText
                       Properties:
-                        Text: ="Aucune demande transférée."
-                        Size: =14
-                        Color: =RGBA(144, 144, 144, 1)
                         Align: =Align.Center
                         AutoHeight: =true
-                        Width: =Parent.Width - 56
+                        Color: =RGBA(144, 144, 144, 1)
+                        Size: =14
+                        Text: ="Aucune demande transférée."
                         Visible: =ctxFTTab = "transferees" && UserRole <> "Admin" && GalleryTransferees.AllItemsCount = 0
+                        Width: =Parent.Width - 56
       - BarFT:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
-            X: =0
-            Y: =Parent.Height - 64
-            Width: =Parent.Width
-            Height: =64
-            Fill: =RGBA(255, 255, 255, 1)
             DropShadow: =DropShadow.Regular
-            LayoutDirection: =LayoutDirection.Horizontal
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =64
             LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
             Visible: =FileATraiter.Size = ScreenSize.Small
+            Width: =Parent.Width
+            Y: =Parent.Height - 64
           Children:
             - BEntFTAccueil:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                 Children:
                   - BIcoFTAccueil:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Home"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Width: =22
                   - BLblFTAccueil:
                       Control: ModernText
                       Properties:
-                        Text: ="Accueil"
-                        Size: =10
-                        FontWeight: =FontWeight.Semibold
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(112, 112, 112, 1)
+                        FontWeight: =FontWeight.Semibold
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Accueil"
             - BEntFTMesDem:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                   Visible: =UserRole = "Agent" || UserRole = "Admin"
@@ -1032,29 +981,25 @@ Screens:
                   - BIcoFTMesDem:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Document"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Width: =22
                   - BLblFTMesDem:
                       Control: ModernText
                       Properties:
-                        Text: ="Demandes"
-                        Size: =10
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Demandes"
             - BEntFTNouvelle:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                   Visible: =UserRole = "Agent"
@@ -1062,29 +1007,24 @@ Screens:
                   - BIcoFTNouvelle:
                       Control: ModernIcon
                       Properties:
-                        Icon: ="Add"
-                        IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
                         Height: =22
+                        IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Width: =22
                   - BLblFTNouvelle:
                       Control: ModernText
                       Properties:
-                        Text: ="Nouvelle"
-                        Size: =10
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Nouvelle"
             - BEntFTFile:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                   Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
@@ -1092,29 +1032,25 @@ Screens:
                   - BIcoFTFile:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Briefcase"
                         IconColor: =RGBA(140, 12, 20, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Width: =22
                   - BLblFTFile:
                       Control: ModernText
                       Properties:
-                        Text: ="À traiter"
-                        Size: =10
-                        Color: =RGBA(140, 12, 20, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(140, 12, 20, 1)
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="À traiter"
             - BEntFTAlertes:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                   Visible: =UserRole = "Superviseur" || UserRole = "Admin"
@@ -1122,47 +1058,67 @@ Screens:
                   - BIcoFTAlertes:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Clock"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Width: =22
                   - BLblFTAlertes:
                       Control: ModernText
                       Properties:
-                        Text: ="SLA"
-                        Size: =10
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="SLA"
+            - BEntFTStats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoFTStats:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="DataBarVertical"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblFTStats:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Stats"
             - BEntFTNotifs:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
-                  Fill: =RGBA(0, 0, 0, 0)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
                   PaddingTop: =10
                 Children:
                   - BIcoFTNotifs:
                       Control: ModernIcon
                       Properties:
+                        Height: =22
                         Icon: ="Alert"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        Width: =22
-                        Height: =22
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Width: =22
                   - BLblFTNotifs:
                       Control: ModernText
                       Properties:
-                        Text: ="Notifs"
-                        Size: =10
-                        Color: =RGBA(112, 112, 112, 1)
                         AutoHeight: =true
-                        FillPortions: =0
+                        Color: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Notifs"
