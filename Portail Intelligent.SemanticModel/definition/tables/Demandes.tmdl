@@ -99,6 +99,21 @@ table Demandes
 		formatString: #,0.00
 		lineageTag: f317425c-ce11-4fc1-8390-2e28b7035c29
 
+	/// Nombre de demandes avec Statut_Actuel = 'Soumis'
+	measure 'Demandes Soumises' = CALCULATE(COUNTROWS(Demandes), Demandes[Statut_Actuel] = "Soumis")
+		formatString: #,0
+		lineageTag: eb27fc0c-2f0e-4427-9439-6bcdc191c3e6
+
+	/// Nombre de demandes avec Statut_Actuel = 'En cours'
+	measure 'Demandes En Cours' = CALCULATE(COUNTROWS(Demandes), Demandes[Statut_Actuel] = "En cours")
+		formatString: #,0
+		lineageTag: f4c01cf0-dcb3-4f7a-9880-718da9b509e6
+
+	/// Nombre de demandes avec Statut_Actuel = 'Clôturé'
+	measure 'Demandes Clôturées' = CALCULATE(COUNTROWS(Demandes), Demandes[Statut_Actuel] = "Clôturé")
+		formatString: #,0
+		lineageTag: 35e1c477-f32f-4c25-a1a4-06218e01531f
+
 	column FileSystemObjectType
 		dataType: string
 		lineageTag: 8d635576-1293-4c80-8658-b558e973bdc7
