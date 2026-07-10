@@ -1,0 +1,43 @@
+relationship Demandes_TypeDemande
+	fromColumn: Demandes.Type_Demande_IDId
+	toColumn: Types_Demandes.'ID.1'
+
+relationship Demandes_ServiceSiege
+	fromColumn: Demandes.Service_Actuel_IDId
+	toColumn: Services_Siege.'ID.1'
+
+relationship MembresServices_Agent
+	fromColumn: Membres_Services.UtilisateurId
+	toColumn: Agents.'ID.1'
+
+relationship MembresServices_ServiceSiege
+	fromColumn: Membres_Services.Service_IDId
+	toColumn: Services_Siege.'ID.1'
+
+relationship HistoriqueDemandes_Demandes
+	fromColumn: Historique_Demandes.Demande_ID
+	toColumn: Demandes.'ID.1'
+
+relationship Agents_Agences
+	fromColumn: Agents.Agence_ID0Id
+	toColumn: Agences.'ID.1'
+
+relationship ServiceSiege_ResponsableAgent
+	isActive: false
+	fromColumn: Services_Siege.Responsable_ServiceId
+	toColumn: Agents.'ID.1'
+
+relationship TypesDemandes_ServiceParent
+	isActive: false
+	fromColumn: Types_Demandes.Service_Parent_IDId
+	toColumn: Services_Siege.'ID.1'
+
+relationship Demandes_AgentDemandeur_UserInfo
+	fromColumn: Demandes.Agent_DemandeurId
+	toColumn: ListeInfoUtilisateur.'ID.1'
+
+relationship Demandes_GestionnaireAssigne_UserInfo
+	isActive: false
+	fromColumn: Demandes.Gestionnaire_AssigneId
+	toColumn: ListeInfoUtilisateur.'ID.1'
+

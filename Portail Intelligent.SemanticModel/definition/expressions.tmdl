@@ -1,0 +1,90 @@
+expression appdata =
+		let
+		    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+		    #"2d19e203-e25a-4fc8-b49b-5c8de9a564ef" = Source{[Id="2d19e203-e25a-4fc8-b49b-5c8de9a564ef"]}[Items]
+		in
+		    #"2d19e203-e25a-4fc8-b49b-5c8de9a564ef"
+	lineageTag: a9208b21-9dc4-414e-98db-72cd95aaa216
+
+	annotation PBI_ResultType = Table
+
+expression appfiles =
+		let
+		    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+		    #"b3914e83-be18-49ea-a77b-3625385b5526" = Source{[Id="b3914e83-be18-49ea-a77b-3625385b5526"]}[Items]
+		in
+		    #"b3914e83-be18-49ea-a77b-3625385b5526"
+	lineageTag: c104422c-d478-4fd2-8df0-f62db5046093
+
+	annotation PBI_ResultType = Table
+
+expression 'Bibliothèque de styles' =
+		let
+		    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+		    #"c01a6f84-a437-4193-81cc-be2994a57e3c" = Source{[Id="c01a6f84-a437-4193-81cc-be2994a57e3c"]}[Items]
+		in
+		    #"c01a6f84-a437-4193-81cc-be2994a57e3c"
+	lineageTag: 18db7be4-b8cd-4387-b9f4-3fa537a067ff
+
+	annotation PBI_ResultType = Table
+
+expression Documents =
+		let
+		    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+		    #"b5aec902-88e4-44b0-aa4b-f5a2882fa204" = Source{[Id="b5aec902-88e4-44b0-aa4b-f5a2882fa204"]}[Items]
+		in
+		    #"b5aec902-88e4-44b0-aa4b-f5a2882fa204"
+	lineageTag: e50106ed-70fe-40af-84e4-f4cb78a877cc
+
+	annotation PBI_ResultType = Table
+
+expression 'Formulaires convertis' =
+		let
+		    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+		    #"c5686ae8-4e95-4f5a-9eac-2e155de09ec6" = Source{[Id="c5686ae8-4e95-4f5a-9eac-2e155de09ec6"]}[Items]
+		in
+		    #"c5686ae8-4e95-4f5a-9eac-2e155de09ec6"
+	lineageTag: 1475b940-02b5-4a62-9098-4d02e3e4fdf3
+
+	annotation PBI_ResultType = Table
+
+expression 'Galerie Modèles de listes' =
+		let
+		    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+		    #"7c69987c-37ee-49d0-b0cf-025b1df3451a" = Source{[Id="7c69987c-37ee-49d0-b0cf-025b1df3451a"]}[Items]
+		in
+		    #"7c69987c-37ee-49d0-b0cf-025b1df3451a"
+	lineageTag: 73e3c0b5-689f-47c9-bf8e-7808d77933b0
+
+	annotation PBI_ResultType = Table
+
+expression 'Galerie Solutions' =
+		let
+		    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+		    #"47514bf7-ec83-4aad-a3c9-2f4daf159347" = Source{[Id="47514bf7-ec83-4aad-a3c9-2f4daf159347"]}[Items]
+		in
+		    #"47514bf7-ec83-4aad-a3c9-2f4daf159347"
+	lineageTag: e9d508e3-281b-439d-9e9e-e6eb59c74fe4
+
+	annotation PBI_ResultType = Table
+
+expression 'Modèles de formulaire' =
+		let
+		    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+		    #"2bf4d4a2-5b36-4dc2-b665-a7dca1b16c83" = Source{[Id="2bf4d4a2-5b36-4dc2-b665-a7dca1b16c83"]}[Items]
+		in
+		    #"2bf4d4a2-5b36-4dc2-b665-a7dca1b16c83"
+	lineageTag: 0ab785ef-560f-4fb6-9c3c-6ed35d9f7c8e
+
+	annotation PBI_ResultType = Table
+
+expression Performance_Mensuelle_Agents =
+		let
+		    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+		    #"5d393765-bc68-40f2-a7f9-9eb599591fe3" = Source{[Id="5d393765-bc68-40f2-a7f9-9eb599591fe3"]}[Items]
+		in
+		    #"5d393765-bc68-40f2-a7f9-9eb599591fe3"
+	lineageTag: 37ae450a-18a7-4e66-bfc1-06a38bdeaada
+
+	annotation PBI_ResultType = Table
+

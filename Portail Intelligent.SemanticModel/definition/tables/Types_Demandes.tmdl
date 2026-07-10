@@ -1,0 +1,160 @@
+table Types_Demandes
+	lineageTag: 94c7391b-267d-4211-b540-494ab40e3d38
+
+	column FileSystemObjectType
+		dataType: string
+		lineageTag: 7aff39e9-a269-4553-9871-14f4d1088356
+		summarizeBy: none
+		sourceColumn: FileSystemObjectType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		lineageTag: cae94a91-038f-438b-ab7e-0abdcd067d51
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServerRedirectedEmbedUri
+		dataType: string
+		lineageTag: 18286395-cb97-411c-a696-0a6939dba9d0
+		summarizeBy: none
+		sourceColumn: ServerRedirectedEmbedUri
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServerRedirectedEmbedUrl
+		dataType: string
+		lineageTag: a12e345e-dd72-4f00-bb54-24ee0f363a55
+		summarizeBy: none
+		sourceColumn: ServerRedirectedEmbedUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContentTypeId
+		dataType: string
+		lineageTag: 6363f234-48e8-46ac-9b9a-16cf8798210f
+		summarizeBy: none
+		sourceColumn: ContentTypeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 302fa3de-767f-4615-afac-243593e06613
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column OData__ColorTag
+		dataType: string
+		lineageTag: fb91dfe9-f89e-4107-b26a-2bde40a0a8a6
+		summarizeBy: none
+		sourceColumn: OData__ColorTag
+
+		annotation SummarizationSetBy = Automatic
+
+	column ComplianceAssetId
+		dataType: string
+		lineageTag: 8ac79ff0-7c8e-4710-bb56-08c9a405dafe
+		summarizeBy: none
+		sourceColumn: ComplianceAssetId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Complexite_Theorique
+		dataType: string
+		lineageTag: 7106a4ba-c822-4418-b50a-bb781337ca4b
+		summarizeBy: none
+		sourceColumn: Complexite_Theorique
+
+		annotation SummarizationSetBy = Automatic
+
+	column Service_Parent_IDId
+		dataType: int64
+		lineageTag: 1ece6304-ddad-4202-a098-838f76add5eb
+		summarizeBy: none
+		sourceColumn: Service_Parent_IDId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID.1'
+		dataType: int64
+		lineageTag: f61668aa-d6ed-49d7-be64-8ca2bfc7f9fa
+		summarizeBy: none
+		sourceColumn: ID.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modified
+		dataType: dateTime
+		lineageTag: 05516d01-23b0-470e-abce-949bdaad47c4
+		summarizeBy: none
+		sourceColumn: Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created
+		dataType: dateTime
+		lineageTag: 293d52e7-6d45-4d8c-b987-cae8067d20c0
+		summarizeBy: none
+		sourceColumn: Created
+
+		annotation SummarizationSetBy = Automatic
+
+	column AuthorId
+		dataType: int64
+		lineageTag: f634efa7-a2fd-4799-bbfe-009f9ceb8fd3
+		summarizeBy: none
+		sourceColumn: AuthorId
+
+		annotation SummarizationSetBy = Automatic
+
+	column EditorId
+		dataType: int64
+		lineageTag: 543e3cde-75e3-4038-8ca0-8c9d8cec7a19
+		summarizeBy: none
+		sourceColumn: EditorId
+
+		annotation SummarizationSetBy = Automatic
+
+	column OData__UIVersionString
+		dataType: string
+		lineageTag: 0e6aea24-c5dd-4b4b-8304-b5039889b824
+		summarizeBy: none
+		sourceColumn: OData__UIVersionString
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attachments
+		dataType: string
+		lineageTag: 3003ea49-f511-4df3-9442-e22d735a9727
+		summarizeBy: none
+		sourceColumn: Attachments
+
+		annotation SummarizationSetBy = Automatic
+
+	column GUID
+		dataType: string
+		lineageTag: a5d0647f-c956-4972-ad0e-b2e9d52b497b
+		summarizeBy: none
+		sourceColumn: GUID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Types_Demandes = m
+		mode: import
+		source =
+				let
+				    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+				    #"32167ee0-e386-46d9-9c4c-ba4998d7a2e4" = Source{[Id="32167ee0-e386-46d9-9c4c-ba4998d7a2e4"]}[Items],
+				    #"Colonnes renommées" = Table.RenameColumns(#"32167ee0-e386-46d9-9c4c-ba4998d7a2e4",{{"ID", "ID.1"}}),
+				    #"Types dates modifiés" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Modified", type datetime}, {"Created", type datetime}}, "fr-FR")
+				in
+				    #"Types dates modifiés"
+
+	annotation PBI_ResultType = Table
+

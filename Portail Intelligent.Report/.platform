@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Portail Intelligent"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "64409c93-f61e-45c5-af69-2023ced9c518"
+  }
+}

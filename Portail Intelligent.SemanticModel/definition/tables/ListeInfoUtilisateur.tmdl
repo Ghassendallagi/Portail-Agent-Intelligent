@@ -1,0 +1,58 @@
+table ListeInfoUtilisateur
+	lineageTag: 3a560782-fe47-43c2-a086-78dba38b8725
+
+	column 'ID.1'
+		dataType: int64
+		lineageTag: ae0cead4-eca0-47d3-8308-74f905fcb4f8
+		sourceColumn: ID.1
+
+	column Title
+		dataType: string
+		lineageTag: c4721a13-96fd-4838-9610-32b3d4b2c32c
+		sourceColumn: Title
+
+	column Name
+		dataType: string
+		lineageTag: 8d8502fb-2b54-42ac-9538-bec7affa77ee
+		sourceColumn: Name
+
+	column EMail
+		dataType: string
+		lineageTag: 46f72bf5-f823-425c-a2f1-f6fb3166188f
+		sourceColumn: EMail
+
+	column Department
+		dataType: string
+		lineageTag: 0c284cf9-0de9-4242-a774-596322af1dd2
+		sourceColumn: Department
+
+	column JobTitle
+		dataType: string
+		lineageTag: 1bffa4d3-4c93-412e-964c-9177e3e6965e
+		sourceColumn: JobTitle
+
+	column IsSiteAdmin
+		dataType: boolean
+		lineageTag: 199a400e-de53-4832-a892-4a20e24d0072
+		sourceColumn: IsSiteAdmin
+
+	column Modified
+		dataType: dateTime
+		lineageTag: 6cd64af9-c2de-4254-b459-aa27b05cf3fe
+		sourceColumn: Modified
+
+	column Created
+		dataType: dateTime
+		lineageTag: 865c0940-f380-4b58-912b-600aa438a4ef
+		sourceColumn: Created
+
+	partition ListeInfoUtilisateur = m
+		mode: import
+		source =
+				let
+				    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+				    UserInfoList = Source{[Title="Liste d'informations utilisateur"]}[Items],
+				    #"Colonnes renommées" = Table.RenameColumns(UserInfoList, {{"ID", "ID.1"}})
+				in
+				    #"Colonnes renommées"
+

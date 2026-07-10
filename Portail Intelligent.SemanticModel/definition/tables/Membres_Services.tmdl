@@ -1,0 +1,176 @@
+table Membres_Services
+	lineageTag: 6b83edd6-6ec4-4da0-8c36-ed7b3d917f4d
+
+	column FileSystemObjectType
+		dataType: string
+		lineageTag: f6c5a27f-377c-455d-bc3b-7e5ed6ccc6e4
+		summarizeBy: none
+		sourceColumn: FileSystemObjectType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		lineageTag: e08977c0-5ca3-4bda-92e4-ff9a7ce25fa5
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServerRedirectedEmbedUri
+		dataType: string
+		lineageTag: aedaad69-314d-42e8-8270-35427d2a923b
+		summarizeBy: none
+		sourceColumn: ServerRedirectedEmbedUri
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServerRedirectedEmbedUrl
+		dataType: string
+		lineageTag: ce478fe8-94c8-40a9-b5ff-06093c2dd827
+		summarizeBy: none
+		sourceColumn: ServerRedirectedEmbedUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContentTypeId
+		dataType: string
+		lineageTag: 9762e068-72c6-4c3d-b10b-80876591fa6f
+		summarizeBy: none
+		sourceColumn: ContentTypeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 46661e03-a587-4ef5-bc9a-8459d194ab3b
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column OData__ColorTag
+		dataType: string
+		lineageTag: b0e5398c-9354-4ec1-a16d-0519d10cd9a1
+		summarizeBy: none
+		sourceColumn: OData__ColorTag
+
+		annotation SummarizationSetBy = Automatic
+
+	column ComplianceAssetId
+		dataType: string
+		lineageTag: 3cf3f24d-c7cc-494b-afac-7211b477cbb1
+		summarizeBy: none
+		sourceColumn: ComplianceAssetId
+
+		annotation SummarizationSetBy = Automatic
+
+	column UtilisateurId
+		dataType: int64
+		lineageTag: 4b2cf655-5710-445f-a013-15095fc3b268
+		summarizeBy: none
+		sourceColumn: UtilisateurId
+
+		annotation SummarizationSetBy = Automatic
+
+	column UtilisateurStringId
+		dataType: string
+		lineageTag: 8991e9a6-d961-4cbf-b59f-399209c689e5
+		summarizeBy: none
+		sourceColumn: UtilisateurStringId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Role
+		dataType: string
+		lineageTag: 79b78bff-8231-4184-8ea8-47c3254cbf73
+		summarizeBy: none
+		sourceColumn: Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column Service_IDId
+		dataType: int64
+		lineageTag: 9d3dbb43-7a07-42c7-b5ab-3d0de2deaa44
+		summarizeBy: none
+		sourceColumn: Service_IDId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID.1'
+		dataType: int64
+		lineageTag: c3683100-472f-4f1d-ad50-325cc6e784af
+		summarizeBy: none
+		sourceColumn: ID.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modified
+		dataType: dateTime
+		lineageTag: 4f7770c9-c266-41e8-8aee-1a7d3e779ab4
+		summarizeBy: none
+		sourceColumn: Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created
+		dataType: dateTime
+		lineageTag: d2caadcd-bea6-4fdb-b0eb-6597ebc7b1fa
+		summarizeBy: none
+		sourceColumn: Created
+
+		annotation SummarizationSetBy = Automatic
+
+	column AuthorId
+		dataType: int64
+		lineageTag: 2a7c3fae-781e-483f-aa19-fb16653c3640
+		summarizeBy: none
+		sourceColumn: AuthorId
+
+		annotation SummarizationSetBy = Automatic
+
+	column EditorId
+		dataType: int64
+		lineageTag: 573caf2e-f187-4746-b773-646f561aba0c
+		summarizeBy: none
+		sourceColumn: EditorId
+
+		annotation SummarizationSetBy = Automatic
+
+	column OData__UIVersionString
+		dataType: string
+		lineageTag: c580fde3-7af9-4ab0-af00-2940b120a8e5
+		summarizeBy: none
+		sourceColumn: OData__UIVersionString
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attachments
+		dataType: string
+		lineageTag: a60b1a81-1301-4322-9878-08811ce7fb5b
+		summarizeBy: none
+		sourceColumn: Attachments
+
+		annotation SummarizationSetBy = Automatic
+
+	column GUID
+		dataType: string
+		lineageTag: 9d8a3490-db5b-4d3b-b150-2c0c1cd91902
+		summarizeBy: none
+		sourceColumn: GUID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Membres_Services = m
+		mode: import
+		source =
+				let
+				    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+				    #"26689989-5456-478a-9a81-8bfc9e20c24d" = Source{[Id="26689989-5456-478a-9a81-8bfc9e20c24d"]}[Items],
+				    #"Colonnes renommées" = Table.RenameColumns(#"26689989-5456-478a-9a81-8bfc9e20c24d",{{"ID", "ID.1"}}),
+				    #"Types dates modifiés" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Modified", type datetime}, {"Created", type datetime}}, "fr-FR")
+				in
+				    #"Types dates modifiés"
+
+	annotation PBI_ResultType = Table
+

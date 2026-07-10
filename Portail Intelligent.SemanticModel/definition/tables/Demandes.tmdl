@@ -1,0 +1,403 @@
+table Demandes
+	lineageTag: 97596c23-9a89-4df8-a44e-c32af58275c2
+
+	/// Nombre total de demandes dans le modèle
+	measure 'Total Demandes' = COUNTROWS(Demandes)
+		formatString: #,0
+		lineageTag: 159a100d-6e6d-4eea-b7c7-163729d06bce
+
+	/// Demandes avec alerte retard active
+	measure 'Demandes En Retard' = COUNTROWS(FILTER(Demandes, Demandes[Alerte_Retard_Active] = TRUE()))
+		formatString: #,0
+		lineageTag: 1b2c4599-ef56-48ae-ab46-dcdda2d58687
+
+	/// Demandes avec échéance proche mais pas encore en retard
+	measure 'Demandes Échéance Proche' = COUNTROWS(FILTER(Demandes, Demandes[Alerte_Echeance_Notifiee] = TRUE() && Demandes[Alerte_Retard_Active] = FALSE()))
+		formatString: #,0
+		lineageTag: 0e74f06b-7b13-4c21-ada0-592c7ac330d3
+
+	/// Demandes sans gestionnaire assigné
+	measure 'Demandes Non Assignées' = COUNTROWS(FILTER(Demandes, ISBLANK(Demandes[Gestionnaire_AssigneId])))
+		formatString: #,0
+		lineageTag: bd28d895-4b5e-401d-add3-ad4d4a5f365a
+
+	/// Durée moyenne entre Date_Soumission et Date_Cloture, en heures, sur les demandes clôturées uniquement
+	measure 'Délai Moyen Traitement (Heures)' =
+			AVERAGEX(
+			    FILTER(Demandes, NOT ISBLANK(Demandes[Date_Cloture])),
+			    (Demandes[Date_Cloture] - Demandes[Date_Soumission]) * 24
+			)
+		formatString: #,0.00
+		lineageTag: 4885a164-9e64-4424-b247-7a4bb7b995c8
+
+	/// Proportion de demandes clôturées sans dépassement de délai
+	measure 'Taux de Respect du SLA (%)' =
+			VAR DemandesCloturees = FILTER(Demandes, NOT ISBLANK(Demandes[Date_Cloture]))
+			VAR TotalCloturees = COUNTROWS(DemandesCloturees)
+			VAR SansRetard = COUNTROWS(FILTER(DemandesCloturees, Demandes[Alerte_Retard_Active] = FALSE()))
+			RETURN
+			    IF(TotalCloturees = 0, BLANK(), DIVIDE(SansRetard, TotalCloturees) * 100)
+		formatString: #,0.00
+		lineageTag: 16c10166-dc64-4bc6-a647-c37ced6e08fc
+
+	/// % de demandes avec Statut_Actuel = 'Rejeté'. Valeur attendue = 0 sur données initiales (statut non encore présent).
+	measure 'Taux de Rejet (%)' =
+			DIVIDE(
+			    COUNTROWS(FILTER(Demandes, Demandes[Statut_Actuel] = "Rejeté")),
+			    COUNTROWS(Demandes)
+			) * 100
+		formatString: #,0.00
+		lineageTag: 4098b36f-c994-4072-a285-fd0b6e734cd4
+
+	/// % de demandes avec Statut_Actuel = 'Validé'. Valeur attendue = 0 sur données initiales (statut transitoire avant Clôturé).
+	measure 'Taux de Validation (%)' =
+			DIVIDE(
+			    COUNTROWS(FILTER(Demandes, Demandes[Statut_Actuel] = "Validé")),
+			    COUNTROWS(Demandes)
+			) * 100
+		formatString: #,0.00
+		lineageTag: b93ba2c4-0fd9-42b1-aee1-5d0322e19f41
+
+	/// Nombre de demandes par service - utilise la relation active Demandes_ServiceSiege. À utiliser dans un visuel groupé par Services_Siege[Title].
+	measure 'Demandes par Service' = CALCULATE(COUNTROWS(Demandes))
+		formatString: #,0
+		lineageTag: 9d88f641-771d-4682-9bf6-2300e02628bb
+
+	/// Nombre de demandes assignées à chaque gestionnaire - utilise la relation inactive Demandes_GestionnaireAssigne via USERELATIONSHIP
+	measure 'Demandes Traitées par Gestionnaire' =
+			CALCULATE(
+			    COUNTROWS(Demandes),
+			    USERELATIONSHIP(Demandes[Gestionnaire_AssigneId], ListeInfoUtilisateur[ID.1])
+			)
+		formatString: #,0
+		lineageTag: f3e42b08-1a49-4678-ae4e-8e62a69083b3
+
+	/// Nombre de lignes Historique_Demandes avec Type_Modification = 'Transfert'
+	measure 'Nombre de Transferts' = COUNTROWS(FILTER(Historique_Demandes, Historique_Demandes[Type_Modification] = "Transfert"))
+		formatString: #,0
+		lineageTag: 79bebd4b-ec69-4816-bb2f-1cbd0bf18ff8
+
+	/// Temps moyen (heures) entre la Date_Soumission et la première ligne Historique de type 'Assignation'. Ignore les demandes sans historique d'assignation.
+	measure 'Délai Moyen Assignation (Heures)' =
+			AVERAGEX(
+			    Demandes,
+			    VAR PremiereDateAssignation =
+			        MINX(
+			            FILTER(
+			                RELATEDTABLE(Historique_Demandes),
+			                Historique_Demandes[Type_Modification] = "Assignation"
+			            ),
+			            Historique_Demandes[Date_Debut_Etape]
+			        )
+			    RETURN
+			        IF(
+			            NOT ISBLANK(PremiereDateAssignation),
+			            (PremiereDateAssignation - Demandes[Date_Soumission]) * 24,
+			            BLANK()
+			        )
+			)
+		formatString: #,0.00
+		lineageTag: f317425c-ce11-4fc1-8390-2e28b7035c29
+
+	column FileSystemObjectType
+		dataType: string
+		lineageTag: 8d635576-1293-4c80-8658-b558e973bdc7
+		summarizeBy: none
+		sourceColumn: FileSystemObjectType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		lineageTag: 6667ce04-3085-4710-a475-6875d2a5b588
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServerRedirectedEmbedUri
+		dataType: string
+		lineageTag: ad8dc027-a77e-482e-b4b0-41cf15c95dd5
+		summarizeBy: none
+		sourceColumn: ServerRedirectedEmbedUri
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServerRedirectedEmbedUrl
+		dataType: string
+		lineageTag: cd15684e-066d-4c5d-8941-85ec8df47a89
+		summarizeBy: none
+		sourceColumn: ServerRedirectedEmbedUrl
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContentTypeId
+		dataType: string
+		lineageTag: 6ef82266-270e-48e4-9737-36a61f998389
+		summarizeBy: none
+		sourceColumn: ContentTypeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: f10820c7-81da-48bc-9456-abaf99fae57a
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column OData__ColorTag
+		dataType: string
+		lineageTag: 2e6a3610-800c-4768-a9a7-48f337f77701
+		summarizeBy: none
+		sourceColumn: OData__ColorTag
+
+		annotation SummarizationSetBy = Automatic
+
+	column ComplianceAssetId
+		dataType: string
+		lineageTag: f822e5a5-52ab-41e4-88b0-e5927c03ec21
+		summarizeBy: none
+		sourceColumn: ComplianceAssetId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Agent_DemandeurId
+		dataType: int64
+		lineageTag: fc9063b7-a266-461a-8aea-43cc0b38743d
+		summarizeBy: none
+		sourceColumn: Agent_DemandeurId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Agent_DemandeurStringId
+		dataType: string
+		lineageTag: 9f3ac70d-4e36-4fac-9eb2-d51bde356b53
+		summarizeBy: none
+		sourceColumn: Agent_DemandeurStringId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gestionnaire_AssigneId
+		dataType: int64
+		lineageTag: 7d51f446-828a-4031-a3ba-3c5fc2ce986a
+		summarizeBy: none
+		sourceColumn: Gestionnaire_AssigneId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gestionnaire_AssigneStringId
+		dataType: string
+		lineageTag: c94545a1-080b-49a9-9478-bb7a180f40e4
+		summarizeBy: none
+		sourceColumn: Gestionnaire_AssigneStringId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Niveau_Urgence
+		dataType: string
+		lineageTag: 3a66715f-c400-4a85-94af-24835ec7219d
+		summarizeBy: none
+		sourceColumn: Niveau_Urgence
+
+		annotation SummarizationSetBy = Automatic
+
+	column Statut_Actuel
+		dataType: string
+		lineageTag: 809389c8-283e-49e4-9d99-8aad653ec1d2
+		summarizeBy: none
+		sourceColumn: Statut_Actuel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Num_Mouvement_Cours
+		dataType: string
+		lineageTag: 0d388c5c-a182-474f-af94-d4cc284ac385
+		summarizeBy: none
+		sourceColumn: Num_Mouvement_Cours
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date_Soumission
+		dataType: dateTime
+		lineageTag: 7eae00e2-5cb9-4089-976c-19249ab3703c
+		summarizeBy: none
+		sourceColumn: Date_Soumission
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date_Dernier_Mouvement
+		dataType: dateTime
+		lineageTag: e6876ac5-79c5-47cf-97de-9080038fd040
+		summarizeBy: none
+		sourceColumn: Date_Dernier_Mouvement
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date_Cloture
+		dataType: dateTime
+		lineageTag: b4b73f0d-0e79-4e44-b0cb-3d54062635f6
+		summarizeBy: none
+		sourceColumn: Date_Cloture
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prediction_Delai_ML
+		dataType: string
+		lineageTag: 2f1315ba-1e0d-4e5a-8587-6383d4024931
+		summarizeBy: none
+		sourceColumn: Prediction_Delai_ML
+
+		annotation SummarizationSetBy = Automatic
+
+	column Probabilite_Retard_ML
+		dataType: decimal
+		lineageTag: b6304864-7988-4691-98cb-56da7ccf6085
+		summarizeBy: none
+		sourceColumn: Probabilite_Retard_ML
+
+		annotation SummarizationSetBy = Automatic
+
+	column Alerte_Retard_Active
+		dataType: boolean
+		lineageTag: 6fe7fc7a-1ad2-4730-8c5a-0108c1310e84
+		summarizeBy: none
+		sourceColumn: Alerte_Retard_Active
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type_Demande_IDId
+		dataType: int64
+		lineageTag: 0a5f50e6-946b-471c-9661-c42dae7bb9a5
+		summarizeBy: none
+		sourceColumn: Type_Demande_IDId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Service_Actuel_IDId
+		dataType: int64
+		lineageTag: 4fc18772-f618-4094-9957-396bf4d333cd
+		summarizeBy: none
+		sourceColumn: Service_Actuel_IDId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type_Modification
+		dataType: string
+		lineageTag: 96dfbf56-4e45-48c0-af50-8c2647065cc1
+		summarizeBy: none
+		sourceColumn: Type_Modification
+
+		annotation SummarizationSetBy = Automatic
+
+	column Service_Precedent_ID
+		dataType: string
+		lineageTag: 9f7498eb-55cf-42b0-96de-304becee81a7
+		summarizeBy: none
+		sourceColumn: Service_Precedent_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Motif_Rejet
+		dataType: string
+		lineageTag: b8f6c0bd-0816-4a13-8fda-2c86758f89b3
+		summarizeBy: none
+		sourceColumn: Motif_Rejet
+
+		annotation SummarizationSetBy = Automatic
+
+	column Alerte_Echeance_Notifiee
+		dataType: boolean
+		lineageTag: 58759cc2-17e9-4f04-8b3d-3e45516cc147
+		summarizeBy: none
+		sourceColumn: Alerte_Echeance_Notifiee
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID.1'
+		dataType: int64
+		lineageTag: 85c113cc-3cf0-4c8f-a617-ff45d18281ce
+		summarizeBy: none
+		sourceColumn: ID.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modified
+		dataType: dateTime
+		lineageTag: 47115cf1-655b-41fc-aacb-2008b6109baf
+		summarizeBy: none
+		sourceColumn: Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created
+		dataType: dateTime
+		lineageTag: eefa225f-eb30-4d29-abfa-70bf4238ede6
+		summarizeBy: none
+		sourceColumn: Created
+
+		annotation SummarizationSetBy = Automatic
+
+	column AuthorId
+		dataType: int64
+		lineageTag: 05e718da-bd72-4d52-90a1-cc2812e45c18
+		summarizeBy: none
+		sourceColumn: AuthorId
+
+		annotation SummarizationSetBy = Automatic
+
+	column EditorId
+		dataType: int64
+		lineageTag: 235084f8-e579-4236-8f5a-50a0ab173368
+		summarizeBy: none
+		sourceColumn: EditorId
+
+		annotation SummarizationSetBy = Automatic
+
+	column OData__UIVersionString
+		dataType: string
+		lineageTag: 1b8770bd-63bd-4096-9130-c59248af8095
+		summarizeBy: none
+		sourceColumn: OData__UIVersionString
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attachments
+		dataType: string
+		lineageTag: 6e400cad-150f-4762-838c-9e22ea2c3c92
+		summarizeBy: none
+		sourceColumn: Attachments
+
+		annotation SummarizationSetBy = Automatic
+
+	column GUID
+		dataType: string
+		lineageTag: d5b75546-bd57-4136-9ebd-e3db290bbd30
+		summarizeBy: none
+		sourceColumn: GUID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Demandeur_Nom = LOOKUPVALUE(ListeInfoUtilisateur[Title], ListeInfoUtilisateur[ID.1], Demandes[Agent_DemandeurId])
+		dataType: string
+		lineageTag: c8f09844-cac5-4e31-bc6a-e012a936a320
+
+	column 'Ancienneté (Jours)' = DATEDIFF(Demandes[Date_Soumission], TODAY(), DAY)
+		dataType: int64
+		lineageTag: 426d7b5e-faa9-4cd1-8891-144550054790
+		summarizeBy: none
+
+	partition Demandes = m
+		mode: import
+		source =
+				let
+				    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+				    #"20c94652-f1e6-4f89-9736-cde7b553c412" = Source{[Id="20c94652-f1e6-4f89-9736-cde7b553c412"]}[Items],
+				    #"Colonnes renommées" = Table.RenameColumns(#"20c94652-f1e6-4f89-9736-cde7b553c412",{{"ID", "ID.1"}}),
+				    #"Types dates modifiés" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Date_Soumission", type datetime}, {"Date_Dernier_Mouvement", type datetime}, {"Date_Cloture", type datetime}, {"Modified", type datetime}, {"Created", type datetime}}, "fr-FR")
+				in
+				    #"Types dates modifiés"
+
+	annotation PBI_ResultType = Table
+

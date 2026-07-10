@@ -1,0 +1,25 @@
+model Model
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
+
+annotation PBI_QueryOrder = ["Agences","Agents","appdata","appfiles","Bibliothèque de styles","Bibliothèque des journaux de maintenance","Documents","Extensions de modèle web","Demandes","Formulaires convertis","Galerie de composants WebPart","Galerie Modèles de listes","Galerie Pages maîtres","Galerie Solutions","Galerie Thèmes","Liste d'informations utilisateur","Membres_Services","Modèles de formulaire","Notifications","Pages du site","Performance_Mensuelle_Agents","Pièces jointes","Présentations composées","Services_Siege","TaxonomyHiddenList","Types_Demandes","Historique_Demandes"]
+
+ref table Agences
+ref table Agents
+ref table Demandes
+ref table Membres_Services
+ref table Services_Siege
+ref table Types_Demandes
+ref table Historique_Demandes
+ref table ListeInfoUtilisateur
+
+ref cultureInfo fr-FR
+
