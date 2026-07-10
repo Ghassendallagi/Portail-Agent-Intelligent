@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "837c5399432c10d407fe",
+  "name": "52167a352265c87c50a6",
   "position": {
-    "x": 446,
-    "y": 130,
-    "z": 2001,
+    "x": 40,
+    "y": 40,
+    "z": 1000,
     "height": 160,
-    "width": 380,
-    "tabOrder": 2001
+    "width": 300,
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "Demandes"
                     }
                   },
-                  "Property": "Demandes En Cours"
+                  "Property": "Demandes En Retard"
                 }
               },
-              "queryRef": "Demandes.Demandes En Cours",
-              "nativeQueryRef": "Demandes En Cours"
+              "queryRef": "Demandes.Demandes En Retard",
+              "nativeQueryRef": "Demandes En Retard"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "Demandes"
                   }
                 },
-                "Property": "Demandes En Cours"
+                "Property": "Demandes En Retard"
               }
             },
             "direction": "Descending"
@@ -78,7 +78,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "a1b2c3d4e5f607182930",
+        "name": "90102030405060708090",
         "field": {
           "Measure": {
             "Expression": {
@@ -86,7 +86,7 @@
                 "Entity": "Demandes"
               }
             },
-            "Property": "Demandes En Cours"
+            "Property": "Demandes En Retard"
           }
         },
         "type": "Advanced"

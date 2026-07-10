@@ -15953,6 +15953,16 @@ cultureInfo fr-FR
 			            },
 			            "Weight": 0.714
 			          }
+			        },
+			        {
+			          "Gestionnaire": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -16651,6 +16661,48 @@ cultureInfo fr-FR
 			        }
 			      ],
 			      "SemanticType": "Time"
+			    },
+			    "demandes.gestionnaire_nom": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Gestionnaire_Nom"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Gestionnaire": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.délai_traitement_heures": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Délai Traitement (Heures)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Délai (Heures)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {

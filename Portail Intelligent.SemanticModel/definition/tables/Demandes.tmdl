@@ -114,6 +114,11 @@ table Demandes
 		formatString: #,0
 		lineageTag: 35e1c477-f32f-4c25-a1a4-06218e01531f
 
+	/// Nombre de demandes en retard ou en échéance proche
+	measure 'Nombre Alertes Actives' = CALCULATE(COUNTROWS(Demandes), Demandes[Est_Alerte_Active] = TRUE())
+		formatString: #,0
+		lineageTag: 8dffc579-248d-4360-9971-7df0713375e3
+
 	column FileSystemObjectType
 		dataType: string
 		lineageTag: 8d635576-1293-4c80-8658-b558e973bdc7
@@ -401,6 +406,25 @@ table Demandes
 	column 'Ancienneté (Jours)' = DATEDIFF(Demandes[Date_Soumission], TODAY(), DAY)
 		dataType: int64
 		lineageTag: 426d7b5e-faa9-4cd1-8891-144550054790
+		summarizeBy: none
+
+	/// Nom du gestionnaire assigné, ou 'Non assignée' si Gestionnaire_AssigneId est vide
+	column Gestionnaire_Nom = IF(ISBLANK(Demandes[Gestionnaire_AssigneId]), "Non assignée", LOOKUPVALUE(ListeInfoUtilisateur[Title], ListeInfoUtilisateur[ID.1], Demandes[Gestionnaire_AssigneId]))
+		dataType: string
+		lineageTag: c756f74f-a4a5-4493-996b-03431210a6f8
+		summarizeBy: none
+
+	/// Délai de traitement en heures pour cette demande, vide si non clôturée
+	column 'Délai Traitement (Heures)' = IF(ISBLANK(Demandes[Date_Cloture]), BLANK(), (Demandes[Date_Cloture] - Demandes[Date_Soumission]) * 24)
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 915fe382-e438-43d9-aab6-46999c3ae894
+		summarizeBy: none
+
+	/// Vrai si la demande est en retard OU en échéance proche
+	column Est_Alerte_Active = Demandes[Alerte_Retard_Active] || Demandes[Alerte_Echeance_Notifiee]
+		dataType: boolean
+		lineageTag: efd9891a-c8eb-42c7-b9a5-4333b9bf80a4
 		summarizeBy: none
 
 	partition Demandes = m

@@ -28,6 +28,7 @@
               },
               "queryRef": "Services_Siege.Title",
               "nativeQueryRef": "Service",
+              "active": true,
               "displayName": "Service"
             }
           ]
