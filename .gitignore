@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Données (potentiellement sensibles)
+data/*.csv
+
+# Modèles (binaires lourds)
+models/*.pkl
+
+# Environnements
+.env
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
