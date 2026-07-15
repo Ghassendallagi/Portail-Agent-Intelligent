@@ -120,6 +120,7 @@ Screens:
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
+                        LayoutOverflowY: =LayoutOverflow.Scroll
                       Children:
                         - TitleCard:
                             Control: GroupContainer
@@ -437,17 +438,17 @@ Screens:
                                         Control: ModernIcon
                                         Properties:
                                           AccessibleLabel: ="Prédictions IA"
-                                          Height: =20
+                                          Height: =24
                                           Icon: ="Sparkle"
                                           IconColor: =RGBA(140, 12, 20, 1)
-                                          Width: =20
+                                          Width: =24
                                     - TxtAITitle:
                                         Control: ModernText
                                         Properties:
                                           AutoHeight: =true
                                           Color: =RGBA(140, 12, 20, 1)
                                           FontWeight: =FontWeight.Bold
-                                          Size: =14
+                                          Size: =16
                                           Text: ="Prédictions IA"
                                           Width: =Parent.Width - 64
                               - AIProfilRow:
@@ -483,7 +484,7 @@ Screens:
                                           Content: |-
                                             =With(
                                                 {_p: LookUp(Agents, Email_Agent = varSelectedDemande.Agent_Demandeur.Email, Profil_Comportemental_ML).Value},
-                                                If(IsBlank(_p), "Non calculé", _p)
+                                                If(IsBlank(_p), "En attente d'analyse", _p)
                                             )
                                           FontColor: |-
                                             =Switch(
@@ -495,8 +496,8 @@ Screens:
                                                 RGBA(55, 65, 81, 1)
                                             )
                                           Height: =24
-                                          LayoutMinWidth: =140
-                                          Width: =140
+                                          LayoutMinWidth: =170
+                                          Width: =170
                               - AIDelaiRow:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -594,8 +595,8 @@ Screens:
                                             )
                                           Content: |-
                                             =If(
-                                                varSelectedDemande.Probabilite_Retard_ML < 0.3, "Faible",
-                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.7, "Moyen", "Élevé")
+                                                varSelectedDemande.Probabilite_Retard_ML < 0.3, "Faible risque",
+                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.7, "Risque modéré", "Risque élevé")
                                             )
                                           FontColor: |-
                                             =If(
@@ -603,9 +604,9 @@ Screens:
                                                 If(varSelectedDemande.Probabilite_Retard_ML < 0.7, RGBA(180, 83, 9, 1), RGBA(153, 27, 27, 1))
                                             )
                                           Height: =24
-                                          LayoutMinWidth: =84
+                                          LayoutMinWidth: =120
                                           Visible: =Not(IsBlank(varSelectedDemande.Probabilite_Retard_ML))
-                                          Width: =84
+                                          Width: =120
                                     - TxtAIRisquePct:
                                         Control: ModernText
                                         Properties:
