@@ -745,24 +745,39 @@ Screens:
                                     FillPortions: =0
                                     Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
                                     Items: |-
-                                      =SortByColumns(
-                                        Filter(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID)),
-                                        "Num_Mouvement",
-                                        SortOrder.Ascending
+                                      =With(
+                                          {
+                                              _hist: SortByColumns(
+                                                  Filter(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID)),
+                                                  "Num_Mouvement",
+                                                  SortOrder.Ascending
+                                              )
+                                          },
+                                          ForAll(
+                                              Sequence(CountRows(_hist) + If(IsEmpty(_hist), 0, 1)),
+                                              {
+                                                  TL_Num: If(ThisRecord.Value = 1, 0, Index(_hist, ThisRecord.Value - 1).Num_Mouvement),
+                                                  TL_Type: If(ThisRecord.Value = 1, "Nouvelle demande", Index(_hist, ThisRecord.Value - 1).Type_Modification.Value),
+                                                  TL_Statut: If(ThisRecord.Value = 1, "Soumis", Index(_hist, ThisRecord.Value - 1).Statut_A_Ce_Moment),
+                                                  TL_Comment: If(ThisRecord.Value = 1, "Demande créée", Index(_hist, ThisRecord.Value - 1).Commentaire_Action),
+                                                  TL_Acteur: If(ThisRecord.Value = 1, varSelectedDemande.Agent_Demandeur.DisplayName, Index(_hist, ThisRecord.Value - 1).Actionneur.DisplayName),
+                                                  TL_Date: If(ThisRecord.Value = 1, varSelectedDemande.Date_Soumission, Index(_hist, ThisRecord.Value - 1).Date_Debut_Etape)
+                                              }
+                                          )
                                       )
                                     TemplatePadding: =12
-                                    TemplateSize: =140
+                                    TemplateSize: =160
                                     Width: =Parent.Width
                                   Children:
                                     - TLCardContainer:
                                         Control: GroupContainer
                                         Variant: AutoLayout
                                         Properties:
-                                          DropShadow: =DropShadow.Semilight
+                                          DropShadow: =If(ThisItem.TL_Num = Max(Filter(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID)), Num_Mouvement), DropShadow.Regular, DropShadow.Semilight)
                                           Fill: =RGBA(255, 255, 255, 1)
                                           Height: =Parent.TemplateHeight
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
-                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutDirection: =If(DetailDemande.Size = ScreenSize.Small, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                                           RadiusBottomLeft: =12
                                           RadiusBottomRight: =12
                                           RadiusTopLeft: =12
@@ -774,6 +789,7 @@ Screens:
                                               Variant: AutoLayout
                                               Properties:
                                                 FillPortions: =0
+                                                Height: =If(DetailDemande.Size = ScreenSize.Small, 24, Parent.Height)
                                                 LayoutAlignItems: =LayoutAlignItems.Center
                                                 LayoutDirection: =LayoutDirection.Vertical
                                                 PaddingTop: =20
@@ -782,9 +798,30 @@ Screens:
                                                 - TLDot:
                                                     Control: Circle
                                                     Properties:
-                                                      Fill: =RGBA(140, 12, 20, 1)
-                                                      Height: =10
-                                                      Width: =10
+                                                      Fill: |-
+                                                        =Switch(
+                                                            ThisItem.TL_Type,
+                                                            "Nouvelle demande", RGBA(144, 144, 144, 1),
+                                                            "Assignation", RGBA(30, 64, 175, 1),
+                                                            "Réaffectation", RGBA(96, 165, 250, 1),
+                                                            "Transfert", RGBA(180, 83, 9, 1),
+                                                            "Validation", RGBA(21, 128, 61, 1),
+                                                            "Rejet", RGBA(220, 38, 38, 1),
+                                                            "Clôture", RGBA(140, 12, 20, 1),
+                                                            RGBA(144, 144, 144, 1)
+                                                        )
+                                                      Height: =16
+                                                      Width: =16
+                                                - TLLine:
+                                                    Control: GroupContainer
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      Fill: =RGBA(209, 213, 219, 1)
+                                                      FillPortions: =0
+                                                      Height: =Parent.Height - 46
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      Visible: =(DetailDemande.Size <> ScreenSize.Small) && (ThisItem.TL_Num <> Max(Filter(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID)), Num_Mouvement))
+                                                      Width: =3
                                           - TLContentContainer:
                                               Control: GroupContainer
                                               Variant: AutoLayout
@@ -796,15 +833,78 @@ Screens:
                                                 PaddingRight: =18
                                                 PaddingTop: =16
                                               Children:
-                                                - TxtTLType:
-                                                    Control: ModernText
+                                                - TLHeaderRow:
+                                                    Control: GroupContainer
+                                                    Variant: AutoLayout
                                                     Properties:
-                                                      AutoHeight: =true
-                                                      Color: =RGBA(31, 41, 55, 1)
-                                                      FontWeight: =FontWeight.Bold
-                                                      Size: =14
-                                                      Text: =ThisItem.Type_Modification.Value
+                                                      FillPortions: =0
+                                                      Height: =24
+                                                      LayoutAlignItems: =LayoutAlignItems.Center
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      LayoutGap: =6
                                                       Width: =Parent.Width - 54
+                                                    Children:
+                                                      - IconTLType:
+                                                          Control: ModernIcon
+                                                          Properties:
+                                                            AccessibleLabel: =ThisItem.TL_Type
+                                                            Height: =18
+                                                            Icon: |-
+                                                              =Switch(
+                                                                  ThisItem.TL_Type,
+                                                                  "Nouvelle demande", "DocumentAdd",
+                                                                  "Assignation", "Person",
+                                                                  "Réaffectation", "ArrowRepeatAll",
+                                                                  "Transfert", "ArrowForward",
+                                                                  "Validation", "CheckmarkCircle",
+                                                                  "Rejet", "DismissCircle",
+                                                                  "Clôture", "Flag",
+                                                                  "Info"
+                                                              )
+                                                            IconColor: |-
+                                                              =Switch(
+                                                                  ThisItem.TL_Type,
+                                                                  "Nouvelle demande", RGBA(144, 144, 144, 1),
+                                                                  "Assignation", RGBA(30, 64, 175, 1),
+                                                                  "Réaffectation", RGBA(96, 165, 250, 1),
+                                                                  "Transfert", RGBA(180, 83, 9, 1),
+                                                                  "Validation", RGBA(21, 128, 61, 1),
+                                                                  "Rejet", RGBA(220, 38, 38, 1),
+                                                                  "Clôture", RGBA(140, 12, 20, 1),
+                                                                  RGBA(144, 144, 144, 1)
+                                                              )
+                                                            Width: =18
+                                                      - TxtTLType:
+                                                          Control: ModernText
+                                                          Properties:
+                                                            AutoHeight: =true
+                                                            Color: |-
+                                                              =Switch(
+                                                                  ThisItem.TL_Type,
+                                                                  "Nouvelle demande", RGBA(112, 112, 112, 1),
+                                                                  "Assignation", RGBA(30, 64, 175, 1),
+                                                                  "Réaffectation", RGBA(96, 165, 250, 1),
+                                                                  "Transfert", RGBA(180, 83, 9, 1),
+                                                                  "Validation", RGBA(21, 128, 61, 1),
+                                                                  "Rejet", RGBA(220, 38, 38, 1),
+                                                                  "Clôture", RGBA(140, 12, 20, 1),
+                                                                  RGBA(31, 41, 55, 1)
+                                                              )
+                                                            FontWeight: =FontWeight.Bold
+                                                            Size: =14
+                                                            Text: =ThisItem.TL_Type
+                                                            Width: =Parent.Width - 96
+                                                      - BadgeTLActuel:
+                                                          Control: Badge
+                                                          Properties:
+                                                            Appearance: ='BadgeCanvas.Appearance'.Filled
+                                                            BasePaletteColor: =RGBA(140, 12, 20, 1)
+                                                            Content: ="Actuel"
+                                                            FontColor: =RGBA(255, 255, 255, 1)
+                                                            Height: =22
+                                                            LayoutMinWidth: =66
+                                                            Visible: =ThisItem.TL_Num = Max(Filter(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID)), Num_Mouvement)
+                                                            Width: =66
                                                 - TxtTLStatut:
                                                     Control: ModernText
                                                     Properties:
@@ -812,7 +912,11 @@ Screens:
                                                       Color: =RGBA(112, 112, 112, 1)
                                                       Size: =13
                                                       Text: |-
-                                                        ="Statut : " & ThisItem.Statut_A_Ce_Moment
+                                                        ="Statut : " & If(
+                                                          IsBlank(ThisItem.TL_Statut),
+                                                          "Information indisponible",
+                                                          ThisItem.TL_Statut
+                                                        )
                                                       Width: =Parent.Width - 54
                                                 - TxtTLComment:
                                                     Control: ModernText
@@ -820,30 +924,68 @@ Screens:
                                                       AutoHeight: =true
                                                       Color: =RGBA(31, 41, 55, 1)
                                                       Size: =13
-                                                      Text: =ThisItem.Commentaire_Action
-                                                      Visible: =Not(IsBlank(ThisItem.Commentaire_Action))
+                                                      Text: |-
+                                                        =If(
+                                                          IsBlank(ThisItem.TL_Comment),
+                                                          "Information indisponible",
+                                                          ThisItem.TL_Comment
+                                                        )
                                                       Width: =Parent.Width - 54
-                                                - TxtTLMeta:
+                                                - TxtTLActionneur:
                                                     Control: ModernText
                                                     Properties:
                                                       AutoHeight: =true
                                                       Color: =RGBA(144, 144, 144, 1)
                                                       Size: =12
                                                       Text: |-
-                                                        ="Par " & ThisItem.Actionneur.DisplayName & "  ·  " & With(
-                                                          {
-                                                            _hrs: DateDiff(ThisItem.Date_Debut_Etape, Now(), TimeUnit.Hours)
-                                                          },
-                                                          If(
-                                                            _hrs < 24,
-                                                            "il y a " & _hrs & If(_hrs = 1, " heure", " heures"),
-                                                            With(
-                                                              {_days: RoundDown(_hrs / 24, 0)},
-                                                              "il y a " & _days & If(_days = 1, " jour", " jours")
-                                                            )
-                                                          )
+                                                        ="Par " & If(
+                                                          IsBlank(ThisItem.TL_Acteur),
+                                                          "Information indisponible",
+                                                          ThisItem.TL_Acteur
                                                         )
                                                       Width: =Parent.Width - 54
+                                                - TLDateRow:
+                                                    Control: GroupContainer
+                                                    Variant: AutoLayout
+                                                    Properties:
+                                                      FillPortions: =0
+                                                      Height: =20
+                                                      LayoutAlignItems: =LayoutAlignItems.Center
+                                                      LayoutDirection: =LayoutDirection.Horizontal
+                                                      LayoutGap: =4
+                                                      Width: =Parent.Width - 54
+                                                    Children:
+                                                      - IconTLDate:
+                                                          Control: ModernIcon
+                                                          Properties:
+                                                            AccessibleLabel: ="Date du mouvement"
+                                                            Height: =16
+                                                            Icon: ="Clock"
+                                                            IconColor: =RGBA(112, 112, 112, 1)
+                                                            Width: =16
+                                                      - TxtTLDate:
+                                                          Control: ModernText
+                                                          Properties:
+                                                            AutoHeight: =true
+                                                            Color: =RGBA(112, 112, 112, 1)
+                                                            Size: =12
+                                                            Text: |-
+                                                              =If(
+                                                                IsBlank(ThisItem.TL_Date),
+                                                                "Information indisponible",
+                                                                Text(ThisItem.TL_Date, DateTimeFormat.ShortDateTime24) & " · " & With(
+                                                                  {_hrs: DateDiff(ThisItem.TL_Date, Now(), TimeUnit.Hours)},
+                                                                  If(
+                                                                    _hrs < 24,
+                                                                    "il y a " & _hrs & If(_hrs = 1, " heure", " heures"),
+                                                                    With(
+                                                                      {_days: RoundDown(_hrs / 24, 0)},
+                                                                      "il y a " & _days & If(_days = 1, " jour", " jours")
+                                                                    )
+                                                                  )
+                                                                )
+                                                              )
+                                                            Width: =Parent.Width - 24
                               - TxtEmptyTimeline:
                                   Control: ModernText
                                   Properties:
@@ -851,7 +993,7 @@ Screens:
                                     AutoHeight: =true
                                     Color: =RGBA(144, 144, 144, 1)
                                     Size: =14
-                                    Text: ="Aucun historique pour cette demande."
+                                    Text: ="Aucun historique disponible"
                                     Visible: =GalleryHistorique.AllItemsCount = 0
                                     Width: =Parent.Width
       - DialogOverlay:
