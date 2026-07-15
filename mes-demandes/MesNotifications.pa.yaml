@@ -322,7 +322,7 @@ Screens:
                 Properties:
                   Fill: =RGBA(249, 250, 251, 1)
                   FillPortions: =0
-                  Height: =104
+                  Height: =130
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =8
                   PaddingBottom: =20
@@ -380,6 +380,18 @@ Screens:
                               Text: =If(MesNotifications.Size = ScreenSize.Small, "Tout lu", "Tout marquer comme lu")
                               Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
                               Width: =If(MesNotifications.Size = ScreenSize.Small, 90, 210)
+                  - TxtNTCounters:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: |-
+                          =If(
+                              ctxNotifTab = "toutes",
+                              "Non lues : " & BdgNTNotifs.Content & "   ·   Total : " & GalleryNotifications.AllItemsCount,
+                              "Non lues : " & GalleryNotifications.AllItemsCount
+                          )
                   - RectNTAccentBar:
                       Control: Rectangle
                       Properties:
@@ -504,6 +516,57 @@ Screens:
                                         RGBA(112, 112, 112, 1)
                                       )
                                     Width: =4
+                              - NTIconCol:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    PaddingTop: =16
+                                    Width: =48
+                                  Children:
+                                    - IconNTType:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AccessibleLabel: |-
+                                            =Switch(
+                                                ThisItem.Type_Notification.Value,
+                                                "Information", "Information",
+                                                "Success", "Succès",
+                                                "Validation", "Validation",
+                                                "Warning", "Attention",
+                                                "Reminder", "Rappel",
+                                                "Refus", "Rejet",
+                                                "Error", "Erreur",
+                                                "Info"
+                                            )
+                                          Height: =26
+                                          Icon: |-
+                                            =Switch(
+                                                ThisItem.Type_Notification.Value,
+                                                "Information", "Info",
+                                                "Success", "CheckmarkCircle",
+                                                "Validation", "CheckmarkCircle",
+                                                "Warning", "Warning",
+                                                "Reminder", "Clock",
+                                                "Refus", "DismissCircle",
+                                                "Error", "DismissCircle",
+                                                "Info"
+                                            )
+                                          IconColor: |-
+                                            =Switch(
+                                                ThisItem.Type_Notification.Value,
+                                                "Information", RGBA(37, 99, 235, 1),
+                                                "Success", RGBA(6, 95, 70, 1),
+                                                "Validation", RGBA(6, 95, 70, 1),
+                                                "Warning", RGBA(234, 88, 12, 1),
+                                                "Reminder", RGBA(217, 119, 6, 1),
+                                                "Refus", RGBA(220, 38, 38, 1),
+                                                "Error", RGBA(220, 38, 38, 1),
+                                                RGBA(112, 112, 112, 1)
+                                            )
+                                          Width: =26
                               - NTContent:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -511,18 +574,80 @@ Screens:
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =4
                                     PaddingBottom: =14
-                                    PaddingLeft: =18
+                                    PaddingLeft: =2
                                     PaddingRight: =18
                                     PaddingTop: =14
                                   Children:
-                                    - TxtNTCardTitle:
-                                        Control: ModernText
+                                    - NTCardHead:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
                                         Properties:
-                                          AutoHeight: =true
-                                          Color: =If(ThisItem.IsRead, RGBA(112, 112, 112, 1), RGBA(17, 24, 39, 1))
-                                          FontWeight: =If(ThisItem.IsRead, FontWeight.Normal, FontWeight.Bold)
-                                          Text: =ThisItem.Title
-                                          Width: =Parent.Width - 36
+                                          FillPortions: =0
+                                          Height: =24
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =8
+                                          Width: =Parent.Width - 20
+                                        Children:
+                                          - DotNTUnread:
+                                              Control: Circle
+                                              Properties:
+                                                Fill: =RGBA(220, 38, 38, 1)
+                                                Height: =8
+                                                Visible: =Not(ThisItem.IsRead)
+                                                Width: =8
+                                          - TxtNTCardTitle:
+                                              Control: ModernText
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =If(ThisItem.IsRead, RGBA(112, 112, 112, 1), RGBA(17, 24, 39, 1))
+                                                FillPortions: =1
+                                                FontWeight: =If(ThisItem.IsRead, FontWeight.Normal, FontWeight.Bold)
+                                                Size: =14
+                                                Text: =ThisItem.Title
+                                          - BadgeNTType:
+                                              Control: Badge
+                                              Properties:
+                                                Appearance: ='BadgeCanvas.Appearance'.Tint
+                                                BasePaletteColor: |-
+                                                  =Switch(
+                                                      ThisItem.Type_Notification.Value,
+                                                      "Information", RGBA(219, 234, 254, 1),
+                                                      "Success", RGBA(209, 250, 229, 1),
+                                                      "Validation", RGBA(209, 250, 229, 1),
+                                                      "Warning", RGBA(254, 235, 200, 1),
+                                                      "Reminder", RGBA(254, 235, 200, 1),
+                                                      "Refus", RGBA(254, 226, 226, 1),
+                                                      "Error", RGBA(254, 226, 226, 1),
+                                                      RGBA(229, 231, 235, 1)
+                                                  )
+                                                Content: |-
+                                                  =Switch(
+                                                      ThisItem.Type_Notification.Value,
+                                                      "Information", "Information",
+                                                      "Success", "Succès",
+                                                      "Validation", "Validation",
+                                                      "Warning", "Attention",
+                                                      "Reminder", "Rappel",
+                                                      "Refus", "Rejet",
+                                                      "Error", "Erreur",
+                                                      "Info"
+                                                  )
+                                                FontColor: |-
+                                                  =Switch(
+                                                      ThisItem.Type_Notification.Value,
+                                                      "Information", RGBA(30, 64, 175, 1),
+                                                      "Success", RGBA(6, 95, 70, 1),
+                                                      "Validation", RGBA(6, 95, 70, 1),
+                                                      "Warning", RGBA(180, 83, 9, 1),
+                                                      "Reminder", RGBA(180, 83, 9, 1),
+                                                      "Refus", RGBA(153, 27, 27, 1),
+                                                      "Error", RGBA(153, 27, 27, 1),
+                                                      RGBA(55, 65, 81, 1)
+                                                  )
+                                                Height: =22
+                                                LayoutMinWidth: =96
+                                                Width: =96
                                     - TxtNTCardMessage:
                                         Control: ModernText
                                         Properties:
@@ -530,28 +655,56 @@ Screens:
                                           Height: =38
                                           Size: =13
                                           Text: =ThisItem.Message
-                                          Width: =Parent.Width - 36
-                                    - TxtNTCardDate:
-                                        Control: ModernText
+                                          Width: =Parent.Width - 20
+                                    - NTMetaRow:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
                                         Properties:
-                                          AutoHeight: =true
-                                          Color: =RGBA(144, 144, 144, 1)
-                                          Size: =12
-                                          Text: |-
-                                            =With(
-                                              {_hrs: DateDiff(ThisItem.Created, Now(), TimeUnit.Hours)},
-                                              If(
-                                                _hrs < 1,
-                                                "il y a moins d'une heure",
-                                                _hrs < 24,
-                                                "il y a " & _hrs & If(_hrs = 1, " heure", " heures"),
-                                                With(
-                                                  {_days: RoundDown(_hrs / 24, 0)},
-                                                  "il y a " & _days & If(_days = 1, " jour", " jours")
-                                                )
-                                              )
-                                            )
-                                          Width: =Parent.Width - 36
+                                          FillPortions: =0
+                                          Height: =18
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =12
+                                          Width: =Parent.Width - 20
+                                        Children:
+                                          - TxtNTCardRef:
+                                              Control: ModernText
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =RGBA(140, 12, 20, 1)
+                                                FontWeight: =FontWeight.Semibold
+                                                Size: =12
+                                                Text: |-
+                                                  =If(IsBlank(ThisItem.ObjectID), "", "Demande #" & ThisItem.ObjectID)
+                                                Visible: =Not(IsBlank(ThisItem.ObjectID))
+                                          - TxtNTCardDate:
+                                              Control: ModernText
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =RGBA(144, 144, 144, 1)
+                                                Size: =12
+                                                Text: |-
+                                                  =With(
+                                                      {_hrs: DateDiff(ThisItem.Created, Now(), TimeUnit.Hours)},
+                                                      If(
+                                                          _hrs < 1,
+                                                          With(
+                                                              {_mins: DateDiff(ThisItem.Created, Now(), TimeUnit.Minutes)},
+                                                              If(_mins < 2, "à l'instant", "il y a " & _mins & " minutes")
+                                                          ),
+                                                          _hrs < 24,
+                                                          "il y a " & _hrs & If(_hrs = 1, " heure", " heures"),
+                                                          _hrs < 336,
+                                                          With(
+                                                              {_days: RoundDown(_hrs / 24, 0)},
+                                                              "il y a " & _days & If(_days = 1, " jour", " jours")
+                                                          ),
+                                                          With(
+                                                              {_wks: RoundDown(_hrs / 168, 0)},
+                                                              "il y a " & _wks & If(_wks = 1, " semaine", " semaines")
+                                                          )
+                                                      )
+                                                  )
                         - BtnNTCardClick:
                             Control: Classic/Button
                             Properties:
@@ -581,21 +734,41 @@ Screens:
                               RadiusTopRight: =12
                               Text: =""
                               Width: =Parent.TemplateWidth
-                  - TxtNTEmpty:
-                      Control: ModernText
+                  - NTEmptyState:
+                      Control: GroupContainer
+                      Variant: AutoLayout
                       Properties:
-                        Align: =Align.Center
-                        AutoHeight: =true
-                        Color: =RGBA(144, 144, 144, 1)
-                        Size: =14
-                        Text: |-
-                          =If(
-                              ctxNotifTab = "nonlues",
-                              "Aucune notification non lue.",
-                              "Aucune notification."
-                          )
+                        FillPortions: =0
+                        Height: =Min(240, Parent.Height - 76)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =8
+                        PaddingTop: =32
                         Visible: =GalleryNotifications.AllItemsCount = 0
-                        Width: =Parent.Width - 56
+                      Children:
+                        - IconNTEmpty:
+                            Control: ModernIcon
+                            Properties:
+                              AccessibleLabel: ="Aucune notification"
+                              Height: =48
+                              Icon: ="Alert"
+                              IconColor: =RGBA(209, 213, 219, 1)
+                              Width: =48
+                        - TxtNTEmptyTitle:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(55, 65, 81, 1)
+                              FontWeight: =FontWeight.Semibold
+                              Size: =16
+                              Text: =If(ctxNotifTab = "nonlues", "Aucune notification non lue", "Aucune notification")
+                        - TxtNTEmptySub:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(144, 144, 144, 1)
+                              Size: =13
+                              Text: ="Vous êtes à jour."
       - BarNT:
           Control: GroupContainer
           Variant: AutoLayout
