@@ -90,7 +90,7 @@ Screens:
                         Fill: =RGBA(249, 250, 251, 1)
                         FillPortions: =If(DetailDemande.Size = ScreenSize.Small, 0, 2)
                         Height: |-
-                          =166 + (8
+                          =166 + (5
                             + If(Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)), 1, 0)
                             + If(Not(IsBlank(varSelectedDemande.Date_Cloture)), 1, 0)
                           ) * 38
@@ -116,6 +116,7 @@ Screens:
                               84, 0
                           )
                           + 236
+                          + 228
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
@@ -184,7 +185,7 @@ Screens:
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: |-
-                                =26 + (8
+                                =26 + (5
                                   + If(Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)), 1, 0)
                                   + If(Not(IsBlank(varSelectedDemande.Date_Cloture)), 1, 0)
                                 ) * 38
@@ -226,44 +227,6 @@ Screens:
                                           FontWeight: =FontWeight.Semibold
                                           Size: =13
                                           Text: =varSelectedDemande.Agent_Demandeur.DisplayName
-                              - RowProfilAgent:
-                                  Control: GroupContainer
-                                  Variant: AutoLayout
-                                  Properties:
-                                    FillPortions: =0
-                                    Height: =28
-                                    LayoutAlignItems: =LayoutAlignItems.Center
-                                    LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutGap: =8
-                                  Children:
-                                    - TxtLblProfilAgent:
-                                        Control: ModernText
-                                        Properties:
-                                          Color: =RGBA(112, 112, 112, 1)
-                                          Size: =13
-                                          Text: ="Profil agent (IA)"
-                                          Width: =170
-                                    - TxtValProfilAgent:
-                                        Control: ModernText
-                                        Properties:
-                                          Color: |-
-                                            =Switch(
-                                                LookUp(Agents, Email_Agent = varSelectedDemande.Agent_Demandeur.Email, Profil_Comportemental_ML).Value,
-                                                "Autonome", RGBA(21, 128, 61, 1),
-                                                "Récurrent", RGBA(21, 128, 61, 1),
-                                                "À accompagner", RGBA(180, 83, 9, 1),
-                                                "Critique", RGBA(220, 38, 38, 1),
-                                                RGBA(144, 144, 144, 1)
-                                            )
-                                          FillPortions: =1
-                                          FontWeight: =FontWeight.Semibold
-                                          Size: =13
-                                          Text: |-
-                                            =If(
-                                                IsBlank(LookUp(Agents, Email_Agent = varSelectedDemande.Agent_Demandeur.Email, Profil_Comportemental_ML).Value),
-                                                "Non calculé",
-                                                LookUp(Agents, Email_Agent = varSelectedDemande.Agent_Demandeur.Email, Profil_Comportemental_ML).Value
-                                            )
                               - RowDateSoumission:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -389,81 +352,6 @@ Screens:
                                           FontWeight: =FontWeight.Semibold
                                           Size: =13
                                           Text: =varSelectedDemande.Niveau_Urgence.Value
-                              - RowPredictionML:
-                                  Control: GroupContainer
-                                  Variant: AutoLayout
-                                  Properties:
-                                    FillPortions: =0
-                                    Height: =28
-                                    LayoutAlignItems: =LayoutAlignItems.Center
-                                    LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutGap: =8
-                                  Children:
-                                    - TxtLblPredictionML:
-                                        Control: ModernText
-                                        Properties:
-                                          Color: =RGBA(112, 112, 112, 1)
-                                          Size: =13
-                                          Text: ="Délai prédit (IA)"
-                                          Width: =170
-                                    - TxtValPredictionML:
-                                        Control: ModernText
-                                        Properties:
-                                          Color: =RGBA(31, 41, 55, 1)
-                                          FillPortions: =1
-                                          FontWeight: =FontWeight.Semibold
-                                          Size: =13
-                                          Text: |-
-                                            =If(
-                                                IsBlank(varSelectedDemande.Prediction_Delai_ML),
-                                                "Non disponible",
-                                                Text(varSelectedDemande.Prediction_Delai_ML, "0.0") & "h · " &
-                                                If(varSelectedDemande.Prediction_Delai_ML < 24, "Rapide",
-                                                   If(varSelectedDemande.Prediction_Delai_ML < 72, "Normal",
-                                                      "Long"))
-                                            )
-                              - RowRisqueRetard:
-                                  Control: GroupContainer
-                                  Variant: AutoLayout
-                                  Properties:
-                                    FillPortions: =0
-                                    Height: =28
-                                    LayoutAlignItems: =LayoutAlignItems.Center
-                                    LayoutDirection: =LayoutDirection.Horizontal
-                                    LayoutGap: =8
-                                  Children:
-                                    - TxtLblRisqueRetard:
-                                        Control: ModernText
-                                        Properties:
-                                          Color: =RGBA(112, 112, 112, 1)
-                                          Size: =13
-                                          Text: ="Risque de retard (IA)"
-                                          Width: =170
-                                    - TxtValRisqueRetard:
-                                        Control: ModernText
-                                        Properties:
-                                          Color: |-
-                                            =If(
-                                                IsBlank(varSelectedDemande.Probabilite_Retard_ML),
-                                                RGBA(144, 144, 144, 1),
-                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.3,
-                                                   RGBA(21, 128, 61, 1),
-                                                   If(varSelectedDemande.Probabilite_Retard_ML < 0.6,
-                                                      RGBA(180, 83, 9, 1),
-                                                      RGBA(220, 38, 38, 1)))
-                                            )
-                                          FillPortions: =1
-                                          FontWeight: =FontWeight.Semibold
-                                          Size: =13
-                                          Text: |-
-                                            =If(
-                                                IsBlank(varSelectedDemande.Probabilite_Retard_ML),
-                                                "Non disponible",
-                                                Text(varSelectedDemande.Probabilite_Retard_ML * 100, "0") & "% · " &
-                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.3, "Faible",
-                                                   If(varSelectedDemande.Probabilite_Retard_ML < 0.6, "Modéré",
-                                                      "Élevé"))
-                                            )
                               - RowGestionnaire:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -516,6 +404,246 @@ Screens:
                                           FontWeight: =FontWeight.Semibold
                                           Size: =13
                                           Text: =Text(varSelectedDemande.Date_Cloture, DateTimeFormat.ShortDateTime24)
+                        - AICard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =212
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              PaddingBottom: =18
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - AIHeaderRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =24
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - IconAI:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AccessibleLabel: ="Prédictions IA"
+                                          Height: =20
+                                          Icon: ="Sparkle"
+                                          IconColor: =RGBA(140, 12, 20, 1)
+                                          Width: =20
+                                    - TxtAITitle:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(140, 12, 20, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =14
+                                          Text: ="Prédictions IA"
+                                          Width: =Parent.Width - 64
+                              - AIProfilRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - TxtAIProfilLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: ="Profil agent"
+                                          Width: =170
+                                    - BadgeAIProfil:
+                                        Control: Badge
+                                        Properties:
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          BasePaletteColor: |-
+                                            =Switch(
+                                                LookUp(Agents, Email_Agent = varSelectedDemande.Agent_Demandeur.Email, Profil_Comportemental_ML).Value,
+                                                "Autonome", RGBA(209, 250, 229, 1),
+                                                "Récurrent", RGBA(219, 234, 254, 1),
+                                                "À accompagner", RGBA(254, 235, 200, 1),
+                                                "Critique", RGBA(254, 226, 226, 1),
+                                                RGBA(229, 231, 235, 1)
+                                            )
+                                          Content: |-
+                                            =With(
+                                                {_p: LookUp(Agents, Email_Agent = varSelectedDemande.Agent_Demandeur.Email, Profil_Comportemental_ML).Value},
+                                                If(IsBlank(_p), "Non calculé", _p)
+                                            )
+                                          FontColor: |-
+                                            =Switch(
+                                                LookUp(Agents, Email_Agent = varSelectedDemande.Agent_Demandeur.Email, Profil_Comportemental_ML).Value,
+                                                "Autonome", RGBA(6, 95, 70, 1),
+                                                "Récurrent", RGBA(30, 64, 175, 1),
+                                                "À accompagner", RGBA(180, 83, 9, 1),
+                                                "Critique", RGBA(153, 27, 27, 1),
+                                                RGBA(55, 65, 81, 1)
+                                            )
+                                          Height: =24
+                                          LayoutMinWidth: =140
+                                          Width: =140
+                              - AIDelaiRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - TxtAIDelaiLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: ="Délai estimé"
+                                          Width: =170
+                                    - TxtAIDelaiVal:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =If(IsBlank(varSelectedDemande.Prediction_Delai_ML), RGBA(144, 144, 144, 1), RGBA(31, 41, 55, 1))
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: |-
+                                            =If(
+                                                IsBlank(varSelectedDemande.Prediction_Delai_ML),
+                                                "En attente d'analyse",
+                                                If(
+                                                    varSelectedDemande.Prediction_Delai_ML < 48,
+                                                    Round(varSelectedDemande.Prediction_Delai_ML, 0) & " h",
+                                                    With(
+                                                        {_j: Round(varSelectedDemande.Prediction_Delai_ML / 24, 1)},
+                                                        If(_j = RoundDown(_j, 0), Text(_j, "0"), Text(_j, "0.0")) & " jours"
+                                                    )
+                                                )
+                                            )
+                                    - BadgeAIDelai:
+                                        Control: Badge
+                                        Properties:
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          BasePaletteColor: |-
+                                            =If(
+                                                varSelectedDemande.Prediction_Delai_ML < 24, RGBA(209, 250, 229, 1),
+                                                If(varSelectedDemande.Prediction_Delai_ML < 72, RGBA(219, 234, 254, 1), RGBA(254, 235, 200, 1))
+                                            )
+                                          Content: |-
+                                            =If(
+                                                varSelectedDemande.Prediction_Delai_ML < 24, "Rapide",
+                                                If(varSelectedDemande.Prediction_Delai_ML < 72, "Normal", "Long")
+                                            )
+                                          FontColor: |-
+                                            =If(
+                                                varSelectedDemande.Prediction_Delai_ML < 24, RGBA(6, 95, 70, 1),
+                                                If(varSelectedDemande.Prediction_Delai_ML < 72, RGBA(30, 64, 175, 1), RGBA(180, 83, 9, 1))
+                                            )
+                                          Height: =24
+                                          LayoutMinWidth: =84
+                                          Visible: =Not(IsBlank(varSelectedDemande.Prediction_Delai_ML))
+                                          Width: =84
+                              - AIRisqueRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - TxtAIRisqueLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: ="Risque de retard"
+                                          Width: =170
+                                    - TxtAIRisqueAttente:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(144, 144, 144, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: ="En attente d'analyse"
+                                          Visible: =IsBlank(varSelectedDemande.Probabilite_Retard_ML)
+                                    - BadgeAIRisque:
+                                        Control: Badge
+                                        Properties:
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          BasePaletteColor: |-
+                                            =If(
+                                                varSelectedDemande.Probabilite_Retard_ML < 0.3, RGBA(209, 250, 229, 1),
+                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.7, RGBA(254, 235, 200, 1), RGBA(254, 226, 226, 1))
+                                            )
+                                          Content: |-
+                                            =If(
+                                                varSelectedDemande.Probabilite_Retard_ML < 0.3, "Faible",
+                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.7, "Moyen", "Élevé")
+                                            )
+                                          FontColor: |-
+                                            =If(
+                                                varSelectedDemande.Probabilite_Retard_ML < 0.3, RGBA(6, 95, 70, 1),
+                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.7, RGBA(180, 83, 9, 1), RGBA(153, 27, 27, 1))
+                                            )
+                                          Height: =24
+                                          LayoutMinWidth: =84
+                                          Visible: =Not(IsBlank(varSelectedDemande.Probabilite_Retard_ML))
+                                          Width: =84
+                                    - TxtAIRisquePct:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: |-
+                                            =If(
+                                                varSelectedDemande.Probabilite_Retard_ML < 0.3, RGBA(21, 128, 61, 1),
+                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.7, RGBA(180, 83, 9, 1), RGBA(220, 38, 38, 1))
+                                            )
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =13
+                                          Text: =Text(varSelectedDemande.Probabilite_Retard_ML * 100, "0") & " %"
+                                          Visible: =Not(IsBlank(varSelectedDemande.Probabilite_Retard_ML))
+                                          Width: =60
+                              - AIGaugeTrack:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Fill: =RGBA(229, 231, 235, 1)
+                                    FillPortions: =0
+                                    Height: =8
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    Width: =Parent.Width - 36
+                                  Children:
+                                    - AIGaugeFill:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          Fill: |-
+                                            =If(
+                                                IsBlank(varSelectedDemande.Probabilite_Retard_ML), RGBA(144, 144, 144, 1),
+                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.3, RGBA(21, 128, 61, 1),
+                                                   If(varSelectedDemande.Probabilite_Retard_ML < 0.7, RGBA(180, 83, 9, 1), RGBA(220, 38, 38, 1)))
+                                            )
+                                          FillPortions: =0
+                                          Height: =8
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          Width: =Round(Parent.Width * If(IsBlank(varSelectedDemande.Probabilite_Retard_ML), 0, varSelectedDemande.Probabilite_Retard_ML), 0)
                         - ActionsCard:
                             Control: GroupContainer
                             Variant: AutoLayout
