@@ -8,26 +8,25 @@ Screens:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
-            Width: =Parent.Width
-            Height: =Parent.Height
             Fill: =RGBA(249, 250, 251, 1)
-            LayoutDirection: =LayoutDirection.Vertical
+            Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width
           Children:
             - DetailHeaderContainer:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
+                  Fill: =RGBA(249, 250, 251, 1)
                   FillPortions: =0
                   Height: =150
-                  Fill: =RGBA(249, 250, 251, 1)
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutAlignItems: =LayoutAlignItems.Start
                   LayoutGap: =8
-                  PaddingTop: =24
                   PaddingBottom: =16
                   PaddingLeft: =28
                   PaddingRight: =28
+                  PaddingTop: =24
                 Children:
                   - BackRow:
                       Control: GroupContainer
@@ -35,69 +34,67 @@ Screens:
                       Properties:
                         FillPortions: =0
                         Height: =32
-                        Fill: =RGBA(0, 0, 0, 0)
-                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =6
                       Children:
                         - IconBack:
                             Control: ModernIcon
                             Properties:
+                              AccessibleLabel: ="Retour"
+                              Height: =28
                               Icon: ="ArrowLeft"
                               IconColor: =RGBA(140, 12, 20, 1)
-                              FillPortions: =0
-                              Width: =28
-                              Height: =28
-                              AccessibleLabel: ="Retour"
                               OnSelect: =Back(ScreenTransition.Fade)
+                              Width: =28
                         - TxtBack:
                             Control: ModernText
                             Properties:
-                              Text: ="Retour"
-                              Size: =14
+                              AutoHeight: =true
                               Color: =RGBA(140, 12, 20, 1)
                               FontWeight: =FontWeight.Semibold
-                              AutoHeight: =true
                               OnSelect: =Back(ScreenTransition.Fade)
+                              Size: =14
+                              Text: ="Retour"
                   - TxtDetailTitle:
                       Control: ModernText
                       Properties:
-                        Text: ="Détail de la demande"
-                        Size: =24
-                        FontWeight: =FontWeight.Bold
-                        Color: =RGBA(140, 12, 20, 1)
                         AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
+                        FontWeight: =FontWeight.Bold
+                        Size: =24
+                        Text: ="Détail de la demande"
                         Width: =Parent.Width - 56
                   - RectDetailAccentBar:
                       Control: Rectangle
                       Properties:
-                        FillPortions: =0
-                        Width: =56
-                        Height: =4
                         Fill: =RGBA(140, 12, 20, 1)
+                        Height: =4
+                        Width: =56
             - MainColumns:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
                   Fill: =RGBA(249, 250, 251, 1)
-                  LayoutDirection: =If(DetailDemande.Size = ScreenSize.Small, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                   LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =If(DetailDemande.Size = ScreenSize.Small, LayoutDirection.Vertical, LayoutDirection.Horizontal)
                   LayoutGap: =20
+                  PaddingBottom: =28
                   PaddingLeft: =28
                   PaddingRight: =28
-                  PaddingBottom: =28
                 Children:
                   - MainColumn:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
+                        Fill: =RGBA(249, 250, 251, 1)
                         FillPortions: =If(DetailDemande.Size = ScreenSize.Small, 0, 2)
                         Height: |-
-                          =166 + (5
+                          =166 + (8
                             + If(Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)), 1, 0)
                             + If(Not(IsBlank(varSelectedDemande.Date_Cloture)), 1, 0)
                           ) * 38
+                          + 122
                           + If(
                               (UserRole = "Admin"
                                   || ((UserRole = "Gestionnaire" || UserRole = "Superviseur")
@@ -118,49 +115,43 @@ Screens:
                                       || (UserRole = "Agent" && varSelectedDemande.Agent_Demandeur.Email = User().Email)),
                               84, 0
                           )
-                        Fill: =RGBA(249, 250, 251, 1)
-                        LayoutDirection: =LayoutDirection.Vertical
+                          + 236
                         LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
                       Children:
                         - TitleCard:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: =124
-                              Fill: =RGBA(255, 255, 255, 1)
                               LayoutDirection: =LayoutDirection.Vertical
-                              LayoutAlignItems: =LayoutAlignItems.Start
                               LayoutGap: =10
-                              PaddingTop: =18
                               PaddingBottom: =18
                               PaddingLeft: =18
                               PaddingRight: =18
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
+                              PaddingTop: =18
                               RadiusBottomLeft: =12
                               RadiusBottomRight: =12
-                              DropShadow: =DropShadow.Semilight
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
                             Children:
                               - TxtDemandeTitle:
                                   Control: ModernText
                                   Properties:
-                                    Text: =varSelectedDemande.Title
-                                    Size: =18
-                                    FontWeight: =FontWeight.Bold
-                                    Color: =RGBA(31, 41, 55, 1)
                                     AutoHeight: =true
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FontWeight: =FontWeight.Bold
+                                    Size: =18
+                                    Text: =varSelectedDemande.Title
                                     Width: =Parent.Width - 36
                               - BadgeStatutDetail:
                                   Control: Badge
                                   Properties:
-                                    Content: =varSelectedDemande.Statut_Actuel.Value
                                     Appearance: ='BadgeCanvas.Appearance'.Tint
-                                    FillPortions: =0
-                                    Width: =96
-                                    Height: =28
-                                    LayoutMinWidth: =96
                                     BasePaletteColor: |-
                                       =Switch(
                                         varSelectedDemande.Statut_Actuel.Value,
@@ -171,6 +162,7 @@ Screens:
                                         "Clôturé", RGBA(219, 226, 254, 1),
                                         RGBA(229, 231, 235, 1)
                                       )
+                                    Content: =varSelectedDemande.Statut_Actuel.Value
                                     FontColor: |-
                                       =Switch(
                                         varSelectedDemande.Statut_Actuel.Value,
@@ -181,29 +173,33 @@ Screens:
                                         "Clôturé", RGBA(30, 27, 120, 1),
                                         RGBA(55, 65, 81, 1)
                                       )
+                                    Height: =28
+                                    LayoutMinWidth: =96
+                                    Width: =96
                         - InfoCard:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: |-
-                                =26 + (5
+                                =26 + (8
                                   + If(Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)), 1, 0)
                                   + If(Not(IsBlank(varSelectedDemande.Date_Cloture)), 1, 0)
                                 ) * 38
-                              Fill: =RGBA(255, 255, 255, 1)
-                              LayoutDirection: =LayoutDirection.Vertical
+                                + 122
                               LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =10
-                              PaddingTop: =18
                               PaddingBottom: =18
                               PaddingLeft: =18
                               PaddingRight: =18
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
+                              PaddingTop: =18
                               RadiusBottomLeft: =12
                               RadiusBottomRight: =12
-                              DropShadow: =DropShadow.Semilight
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
                             Children:
                               - RowAgent:
                                   Control: GroupContainer
@@ -211,195 +207,321 @@ Screens:
                                   Properties:
                                     FillPortions: =0
                                     Height: =28
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =8
                                   Children:
                                     - TxtLblAgent:
                                         Control: ModernText
                                         Properties:
-                                          Text: ="Agent demandeur"
-                                          Size: =13
                                           Color: =RGBA(112, 112, 112, 1)
-                                          FillPortions: =0
+                                          Size: =13
+                                          Text: ="Agent demandeur"
                                           Width: =170
                                     - TxtValAgent:
                                         Control: ModernText
                                         Properties:
-                                          Text: =varSelectedDemande.Agent_Demandeur.DisplayName
-                                          Size: =13
-                                          FontWeight: =FontWeight.Semibold
                                           Color: =RGBA(31, 41, 55, 1)
                                           FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: =varSelectedDemande.Agent_Demandeur.DisplayName
+                              - RowProfilAgent:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =28
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - TxtLblProfilAgent:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: ="Profil agent (IA)"
+                                          Width: =170
+                                    - TxtValProfilAgent:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: |-
+                                            =Switch(
+                                                LookUp(Agents, Email_Agent = varSelectedDemande.Agent_Demandeur.Email, Profil_Comportemental_ML).Value,
+                                                "Autonome", RGBA(21, 128, 61, 1),
+                                                "Récurrent", RGBA(21, 128, 61, 1),
+                                                "À accompagner", RGBA(180, 83, 9, 1),
+                                                "Critique", RGBA(220, 38, 38, 1),
+                                                RGBA(144, 144, 144, 1)
+                                            )
+                                          FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: |-
+                                            =If(
+                                                IsBlank(LookUp(Agents, Email_Agent = varSelectedDemande.Agent_Demandeur.Email, Profil_Comportemental_ML).Value),
+                                                "Non calculé",
+                                                LookUp(Agents, Email_Agent = varSelectedDemande.Agent_Demandeur.Email, Profil_Comportemental_ML).Value
+                                            )
                               - RowDateSoumission:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
                                     FillPortions: =0
                                     Height: =28
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =8
                                   Children:
                                     - TxtLblDateSoumission:
                                         Control: ModernText
                                         Properties:
-                                          Text: ="Date de soumission"
-                                          Size: =13
                                           Color: =RGBA(112, 112, 112, 1)
-                                          FillPortions: =0
+                                          Size: =13
+                                          Text: ="Date de soumission"
                                           Width: =170
                                     - TxtValDateSoumission:
                                         Control: ModernText
                                         Properties:
-                                          Text: =Text(varSelectedDemande.Date_Soumission, DateTimeFormat.ShortDateTime24)
-                                          Size: =13
-                                          FontWeight: =FontWeight.Semibold
                                           Color: =RGBA(31, 41, 55, 1)
                                           FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: =Text(varSelectedDemande.Date_Soumission, DateTimeFormat.ShortDateTime24)
                               - RowType:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
                                     FillPortions: =0
                                     Height: =28
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =8
                                   Children:
                                     - TxtLblType:
                                         Control: ModernText
                                         Properties:
-                                          Text: ="Type de demande"
-                                          Size: =13
                                           Color: =RGBA(112, 112, 112, 1)
-                                          FillPortions: =0
+                                          Size: =13
+                                          Text: ="Type de demande"
                                           Width: =170
                                     - TxtValType:
                                         Control: ModernText
                                         Properties:
-                                          Text: =varSelectedDemande.Type_Demande_ID.Value
-                                          Size: =13
-                                          FontWeight: =FontWeight.Semibold
                                           Color: =RGBA(31, 41, 55, 1)
                                           FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: =varSelectedDemande.Type_Demande_ID.Value
+                              - RowDescription:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =112
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - TxtLblDescription:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: ="Description"
+                                          Width: =170
+                                    - TxtValDescription:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: =If(IsBlank(varSelectedDemande.Description), "Aucune description", varSelectedDemande.Description)
                               - RowService:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
                                     FillPortions: =0
                                     Height: =28
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =8
                                   Children:
                                     - TxtLblService:
                                         Control: ModernText
                                         Properties:
-                                          Text: ="Service actuel"
-                                          Size: =13
                                           Color: =RGBA(112, 112, 112, 1)
-                                          FillPortions: =0
+                                          Size: =13
+                                          Text: ="Service actuel"
                                           Width: =170
                                     - TxtValService:
                                         Control: ModernText
                                         Properties:
-                                          Text: =varSelectedDemande.Service_Actuel_ID.Value
-                                          Size: =13
-                                          FontWeight: =FontWeight.Semibold
                                           Color: =RGBA(31, 41, 55, 1)
                                           FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: =varSelectedDemande.Service_Actuel_ID.Value
                               - RowUrgence:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
                                     FillPortions: =0
                                     Height: =28
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =8
                                   Children:
                                     - TxtLblUrgence:
                                         Control: ModernText
                                         Properties:
-                                          Text: ="Niveau d'urgence"
-                                          Size: =13
                                           Color: =RGBA(112, 112, 112, 1)
-                                          FillPortions: =0
+                                          Size: =13
+                                          Text: ="Niveau d'urgence"
                                           Width: =170
                                     - TxtValUrgence:
                                         Control: ModernText
                                         Properties:
-                                          Text: =varSelectedDemande.Niveau_Urgence.Value
-                                          Size: =13
-                                          FontWeight: =FontWeight.Semibold
                                           Color: =If(varSelectedDemande.Niveau_Urgence.Value = "Urgent" || varSelectedDemande.Niveau_Urgence.Value = "Critique", RGBA(220, 38, 38, 1), RGBA(31, 41, 55, 1))
                                           FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: =varSelectedDemande.Niveau_Urgence.Value
+                              - RowPredictionML:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =28
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - TxtLblPredictionML:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: ="Délai prédit (IA)"
+                                          Width: =170
+                                    - TxtValPredictionML:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: |-
+                                            =If(
+                                                IsBlank(varSelectedDemande.Prediction_Delai_ML),
+                                                "Non disponible",
+                                                Text(varSelectedDemande.Prediction_Delai_ML, "0.0") & "h · " &
+                                                If(varSelectedDemande.Prediction_Delai_ML < 24, "Rapide",
+                                                   If(varSelectedDemande.Prediction_Delai_ML < 72, "Normal",
+                                                      "Long"))
+                                            )
+                              - RowRisqueRetard:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =28
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - TxtLblRisqueRetard:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: ="Risque de retard (IA)"
+                                          Width: =170
+                                    - TxtValRisqueRetard:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: |-
+                                            =If(
+                                                IsBlank(varSelectedDemande.Probabilite_Retard_ML),
+                                                RGBA(144, 144, 144, 1),
+                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.3,
+                                                   RGBA(21, 128, 61, 1),
+                                                   If(varSelectedDemande.Probabilite_Retard_ML < 0.6,
+                                                      RGBA(180, 83, 9, 1),
+                                                      RGBA(220, 38, 38, 1)))
+                                            )
+                                          FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: |-
+                                            =If(
+                                                IsBlank(varSelectedDemande.Probabilite_Retard_ML),
+                                                "Non disponible",
+                                                Text(varSelectedDemande.Probabilite_Retard_ML * 100, "0") & "% · " &
+                                                If(varSelectedDemande.Probabilite_Retard_ML < 0.3, "Faible",
+                                                   If(varSelectedDemande.Probabilite_Retard_ML < 0.6, "Modéré",
+                                                      "Élevé"))
+                                            )
                               - RowGestionnaire:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
                                     FillPortions: =0
                                     Height: =28
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =8
                                     Visible: =Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
                                   Children:
                                     - TxtLblGestionnaire:
                                         Control: ModernText
                                         Properties:
-                                          Text: ="Gestionnaire assigné"
-                                          Size: =13
                                           Color: =RGBA(112, 112, 112, 1)
-                                          FillPortions: =0
+                                          Size: =13
+                                          Text: ="Gestionnaire assigné"
                                           Width: =170
                                     - TxtValGestionnaire:
                                         Control: ModernText
                                         Properties:
-                                          Text: =varSelectedDemande.Gestionnaire_Assigne.DisplayName
-                                          Size: =13
-                                          FontWeight: =FontWeight.Semibold
                                           Color: =RGBA(31, 41, 55, 1)
                                           FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: =varSelectedDemande.Gestionnaire_Assigne.DisplayName
                               - RowDateCloture:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
                                     FillPortions: =0
                                     Height: =28
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =8
                                     Visible: =Not(IsBlank(varSelectedDemande.Date_Cloture))
                                   Children:
                                     - TxtLblDateCloture:
                                         Control: ModernText
                                         Properties:
-                                          Text: ="Date de clôture"
-                                          Size: =13
                                           Color: =RGBA(112, 112, 112, 1)
-                                          FillPortions: =0
+                                          Size: =13
+                                          Text: ="Date de clôture"
                                           Width: =170
                                     - TxtValDateCloture:
                                         Control: ModernText
                                         Properties:
-                                          Text: =Text(varSelectedDemande.Date_Cloture, DateTimeFormat.ShortDateTime24)
-                                          Size: =13
-                                          FontWeight: =FontWeight.Semibold
                                           Color: =RGBA(31, 41, 55, 1)
                                           FillPortions: =1
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: =Text(varSelectedDemande.Date_Cloture, DateTimeFormat.ShortDateTime24)
                         - ActionsCard:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: |-
                                 =If(
@@ -409,19 +531,17 @@ Screens:
                                                 && varSelectedDemande.Type_Modification.Value = "Transfert")),
                                     142, 96
                                 )
-                              Fill: =RGBA(255, 255, 255, 1)
-                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =6
-                              PaddingTop: =14
                               PaddingBottom: =14
                               PaddingLeft: =18
                               PaddingRight: =18
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
+                              PaddingTop: =14
                               RadiusBottomLeft: =12
                               RadiusBottomRight: =12
-                              DropShadow: =DropShadow.Semilight
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
                               Visible: |-
                                 =(UserRole = "Admin"
                                     || ((UserRole = "Gestionnaire" || UserRole = "Superviseur")
@@ -432,76 +552,72 @@ Screens:
                               - TxtActionsLabel:
                                   Control: ModernText
                                   Properties:
-                                    Text: ="Actions"
-                                    Size: =13
-                                    Color: =RGBA(112, 112, 112, 1)
-                                    FillPortions: =0
                                     AutoHeight: =true
+                                    Color: =RGBA(112, 112, 112, 1)
+                                    Size: =13
+                                    Text: ="Actions"
                               - AssignRow:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
                                     FillPortions: =0
                                     Height: =40
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =10
                                   Children:
                                     - BtnPrendreEnCharge:
                                         Control: ModernButton
                                         Properties:
-                                          Text: ="Prendre en charge"
                                           Appearance: ='ButtonCanvas.Appearance'.Primary
                                           BasePaletteColor: =RGBA(140, 12, 20, 1)
                                           FillPortions: =1
                                           Height: =40
+                                          OnSelect: =Set(varActionDialog, "prendre")
+                                          Text: ="Prendre en charge"
                                           Visible: |-
                                             =IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
                                                 && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
                                                     || (varSelectedDemande.Statut_Actuel.Value = "En cours"
                                                         && varSelectedDemande.Type_Modification.Value = "Transfert"))
-                                          OnSelect: =Set(varActionDialog, "prendre")
                                     - BtnAssignerGestionnaire:
                                         Control: ModernButton
                                         Properties:
-                                          Text: ="Assigner à un gestionnaire"
                                           Appearance: ='ButtonCanvas.Appearance'.Secondary
                                           FillPortions: =1
                                           Height: =40
+                                          OnSelect: |-
+                                            =Set(varActionDialog, "assigner");
+                                            Reset(DdGestionnaireCible)
+                                          Text: ="Assigner à un gestionnaire"
                                           Visible: |-
                                             =(UserRole = "Superviseur" || UserRole = "Admin")
                                                 && IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
                                                 && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
                                                     || (varSelectedDemande.Statut_Actuel.Value = "En cours"
                                                         && varSelectedDemande.Type_Modification.Value = "Transfert"))
-                                          OnSelect: |-
-                                            =Set(varActionDialog, "assigner");
-                                            Reset(DdGestionnaireCible)
                               - ActionButtonsRow:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
                                     FillPortions: =0
                                     Height: =40
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =10
                                   Children:
                                     - BtnValider:
                                         Control: ModernButton
                                         Properties:
-                                          Text: ="Valider"
                                           Appearance: ='ButtonCanvas.Appearance'.Primary
                                           BasePaletteColor: =RGBA(6, 95, 70, 1)
                                           FillPortions: =1
                                           Height: =40
                                           OnSelect: =Set(varActionDialog, "valider")
+                                          Text: ="Valider"
                                     - BtnRejeter:
                                         Control: ModernButton
                                         Properties:
-                                          Text: ="Rejeter"
                                           Appearance: ='ButtonCanvas.Appearance'.Primary
                                           BasePaletteColor: =RGBA(220, 38, 38, 1)
                                           FillPortions: =1
@@ -509,13 +625,11 @@ Screens:
                                           OnSelect: |-
                                             =Set(varActionDialog, "rejeter");
                                             Reset(InpMotifRejet)
+                                          Text: ="Rejeter"
                                     - BtnTransferer:
                                         Control: ModernButton
                                         Properties:
-                                          Text: ="Transférer"
                                           Appearance: ='ButtonCanvas.Appearance'.Secondary
-                                          FillPortions: =1
-                                          Height: =40
                                           DisplayMode: |-
                                             =If(
                                                 varSelectedDemande.Statut_Actuel.Value = "En cours"
@@ -523,28 +637,31 @@ Screens:
                                                 DisplayMode.Edit,
                                                 DisplayMode.Disabled
                                             )
-                                          Tooltip: ="Transfert possible uniquement après prise en charge (statut En cours et gestionnaire assigné)"
+                                          FillPortions: =1
+                                          Height: =40
                                           OnSelect: |-
                                             =Set(varActionDialog, "transferer");
                                             Reset(DdServiceCible)
+                                          Text: ="Transférer"
+                                          Tooltip: ="Transfert possible uniquement après prise en charge (statut En cours et gestionnaire assigné)"
                         - ClotureCard:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: =68
-                              Fill: =RGBA(255, 255, 255, 1)
-                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutAlignItems: =LayoutAlignItems.Stretch
-                              PaddingTop: =14
+                              LayoutDirection: =LayoutDirection.Vertical
                               PaddingBottom: =14
                               PaddingLeft: =18
                               PaddingRight: =18
-                              RadiusTopLeft: =12
-                              RadiusTopRight: =12
+                              PaddingTop: =14
                               RadiusBottomLeft: =12
                               RadiusBottomRight: =12
-                              DropShadow: =DropShadow.Semilight
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
                               Visible: |-
                                 =varSelectedDemande.Statut_Actuel.Value = "Validé"
                                     && (UserRole = "Admin"
@@ -553,137 +670,165 @@ Screens:
                               - BtnCloturer:
                                   Control: ModernButton
                                   Properties:
-                                    Text: ="Confirmer la réception"
                                     Appearance: ='ButtonCanvas.Appearance'.Primary
                                     BasePaletteColor: =RGBA(6, 95, 70, 1)
-                                    FillPortions: =0
                                     Height: =40
                                     OnSelect: =Set(varActionDialog, "cloturer")
+                                    Text: ="Confirmer la réception"
+                        - AttachmentsCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =220
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =10
+                              PaddingBottom: =18
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - TxtAttachmentsTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FontWeight: =FontWeight.Semibold
+                                    Size: =14
+                                    Text: ="Pièces jointes"
+                              - AttachCtrlDetail:
+                                  Control: Attachments
+                                  Properties:
+                                    AddAttachmentText: ="Ajouter un fichier"
+                                    BorderColor: =RGBA(229, 231, 235, 1)
+                                    Default: =varSelectedDemande
+                                    Height: =150
+                                    MaxAttachments: =10
+                                    NoAttachmentsText: ="Aucune pièce jointe"
                   - SideColumn:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        FillPortions: =1
                         Fill: =RGBA(249, 250, 251, 1)
-                        LayoutDirection: =LayoutDirection.Vertical
                         LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =10
                       Children:
                         - TxtTimelineTitle:
                             Control: ModernText
                             Properties:
-                              Text: ="Historique"
-                              Size: =16
-                              FontWeight: =FontWeight.Semibold
-                              Color: =RGBA(140, 12, 20, 1)
                               AutoHeight: =true
+                              Color: =RGBA(140, 12, 20, 1)
+                              FontWeight: =FontWeight.Semibold
+                              Size: =16
+                              Text: ="Historique"
                               Width: =Parent.Width
                         - TimelineScroll:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              FillPortions: =1
                               Fill: =RGBA(249, 250, 251, 1)
-                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutOverflowY: =LayoutOverflow.Scroll
                             Children:
                               - GalleryHistorique:
                                   Control: Gallery
                                   Variant: Vertical
                                   Properties:
+                                    FillPortions: =0
+                                    Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
                                     Items: |-
                                       =SortByColumns(
                                         Filter(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID)),
                                         "Num_Mouvement",
                                         SortOrder.Ascending
                                       )
-                                    FillPortions: =0
-                                    Width: =Parent.Width
-                                    Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
-                                    WrapCount: =1
-                                    TemplateSize: =140
                                     TemplatePadding: =12
-                                    Fill: =RGBA(0, 0, 0, 0)
-                                    TemplateFill: =RGBA(0, 0, 0, 0)
+                                    TemplateSize: =140
+                                    Width: =Parent.Width
                                   Children:
                                     - TLCardContainer:
                                         Control: GroupContainer
                                         Variant: AutoLayout
                                         Properties:
-                                          Width: =Parent.TemplateWidth
-                                          Height: =Parent.TemplateHeight
+                                          DropShadow: =DropShadow.Semilight
                                           Fill: =RGBA(255, 255, 255, 1)
-                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          Height: =Parent.TemplateHeight
                                           LayoutAlignItems: =LayoutAlignItems.Stretch
-                                          RadiusTopLeft: =12
-                                          RadiusTopRight: =12
+                                          LayoutDirection: =LayoutDirection.Horizontal
                                           RadiusBottomLeft: =12
                                           RadiusBottomRight: =12
-                                          DropShadow: =DropShadow.Semilight
+                                          RadiusTopLeft: =12
+                                          RadiusTopRight: =12
+                                          Width: =Parent.TemplateWidth
                                         Children:
                                           - TLDotColumn:
                                               Control: GroupContainer
                                               Variant: AutoLayout
                                               Properties:
                                                 FillPortions: =0
-                                                Width: =32
-                                                Fill: =RGBA(0, 0, 0, 0)
-                                                LayoutDirection: =LayoutDirection.Vertical
                                                 LayoutAlignItems: =LayoutAlignItems.Center
+                                                LayoutDirection: =LayoutDirection.Vertical
                                                 PaddingTop: =20
+                                                Width: =32
                                               Children:
                                                 - TLDot:
                                                     Control: Circle
                                                     Properties:
-                                                      FillPortions: =0
-                                                      Width: =10
-                                                      Height: =10
                                                       Fill: =RGBA(140, 12, 20, 1)
+                                                      Height: =10
+                                                      Width: =10
                                           - TLContentContainer:
                                               Control: GroupContainer
                                               Variant: AutoLayout
                                               Properties:
-                                                FillPortions: =1
-                                                Fill: =RGBA(0, 0, 0, 0)
                                                 LayoutDirection: =LayoutDirection.Vertical
-                                                LayoutAlignItems: =LayoutAlignItems.Start
                                                 LayoutGap: =4
-                                                PaddingTop: =16
                                                 PaddingBottom: =16
                                                 PaddingLeft: =4
                                                 PaddingRight: =18
+                                                PaddingTop: =16
                                               Children:
                                                 - TxtTLType:
                                                     Control: ModernText
                                                     Properties:
-                                                      Text: =ThisItem.Type_Modification.Value
-                                                      Size: =14
-                                                      FontWeight: =FontWeight.Bold
-                                                      Color: =RGBA(31, 41, 55, 1)
                                                       AutoHeight: =true
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      FontWeight: =FontWeight.Bold
+                                                      Size: =14
+                                                      Text: =ThisItem.Type_Modification.Value
                                                       Width: =Parent.Width - 54
                                                 - TxtTLStatut:
                                                     Control: ModernText
                                                     Properties:
+                                                      AutoHeight: =true
+                                                      Color: =RGBA(112, 112, 112, 1)
+                                                      Size: =13
                                                       Text: |-
                                                         ="Statut : " & ThisItem.Statut_A_Ce_Moment
-                                                      Size: =13
-                                                      Color: =RGBA(112, 112, 112, 1)
-                                                      AutoHeight: =true
                                                       Width: =Parent.Width - 54
                                                 - TxtTLComment:
                                                     Control: ModernText
                                                     Properties:
-                                                      Text: =ThisItem.Commentaire_Action
-                                                      Size: =13
-                                                      Color: =RGBA(31, 41, 55, 1)
                                                       AutoHeight: =true
-                                                      Width: =Parent.Width - 54
+                                                      Color: =RGBA(31, 41, 55, 1)
+                                                      Size: =13
+                                                      Text: =ThisItem.Commentaire_Action
                                                       Visible: =Not(IsBlank(ThisItem.Commentaire_Action))
+                                                      Width: =Parent.Width - 54
                                                 - TxtTLMeta:
                                                     Control: ModernText
                                                     Properties:
+                                                      AutoHeight: =true
+                                                      Color: =RGBA(144, 144, 144, 1)
+                                                      Size: =12
                                                       Text: |-
                                                         ="Par " & ThisItem.Actionneur.DisplayName & "  ·  " & With(
                                                           {
@@ -698,47 +843,38 @@ Screens:
                                                             )
                                                           )
                                                         )
-                                                      Size: =12
-                                                      Color: =RGBA(144, 144, 144, 1)
-                                                      AutoHeight: =true
                                                       Width: =Parent.Width - 54
                               - TxtEmptyTimeline:
                                   Control: ModernText
                                   Properties:
-                                    Text: ="Aucun historique pour cette demande."
-                                    Size: =14
-                                    Color: =RGBA(144, 144, 144, 1)
                                     Align: =Align.Center
                                     AutoHeight: =true
-                                    Width: =Parent.Width
+                                    Color: =RGBA(144, 144, 144, 1)
+                                    Size: =14
+                                    Text: ="Aucun historique pour cette demande."
                                     Visible: =GalleryHistorique.AllItemsCount = 0
+                                    Width: =Parent.Width
       - DialogOverlay:
           Control: GroupContainer
           Variant: ManualLayout
           Properties:
-            X: =0
-            Y: =0
-            Width: =Parent.Width
             Height: =Parent.Height
             Visible: =Not(IsBlank(varActionDialog))
+            Width: =Parent.Width
           Children:
             - RectDialogScrim:
                 Control: Rectangle
                 Properties:
-                  X: =0
-                  Y: =0
-                  Width: =Parent.Width
-                  Height: =Parent.Height
                   Fill: =RGBA(17, 24, 39, 0.45)
-                  BorderThickness: =0
+                  Height: =Parent.Height
                   OnSelect: =Set(varActionDialog, "")
+                  Width: =Parent.Width
             - DialogCard:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  X: =(Parent.Width - Self.Width) / 2
-                  Y: =(Parent.Height - Self.Height) / 2
-                  Width: =If(DetailDemande.Size = ScreenSize.Small, Parent.Width - 40, 440)
+                  DropShadow: =DropShadow.Regular
+                  Fill: =RGBA(255, 255, 255, 1)
                   Height: |-
                     =Switch(
                         varActionDialog,
@@ -747,23 +883,28 @@ Screens:
                         "assigner", 280,
                         210
                     )
-                  Fill: =RGBA(255, 255, 255, 1)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =12
-                  PaddingTop: =20
                   PaddingBottom: =20
                   PaddingLeft: =20
                   PaddingRight: =20
-                  RadiusTopLeft: =12
-                  RadiusTopRight: =12
+                  PaddingTop: =20
                   RadiusBottomLeft: =12
                   RadiusBottomRight: =12
-                  DropShadow: =DropShadow.Regular
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =If(DetailDemande.Size = ScreenSize.Small, Parent.Width - 40, 440)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =(Parent.Height - Self.Height) / 2
                 Children:
                   - TxtDialogTitle:
                       Control: ModernText
                       Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(31, 41, 55, 1)
+                        FontWeight: =FontWeight.Bold
+                        Size: =17
                         Text: |-
                           =Switch(
                               varActionDialog,
@@ -775,14 +916,12 @@ Screens:
                               "cloturer", "Confirmer la réception ?",
                               ""
                           )
-                        Size: =17
-                        FontWeight: =FontWeight.Bold
-                        Color: =RGBA(31, 41, 55, 1)
-                        FillPortions: =0
-                        AutoHeight: =true
                   - TxtDialogBody:
                       Control: ModernText
                       Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
                         Text: |-
                           ="« " & varSelectedDemande.Title & " » — " & Switch(
                               varActionDialog,
@@ -794,41 +933,34 @@ Screens:
                               "cloturer", "vous confirmez la bonne réception ; la demande sera clôturée.",
                               ""
                           )
-                        Size: =13
-                        Color: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
-                        AutoHeight: =true
                   - InpMotifRejet:
                       Control: ModernTextInput
                       Properties:
-                        FillPortions: =0
-                        Height: =96
-                        Type: =TextInputType.Multiline
-                        Placeholder: ="Motif du rejet…"
                         AccessibleLabel: ="Motif du rejet (obligatoire)"
+                        Height: =96
+                        Placeholder: ="Motif du rejet…"
+                        Type: =TextInputType.Multiline
                         Visible: =varActionDialog = "rejeter"
                   - DdServiceCible:
                       Control: ModernDropdown
                       Properties:
-                        FillPortions: =0
-                        Height: =40
-                        Items: =Filter(Services_Siege, Title <> varSelectedDemande.Service_Actuel_ID.Value)
-                        ItemDisplayText: =ThisItem.Title
                         AccessibleLabel: ="Service destinataire du transfert"
+                        Height: =40
+                        ItemDisplayText: =ThisItem.Title
+                        Items: =Filter(Services_Siege, Title <> varSelectedDemande.Service_Actuel_ID.Value)
                         Visible: =varActionDialog = "transferer"
                   - DdGestionnaireCible:
                       Control: ModernDropdown
                       Properties:
-                        FillPortions: =0
+                        AccessibleLabel: ="Gestionnaire destinataire de l'assignation"
                         Height: =40
+                        ItemDisplayText: =ThisItem.Utilisateur.DisplayName
                         Items: |-
                           =Filter(
                               Membres_Services,
                               Role.Value = "Gestionnaire"
                                   && Service_ID.Id = LookUp(Services_Siege, Title = varSelectedDemande.Service_Actuel_ID.Value, ID)
                           )
-                        ItemDisplayText: =ThisItem.Utilisateur.DisplayName
-                        AccessibleLabel: ="Gestionnaire destinataire de l'assignation"
                         Visible: =varActionDialog = "assigner"
                   - DialogButtonsRow:
                       Control: GroupContainer
@@ -836,25 +968,22 @@ Screens:
                       Properties:
                         FillPortions: =0
                         Height: =40
-                        Fill: =RGBA(0, 0, 0, 0)
-                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutAlignItems: =LayoutAlignItems.Center
-                        LayoutJustifyContent: =LayoutJustifyContent.End
+                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.End
                       Children:
                         - BtnDialogAnnuler:
                             Control: ModernButton
                             Properties:
-                              Text: ="Annuler"
                               Appearance: ='ButtonCanvas.Appearance'.Secondary
-                              FillPortions: =0
-                              Width: =120
                               Height: =40
                               OnSelect: =Set(varActionDialog, "")
+                              Text: ="Annuler"
+                              Width: =120
                         - BtnDialogConfirmer:
                             Control: ModernButton
                             Properties:
-                              Text: ="Confirmer"
                               Appearance: ='ButtonCanvas.Appearance'.Primary
                               BasePaletteColor: |-
                                 =Switch(
@@ -864,9 +993,6 @@ Screens:
                                     "cloturer", RGBA(6, 95, 70, 1),
                                     RGBA(140, 12, 20, 1)
                                 )
-                              FillPortions: =0
-                              Width: =140
-                              Height: =40
                               DisplayMode: |-
                                 =If(
                                     (varActionDialog = "rejeter" && IsBlank(Trim(InpMotifRejet.Text)))
@@ -875,6 +1001,7 @@ Screens:
                                     DisplayMode.Disabled,
                                     DisplayMode.Edit
                                 )
+                              Height: =40
                               OnSelect: |-
                                 =Switch(
                                     varActionDialog,
@@ -953,3 +1080,5 @@ Screens:
                                         Notify("Réception confirmée, demande clôturée.", NotificationType.Success)
                                     )
                                 )
+                              Text: ="Confirmer"
+                              Width: =140
