@@ -1,12 +1,14 @@
 """API FastAPI exposant les 3 modeles ML (regression, classification, clustering).
 
 Consommee par Power Automate (Flow_Machine_Learning) a chaque nouvelle
-demande soumise dans le portail.
+demande soumise dans le portail, et par Flow_Profilage_Agents pour le
+profilage comportemental periodique des agents demandeurs.
 """
 
 import logging
 import sys
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from pathlib import Path
 
 import joblib
@@ -23,6 +25,9 @@ CLASSIFICATION_MODEL_PATH = MODELS_DIR / "model_classification.pkl"
 CLUSTERING_MODEL_PATH = MODELS_DIR / "model_clustering.pkl"
 CLUSTERING_SCALER_PATH = MODELS_DIR / "scaler_clustering.pkl"
 PROFILS_PATH = DATA_DIR / "profils_gestionnaires.csv"
+CLUSTERING_MODEL_AGENTS_PATH = MODELS_DIR / "model_clustering_agents.pkl"
+CLUSTERING_SCALER_AGENTS_PATH = MODELS_DIR / "scaler_clustering_agents.pkl"
+PROFILS_AGENTS_PATH = DATA_DIR / "profils_agents.csv"
 DATA_V2_PATH = DATA_DIR / "demandes_dataset_final_v2.csv"
 
 sys.path.insert(0, str(BASE_DIR))
@@ -67,6 +72,16 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.error(f"Echec du chargement du modele clustering: {e}")
 
+    try:
+        models["clustering_kmeans_agents"] = joblib.load(CLUSTERING_MODEL_AGENTS_PATH)
+        models["clustering_scaler_agents"] = joblib.load(CLUSTERING_SCALER_AGENTS_PATH)
+        models["profils_agents_df"] = pd.read_csv(PROFILS_AGENTS_PATH, encoding="utf-8")
+        if "data_v2_df" not in models:
+            models["data_v2_df"] = pd.read_csv(DATA_V2_PATH, encoding="utf-8")
+        logger.info(f"Modele clustering agents + profils charges ({CLUSTERING_MODEL_AGENTS_PATH})")
+    except Exception as e:
+        logger.error(f"Echec du chargement du modele clustering agents: {e}")
+
     logger.info(f"Modeles disponibles au demarrage: {list(models.keys())}")
     yield
     logger.info("Arret de l'API - liberation des modeles.")
@@ -75,7 +90,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="API ML - Gestion des demandes",
-    description="Expose les modeles de prediction de delai, risque de retard et profil comportemental des gestionnaires.",
+    description="Expose les modeles de prediction de delai, risque de retard et profil comportemental des gestionnaires et agents demandeurs.",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -122,6 +137,10 @@ class GestionnaireInput(BaseModel):
     gestionnaire: str
 
 
+class AgentInput(BaseModel):
+    agent: str
+
+
 @app.get("/health")
 async def health():
     loaded = []
@@ -131,6 +150,8 @@ async def health():
         loaded.append("classification")
     if "clustering_kmeans" in models and "clustering_scaler" in models and "profils_df" in models:
         loaded.append("clustering")
+    if "clustering_kmeans_agents" in models and "clustering_scaler_agents" in models and "profils_agents_df" in models:
+        loaded.append("clustering_agents")
     return {"status": "ok", "models_loaded": loaded}
 
 
@@ -189,3 +210,39 @@ async def predict_profil_endpoint(payload: GestionnaireInput):
     if result is None:
         return {"cluster": None, "profil_label": "Inconnu", "stats": None}
     return result
+
+
+@app.post("/predict/profil/agent")
+async def predict_profil_agent_endpoint(payload: AgentInput):
+    if "profils_agents_df" not in models:
+        raise HTTPException(status_code=503, detail="Profils agents non charges")
+    try:
+        result = predict_profil_agent(
+            payload.agent,
+            profils_df=models["profils_agents_df"],
+            df_v2=models["data_v2_df"],
+        )
+    except Exception as e:
+        logger.error(f"Erreur /predict/profil/agent: {e}")
+        raise HTTPException(status_code=500, detail="Erreur interne lors de la recherche du profil agent")
+
+    if result is None:
+        return {"cluster": None, "profil_label": "Inconnu", "stats": None}
+    return result
+
+
+@app.get("/predict/profil/batch")
+async def predict_profil_batch_endpoint():
+    if "profils_agents_df" not in models:
+        raise HTTPException(status_code=503, detail="Profils agents non charges")
+    try:
+        df = models["profils_agents_df"]
+        profils = df[["Agent", "nb_demandes", "taux_urgent_critique", "taux_rejete", "Cluster", "Profil_Label"]].to_dict(orient="records")
+    except Exception as e:
+        logger.error(f"Erreur /predict/profil/batch: {e}")
+        raise HTTPException(status_code=500, detail="Erreur interne lors de la generation du batch de profils")
+
+    return {
+        "profils": profils,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
