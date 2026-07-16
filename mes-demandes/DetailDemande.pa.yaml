@@ -101,13 +101,19 @@ Screens:
                                       && varSelectedDemande.Service_Actuel_ID.Value = UserServiceLabel))
                                   && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
                                       || varSelectedDemande.Statut_Actuel.Value = "En cours"),
-                              If(
-                                  IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
-                                      && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
-                                          || (varSelectedDemande.Statut_Actuel.Value = "En cours"
-                                              && varSelectedDemande.Type_Modification.Value = "Transfert")),
-                                  158, 112
-                              ), 0
+                              62
+                                  + If(
+                                      IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
+                                        && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
+                                            || (varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                                && varSelectedDemande.Type_Modification.Value = "Transfert")),
+                                      46, 0
+                                  )
+                                  + If(
+                                      varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                        && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)),
+                                      46, 0
+                                  ), 0
                           )
                           + If(
                               varSelectedDemande.Statut_Actuel.Value = "Validé"
@@ -653,13 +659,19 @@ Screens:
                               Fill: =RGBA(255, 255, 255, 1)
                               FillPortions: =0
                               Height: |-
-                                =If(
-                                    IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
+                                =46
+                                  + If(
+                                      IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
                                         && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
                                             || (varSelectedDemande.Statut_Actuel.Value = "En cours"
                                                 && varSelectedDemande.Type_Modification.Value = "Transfert")),
-                                    142, 96
-                                )
+                                      46, 0
+                                  )
+                                  + If(
+                                      varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                        && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)),
+                                      46, 0
+                                  )
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =6
@@ -694,6 +706,11 @@ Screens:
                                     LayoutAlignItems: =LayoutAlignItems.Center
                                     LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =10
+                                    Visible: |-
+                                      =IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)
+                                        && (varSelectedDemande.Statut_Actuel.Value = "Soumis"
+                                            || (varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                                && varSelectedDemande.Type_Modification.Value = "Transfert"))
                                   Children:
                                     - BtnPrendreEnCharge:
                                         Control: ModernButton
@@ -734,6 +751,9 @@ Screens:
                                     LayoutAlignItems: =LayoutAlignItems.Center
                                     LayoutDirection: =LayoutDirection.Horizontal
                                     LayoutGap: =10
+                                    Visible: |-
+                                      =varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                        && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
                                   Children:
                                     - BtnValider:
                                         Control: ModernButton
@@ -744,6 +764,9 @@ Screens:
                                           Height: =40
                                           OnSelect: =Set(varActionDialog, "valider")
                                           Text: ="Valider"
+                                          Visible: |-
+                                            =varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                              && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
                                     - BtnRejeter:
                                         Control: ModernButton
                                         Properties:
@@ -755,24 +778,22 @@ Screens:
                                             =Set(varActionDialog, "rejeter");
                                             Reset(InpMotifRejet)
                                           Text: ="Rejeter"
+                                          Visible: |-
+                                            =varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                              && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
                                     - BtnTransferer:
                                         Control: ModernButton
                                         Properties:
                                           Appearance: ='ButtonCanvas.Appearance'.Secondary
-                                          DisplayMode: |-
-                                            =If(
-                                                varSelectedDemande.Statut_Actuel.Value = "En cours"
-                                                    && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)),
-                                                DisplayMode.Edit,
-                                                DisplayMode.Disabled
-                                            )
                                           FillPortions: =1
                                           Height: =40
                                           OnSelect: |-
                                             =Set(varActionDialog, "transferer");
                                             Reset(DdServiceCible)
                                           Text: ="Transférer"
-                                          Tooltip: ="Transfert possible uniquement après prise en charge (statut En cours et gestionnaire assigné)"
+                                          Visible: |-
+                                            =varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                              && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
                         - ClotureCard:
                             Control: GroupContainer
                             Variant: AutoLayout
