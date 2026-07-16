@@ -2,7 +2,10 @@ Screens:
   DetailDemande:
     Properties:
       Fill: =RGBA(249, 250, 251, 1)
-      OnVisible: =Set(varActionDialog, "")
+      OnVisible: |-
+        =Set(varActionDialog, "");
+        Set(varPolling, false);
+        Set(varPollCount, 0)
     Children:
       - DetailScreenContainer:
           Control: GroupContainer
@@ -1314,6 +1317,8 @@ Screens:
                                         Set(varActionDialog, "");
                                         Refresh(Demandes);
                                         Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                        Set(varPollCount, 0);
+                                        Set(varPolling, true);
                                         Notify("Demande prise en charge — le statut se met à jour dans quelques secondes.", NotificationType.Success)
                                     ),
                                     "valider",
@@ -1360,6 +1365,8 @@ Screens:
                                         Set(varActionDialog, "");
                                         Refresh(Demandes);
                                         Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                        Set(varPollCount, 0);
+                                        Set(varPolling, true);
                                         Notify("Demande assignée — le statut se met à jour dans quelques secondes.", NotificationType.Success)
                                     ),
                                     "cloturer",
@@ -1374,3 +1381,20 @@ Screens:
                                 )
                               Text: ="Confirmer"
                               Width: =140
+      - TmrRefreshDemande:
+          Control: Timer
+          Properties:
+            Duration: =3000
+            Height: =1
+            OnTimerEnd: |-
+              =Refresh(Demandes);
+              Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+              Set(varPollCount, varPollCount + 1);
+              If(
+                  varSelectedDemande.Statut_Actuel.Value <> "Soumis" || varPollCount >= 40,
+                  Set(varPolling, false)
+              )
+            Repeat: =true
+            Start: =varPolling
+            Visible: =false
+            Width: =1
