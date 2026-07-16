@@ -792,7 +792,8 @@ Screens:
                                           Height: =40
                                           OnSelect: |-
                                             =Set(varActionDialog, "transferer");
-                                            Reset(DdServiceCible)
+                                            Reset(DdServiceCible);
+                                            Reset(TxtTransferComment)
                                           Text: ="Transférer"
                                           Visible: |-
                                             =varSelectedDemande.Statut_Actuel.Value = "En cours"
@@ -1174,7 +1175,7 @@ Screens:
                     =Switch(
                         varActionDialog,
                         "rejeter", 330,
-                        "transferer", 280,
+                        "transferer", 420,
                         "assigner", 280,
                         210
                     )
@@ -1223,7 +1224,7 @@ Screens:
                               "prendre", "vous serez assigné comme gestionnaire de cette demande.",
                               "valider", "la demande passera au statut Validé.",
                               "rejeter", "indiquez le motif du rejet (obligatoire).",
-                              "transferer", "choisissez le service destinataire.",
+                              "transferer", "choisissez le service destinataire et indiquez le motif du transfert (obligatoire).",
                               "assigner", "choisissez le gestionnaire à qui l'assigner.",
                               "cloturer", "vous confirmez la bonne réception ; la demande sera clôturée.",
                               ""
@@ -1244,6 +1245,22 @@ Screens:
                         ItemDisplayText: =ThisItem.Title
                         Items: =Filter(Services_Siege, Title <> varSelectedDemande.Service_Actuel_ID.Value)
                         Visible: =varActionDialog = "transferer"
+                  - TxtTransferComment:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Motif du transfert (obligatoire)"
+                        Height: =96
+                        Placeholder: ="Motif du transfert…"
+                        Type: =TextInputType.Multiline
+                        Visible: =varActionDialog = "transferer"
+                  - TxtTransferCommentHint:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(220, 38, 38, 1)
+                        Size: =12
+                        Text: ="Veuillez indiquer le motif du transfert."
+                        Visible: =varActionDialog = "transferer" && IsBlank(Trim(TxtTransferComment.Text))
                   - DdGestionnaireCible:
                       Control: ModernDropdown
                       Properties:
@@ -1291,7 +1308,7 @@ Screens:
                               DisplayMode: |-
                                 =If(
                                     (varActionDialog = "rejeter" && IsBlank(Trim(InpMotifRejet.Text)))
-                                        || (varActionDialog = "transferer" && IsBlank(DdServiceCible.Selected.ID))
+                                        || (varActionDialog = "transferer" && (IsBlank(DdServiceCible.Selected.ID) || IsBlank(Trim(TxtTransferComment.Text))))
                                         || (varActionDialog = "assigner" && IsBlank(DdGestionnaireCible.Selected.ID)),
                                     DisplayMode.Disabled,
                                     DisplayMode.Edit
@@ -1341,7 +1358,7 @@ Screens:
                                     ),
                                     "transferer",
                                     IfError(
-                                        Patch(Demandes, varSelectedDemande, {Service_Actuel_ID: {Id: DdServiceCible.Selected.ID, Value: DdServiceCible.Selected.Title}}),
+                                        Patch(Demandes, varSelectedDemande, {Service_Actuel_ID: {Id: DdServiceCible.Selected.ID, Value: DdServiceCible.Selected.Title}, Commentaire_Transfert: Trim(TxtTransferComment.Text)}),
                                         Notify("Échec du transfert : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
                                         Refresh(Demandes);
