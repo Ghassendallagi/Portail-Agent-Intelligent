@@ -494,8 +494,9 @@ Screens:
                                           (Statut_Actuel.Value = "Soumis"
                                               || Statut_Actuel.Value = "En cours"
                                               || Statut_Actuel.Value = "En attente élément"
+                                              || Statut_Actuel.Value = "En attente complément"
                                               || Statut_Actuel.Value = "Transféré")
-                                              && (IsBlank(_q) || StartsWith(Title, _q) || StartsWith(Agent_Demandeur.DisplayName, _q))
+                                              && (IsBlank(_q) || StartsWith(Titre, _q) || StartsWith(Agent_Demandeur.DisplayName, _q))
                                       ),
                                       "Date_Soumission", SortOrder.Ascending
                                   ),
@@ -506,8 +507,9 @@ Screens:
                                               && (Statut_Actuel.Value = "Soumis"
                                                   || Statut_Actuel.Value = "En cours"
                                                   || Statut_Actuel.Value = "En attente élément"
+                                                  || Statut_Actuel.Value = "En attente complément"
                                                   || Statut_Actuel.Value = "Transféré")
-                                              && (IsBlank(_q) || StartsWith(Title, _q) || StartsWith(Agent_Demandeur.DisplayName, _q))
+                                              && (IsBlank(_q) || StartsWith(Titre, _q) || StartsWith(Agent_Demandeur.DisplayName, _q))
                                       ),
                                       "Date_Soumission", SortOrder.Ascending
                                   )
@@ -555,7 +557,7 @@ Screens:
                                           AutoHeight: =true
                                           FontWeight: =FontWeight.Bold
                                           Size: =16
-                                          Text: =ThisItem.Title
+                                          Text: =ThisItem.Titre
                                           Width: =Parent.Width - 36
                                     - BadgeFTStatut:
                                         Control: Badge
@@ -674,7 +676,7 @@ Screens:
                                           (Statut_Actuel.Value = "Validé"
                                               || Statut_Actuel.Value = "Rejeté"
                                               || Statut_Actuel.Value = "Clôturé")
-                                              && (IsBlank(_q) || StartsWith(Title, _q) || StartsWith(Agent_Demandeur.DisplayName, _q))
+                                              && (IsBlank(_q) || StartsWith(Titre, _q) || StartsWith(Agent_Demandeur.DisplayName, _q))
                                       ),
                                       "Date_Dernier_Mouvement", SortOrder.Descending
                                   ),
@@ -685,7 +687,7 @@ Screens:
                                               && (Statut_Actuel.Value = "Validé"
                                                   || Statut_Actuel.Value = "Rejeté"
                                                   || Statut_Actuel.Value = "Clôturé")
-                                              && (IsBlank(_q) || StartsWith(Title, _q) || StartsWith(Agent_Demandeur.DisplayName, _q))
+                                              && (IsBlank(_q) || StartsWith(Titre, _q) || StartsWith(Agent_Demandeur.DisplayName, _q))
                                       ),
                                       "Date_Dernier_Mouvement", SortOrder.Descending
                                   )
@@ -733,7 +735,7 @@ Screens:
                                           AutoHeight: =true
                                           FontWeight: =FontWeight.Bold
                                           Size: =16
-                                          Text: =ThisItem.Title
+                                          Text: =ThisItem.Titre
                                           Width: =Parent.Width - 36
                                     - BadgeFTTStatut:
                                         Control: Badge
@@ -846,7 +848,7 @@ Screens:
                                       DemandeRec, LookUp(Demandes, ID = Value(DemID))
                                   ),
                                   Not(IsBlank(DemandeRec)) && DemandeRec.Service_Actuel_ID.Value <> UserServiceLabel
-                                      && (IsBlank(_q) || StartsWith(DemandeRec.Title, _q) || StartsWith(DemandeRec.Agent_Demandeur.DisplayName, _q))
+                                      && (IsBlank(_q) || StartsWith(DemandeRec.Titre, _q) || StartsWith(DemandeRec.Agent_Demandeur.DisplayName, _q))
                               )
                           )
                         TemplatePadding: =14
@@ -879,7 +881,7 @@ Screens:
                                     AutoHeight: =true
                                     Color: =RGBA(112, 112, 112, 1)
                                     FontWeight: =FontWeight.Semibold
-                                    Text: =ThisItem.DemandeRec.Title
+                                    Text: =ThisItem.DemandeRec.Titre
                                     Width: =Parent.Width - 36
                               - BadgeFTTransferee:
                                   Control: Badge

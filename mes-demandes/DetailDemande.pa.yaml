@@ -5,7 +5,8 @@ Screens:
       OnVisible: |-
         =Set(varActionDialog, "");
         Set(varPolling, false);
-        Set(varPollCount, 0)
+        Set(varPollCount, 0);
+        Set(varPollMode, "")
     Children:
       - DetailScreenContainer:
           Control: GroupContainer
@@ -116,6 +117,11 @@ Screens:
                                       varSelectedDemande.Statut_Actuel.Value = "En cours"
                                         && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)),
                                       46, 0
+                                  )
+                                  + If(
+                                      varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                        && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)),
+                                      46, 0
                                   ), 0
                           )
                           + If(
@@ -126,6 +132,12 @@ Screens:
                           )
                           + 236
                           + 228
+                          + If(
+                              varSelectedDemande.Statut_Actuel.Value = "En attente complément"
+                                  && UserRole = "Agent"
+                                  && varSelectedDemande.Agent_Demandeur.Email = User().Email,
+                              254, 0
+                          )
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
@@ -157,7 +169,7 @@ Screens:
                                     Color: =RGBA(31, 41, 55, 1)
                                     FontWeight: =FontWeight.Bold
                                     Size: =18
-                                    Text: =varSelectedDemande.Title
+                                    Text: =varSelectedDemande.Titre
                                     Width: =Parent.Width - 36
                               - BadgeStatutDetail:
                                   Control: Badge
@@ -675,6 +687,11 @@ Screens:
                                         && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)),
                                       46, 0
                                   )
+                                  + If(
+                                      varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                        && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)),
+                                      46, 0
+                                  )
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =6
@@ -720,6 +737,7 @@ Screens:
                                         Properties:
                                           Appearance: ='ButtonCanvas.Appearance'.Primary
                                           BasePaletteColor: =RGBA(140, 12, 20, 1)
+                                          DisplayMode: =If(varPolling, DisplayMode.Disabled, DisplayMode.Edit)
                                           FillPortions: =1
                                           Height: =40
                                           OnSelect: =Set(varActionDialog, "prendre")
@@ -733,6 +751,7 @@ Screens:
                                         Control: ModernButton
                                         Properties:
                                           Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                          DisplayMode: =If(varPolling, DisplayMode.Disabled, DisplayMode.Edit)
                                           FillPortions: =1
                                           Height: =40
                                           OnSelect: |-
@@ -763,6 +782,7 @@ Screens:
                                         Properties:
                                           Appearance: ='ButtonCanvas.Appearance'.Primary
                                           BasePaletteColor: =RGBA(6, 95, 70, 1)
+                                          DisplayMode: =If(varPolling, DisplayMode.Disabled, DisplayMode.Edit)
                                           FillPortions: =1
                                           Height: =40
                                           OnSelect: =Set(varActionDialog, "valider")
@@ -775,6 +795,7 @@ Screens:
                                         Properties:
                                           Appearance: ='ButtonCanvas.Appearance'.Primary
                                           BasePaletteColor: =RGBA(220, 38, 38, 1)
+                                          DisplayMode: =If(varPolling, DisplayMode.Disabled, DisplayMode.Edit)
                                           FillPortions: =1
                                           Height: =40
                                           OnSelect: |-
@@ -788,6 +809,7 @@ Screens:
                                         Control: ModernButton
                                         Properties:
                                           Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                          DisplayMode: =If(varPolling, DisplayMode.Disabled, DisplayMode.Edit)
                                           FillPortions: =1
                                           Height: =40
                                           OnSelect: |-
@@ -795,6 +817,35 @@ Screens:
                                             Reset(DdServiceCible);
                                             Reset(TxtTransferComment)
                                           Text: ="Transférer"
+                                          Visible: |-
+                                            =varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                              && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
+                              - ComplementRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =40
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                    Visible: |-
+                                      =varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                        && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
+                                  Children:
+                                    - BtnDemanderComplement:
+                                        Control: ModernButton
+                                        Properties:
+                                          Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                          BasePaletteColor: =RGBA(217, 119, 6, 1)
+                                          DisplayMode: =If(varPolling, DisplayMode.Disabled, DisplayMode.Edit)
+                                          FillPortions: =1
+                                          Height: =40
+                                          Icon: ="Clock"
+                                          OnSelect: |-
+                                            =Set(varActionDialog, "complement");
+                                            Reset(TxtDemandeComplement)
+                                          Text: ="Demander un complément"
                                           Visible: |-
                                             =varSelectedDemande.Statut_Actuel.Value = "En cours"
                                               && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
@@ -865,6 +916,103 @@ Screens:
                                     Height: =150
                                     MaxAttachments: =10
                                     NoAttachmentsText: ="Aucune pièce jointe"
+                        - ComplementResponseCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.Regular
+                              Fill: =RGBA(255, 251, 235, 1)
+                              FillPortions: =0
+                              Height: =254
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =10
+                              PaddingBottom: =18
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Visible: |-
+                                =varSelectedDemande.Statut_Actuel.Value = "En attente complément"
+                                  && UserRole = "Agent"
+                                  && varSelectedDemande.Agent_Demandeur.Email = User().Email
+                            Children:
+                              - CRHeaderRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =24
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - IconCRHeader:
+                                        Control: ModernIcon
+                                        Properties:
+                                          Height: =20
+                                          Icon: ="Clock"
+                                          IconColor: =RGBA(180, 83, 9, 1)
+                                          Width: =20
+                                    - TxtCRTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(146, 64, 14, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          Text: ="Compléter les informations demandées"
+                              - TxtCRComment:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(120, 53, 15, 1)
+                                    Size: =13
+                                    Text: =varSelectedDemande.Commentaire_Complement
+                                    Width: =Parent.Width - 36
+                              - TxtCRReponse:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    AccessibleLabel: ="Votre réponse"
+                                    Height: =72
+                                    Placeholder: ="Votre réponse (et/ou ajoutez une pièce jointe ci-dessous)…"
+                                    Type: =TextInputType.Multiline
+                              - BtnEnvoyerComplement:
+                                  Control: ModernButton
+                                  Properties:
+                                    Appearance: ='ButtonCanvas.Appearance'.Primary
+                                    BasePaletteColor: =RGBA(180, 83, 9, 1)
+                                    Height: =40
+                                    OnSelect: |-
+                                      =IfError(
+                                          Patch(Historique_Demandes, Defaults(Historique_Demandes), {
+                                              Title: varSelectedDemande.Titre & " - M" & varSelectedDemande.Num_Mouvement_Cours,
+                                              Demande_ID: Text(varSelectedDemande.ID),
+                                              Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours,
+                                              Service_A_Ce_Moment: varSelectedDemande.Service_Actuel_ID.Value,
+                                              Gestionnaire_A_Ce_Moment: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(varSelectedDemande.Gestionnaire_Assigne.Email), DisplayName: varSelectedDemande.Gestionnaire_Assigne.DisplayName, Email: varSelectedDemande.Gestionnaire_Assigne.Email, Department: "", JobTitle: "", Picture: ""},
+                                              Statut_A_Ce_Moment: "En cours",
+                                              Date_Debut_Etape: Now(),
+                                              Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                              Commentaire_Action: If(IsBlank(Trim(TxtCRReponse.Text)), "Réponse fournie par l'agent", Trim(TxtCRReponse.Text)),
+                                              Type_Modification: {Value: "Réponse complément"}
+                                          });
+                                          Patch(Demandes, varSelectedDemande, {
+                                              Statut_Actuel: {Value: "En cours"},
+                                              En_Attente_Complement: false,
+                                              Date_Reponse_Complement: Now(),
+                                              Duree_Pause_Heures: varSelectedDemande.Duree_Pause_Heures + DateDiff(varSelectedDemande.Date_Debut_Pause, Now(), TimeUnit.Minutes) / 60,
+                                              Num_Mouvement_Cours: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                              Type_Modification: {Value: "Réponse complément"}
+                                          }),
+                                          Notify("Échec de l'envoi du complément : " & FirstError.Message, NotificationType.Error),
+                                          Refresh(Demandes);
+                                          Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                          Reset(TxtCRReponse);
+                                          Notify("Complément envoyé, la demande reprend son traitement.", NotificationType.Success)
+                                      )
+                                    Text: ="Envoyer le complément"
                   - SideColumn:
                       Control: GroupContainer
                       Variant: AutoLayout
@@ -962,6 +1110,8 @@ Screens:
                                                             "Validation", RGBA(21, 128, 61, 1),
                                                             "Rejet", RGBA(220, 38, 38, 1),
                                                             "Clôture", RGBA(140, 12, 20, 1),
+                                                            "Demande complément", RGBA(217, 119, 6, 1),
+                                                            "Réponse complément", RGBA(37, 99, 235, 1),
                                                             RGBA(144, 144, 144, 1)
                                                         )
                                                       Height: =16
@@ -1013,6 +1163,8 @@ Screens:
                                                                   "Validation", "CheckmarkCircle",
                                                                   "Rejet", "DismissCircle",
                                                                   "Clôture", "Flag",
+                                                                  "Demande complément", "Clock",
+                                                                  "Réponse complément", "CheckmarkCircle",
                                                                   "Info"
                                                               )
                                                             IconColor: |-
@@ -1025,6 +1177,8 @@ Screens:
                                                                   "Validation", RGBA(21, 128, 61, 1),
                                                                   "Rejet", RGBA(220, 38, 38, 1),
                                                                   "Clôture", RGBA(140, 12, 20, 1),
+                                                                  "Demande complément", RGBA(217, 119, 6, 1),
+                                                                  "Réponse complément", RGBA(37, 99, 235, 1),
                                                                   RGBA(144, 144, 144, 1)
                                                               )
                                                             Width: =18
@@ -1042,6 +1196,8 @@ Screens:
                                                                   "Validation", RGBA(21, 128, 61, 1),
                                                                   "Rejet", RGBA(220, 38, 38, 1),
                                                                   "Clôture", RGBA(140, 12, 20, 1),
+                                                                  "Demande complément", RGBA(180, 83, 9, 1),
+                                                                  "Réponse complément", RGBA(30, 64, 175, 1),
                                                                   RGBA(31, 41, 55, 1)
                                                               )
                                                             FontWeight: =FontWeight.Bold
@@ -1177,6 +1333,7 @@ Screens:
                         "rejeter", 330,
                         "transferer", 420,
                         "assigner", 280,
+                        "complement", 320,
                         210
                     )
                   LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -1210,6 +1367,7 @@ Screens:
                               "transferer", "Transférer la demande",
                               "assigner", "Assigner à un gestionnaire",
                               "cloturer", "Confirmer la réception ?",
+                              "complement", "Demande de complément",
                               ""
                           )
                   - TxtDialogBody:
@@ -1219,7 +1377,7 @@ Screens:
                         Color: =RGBA(112, 112, 112, 1)
                         Size: =13
                         Text: |-
-                          ="« " & varSelectedDemande.Title & " » — " & Switch(
+                          ="« " & varSelectedDemande.Titre & " » — " & Switch(
                               varActionDialog,
                               "prendre", "vous serez assigné comme gestionnaire de cette demande.",
                               "valider", "la demande passera au statut Validé.",
@@ -1227,6 +1385,7 @@ Screens:
                               "transferer", "choisissez le service destinataire et indiquez le motif du transfert (obligatoire).",
                               "assigner", "choisissez le gestionnaire à qui l'assigner.",
                               "cloturer", "vous confirmez la bonne réception ; la demande sera clôturée.",
+                              "complement", "expliquez les informations manquantes attendues de l'agent (obligatoire).",
                               ""
                           )
                   - InpMotifRejet:
@@ -1245,22 +1404,6 @@ Screens:
                         ItemDisplayText: =ThisItem.Title
                         Items: =Filter(Services_Siege, Title <> varSelectedDemande.Service_Actuel_ID.Value)
                         Visible: =varActionDialog = "transferer"
-                  - TxtTransferComment:
-                      Control: ModernTextInput
-                      Properties:
-                        AccessibleLabel: ="Motif du transfert (obligatoire)"
-                        Height: =96
-                        Placeholder: ="Motif du transfert…"
-                        Type: =TextInputType.Multiline
-                        Visible: =varActionDialog = "transferer"
-                  - TxtTransferCommentHint:
-                      Control: ModernText
-                      Properties:
-                        AutoHeight: =true
-                        Color: =RGBA(220, 38, 38, 1)
-                        Size: =12
-                        Text: ="Veuillez indiquer le motif du transfert."
-                        Visible: =varActionDialog = "transferer" && IsBlank(Trim(TxtTransferComment.Text))
                   - DdGestionnaireCible:
                       Control: ModernDropdown
                       Properties:
@@ -1309,6 +1452,7 @@ Screens:
                                 =If(
                                     (varActionDialog = "rejeter" && IsBlank(Trim(InpMotifRejet.Text)))
                                         || (varActionDialog = "transferer" && (IsBlank(DdServiceCible.Selected.ID) || IsBlank(Trim(TxtTransferComment.Text))))
+                                        || (varActionDialog = "complement" && IsBlank(Trim(TxtDemandeComplement.Text)))
                                         || (varActionDialog = "assigner" && IsBlank(DdGestionnaireCible.Selected.ID)),
                                     DisplayMode.Disabled,
                                     DisplayMode.Edit
@@ -1319,6 +1463,7 @@ Screens:
                                     varActionDialog,
                                     "prendre",
                                     IfError(
+                                        Set(varPollMode, "assign");
                                         Patch(Demandes, varSelectedDemande, {
                                             Gestionnaire_Assigne: {
                                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
@@ -1358,15 +1503,19 @@ Screens:
                                     ),
                                     "transferer",
                                     IfError(
+                                        Set(varPollMode, "transfert");
                                         Patch(Demandes, varSelectedDemande, {Service_Actuel_ID: {Id: DdServiceCible.Selected.ID, Value: DdServiceCible.Selected.Title}, Commentaire_Transfert: Trim(TxtTransferComment.Text)}),
                                         Notify("Échec du transfert : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
                                         Refresh(Demandes);
                                         Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
-                                        Notify("Demande transférée.", NotificationType.Success)
+                                        Set(varPollCount, 0);
+                                        Set(varPolling, true);
+                                        Notify("Demande transférée — le traitement se finalise dans quelques secondes.", NotificationType.Success)
                                     ),
                                     "assigner",
                                     IfError(
+                                        Set(varPollMode, "assign");
                                         Patch(Demandes, varSelectedDemande, {
                                             Gestionnaire_Assigne: {
                                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
@@ -1394,10 +1543,80 @@ Screens:
                                         Refresh(Demandes);
                                         Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
                                         Notify("Réception confirmée, demande clôturée.", NotificationType.Success)
+                                    ),
+                                    "complement",
+                                    IfError(
+                                        Patch(Historique_Demandes, Defaults(Historique_Demandes), {
+                                            Title: varSelectedDemande.Titre & " - M" & varSelectedDemande.Num_Mouvement_Cours,
+                                            Demande_ID: Text(varSelectedDemande.ID),
+                                            Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours,
+                                            Service_A_Ce_Moment: varSelectedDemande.Service_Actuel_ID.Value,
+                                            Gestionnaire_A_Ce_Moment: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(varSelectedDemande.Gestionnaire_Assigne.Email), DisplayName: varSelectedDemande.Gestionnaire_Assigne.DisplayName, Email: varSelectedDemande.Gestionnaire_Assigne.Email, Department: "", JobTitle: "", Picture: ""},
+                                            Statut_A_Ce_Moment: "En attente complément",
+                                            Date_Debut_Etape: Now(),
+                                            Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Commentaire_Action: Trim(TxtDemandeComplement.Text),
+                                            Type_Modification: {Value: "Demande complément"}
+                                        });
+                                        Patch(Demandes, varSelectedDemande, {
+                                            Statut_Actuel: {Value: "En attente complément"},
+                                            En_Attente_Complement: true,
+                                            Date_Debut_Pause: Now(),
+                                            Commentaire_Complement: Trim(TxtDemandeComplement.Text),
+                                            Num_Mouvement_Cours: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Type_Modification: {Value: "Demande complément"}
+                                        });
+                                        Patch(Notifications, Defaults(Notifications), {
+                                            Title: "Complément demandé",
+                                            Destinataire: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(varSelectedDemande.Agent_Demandeur.Email), DisplayName: varSelectedDemande.Agent_Demandeur.DisplayName, Email: varSelectedDemande.Agent_Demandeur.Email, Department: "", JobTitle: "", Picture: ""},
+                                            Type_Notification: {Value: "Warning"},
+                                            Priority: {Value: "Normal"},
+                                            Module: "Demandes",
+                                            ObjectID: Text(varSelectedDemande.ID),
+                                            Message: Trim(TxtDemandeComplement.Text),
+                                            IsRead: false
+                                        }),
+                                        Notify("Échec de la demande de complément : " & FirstError.Message, NotificationType.Error),
+                                        Set(varActionDialog, "");
+                                        Refresh(Demandes);
+                                        Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                        Notify("Demande de complément envoyée à l'agent.", NotificationType.Success)
                                     )
                                 )
                               Text: ="Confirmer"
                               Width: =140
+                  - TxtTransferCommentHint:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(220, 38, 38, 1)
+                        Size: =12
+                        Text: ="Veuillez indiquer le motif du transfert."
+                        Visible: =varActionDialog = "transferer" && IsBlank(Trim(TxtTransferComment.Text))
+                  - TxtTransferComment:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Motif du transfert (obligatoire)"
+                        Height: =96
+                        Placeholder: ="Motif du transfert…"
+                        Type: =TextInputType.Multiline
+                        Visible: =varActionDialog = "transferer"
+                  - TxtDemandeComplement:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Informations attendues (obligatoire)"
+                        Height: =96
+                        Placeholder: ="Merci de joindre le rapport d'inspection signé…"
+                        Type: =TextInputType.Multiline
+                        Visible: =varActionDialog = "complement"
+                  - TxtDemandeComplementHint:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(220, 38, 38, 1)
+                        Size: =12
+                        Text: ="Veuillez indiquer les informations attendues."
+                        Visible: =varActionDialog = "complement" && IsBlank(Trim(TxtDemandeComplement.Text))
       - TmrRefreshDemande:
           Control: Timer
           Properties:
@@ -1408,7 +1627,14 @@ Screens:
               Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
               Set(varPollCount, varPollCount + 1);
               If(
-                  varSelectedDemande.Statut_Actuel.Value <> "Soumis" || varPollCount >= 40,
+                  Switch(
+                      varPollMode,
+                      "assign", varSelectedDemande.Statut_Actuel.Value = "En cours"
+                          && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName)),
+                      "transfert", varSelectedDemande.Statut_Actuel.Value = "Soumis"
+                          && IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName),
+                      true
+                  ) || varPollCount >= 40,
                   Set(varPolling, false)
               )
             Repeat: =true

@@ -492,8 +492,9 @@ Screens:
                                           Agent_Demandeur.Email = User().Email
                                               && (Statut_Actuel.Value = "Soumis"
                                                   || Statut_Actuel.Value = "En cours"
+                                                  || Statut_Actuel.Value = "En attente complément"
                                                   || Statut_Actuel.Value = "Validé")
-                                              && (IsBlank(_q) || StartsWith(Title, _q))
+                                              && (IsBlank(_q) || StartsWith(Titre, _q))
                                       ),
                                       "Date_Soumission", SortOrder.Descending
                                   ),
@@ -504,7 +505,7 @@ Screens:
                                           Agent_Demandeur.Email = User().Email
                                               && (Statut_Actuel.Value = "Clôturé"
                                                   || Statut_Actuel.Value = "Rejeté")
-                                              && (IsBlank(_q) || StartsWith(Title, _q))
+                                              && (IsBlank(_q) || StartsWith(Titre, _q))
                                       ),
                                       "Date_Soumission", SortOrder.Descending
                                   ),
@@ -512,7 +513,7 @@ Screens:
                                       Filter(
                                           Demandes,
                                           Agent_Demandeur.Email = User().Email
-                                              && (IsBlank(_q) || StartsWith(Title, _q))
+                                              && (IsBlank(_q) || StartsWith(Titre, _q))
                                       ),
                                       "Date_Soumission", SortOrder.Descending
                                   )
@@ -559,7 +560,7 @@ Screens:
                                           AutoHeight: =true
                                           FontWeight: =FontWeight.Bold
                                           Size: =16
-                                          Text: =ThisItem.Title
+                                          Text: =ThisItem.Titre
                                           Width: =Parent.Width - 36
                                     - BadgeStatut:
                                         Control: Badge
