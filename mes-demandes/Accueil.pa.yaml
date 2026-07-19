@@ -643,7 +643,7 @@ Screens:
                         Height: |-
                           =If(
                               Accueil.Size = ScreenSize.Small,
-                              Switch(UserRole, "Agent", 3, "Gestionnaire", 4, "Superviseur", 4, 4) * 172,
+                              Switch(UserRole, "Agent", 3, "Gestionnaire", 4, "Superviseur", 5, 5) * 172,
                               172
                           )
                         LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -1261,6 +1261,89 @@ Screens:
                                     Color: =RGBA(75, 85, 99, 1)
                                     Size: =13
                                     Text: ="Priorité élevée"
+                        - KpiDeadline:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 247, 237, 1)
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =8
+                              PaddingBottom: =14
+                              PaddingLeft: =16
+                              PaddingRight: =16
+                              PaddingTop: =14
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                            Children:
+                              - BdgIcoKpiDeadline:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Fill: =RGBA(254, 235, 200, 1)
+                                    FillPortions: =0
+                                    Height: =38
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    PaddingBottom: =9
+                                    PaddingLeft: =9
+                                    PaddingRight: =9
+                                    PaddingTop: =9
+                                    RadiusBottomLeft: =22
+                                    RadiusBottomRight: =22
+                                    RadiusTopLeft: =22
+                                    RadiusTopRight: =22
+                                    Width: =38
+                                  Children:
+                                    - IcoKpiDeadline:
+                                        Control: ModernIcon
+                                        Properties:
+                                          Height: =22
+                                          Icon: ="Calendar"
+                                          IconColor: =RGBA(180, 83, 9, 1)
+                                          OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                                          Width: =22
+                              - LblKpiDeadline:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(146, 64, 14, 1)
+                                    OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                                    Size: =13
+                                    Text: ="Deadlines proches"
+                              - NumKpiDeadline:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(180, 83, 9, 1)
+                                    FontWeight: =FontWeight.Bold
+                                    OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                                    Size: =40
+                                    Text: |-
+                                      =Text(
+                                          If(
+                                              UserRole = "Admin",
+                                              CountRows(Filter(Demandes, Deadline_Metier_Active = true && Deadline_Metier > Now() && Deadline_Metier < DateAdd(Now(), 24, TimeUnit.Hours) && (Statut_Actuel.Value = "Soumis" || Statut_Actuel.Value = "En cours" || Statut_Actuel.Value = "En attente complément"))),
+                                              CountRows(Filter(Demandes, Service_Actuel_ID.Value = UserServiceLabel && Deadline_Metier_Active = true && Deadline_Metier > Now() && Deadline_Metier < DateAdd(Now(), 24, TimeUnit.Hours) && (Statut_Actuel.Value = "Soumis" || Statut_Actuel.Value = "En cours" || Statut_Actuel.Value = "En attente complément")))
+                                          )
+                                      )
+                              - TxtCtxKpiDeadline:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(75, 85, 99, 1)
+                                    Size: =13
+                                    Text: |-
+                                      =With(
+                                          {_n: If(
+                                              UserRole = "Admin",
+                                              CountRows(Filter(Demandes, Deadline_Metier_Active = true && Deadline_Metier < Now() && (Statut_Actuel.Value = "Soumis" || Statut_Actuel.Value = "En cours" || Statut_Actuel.Value = "En attente complément"))),
+                                              CountRows(Filter(Demandes, Service_Actuel_ID.Value = UserServiceLabel && Deadline_Metier_Active = true && Deadline_Metier < Now() && (Statut_Actuel.Value = "Soumis" || Statut_Actuel.Value = "En cours" || Statut_Actuel.Value = "En attente complément")))
+                                          )},
+                                          If(_n = 0, "Aucune dépassée", _n & If(_n > 1, " dépassées", " dépassée"))
+                                      )
                         - KpiTotal:
                             Control: GroupContainer
                             Variant: AutoLayout

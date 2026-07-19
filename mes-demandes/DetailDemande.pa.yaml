@@ -138,6 +138,11 @@ Screens:
                                   && varSelectedDemande.Agent_Demandeur.Email = User().Email,
                               254, 0
                           )
+                          + If(
+                              varSelectedDemande.Deadline_Metier_Active = true
+                                  && Not(IsBlank(varSelectedDemande.Deadline_Metier)),
+                              158, 0
+                          )
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
@@ -666,6 +671,152 @@ Screens:
                                           Height: =8
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           Width: =Round(Parent.Width * If(IsBlank(varSelectedDemande.Probabilite_Retard_ML), 0, varSelectedDemande.Probabilite_Retard_ML), 0)
+                        - DeadlineCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =142
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              PaddingBottom: =18
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Visible: |-
+                                =varSelectedDemande.Deadline_Metier_Active = true
+                                  && Not(IsBlank(varSelectedDemande.Deadline_Metier))
+                            Children:
+                              - DLHeaderRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =24
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - IconDL:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AccessibleLabel: ="Deadline métier"
+                                          Height: =24
+                                          Icon: ="Calendar"
+                                          IconColor: =RGBA(140, 12, 20, 1)
+                                          Width: =24
+                                    - TxtDLTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(140, 12, 20, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: ="Deadline métier"
+                                          Width: =Parent.Width - 64
+                              - DLDateRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - TxtDLDateLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: ="Date limite"
+                                          Width: =170
+                                    - TxtDLDateVal:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: =Text(varSelectedDemande.Deadline_Metier, DateTimeFormat.ShortDateTime24)
+                                    - BadgeDLStatut:
+                                        Control: Badge
+                                        Properties:
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          BasePaletteColor: |-
+                                            =If(
+                                                Now() > varSelectedDemande.Deadline_Metier, RGBA(254, 226, 226, 1),
+                                                DateDiff(Now(), varSelectedDemande.Deadline_Metier, TimeUnit.Hours) < 24, RGBA(254, 235, 200, 1),
+                                                RGBA(209, 250, 229, 1)
+                                            )
+                                          Content: |-
+                                            =If(
+                                                Now() > varSelectedDemande.Deadline_Metier, "Dépassée",
+                                                DateDiff(Now(), varSelectedDemande.Deadline_Metier, TimeUnit.Hours) < 24, "Proche échéance",
+                                                "Normale"
+                                            )
+                                          FontColor: |-
+                                            =If(
+                                                Now() > varSelectedDemande.Deadline_Metier, RGBA(153, 27, 27, 1),
+                                                DateDiff(Now(), varSelectedDemande.Deadline_Metier, TimeUnit.Hours) < 24, RGBA(180, 83, 9, 1),
+                                                RGBA(6, 95, 70, 1)
+                                            )
+                                          Height: =24
+                                          LayoutMinWidth: =120
+                                          Width: =130
+                              - DLRestantRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =24
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - IconDLRestant:
+                                        Control: ModernIcon
+                                        Properties:
+                                          Height: =18
+                                          Icon: ="Clock"
+                                          IconColor: |-
+                                            =If(
+                                                Now() > varSelectedDemande.Deadline_Metier, RGBA(220, 38, 38, 1),
+                                                DateDiff(Now(), varSelectedDemande.Deadline_Metier, TimeUnit.Hours) < 24, RGBA(180, 83, 9, 1),
+                                                RGBA(21, 128, 61, 1)
+                                            )
+                                          Width: =18
+                                    - TxtDLRestant:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: |-
+                                            =If(
+                                                Now() > varSelectedDemande.Deadline_Metier, RGBA(220, 38, 38, 1),
+                                                DateDiff(Now(), varSelectedDemande.Deadline_Metier, TimeUnit.Hours) < 24, RGBA(180, 83, 9, 1),
+                                                RGBA(21, 128, 61, 1)
+                                            )
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: |-
+                                            =With(
+                                                {_min: DateDiff(Now(), varSelectedDemande.Deadline_Metier, TimeUnit.Minutes)},
+                                                If(
+                                                    _min >= 1440, RoundDown(_min / 1440, 0) & If(RoundDown(_min / 1440, 0) > 1, " jours restants", " jour restant"),
+                                                    _min >= 60, RoundDown(_min / 60, 0) & If(RoundDown(_min / 60, 0) > 1, " heures restantes", " heure restante"),
+                                                    _min >= 0, _min & If(_min > 1, " minutes restantes", " minute restante"),
+                                                    _min > -60, "Deadline dépassée depuis " & -_min & If(-_min > 1, " minutes", " minute"),
+                                                    _min > -1440, "Deadline dépassée depuis " & RoundDown(-_min / 60, 0) & If(RoundDown(-_min / 60, 0) > 1, " heures", " heure"),
+                                                    "Deadline dépassée depuis " & RoundDown(-_min / 1440, 0) & If(RoundDown(-_min / 1440, 0) > 1, " jours", " jour")
+                                                )
+                                            )
+                                          Width: =Parent.Width - 62
                         - ActionsCard:
                             Control: GroupContainer
                             Variant: AutoLayout

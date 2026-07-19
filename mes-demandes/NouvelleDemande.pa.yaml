@@ -4,35 +4,38 @@ Screens:
       Fill: =RGBA(249, 250, 251, 1)
       OnVisible: |-
         =Set(varTriedSubmitND, false);
+        Set(varSubmitting, false);
         Reset(InpNDTitre);
         Reset(DdNDType);
         Reset(DdNDService);
-        Reset(RadNDUrgence)
+        Reset(RadNDUrgence);
+        Reset(InpNDDescription);
+        Reset(DpNDDeadline);
+        Reset(DdNDDeadlineHeure)
     Children:
       - NDScreenContainer:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
-            Width: =Parent.Width
-            Height: =Parent.Height
             Fill: =RGBA(249, 250, 251, 1)
-            LayoutDirection: =LayoutDirection.Vertical
+            Height: =Parent.Height
             LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width
           Children:
             - NDHeaderContainer:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
+                  Fill: =RGBA(249, 250, 251, 1)
                   FillPortions: =0
                   Height: =150
-                  Fill: =RGBA(249, 250, 251, 1)
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutAlignItems: =LayoutAlignItems.Start
                   LayoutGap: =8
-                  PaddingTop: =24
                   PaddingBottom: =16
                   PaddingLeft: =28
                   PaddingRight: =28
+                  PaddingTop: =24
                 Children:
                   - NDBackRow:
                       Control: GroupContainer
@@ -40,116 +43,149 @@ Screens:
                       Properties:
                         FillPortions: =0
                         Height: =32
-                        Fill: =RGBA(0, 0, 0, 0)
-                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =6
                       Children:
                         - IconNDBack:
                             Control: ModernIcon
                             Properties:
+                              AccessibleLabel: ="Retour vers Mes demandes"
+                              Height: =28
                               Icon: ="ArrowLeft"
                               IconColor: =RGBA(140, 12, 20, 1)
-                              FillPortions: =0
-                              Width: =28
-                              Height: =28
-                              AccessibleLabel: ="Retour vers Mes demandes"
                               OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                              Width: =28
                         - TxtNDBack:
                             Control: ModernText
                             Properties:
-                              Text: ="Retour"
-                              Size: =14
+                              AutoHeight: =true
                               Color: =RGBA(140, 12, 20, 1)
                               FontWeight: =FontWeight.Semibold
-                              AutoHeight: =true
                               OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                              Size: =14
+                              Text: ="Retour"
                   - TxtNDTitle:
                       Control: ModernText
                       Properties:
-                        Text: ="Nouvelle demande"
-                        Size: =24
-                        FontWeight: =FontWeight.Bold
-                        Color: =RGBA(140, 12, 20, 1)
                         AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
+                        FontWeight: =FontWeight.Bold
+                        Size: =24
+                        Text: ="Nouvelle demande"
                         Width: =Parent.Width - 56
                   - RectNDAccentBar:
                       Control: Rectangle
                       Properties:
-                        FillPortions: =0
-                        Width: =56
-                        Height: =4
                         Fill: =RGBA(140, 12, 20, 1)
+                        Height: =4
+                        Width: =56
             - NDBody:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  FillPortions: =1
                   Fill: =RGBA(249, 250, 251, 1)
-                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
                   LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =28
                   PaddingLeft: =28
                   PaddingRight: =28
-                  PaddingBottom: =28
                 Children:
                   - FormCard:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        FillPortions: =0
-                        Height: =566
-                        Width: =If(NouvelleDemande.Size = ScreenSize.Small, Parent.Width - 56, 640)
+                        DropShadow: =DropShadow.Semilight
                         Fill: =RGBA(255, 255, 255, 1)
-                        LayoutDirection: =LayoutDirection.Vertical
+                        FillPortions: =0
+                        Height: =924 + If(DdNDType.Selected.Title = "Demande de Cotation", 98, 0)
                         LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
-                        PaddingTop: =20
                         PaddingBottom: =20
                         PaddingLeft: =20
                         PaddingRight: =20
-                        RadiusTopLeft: =12
-                        RadiusTopRight: =12
+                        PaddingTop: =20
                         RadiusBottomLeft: =12
                         RadiusBottomRight: =12
-                        DropShadow: =DropShadow.Semilight
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Width: =Min(Parent.Width - 56, 680)
                       Children:
+                        - SectionDemandeHeader:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =26
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =8
+                            Children:
+                              - TxtSectionDemande:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(140, 12, 20, 1)
+                                    FontWeight: =FontWeight.Semibold
+                                    Size: =12
+                                    Text: ="Demande"
+                              - RectSectionDemandeSep:
+                                  Control: Rectangle
+                                  Properties:
+                                    Fill: =RGBA(229, 231, 235, 1)
+                                    Height: =1
                         - BlockTitre:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
                               FillPortions: =0
                               Height: =82
-                              Fill: =RGBA(0, 0, 0, 0)
-                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =4
                             Children:
-                              - TxtLblNDTitre:
-                                  Control: ModernText
+                              - LblRowNDTitre:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
                                   Properties:
-                                    Text: ="Titre de la demande *"
-                                    Size: =13
-                                    Color: =RGBA(112, 112, 112, 1)
                                     FillPortions: =0
-                                    AutoHeight: =true
+                                    Height: =18
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =2
+                                  Children:
+                                    - TxtLblNDTitre:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(140, 12, 20, 1)
+                                          Size: =13
+                                          Text: ="Titre de la demande"
+                                    - TxtReqNDTitre:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(220, 38, 38, 1)
+                                          Size: =13
+                                          Text: ="*"
                               - InpNDTitre:
                                   Control: ModernTextInput
                                   Properties:
-                                    FillPortions: =0
+                                    AccessibleLabel: ="Titre de la demande (obligatoire)"
+                                    BorderColor: =RGBA(229, 231, 235, 1)
                                     Height: =40
                                     Placeholder: |-
                                       ="Ex : Demande de validation d'avenant"
-                                    AccessibleLabel: ="Titre de la demande (obligatoire)"
                                     ValidationState: =If(varTriedSubmitND && IsBlank(Trim(Self.Text)), ValidationState.Error, ValidationState.None)
                               - TxtErrNDTitre:
                                   Control: ModernText
                                   Properties:
-                                    Text: ="Le titre est obligatoire."
-                                    Size: =12
-                                    Color: =RGBA(220, 38, 38, 1)
-                                    FillPortions: =0
                                     AutoHeight: =true
+                                    Color: =RGBA(220, 38, 38, 1)
+                                    Size: =12
+                                    Text: ="Le titre est obligatoire."
                                     Visible: =varTriedSubmitND && IsBlank(Trim(InpNDTitre.Text))
                         - BlockType:
                             Control: GroupContainer
@@ -157,36 +193,50 @@ Screens:
                             Properties:
                               FillPortions: =0
                               Height: =82
-                              Fill: =RGBA(0, 0, 0, 0)
-                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =4
                             Children:
-                              - TxtLblNDType:
-                                  Control: ModernText
+                              - LblRowNDType:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
                                   Properties:
-                                    Text: ="Type de demande *"
-                                    Size: =13
-                                    Color: =RGBA(112, 112, 112, 1)
                                     FillPortions: =0
-                                    AutoHeight: =true
+                                    Height: =18
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =2
+                                  Children:
+                                    - TxtLblNDType:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(140, 12, 20, 1)
+                                          Size: =13
+                                          Text: ="Type de demande"
+                                    - TxtReqNDType:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(220, 38, 38, 1)
+                                          Size: =13
+                                          Text: ="*"
                               - DdNDType:
                                   Control: ModernDropdown
                                   Properties:
-                                    FillPortions: =0
-                                    Height: =40
-                                    Items: =SortByColumns(Types_Demandes, "Title", SortOrder.Ascending)
-                                    ItemDisplayText: =ThisItem.Title
                                     AccessibleLabel: ="Type de demande (obligatoire)"
+                                    BorderColor: =RGBA(229, 231, 235, 1)
+                                    Height: =40
+                                    ItemDisplayText: =ThisItem.Title
+                                    Items: =SortByColumns(Types_Demandes, "Title", SortOrder.Ascending)
                                     ValidationState: =If(varTriedSubmitND && IsBlank(Self.Selected.ID), ValidationState.Error, ValidationState.None)
                               - TxtErrNDType:
                                   Control: ModernText
                                   Properties:
-                                    Text: ="Sélectionnez un type de demande."
-                                    Size: =12
-                                    Color: =RGBA(220, 38, 38, 1)
-                                    FillPortions: =0
                                     AutoHeight: =true
+                                    Color: =RGBA(220, 38, 38, 1)
+                                    Size: =12
+                                    Text: ="Sélectionnez un type de demande."
                                     Visible: =varTriedSubmitND && IsBlank(DdNDType.Selected.ID)
                         - BlockService:
                             Control: GroupContainer
@@ -194,108 +244,286 @@ Screens:
                             Properties:
                               FillPortions: =0
                               Height: =82
-                              Fill: =RGBA(0, 0, 0, 0)
-                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =4
                             Children:
-                              - TxtLblNDService:
-                                  Control: ModernText
+                              - LblRowNDService:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
                                   Properties:
-                                    Text: ="Service destinataire *"
-                                    Size: =13
-                                    Color: =RGBA(112, 112, 112, 1)
                                     FillPortions: =0
-                                    AutoHeight: =true
+                                    Height: =18
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =2
+                                  Children:
+                                    - TxtLblNDService:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(140, 12, 20, 1)
+                                          Size: =13
+                                          Text: ="Service destinataire"
+                                    - TxtReqNDService:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(220, 38, 38, 1)
+                                          Size: =13
+                                          Text: ="*"
                               - DdNDService:
                                   Control: ModernDropdown
                                   Properties:
-                                    FillPortions: =0
-                                    Height: =40
-                                    Items: =SortByColumns(Services_Siege, "Title", SortOrder.Ascending)
-                                    ItemDisplayText: =ThisItem.Title
                                     AccessibleLabel: ="Service destinataire (obligatoire)"
+                                    BorderColor: =RGBA(229, 231, 235, 1)
+                                    Height: =40
+                                    ItemDisplayText: =ThisItem.Title
+                                    Items: =SortByColumns(Services_Siege, "Title", SortOrder.Ascending)
                                     ValidationState: =If(varTriedSubmitND && IsBlank(Self.Selected.ID), ValidationState.Error, ValidationState.None)
                               - TxtErrNDService:
                                   Control: ModernText
                                   Properties:
-                                    Text: ="Sélectionnez un service destinataire."
-                                    Size: =12
-                                    Color: =RGBA(220, 38, 38, 1)
-                                    FillPortions: =0
                                     AutoHeight: =true
+                                    Color: =RGBA(220, 38, 38, 1)
+                                    Size: =12
+                                    Text: ="Sélectionnez un service destinataire."
                                     Visible: =varTriedSubmitND && IsBlank(DdNDService.Selected.ID)
+                        - BlockDeadline:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =82
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =4
+                              Visible: =DdNDType.Selected.Title = "Demande de Cotation"
+                            Children:
+                              - LblRowNDDeadline:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =18
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =2
+                                  Children:
+                                    - TxtLblNDDeadline:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(140, 12, 20, 1)
+                                          Size: =13
+                                          Text: ="Date limite demandée"
+                                    - TxtReqNDDeadline:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(220, 38, 38, 1)
+                                          Size: =13
+                                          Text: ="*"
+                              - NDDeadlineInputsRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =40
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =10
+                                  Children:
+                                    - DpNDDeadline:
+                                        Control: ModernDatePicker
+                                        Properties:
+                                          AccessibleLabel: ="Date limite demandée (obligatoire)"
+                                          FillPortions: =1
+                                          Height: =40
+                                    - DdNDDeadlineHeure:
+                                        Control: ModernDropdown
+                                        Properties:
+                                          AccessibleLabel: ="Heure limite (obligatoire)"
+                                          BorderColor: =RGBA(229, 231, 235, 1)
+                                          Height: =40
+                                          ItemDisplayText: =Text(ThisItem.Value, "00") & ":00"
+                                          Items: =Sequence(24, 0)
+                                          Width: =120
+                              - TxtErrNDDeadline:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(220, 38, 38, 1)
+                                    Size: =12
+                                    Text: ="Veuillez renseigner la date limite souhaitée."
+                                    Visible: =varTriedSubmitND && DdNDType.Selected.Title = "Demande de Cotation" && (IsBlank(DpNDDeadline.SelectedDate) || IsBlank(DdNDDeadlineHeure.Selected.Value))
+                        - SectionDetailsHeader:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =26
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =8
+                            Children:
+                              - TxtSectionDetails:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(140, 12, 20, 1)
+                                    FontWeight: =FontWeight.Semibold
+                                    Size: =12
+                                    Text: ="Détails"
+                              - RectSectionDetailsSep:
+                                  Control: Rectangle
+                                  Properties:
+                                    Fill: =RGBA(229, 231, 235, 1)
+                                    Height: =1
+                        - BlockDescription:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =142
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =4
+                            Children:
+                              - TxtLblNDDescription:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(140, 12, 20, 1)
+                                    Size: =13
+                                    Text: ="Description"
+                              - InpNDDescription:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    AccessibleLabel: ="Description de la demande (optionnel)"
+                                    BorderColor: =RGBA(229, 231, 235, 1)
+                                    Height: =120
+                                    Placeholder: ="Décrivez votre demande en détail (contexte, urgence, éléments importants...)"
+                                    Type: =TextInputType.Multiline
                         - BlockUrgence:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
                               FillPortions: =0
                               Height: =172
-                              Fill: =RGBA(0, 0, 0, 0)
-                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =4
                             Children:
                               - TxtLblNDUrgence:
                                   Control: ModernText
                                   Properties:
-                                    Text: ="Niveau d'urgence"
-                                    Size: =13
-                                    Color: =RGBA(112, 112, 112, 1)
-                                    FillPortions: =0
                                     AutoHeight: =true
+                                    Color: =RGBA(140, 12, 20, 1)
+                                    Size: =13
+                                    Text: ="Niveau d'urgence"
                               - RadNDUrgence:
                                   Control: ModernRadio
                                   Properties:
-                                    FillPortions: =0
-                                    Height: =150
-                                    Items: =["Faible", "Normal", "Urgent", "Critique"]
+                                    AccessibleLabel: ="Niveau d'urgence"
                                     Default: |-
                                       ={Value: "Normal"}
-                                    AccessibleLabel: ="Niveau d'urgence"
+                                    Height: =150
+                                    Items: =["Faible", "Normal", "Urgent", "Critique"]
+                        - SectionDocumentsHeader:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =26
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =8
+                            Children:
+                              - TxtSectionDocuments:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(140, 12, 20, 1)
+                                    FontWeight: =FontWeight.Semibold
+                                    Size: =12
+                                    Text: ="Documents"
+                              - RectSectionDocumentsSep:
+                                  Control: Rectangle
+                                  Properties:
+                                    Fill: =RGBA(229, 231, 235, 1)
+                                    Height: =1
+                        - BlockDocuments:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =58
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =4
+                            Children:
+                              - TxtLblNDDocuments:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(140, 12, 20, 1)
+                                    Size: =13
+                                    Text: ="Pièces jointes (optionnel)"
+                              - TxtNoteNDDocuments:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(144, 144, 144, 1)
+                                    Size: =12
+                                    Text: ="Vous pourrez ajouter des pièces jointes après la création de la demande, depuis la page de détail."
+                                    Width: =Parent.Width
                         - NDButtonsRow:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
                               FillPortions: =0
                               Height: =44
-                              Fill: =RGBA(0, 0, 0, 0)
-                              LayoutDirection: =LayoutDirection.Horizontal
                               LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
                               LayoutGap: =12
+                              LayoutJustifyContent: =LayoutJustifyContent.End
                             Children:
                               - BtnNDAnnuler:
                                   Control: ModernButton
                                   Properties:
-                                    Text: ="Annuler"
-                                    Appearance: ='ButtonCanvas.Appearance'.Secondary
-                                    FillPortions: =0
-                                    Width: =140
+                                    Appearance: ='ButtonCanvas.Appearance'.Outline
+                                    BasePaletteColor: =RGBA(140, 12, 20, 1)
                                     Height: =40
                                     OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                                    Text: ="Annuler"
+                                    Width: =140
                               - BtnNDSoumettre:
                                   Control: ModernButton
                                   Properties:
-                                    Text: ="Soumettre"
                                     Appearance: ='ButtonCanvas.Appearance'.Primary
                                     BasePaletteColor: =RGBA(140, 12, 20, 1)
-                                    FillPortions: =0
-                                    Width: =160
+                                    DisplayMode: =If(varSubmitting, DisplayMode.Disabled, DisplayMode.Edit)
                                     Height: =40
+                                    Icon: ="Checkmark"
                                     OnSelect: |-
                                       =Set(varTriedSubmitND, true);
                                       If(
                                           Not(IsBlank(Trim(InpNDTitre.Text)))
                                               && Not(IsBlank(DdNDType.Selected.ID))
-                                              && Not(IsBlank(DdNDService.Selected.ID)),
+                                              && Not(IsBlank(DdNDService.Selected.ID))
+                                              && (DdNDType.Selected.Title <> "Demande de Cotation"
+                                                  || (Not(IsBlank(DpNDDeadline.SelectedDate)) && Not(IsBlank(DdNDDeadlineHeure.Selected.Value)))),
+                                          Set(varSubmitting, true);
                                           IfError(
                                               Patch(
                                                   Demandes,
                                                   Defaults(Demandes),
                                                   {
-                                                      Title: Trim(InpNDTitre.Text),
+                                                      Titre: Trim(InpNDTitre.Text),
                                                       Type_Demande_ID: {Id: DdNDType.Selected.ID, Value: DdNDType.Selected.Title},
                                                       Service_Actuel_ID: {Id: DdNDService.Selected.ID, Value: DdNDService.Selected.Title},
+                                                      Description: InpNDDescription.Text,
                                                       Niveau_Urgence: {Value: RadNDUrgence.Selected.Value},
                                                       Agent_Demandeur: {
                                                           Claims: "i:0#.f|membership|" & Lower(User().Email),
@@ -308,11 +536,19 @@ Screens:
                                                       Statut_Actuel: {Value: "Soumis"},
                                                       Date_Soumission: Now(),
                                                       Num_Mouvement_Cours: 1,
-                                                      Alerte_Retard_Active: false
+                                                      Alerte_Retard_Active: false,
+                                                      Deadline_Metier: If(DdNDType.Selected.Title = "Demande de Cotation", DateAdd(DpNDDeadline.SelectedDate, DdNDDeadlineHeure.Selected.Value, TimeUnit.Hours), Blank()),
+                                                      Deadline_Metier_Active: DdNDType.Selected.Title = "Demande de Cotation",
+                                                      Statut_Deadline: If(DdNDType.Selected.Title = "Demande de Cotation", {Value: "Normale"}, Blank()),
+                                                      Alerte_Deadline_Envoyee: false
                                                   }
                                               ),
+                                              Set(varSubmitting, false);
                                               Notify("Échec de la soumission : " & FirstError.Message, NotificationType.Error),
+                                              Set(varSubmitting, false);
                                               Notify("Votre demande a été soumise avec succès.", NotificationType.Success);
                                               Navigate(MesDemandes, ScreenTransition.Fade)
                                           )
                                       )
+                                    Text: ="Soumettre"
+                                    Width: =160

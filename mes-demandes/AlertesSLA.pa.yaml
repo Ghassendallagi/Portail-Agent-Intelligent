@@ -479,7 +479,7 @@ Screens:
                                           AutoHeight: =true
                                           FontWeight: =FontWeight.Bold
                                           Size: =16
-                                          Text: =ThisItem.Title
+                                          Text: =ThisItem.Titre
                                           Width: =Parent.Width - 36
                                     - BadgeASRStatut:
                                         Control: Badge
@@ -704,7 +704,7 @@ Screens:
                                           AutoHeight: =true
                                           FontWeight: =FontWeight.Bold
                                           Size: =16
-                                          Text: =ThisItem.Title
+                                          Text: =ThisItem.Titre
                                           Width: =Parent.Width - 36
                                     - BadgeASEStatut:
                                         Control: Badge
@@ -846,6 +846,357 @@ Screens:
                         Size: =14
                         Text: ="Aucune échéance proche."
                         Visible: =GalleryEcheance.AllItemsCount = 0
+                        Width: =Parent.Width - 56
+                  - TxtASSectionDeadline:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Size: =16
+                        Text: ="Deadline métier"
+                        Width: =Parent.Width - 56
+                  - TxtASSectionDLProches:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(217, 119, 6, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Size: =14
+                        Text: ="Proches échéances" & If(GalleryDLProches.AllItemsCount > 0, " · " & GalleryDLProches.AllItemsCount, "")
+                        Width: =Parent.Width - 56
+                  - GalleryDLProches:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        FillPortions: =0
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        Items: |-
+                          =If(
+                              UserRole = "Admin",
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Deadline_Metier_Active = true
+                                          && Deadline_Metier > Now()
+                                          && Deadline_Metier < DateAdd(Now(), 24, TimeUnit.Hours)
+                                          && (Statut_Actuel.Value = "Soumis" || Statut_Actuel.Value = "En cours" || Statut_Actuel.Value = "En attente complément")
+                                  ),
+                                  "Deadline_Metier", SortOrder.Ascending
+                              ),
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Service_Actuel_ID.Value = UserServiceLabel
+                                          && Deadline_Metier_Active = true
+                                          && Deadline_Metier > Now()
+                                          && Deadline_Metier < DateAdd(Now(), 24, TimeUnit.Hours)
+                                          && (Statut_Actuel.Value = "Soumis" || Statut_Actuel.Value = "En cours" || Statut_Actuel.Value = "En attente complément")
+                                  ),
+                                  "Deadline_Metier", SortOrder.Ascending
+                              )
+                          )
+                        TemplatePadding: =14
+                        TemplateSize: =185
+                        Width: =Parent.Width - 56
+                      Children:
+                        - ASDLProchesCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              Height: =Parent.TemplateHeight
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =Parent.TemplateWidth
+                            Children:
+                              - RectASDLProchesStripe:
+                                  Control: Rectangle
+                                  Properties:
+                                    Fill: =RGBA(217, 119, 6, 1)
+                                    Width: =4
+                              - ASDLProchesContent:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =5
+                                    PaddingBottom: =14
+                                    PaddingLeft: =18
+                                    PaddingRight: =18
+                                    PaddingTop: =14
+                                  Children:
+                                    - TxtASDLProchesTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: =ThisItem.Titre
+                                          Width: =Parent.Width - 36
+                                    - BadgeASDLProchesStatut:
+                                        Control: Badge
+                                        Properties:
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          BasePaletteColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Soumis", RGBA(229, 231, 235, 1),
+                                              "En cours", RGBA(219, 234, 254, 1),
+                                              "En attente complément", RGBA(254, 243, 199, 1),
+                                              RGBA(229, 231, 235, 1)
+                                            )
+                                          Content: =ThisItem.Statut_Actuel.Value
+                                          FontColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Soumis", RGBA(55, 65, 81, 1),
+                                              "En cours", RGBA(30, 64, 175, 1),
+                                              "En attente complément", RGBA(146, 64, 14, 1),
+                                              RGBA(55, 65, 81, 1)
+                                            )
+                                          Height: =28
+                                          LayoutMinWidth: =150
+                                          Width: =150
+                                    - TxtASDLProchesSvcType:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: |-
+                                            ="Service : " & ThisItem.Service_Actuel_ID.Value & "  ·  Type : " & ThisItem.Type_Demande_ID.Value
+                                          Width: =Parent.Width - 36
+                                    - TxtASDLProchesDate:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: |-
+                                            ="Deadline : " & Text(ThisItem.Deadline_Metier, DateTimeFormat.ShortDateTime24)
+                                          Width: =Parent.Width - 36
+                                    - TxtASDLProchesRestant:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(180, 83, 9, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: |-
+                                            =With(
+                                                {_min: DateDiff(Now(), ThisItem.Deadline_Metier, TimeUnit.Minutes)},
+                                                If(
+                                                    _min >= 60, RoundDown(_min / 60, 0) & If(RoundDown(_min / 60, 0) > 1, " heures restantes", " heure restante"),
+                                                    _min & If(_min > 1, " minutes restantes", " minute restante")
+                                                )
+                                            )
+                                          Width: =Parent.Width - 36
+                        - BtnASDLProchesClick:
+                            Control: Classic/Button
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Height: =Parent.TemplateHeight
+                              HoverBorderColor: =RGBA(140, 12, 20, 1)
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              OnSelect: |-
+                                =Set(varSelectedDemande, ThisItem);
+                                Navigate(DetailDemande, ScreenTransition.Fade)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Text: =""
+                              Width: =Parent.TemplateWidth
+                  - TxtASEmptyDLProches:
+                      Control: ModernText
+                      Properties:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Color: =RGBA(144, 144, 144, 1)
+                        Size: =14
+                        Text: ="Aucune deadline proche."
+                        Visible: =GalleryDLProches.AllItemsCount = 0
+                        Width: =Parent.Width - 56
+                  - TxtASSectionDLDepassees:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(220, 38, 38, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Size: =14
+                        Text: ="Deadlines dépassées" & If(GalleryDLDepassees.AllItemsCount > 0, " · " & GalleryDLDepassees.AllItemsCount, "")
+                        Width: =Parent.Width - 56
+                  - GalleryDLDepassees:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        FillPortions: =0
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        Items: |-
+                          =If(
+                              UserRole = "Admin",
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Deadline_Metier_Active = true
+                                          && Deadline_Metier < Now()
+                                          && (Statut_Actuel.Value = "Soumis" || Statut_Actuel.Value = "En cours" || Statut_Actuel.Value = "En attente complément")
+                                  ),
+                                  "Deadline_Metier", SortOrder.Ascending
+                              ),
+                              SortByColumns(
+                                  Filter(
+                                      Demandes,
+                                      Service_Actuel_ID.Value = UserServiceLabel
+                                          && Deadline_Metier_Active = true
+                                          && Deadline_Metier < Now()
+                                          && (Statut_Actuel.Value = "Soumis" || Statut_Actuel.Value = "En cours" || Statut_Actuel.Value = "En attente complément")
+                                  ),
+                                  "Deadline_Metier", SortOrder.Ascending
+                              )
+                          )
+                        TemplatePadding: =14
+                        TemplateSize: =185
+                        Width: =Parent.Width - 56
+                      Children:
+                        - ASDLDepasseesCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              Height: =Parent.TemplateHeight
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =Parent.TemplateWidth
+                            Children:
+                              - RectASDLDepasseesStripe:
+                                  Control: Rectangle
+                                  Properties:
+                                    Fill: =RGBA(220, 38, 38, 1)
+                                    Width: =4
+                              - ASDLDepasseesContent:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =5
+                                    PaddingBottom: =14
+                                    PaddingLeft: =18
+                                    PaddingRight: =18
+                                    PaddingTop: =14
+                                  Children:
+                                    - TxtASDLDepasseesTitle:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: =ThisItem.Titre
+                                          Width: =Parent.Width - 36
+                                    - BadgeASDLDepasseesStatut:
+                                        Control: Badge
+                                        Properties:
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          BasePaletteColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Soumis", RGBA(229, 231, 235, 1),
+                                              "En cours", RGBA(219, 234, 254, 1),
+                                              "En attente complément", RGBA(254, 243, 199, 1),
+                                              RGBA(229, 231, 235, 1)
+                                            )
+                                          Content: =ThisItem.Statut_Actuel.Value
+                                          FontColor: |-
+                                            =Switch(
+                                              ThisItem.Statut_Actuel.Value,
+                                              "Soumis", RGBA(55, 65, 81, 1),
+                                              "En cours", RGBA(30, 64, 175, 1),
+                                              "En attente complément", RGBA(146, 64, 14, 1),
+                                              RGBA(55, 65, 81, 1)
+                                            )
+                                          Height: =28
+                                          LayoutMinWidth: =150
+                                          Width: =150
+                                    - TxtASDLDepasseesSvcType:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: |-
+                                            ="Service : " & ThisItem.Service_Actuel_ID.Value & "  ·  Type : " & ThisItem.Type_Demande_ID.Value
+                                          Width: =Parent.Width - 36
+                                    - TxtASDLDepasseesDate:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: |-
+                                            ="Deadline : " & Text(ThisItem.Deadline_Metier, DateTimeFormat.ShortDateTime24)
+                                          Width: =Parent.Width - 36
+                                    - TxtASDLDepasseesRestant:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(220, 38, 38, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: |-
+                                            =With(
+                                                {_min: DateDiff(ThisItem.Deadline_Metier, Now(), TimeUnit.Minutes)},
+                                                If(
+                                                    _min >= 1440, "Dépassée depuis " & RoundDown(_min / 1440, 0) & If(RoundDown(_min / 1440, 0) > 1, " jours", " jour"),
+                                                    _min >= 60, "Dépassée depuis " & RoundDown(_min / 60, 0) & If(RoundDown(_min / 60, 0) > 1, " heures", " heure"),
+                                                    "Dépassée depuis " & _min & If(_min > 1, " minutes", " minute")
+                                                )
+                                            )
+                                          Width: =Parent.Width - 36
+                        - BtnASDLDepasseesClick:
+                            Control: Classic/Button
+                            Properties:
+                              BorderColor: =RGBA(0, 0, 0, 0)
+                              Fill: =RGBA(0, 0, 0, 0)
+                              Height: =Parent.TemplateHeight
+                              HoverBorderColor: =RGBA(140, 12, 20, 1)
+                              HoverFill: =RGBA(0, 0, 0, 0)
+                              OnSelect: |-
+                                =Set(varSelectedDemande, ThisItem);
+                                Navigate(DetailDemande, ScreenTransition.Fade)
+                              PressedBorderColor: =RGBA(140, 12, 20, 1)
+                              PressedFill: =RGBA(0, 0, 0, 0)
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Text: =""
+                              Width: =Parent.TemplateWidth
+                  - TxtASEmptyDLDepassees:
+                      Control: ModernText
+                      Properties:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Color: =RGBA(6, 95, 70, 1)
+                        Size: =14
+                        Text: |-
+                          ="Aucune deadline dépassée 🎉"
+                        Visible: =GalleryDLDepassees.AllItemsCount = 0
                         Width: =Parent.Width - 56
       - BarAS:
           Control: GroupContainer
