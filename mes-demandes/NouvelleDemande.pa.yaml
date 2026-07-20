@@ -99,7 +99,7 @@ Screens:
                         DropShadow: =DropShadow.Semilight
                         Fill: =RGBA(255, 255, 255, 1)
                         FillPortions: =0
-                        Height: =924 + If(DdNDType.Selected.Title = "Demande de Cotation", 98, 0)
+                        Height: =924 + If(Coalesce(DdNDType.Selected.Deadline_Obligatoire, false), 98, 0)
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
@@ -229,6 +229,7 @@ Screens:
                                     Height: =40
                                     ItemDisplayText: =ThisItem.Title
                                     Items: =SortByColumns(Types_Demandes, "Title", SortOrder.Ascending)
+                                    OnChange: =Reset(DdNDService)
                                     ValidationState: =If(varTriedSubmitND && IsBlank(Self.Selected.ID), ValidationState.Error, ValidationState.None)
                               - TxtErrNDType:
                                   Control: ModernText
@@ -277,6 +278,12 @@ Screens:
                                   Properties:
                                     AccessibleLabel: ="Service destinataire (obligatoire)"
                                     BorderColor: =RGBA(229, 231, 235, 1)
+                                    Default: |-
+                                      =If(
+                                          CountRows(DdNDType.Selected.Service_Par_Defaut) > 0,
+                                          LookUp(Services_Siege, ID = First(DdNDType.Selected.Service_Par_Defaut).Id),
+                                          Blank()
+                                      )
                                     Height: =40
                                     ItemDisplayText: =ThisItem.Title
                                     Items: =SortByColumns(Services_Siege, "Title", SortOrder.Ascending)
@@ -298,7 +305,7 @@ Screens:
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =4
-                              Visible: =DdNDType.Selected.Title = "Demande de Cotation"
+                              Visible: =Coalesce(DdNDType.Selected.Deadline_Obligatoire, false)
                             Children:
                               - LblRowNDDeadline:
                                   Control: GroupContainer
@@ -356,7 +363,7 @@ Screens:
                                     Color: =RGBA(220, 38, 38, 1)
                                     Size: =12
                                     Text: ="Veuillez renseigner la date limite souhaitée."
-                                    Visible: =varTriedSubmitND && DdNDType.Selected.Title = "Demande de Cotation" && (IsBlank(DpNDDeadline.SelectedDate) || IsBlank(DdNDDeadlineHeure.Selected.Value))
+                                    Visible: =varTriedSubmitND && Coalesce(DdNDType.Selected.Deadline_Obligatoire, false) && (IsBlank(DpNDDeadline.SelectedDate) || IsBlank(DdNDDeadlineHeure.Selected.Value))
                         - SectionDetailsHeader:
                             Control: GroupContainer
                             Variant: AutoLayout
@@ -512,7 +519,7 @@ Screens:
                                           Not(IsBlank(Trim(InpNDTitre.Text)))
                                               && Not(IsBlank(DdNDType.Selected.ID))
                                               && Not(IsBlank(DdNDService.Selected.ID))
-                                              && (DdNDType.Selected.Title <> "Demande de Cotation"
+                                              && (Not(Coalesce(DdNDType.Selected.Deadline_Obligatoire, false))
                                                   || (Not(IsBlank(DpNDDeadline.SelectedDate)) && Not(IsBlank(DdNDDeadlineHeure.Selected.Value)))),
                                           Set(varSubmitting, true);
                                           IfError(
@@ -537,9 +544,9 @@ Screens:
                                                       Date_Soumission: Now(),
                                                       Num_Mouvement_Cours: 1,
                                                       Alerte_Retard_Active: false,
-                                                      Deadline_Metier: If(DdNDType.Selected.Title = "Demande de Cotation", DateAdd(DpNDDeadline.SelectedDate, DdNDDeadlineHeure.Selected.Value, TimeUnit.Hours), Blank()),
-                                                      Deadline_Metier_Active: DdNDType.Selected.Title = "Demande de Cotation",
-                                                      Statut_Deadline: If(DdNDType.Selected.Title = "Demande de Cotation", {Value: "Normale"}, Blank()),
+                                                      Deadline_Metier: If(Coalesce(DdNDType.Selected.Deadline_Obligatoire, false), DateAdd(DpNDDeadline.SelectedDate, DdNDDeadlineHeure.Selected.Value, TimeUnit.Hours), Blank()),
+                                                      Deadline_Metier_Active: Coalesce(DdNDType.Selected.Deadline_Obligatoire, false),
+                                                      Statut_Deadline: If(Coalesce(DdNDType.Selected.Deadline_Obligatoire, false), {Value: "Normale"}, Blank()),
                                                       Alerte_Deadline_Envoyee: false
                                                   }
                                               ),

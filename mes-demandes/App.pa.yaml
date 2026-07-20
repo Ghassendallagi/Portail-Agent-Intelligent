@@ -1,15 +1,5 @@
 App:
   Properties:
-    Theme: =PowerAppsTheme
-    StartScreen: |-
-      =Switch(
-          UserRole,
-          "Agent", Accueil,
-          "Gestionnaire", Accueil,
-          "Superviseur", Accueil,
-          "Admin", Accueil,
-          AccesNonConfigure
-      )
     BackEnabled: =false
     Formulas: |-
       =// ---- Takaful palette (shared named formulas) ----
@@ -27,3 +17,15 @@ App:
       );
       UserServiceID = LookUp(Membres_Services, Utilisateur.Email = User().Email, Service_ID.Id);
       UserServiceLabel = LookUp(Services_Siege, ID = UserServiceID, Title);
+      // ---- Moteur de regles metier (Phase D) : regles du Type_Demande de la demande courante ----
+      TypeRulesActuelles = LookUp(Types_Demandes, ID = varSelectedDemande.Type_Demande_ID.Id);
+    StartScreen: |-
+      =Switch(
+          UserRole,
+          "Agent", Accueil,
+          "Gestionnaire", Accueil,
+          "Superviseur", Accueil,
+          "Admin", Accueil,
+          AccesNonConfigure
+      )
+    Theme: =PowerAppsTheme

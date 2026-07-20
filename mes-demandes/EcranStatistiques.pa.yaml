@@ -234,6 +234,40 @@ Screens:
                         OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
                         Size: =14
                         Text: ="Statistiques"
+            - NavSTAdmin:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Admin"
+                Children:
+                  - IcoSTAdmin:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Settings"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        Width: =22
+                  - LblSTAdmin:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Administration"
             - NavSTNotifs:
                 Control: GroupContainer
                 Variant: AutoLayout
@@ -380,7 +414,6 @@ Screens:
                   Fill: =RGBA(249, 250, 251, 1)
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
-                  LayoutGap: =0
                   LayoutOverflowY: =LayoutOverflow.Scroll
                   PaddingBottom: =28
                   PaddingLeft: =28
@@ -425,7 +458,8 @@ Screens:
                               AutoHeight: =true
                               Color: =RGBA(112, 112, 112, 1)
                               Size: =14
-                              Text: ="📊 Vue Direction — KPIs globaux et volumétrie"
+                              Text: |-
+                                ="📊 Vue Direction — KPIs globaux et volumétrie"
                               Width: =Parent.Width - 80
                         - TxtSTDescService:
                             Control: ModernText
@@ -434,7 +468,8 @@ Screens:
                               AutoHeight: =true
                               Color: =RGBA(112, 112, 112, 1)
                               Size: =14
-                              Text: ="🏢 Performance par service — SLA et transferts"
+                              Text: |-
+                                ="🏢 Performance par service — SLA et transferts"
                               Width: =Parent.Width - 80
                         - TxtSTDescActivite:
                             Control: ModernText
@@ -452,7 +487,8 @@ Screens:
                               AutoHeight: =true
                               Color: =RGBA(112, 112, 112, 1)
                               Size: =14
-                              Text: ="🚨 Suivi SLA — Alertes retard et échéances"
+                              Text: |-
+                                ="🚨 Suivi SLA — Alertes retard et échéances"
                               Width: =Parent.Width - 80
                         - BtnSTOuvrirRapport:
                             Control: ModernButton
@@ -462,8 +498,7 @@ Screens:
                               Color: =RGBA(255, 255, 255, 1)
                               FontWeight: =FontWeight.Semibold
                               Height: =46
-                              OnSelect: |-
-                                =Launch("https://app.powerbi.com/view?r=eyJrIjoiOTE5ZmY5MDUtMjAyYi00YjhlLWJlODYtZWZiYzdkYWMxNTE1IiwidCI6IjYxZDcwZTY4LTQ0YTgtNDNmZi05ZWIzLTIyNzk5NTdkNDQ1ZCIsImMiOjl9", {}, LaunchTarget.New)
+                              OnSelect: =Launch("https://app.powerbi.com/view?r=eyJrIjoiOTE5ZmY5MDUtMjAyYi00YjhlLWJlODYtZWZiYzdkYWMxNTE1IiwidCI6IjYxZDcwZTY4LTQ0YTgtNDNmZi05ZWIzLTIyNzk5NTdkNDQ1ZCIsImMiOjl9", {}, LaunchTarget.New)
                               RadiusBottomLeft: =8
                               RadiusBottomRight: =8
                               RadiusTopLeft: =8
@@ -479,6 +514,78 @@ Screens:
                               Size: =12
                               Text: ="Le rapport s'ouvre dans un nouvel onglet. Aucune connexion requise."
                               Width: =Parent.Width - 80
+                  - RepartitionCodeMetierCard:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        DropShadow: =DropShadow.Semilight
+                        Fill: =RGBA(255, 255, 255, 1)
+                        FillPortions: =0
+                        Height: =40 + CountRows(Distinct(Filter(Types_Demandes, Not(IsBlank(Code_Metier))), Code_Metier)) * 26
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =8
+                        PaddingBottom: =16
+                        PaddingLeft: =18
+                        PaddingRight: =18
+                        PaddingTop: =16
+                        RadiusBottomLeft: =12
+                        RadiusBottomRight: =12
+                        RadiusTopLeft: =12
+                        RadiusTopRight: =12
+                        Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                        Width: =Min(Parent.Width - 56, 640)
+                      Children:
+                        - TxtRepartitionTitle:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(55, 65, 81, 1)
+                              FontWeight: =FontWeight.Bold
+                              Text: ="Répartition des demandes par code métier"
+                        - GalleryRepartitionCodeMetier:
+                            Control: Gallery
+                            Variant: Vertical
+                            Properties:
+                              FillPortions: =0
+                              Height: =CountRows(Distinct(Filter(Types_Demandes, Not(IsBlank(Code_Metier))), Code_Metier)) * 26
+                              Items: |-
+                                =Sort(
+                                    AddColumns(
+                                        Distinct(Filter(Types_Demandes, Not(IsBlank(Code_Metier))), Code_Metier),
+                                        NbDemandes, CountRows(Filter(Demandes, Type_Demande_ID.Value in Filter(Types_Demandes, Code_Metier = Value).Title))
+                                    ),
+                                    NbDemandes, SortOrder.Descending
+                                )
+                              TemplatePadding: =2
+                              TemplateSize: =24
+                              Width: =Parent.Width - 36
+                            Children:
+                              - RowRepartitionCodeMetier:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Height: =Parent.TemplateHeight
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                    Width: =Parent.TemplateWidth
+                                  Children:
+                                    - TxtRepartitionCode:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =13
+                                          Text: =ThisItem.Value
+                                          Width: =180
+                                    - TxtRepartitionNb:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(140, 12, 20, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =13
+                                          Text: =Text(ThisItem.NbDemandes)
       - BarST:
           Control: GroupContainer
           Variant: AutoLayout
@@ -646,6 +753,32 @@ Screens:
                         OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
                         Size: =10
                         Text: ="Stats"
+            - BEntSTAdmin:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Admin"
+                Children:
+                  - BIcoSTAdmin:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Settings"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblSTAdmin:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Admin"
             - BEntSTNotifs:
                 Control: GroupContainer
                 Variant: AutoLayout

@@ -941,6 +941,8 @@ Screens:
                                           Visible: |-
                                             =varSelectedDemande.Statut_Actuel.Value = "En cours"
                                               && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
+                                              && (Coalesce(TypeRulesActuelles.Niveau_Validation.Value, "Simple") <> "Direction_Generale"
+                                                  || varSelectedDemande.Service_Actuel_ID.Value = "Direction Generale")
                                     - BtnRejeter:
                                         Control: ModernButton
                                         Properties:
@@ -983,6 +985,7 @@ Screens:
                                     Visible: |-
                                       =varSelectedDemande.Statut_Actuel.Value = "En cours"
                                         && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
+                                        && Coalesce(TypeRulesActuelles.Complement_Autorise, true)
                                   Children:
                                     - BtnDemanderComplement:
                                         Control: ModernButton
@@ -999,6 +1002,7 @@ Screens:
                                           Text: ="Demander un complément"
                                           Visible: |-
                                             =varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                              && Coalesce(TypeRulesActuelles.Complement_Autorise, true)
                                               && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
                         - ClotureCard:
                             Control: GroupContainer
@@ -1553,7 +1557,12 @@ Screens:
                         AccessibleLabel: ="Service destinataire du transfert"
                         Height: =40
                         ItemDisplayText: =ThisItem.Title
-                        Items: =Filter(Services_Siege, Title <> varSelectedDemande.Service_Actuel_ID.Value)
+                        Items: |-
+                          =Filter(
+                              Services_Siege,
+                              Title <> varSelectedDemande.Service_Actuel_ID.Value
+                                  && (Coalesce(TypeRulesActuelles.Transfert_Direction_Generale_Aut, true) || Title <> "Direction Generale")
+                          )
                         Visible: =varActionDialog = "transferer"
                   - DdGestionnaireCible:
                       Control: ModernDropdown
