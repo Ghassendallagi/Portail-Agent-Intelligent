@@ -483,7 +483,7 @@ Screens:
                                           AutoHeight: =true
                                           Color: =RGBA(31, 41, 55, 1)
                                           FontWeight: =FontWeight.Bold
-                                          Text: =ThisItem.Title
+                                          Text: =Coalesce(ThisItem.Title, "COALESCE_EMPTY")
                                           Width: =Parent.Width
                                     - ADRowBadgesLine:
                                         Control: GroupContainer
@@ -494,25 +494,28 @@ Screens:
                                           LayoutAlignItems: =LayoutAlignItems.Center
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =10
+                                          Width: =Parent.Width
                                         Children:
                                           - BadgeADRowCode:
                                               Control: Badge
                                               Properties:
                                                 Appearance: ='BadgeCanvas.Appearance'.Tint
                                                 BasePaletteColor: =RGBA(219, 234, 254, 1)
-                                                Content: =If(IsBlank(ThisItem.Code_Metier), "—", ThisItem.Code_Metier)
+                                                Content: =Coalesce(ThisItem.Code_Metier, "—")
                                                 FontColor: =RGBA(30, 64, 175, 1)
-                                                Height: =24
-                                                LayoutMinWidth: =160
+                                                Height: =28
+                                                LayoutMinWidth: =Len(Coalesce(ThisItem.Code_Metier, "—")) * 8 + 32
+                                                Width: =Len(Coalesce(ThisItem.Code_Metier, "—")) * 8 + 32
                                           - BadgeADRowActif:
                                               Control: Badge
                                               Properties:
                                                 Appearance: ='BadgeCanvas.Appearance'.Tint
-                                                BasePaletteColor: =If(Coalesce(ThisItem.Actif, true), RGBA(209, 250, 229, 1), RGBA(229, 231, 235, 1))
-                                                Content: =If(Coalesce(ThisItem.Actif, true), "Actif", "Inactif")
-                                                FontColor: =If(Coalesce(ThisItem.Actif, true), RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1))
-                                                Height: =22
-                                                LayoutMinWidth: =70
+                                                BasePaletteColor: =Coalesce(If(ThisItem.Actif, RGBA(209, 250, 229, 1), RGBA(229, 231, 235, 1)), RGBA(209, 250, 229, 1))
+                                                Content: =Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")
+                                                FontColor: =Coalesce(If(ThisItem.Actif, RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1)), RGBA(6, 95, 70, 1))
+                                                Height: =28
+                                                LayoutMinWidth: =Len(Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")) * 8 + 32
+                                                Width: =Len(Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")) * 8 + 32
                                     - TxtADRowService:
                                         Control: ModernText
                                         Properties:
@@ -521,6 +524,7 @@ Screens:
                                           Size: =12
                                           Text: |-
                                             ="Service par défaut : " & If(CountRows(ThisItem.Service_Par_Defaut) > 0, First(ThisItem.Service_Par_Defaut).Value, "—")
+                                          Width: =Parent.Width
                                     - ADRowRulesLine:
                                         Control: GroupContainer
                                         Variant: AutoLayout
@@ -530,6 +534,7 @@ Screens:
                                           LayoutAlignItems: =LayoutAlignItems.Center
                                           LayoutDirection: =LayoutDirection.Horizontal
                                           LayoutGap: =8
+                                          Width: =Parent.Width
                                         Children:
                                           - TxtADRowRules:
                                               Control: ModernText
@@ -541,6 +546,7 @@ Screens:
                                                   =If(Coalesce(ThisItem.Deadline_Obligatoire, false), "Deadline obligatoire · ", "") &
                                                       If(Not(Coalesce(ThisItem.Complement_Autorise, true)), "Complément désactivé · ", "") &
                                                       If(Coalesce(ThisItem.Niveau_Validation.Value, "Simple") = "Direction_Generale", "Validation DG", "Validation simple")
+                                                Width: =Parent.Width
                               - BtnADModifier:
                                   Control: ModernButton
                                   Properties:
