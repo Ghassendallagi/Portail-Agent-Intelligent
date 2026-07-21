@@ -463,7 +463,7 @@ Screens:
                             Properties:
                               Appearance: =If(ctxMDTab = "encours", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxMDTab = "encours", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
-                              Color: =If(ctxMDTab = "encours", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              Color: =If(ctxMDTab = "encours", RGBA(255, 255, 255, 1), RGBA(245, 245, 245, 1))
                               FillPortions: =1
                               FontWeight: =If(ctxMDTab = "encours", FontWeight.Semibold, FontWeight.Normal)
                               Height: =48
@@ -480,7 +480,7 @@ Screens:
                             Properties:
                               Appearance: =If(ctxMDTab = "terminees", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxMDTab = "terminees", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
-                              Color: =If(ctxMDTab = "terminees", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              Color: =If(ctxMDTab = "terminees", RGBA(255, 255, 255, 1), RGBA(245, 245, 245, 1))
                               FillPortions: =1
                               FontWeight: =If(ctxMDTab = "terminees", FontWeight.Semibold, FontWeight.Normal)
                               Height: =48
@@ -497,7 +497,7 @@ Screens:
                             Properties:
                               Appearance: =If(ctxMDTab = "toutes", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxMDTab = "toutes", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
-                              Color: =If(ctxMDTab = "toutes", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              Color: =If(ctxMDTab = "toutes", RGBA(255, 255, 255, 1), RGBA(245, 245, 245, 1))
                               FillPortions: =1
                               FontWeight: =If(ctxMDTab = "toutes", FontWeight.Semibold, FontWeight.Normal)
                               Height: =48

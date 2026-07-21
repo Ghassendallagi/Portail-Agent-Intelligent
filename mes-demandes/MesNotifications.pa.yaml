@@ -462,7 +462,7 @@ Screens:
                             Properties:
                               Appearance: =If(ctxNotifTab = "nonlues", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxNotifTab = "nonlues", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
-                              Color: =If(ctxNotifTab = "nonlues", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              Color: =If(ctxNotifTab = "nonlues", RGBA(255, 255, 255, 1), RGBA(245, 245, 245, 1))
                               FillPortions: =1
                               FontWeight: =If(ctxNotifTab = "nonlues", FontWeight.Semibold, FontWeight.Normal)
                               Height: =48
@@ -479,7 +479,7 @@ Screens:
                             Properties:
                               Appearance: =If(ctxNotifTab = "toutes", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxNotifTab = "toutes", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
-                              Color: =If(ctxNotifTab = "toutes", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              Color: =If(ctxNotifTab = "toutes", RGBA(255, 255, 255, 1), RGBA(245, 245, 245, 1))
                               FillPortions: =1
                               FontWeight: =If(ctxNotifTab = "toutes", FontWeight.Semibold, FontWeight.Normal)
                               Height: =48

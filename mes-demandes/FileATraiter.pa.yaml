@@ -464,7 +464,7 @@ Screens:
                             Properties:
                               Appearance: =If(ctxFTTab = "atraiter", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxFTTab = "atraiter", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
-                              Color: =If(ctxFTTab = "atraiter", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              Color: =If(ctxFTTab = "atraiter", RGBA(255, 255, 255, 1), RGBA(245, 245, 245, 1))
                               FillPortions: =1
                               FontWeight: =If(ctxFTTab = "atraiter", FontWeight.Semibold, FontWeight.Normal)
                               Height: =48
@@ -481,7 +481,7 @@ Screens:
                             Properties:
                               Appearance: =If(ctxFTTab = "traitees", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxFTTab = "traitees", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
-                              Color: =If(ctxFTTab = "traitees", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              Color: =If(ctxFTTab = "traitees", RGBA(255, 255, 255, 1), RGBA(245, 245, 245, 1))
                               FillPortions: =1
                               FontWeight: =If(ctxFTTab = "traitees", FontWeight.Semibold, FontWeight.Normal)
                               Height: =48
@@ -498,7 +498,7 @@ Screens:
                             Properties:
                               Appearance: =If(ctxFTTab = "transferees", 'ButtonCanvas.Appearance'.Primary, 'ButtonCanvas.Appearance'.Transparent)
                               BasePaletteColor: =If(ctxFTTab = "transferees", RGBA(140, 12, 20, 1), RGBA(112, 112, 112, 1))
-                              Color: =If(ctxFTTab = "transferees", RGBA(255, 255, 255, 1), RGBA(112, 112, 112, 1))
+                              Color: =If(ctxFTTab = "transferees", RGBA(255, 255, 255, 1), RGBA(245, 245, 245, 1))
                               FillPortions: =1
                               FontWeight: =If(ctxFTTab = "transferees", FontWeight.Semibold, FontWeight.Normal)
                               Height: =48
