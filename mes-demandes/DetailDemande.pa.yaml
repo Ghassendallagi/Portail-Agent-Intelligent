@@ -176,34 +176,57 @@ Screens:
                                     Size: =18
                                     Text: =varSelectedDemande.Titre
                                     Width: =Parent.Width - 36
-                              - BadgeStatutDetail:
-                                  Control: Badge
+                              - BadgesRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
                                   Properties:
-                                    Appearance: ='BadgeCanvas.Appearance'.Tint
-                                    BasePaletteColor: |-
-                                      =Switch(
-                                        varSelectedDemande.Statut_Actuel.Value,
-                                        "Soumis", RGBA(229, 231, 235, 1),
-                                        "En cours", RGBA(219, 234, 254, 1),
-                                        "Validé", RGBA(209, 250, 229, 1),
-                                        "Rejeté", RGBA(254, 226, 226, 1),
-                                        "Clôturé", RGBA(219, 226, 254, 1),
-                                        RGBA(229, 231, 235, 1)
-                                      )
-                                    Content: =varSelectedDemande.Statut_Actuel.Value
-                                    FontColor: |-
-                                      =Switch(
-                                        varSelectedDemande.Statut_Actuel.Value,
-                                        "Soumis", RGBA(55, 65, 81, 1),
-                                        "En cours", RGBA(30, 64, 175, 1),
-                                        "Validé", RGBA(6, 95, 70, 1),
-                                        "Rejeté", RGBA(153, 27, 27, 1),
-                                        "Clôturé", RGBA(30, 27, 120, 1),
-                                        RGBA(55, 65, 81, 1)
-                                      )
+                                    FillPortions: =0
                                     Height: =28
-                                    LayoutMinWidth: =96
-                                    Width: =96
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - BadgeStatutDetail:
+                                        Control: Badge
+                                        Properties:
+                                          Appearance: ='BadgeCanvas.Appearance'.Tint
+                                          BasePaletteColor: |-
+                                            =Switch(
+                                              varSelectedDemande.Statut_Actuel.Value,
+                                              "Soumis", RGBA(229, 231, 235, 1),
+                                              "En cours", RGBA(219, 234, 254, 1),
+                                              "Validé", RGBA(209, 250, 229, 1),
+                                              "Rejeté", RGBA(254, 226, 226, 1),
+                                              "Clôturé", RGBA(219, 226, 254, 1),
+                                              RGBA(229, 231, 235, 1)
+                                            )
+                                          Content: =varSelectedDemande.Statut_Actuel.Value
+                                          FontColor: |-
+                                            =Switch(
+                                              varSelectedDemande.Statut_Actuel.Value,
+                                              "Soumis", RGBA(55, 65, 81, 1),
+                                              "En cours", RGBA(30, 64, 175, 1),
+                                              "Validé", RGBA(6, 95, 70, 1),
+                                              "Rejeté", RGBA(153, 27, 27, 1),
+                                              "Clôturé", RGBA(30, 27, 120, 1),
+                                              RGBA(55, 65, 81, 1)
+                                            )
+                                          Height: =28
+                                          LayoutMinWidth: =96
+                                          Width: =96
+                                    - BadgeValideDG:
+                                        Control: Badge
+                                        Properties:
+                                          Appearance: ='BadgeCanvas.Appearance'.Filled
+                                          BasePaletteColor: =RGBA(21, 128, 61, 1)
+                                          Content: ="Validé par la Direction Générale"
+                                          FontColor: =RGBA(255, 255, 255, 1)
+                                          Height: =28
+                                          LayoutMinWidth: =Len("Validé par la Direction Générale") * 8 + 32
+                                          Visible: |-
+                                            =varSelectedDemande.Statut_Actuel.Value = "Validé"
+                                              && varSelectedDemande.Service_Actuel_ID.Value = "Direction Generale"
+                                          Width: =Len("Validé par la Direction Générale") * 8 + 32
                         - InfoCard:
                             Control: GroupContainer
                             Variant: AutoLayout
@@ -1561,7 +1584,12 @@ Screens:
                           =Filter(
                               Services_Siege,
                               Title <> varSelectedDemande.Service_Actuel_ID.Value
-                                  && (Coalesce(TypeRulesActuelles.Transfert_Direction_Generale_Aut, true) || Title <> "Direction Generale")
+                                  && (Coalesce(TypeRulesActuelles.Transfert_Direction_Generale_Autorise, true) || Title <> "Direction Generale")
+                                  && (
+                                      CountRows(TypeRulesActuelles.Services_A_Transferer) = 0
+                                          || ID in TypeRulesActuelles.Services_A_Transferer.Id
+                                          || ID in TypeRulesActuelles.Service_Par_Defaut.Id
+                                  )
                           )
                         Visible: =varActionDialog = "transferer"
                   - DdGestionnaireCible:

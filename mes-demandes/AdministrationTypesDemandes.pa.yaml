@@ -424,6 +424,7 @@ Screens:
                                 Reset(InpADCode);
                                 Reset(InpADDescription);
                                 Reset(DdADService);
+                                Clear(colADSelectedServices);
                                 Reset(RadADDeadline);
                                 Reset(RadADComplement);
                                 Reset(RadADTransfertDG);
@@ -444,7 +445,7 @@ Screens:
                               Filter(
                                   Types_Demandes,
                                   IsBlank(Trim(InpADSearch.Text))
-                                      || StartsWith(Title, Trim(InpADSearch.Text))
+                                      || StartsWith(Titre, Trim(InpADSearch.Text))
                                       || StartsWith(Code_Metier, Trim(InpADSearch.Text))
                               ),
                               "Title", SortOrder.Ascending
@@ -483,7 +484,7 @@ Screens:
                                           AutoHeight: =true
                                           Color: =RGBA(31, 41, 55, 1)
                                           FontWeight: =FontWeight.Bold
-                                          Text: =Coalesce(ThisItem.Title, "COALESCE_EMPTY")
+                                          Text: =Coalesce(ThisItem.Titre, "COALESCE_EMPTY")
                                           Width: =Parent.Width
                                     - ADRowBadgesLine:
                                         Control: GroupContainer
@@ -560,6 +561,7 @@ Screens:
                                       Reset(InpADCode);
                                       Reset(InpADDescription);
                                       Reset(DdADService);
+                                      ClearCollect(colADSelectedServices, ForAll(ThisItem.Services_A_Transferer As Svc, {ID: Svc.Id, Title: Svc.Value}));
                                       Reset(RadADDeadline);
                                       Reset(RadADComplement);
                                       Reset(RadADTransfertDG);
@@ -651,7 +653,7 @@ Screens:
                       Properties:
                         AccessibleLabel: ="Nom du type (obligatoire)"
                         BorderColor: =RGBA(229, 231, 235, 1)
-                        Default: =If(varADFormMode = "edit", LookUp(Types_Demandes, ID = varADEditingID).Title, "")
+                        Default: =If(varADFormMode = "edit", LookUp(Types_Demandes, ID = varADEditingID).Titre, "")
                         Height: =40
                   - TxtADLblCode:
                       Control: ModernText
@@ -705,6 +707,43 @@ Screens:
                         Height: =40
                         ItemDisplayText: =ThisItem.Title
                         Items: =SortByColumns(Services_Siege, "Title", SortOrder.Ascending)
+                  - TxtADLblServicesATransferer:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: ="Services vers lesquels le transfert est autorisé"
+                  - TxtADHintServicesATransferer:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(144, 144, 144, 1)
+                        Size: =11
+                        Text: ="Aucune sélection = tous les services restent autorisés."
+                  - GalleryADServicesATransferer:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        BorderThickness: =1
+                        FillPortions: =0
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        Items: =SortByColumns(Services_Siege, "Title", SortOrder.Ascending)
+                        TemplatePadding: =2
+                        TemplateSize: =34
+                      Children:
+                        - ChkADServiceATransferer:
+                            Control: CheckBox
+                            Properties:
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Checked: =CountRows(Filter(colADSelectedServices, ID = ThisItem.ID)) > 0
+                              Height: =Parent.TemplateHeight
+                              Label: =Coalesce(ThisItem.Title, "—")
+                              OnCheck: |-
+                                =Collect(colADSelectedServices, {ID: ThisItem.ID, Title: ThisItem.Title})
+                              OnUncheck: =RemoveIf(colADSelectedServices, ID = ThisItem.ID)
+                              Width: =Parent.TemplateWidth
                   - TxtADLblDeadline:
                       Control: ModernText
                       Properties:
@@ -747,7 +786,7 @@ Screens:
                       Properties:
                         AccessibleLabel: ="Transfert Direction Générale autorisé"
                         Default: |-
-                          =If(varADFormMode = "edit" && Not(Coalesce(LookUp(Types_Demandes, ID = varADEditingID).Transfert_Direction_Generale_Aut, true)), {Value: "Non"}, {Value: "Oui"})
+                          =If(varADFormMode = "edit" && Not(Coalesce(LookUp(Types_Demandes, ID = varADEditingID).Transfert_Direction_Generale_Autorise, true)), {Value: "Non"}, {Value: "Oui"})
                         Height: =76
                         Items: =["Oui", "Non"]
                   - TxtADLblValidationDG:
@@ -762,7 +801,7 @@ Screens:
                       Properties:
                         AccessibleLabel: ="Validation Direction Générale possible"
                         Default: |-
-                          =If(varADFormMode = "edit" && Coalesce(LookUp(Types_Demandes, ID = varADEditingID).Validation_Direction_Generale_Po, false), {Value: "Oui"}, {Value: "Non"})
+                          =If(varADFormMode = "edit" && Coalesce(LookUp(Types_Demandes, ID = varADEditingID).Validation_Direction_Generale_Possible, false), {Value: "Oui"}, {Value: "Non"})
                         Height: =76
                         Items: =["Oui", "Non"]
                   - TxtADLblNiveauValidation:
@@ -838,14 +877,15 @@ Screens:
                                             Types_Demandes,
                                             If(varADFormMode = "edit", LookUp(Types_Demandes, ID = varADEditingID), Defaults(Types_Demandes)),
                                             {
-                                                Title: Trim(InpADNom.Text),
+                                                Titre: Trim(InpADNom.Text),
                                                 Code_Metier: Trim(InpADCode.Text),
                                                 Description_Metier: Trim(InpADDescription.Text),
                                                 Service_Par_Defaut: Filter(Table({Id: DdADService.Selected.ID, Value: DdADService.Selected.Title}), Not(IsBlank(DdADService.Selected.ID))),
+                                                Services_A_Transferer: ForAll(colADSelectedServices As Sel, {Id: Sel.ID, Value: Sel.Title}),
                                                 Deadline_Obligatoire: RadADDeadline.Selected.Value = "Oui",
                                                 Complement_Autorise: RadADComplement.Selected.Value = "Oui",
-                                                Transfert_Direction_Generale_Aut: RadADTransfertDG.Selected.Value = "Oui",
-                                                Validation_Direction_Generale_Po: RadADValidationDG.Selected.Value = "Oui",
+                                                Transfert_Direction_Generale_Autorise: RadADTransfertDG.Selected.Value = "Oui",
+                                                Validation_Direction_Generale_Possible: RadADValidationDG.Selected.Value = "Oui",
                                                 Niveau_Validation: {Value: RadADNiveauValidation.Selected.Value},
                                                 Actif: RadADActif.Selected.Value = "Oui"
                                             }
