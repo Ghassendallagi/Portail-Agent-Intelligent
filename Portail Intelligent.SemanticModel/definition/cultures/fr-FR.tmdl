@@ -4392,7 +4392,7 @@ cultureInfo fr-FR
 			          }
 			        },
 			        {
-			          "Titre": {
+			          "N° Demande": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -5217,6 +5217,16 @@ cultureInfo fr-FR
 			            "Type": "Noun",
 			            "State": "Generated",
 			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "Probabilité de Retard": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -6641,6 +6651,16 @@ cultureInfo fr-FR
 			            "State": "Generated",
 			            "Weight": 0.99
 			          }
+			        },
+			        {
+			          "Demandeur": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -6669,6 +6689,16 @@ cultureInfo fr-FR
 			          "ancienneté": {
 			            "State": "Generated",
 			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "Ancienneté (j)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -6705,6 +6735,16 @@ cultureInfo fr-FR
 			              "Agent": "Thesaurus"
 			            },
 			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "Demandes": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -6775,6 +6815,26 @@ cultureInfo fr-FR
 			          "délai moyen traitement": {
 			            "State": "Generated",
 			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "Délai Moyen (h)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Délai Brut (Temps Agent)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -7068,6 +7128,16 @@ cultureInfo fr-FR
 			        {
 			          "nombre de transferts": {
 			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Transferts": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -10492,6 +10562,16 @@ cultureInfo fr-FR
 			            "State": "Generated",
 			            "Weight": 0.99
 			          }
+			        },
+			        {
+			          "SLA Théorique (h)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },
@@ -11900,6 +11980,16 @@ cultureInfo fr-FR
 			              "Agent": "Thesaurus"
 			            },
 			            "Weight": 0.714
+			          }
+			        },
+			        {
+			          "Type de Demande": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
 			          }
 			        }
 			      ]
@@ -15953,16 +16043,6 @@ cultureInfo fr-FR
 			            },
 			            "Weight": 0.714
 			          }
-			        },
-			        {
-			          "Gestionnaire": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
 			        }
 			      ]
 			    },
@@ -16693,7 +16773,332 @@ cultureInfo fr-FR
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Délai (Heures)": {
+			          "Délai Réel (h)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "types_demandes.code_metier": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Types_Demandes",
+			          "ConceptualProperty": "Code_Metier"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Code Métier": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.statut_deadline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Statut_Deadline"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Statut Deadline": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.taux_respect_sla_réel": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Taux Respect SLA Réel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "SLA Réel (%)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "SLA (%)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.taux_respect_deadlines": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Taux Respect Deadlines"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Deadlines (%)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.demandes_en_attente_complément": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Demandes En Attente Complément"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Compléments": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.date_debut_pause": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Date_Debut_Pause"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Début Pause": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.duree_pause_heures": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Duree_Pause_Heures"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Durée Pause (h)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.délai_traitement_net_heures": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Délai Traitement Net (Heures)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Délai Net (Temps Service)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.deadline_metier": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Deadline_Metier"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Deadline": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.date_depassement_deadline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Date_Depassement_Deadline"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Date Dépassement": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.prediction_delai_ml_numeric": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Prediction_Delai_ML_Numeric"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Délai Prédit IA (h)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.demandes_risque_faible_ia": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Demandes Risque Faible IA"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Risque Faible": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.demandes_risque_moyen_ia": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Demandes Risque Moyen IA"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Risque Moyen": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.demandes_risque_élevé_ia": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Demandes Risque Élevé IA"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Risque Élevé": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "demandes.temps_total_pause_heures": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Demandes",
+			          "ConceptualProperty": "Temps Total Pause (Heures)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Temps de Pause": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

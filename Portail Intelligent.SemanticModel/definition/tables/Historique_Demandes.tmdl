@@ -3,6 +3,7 @@ table Historique_Demandes
 
 	column FileSystemObjectType
 		dataType: string
+		isHidden
 		lineageTag: b0e77776-7183-46ad-9672-140727d76ce9
 		summarizeBy: none
 		sourceColumn: FileSystemObjectType
@@ -11,6 +12,7 @@ table Historique_Demandes
 
 	column Id
 		dataType: int64
+		isHidden
 		lineageTag: c13941cd-8173-4a79-a0e4-de2eee41d4a7
 		summarizeBy: none
 		sourceColumn: Id
@@ -19,6 +21,7 @@ table Historique_Demandes
 
 	column ServerRedirectedEmbedUri
 		dataType: string
+		isHidden
 		lineageTag: 8505d70e-1a00-470a-8a5c-fcba6d88c0e9
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUri
@@ -27,6 +30,7 @@ table Historique_Demandes
 
 	column ServerRedirectedEmbedUrl
 		dataType: string
+		isHidden
 		lineageTag: 730bfef5-84eb-49c0-a66d-0c8c638d5983
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUrl
@@ -35,6 +39,7 @@ table Historique_Demandes
 
 	column ContentTypeId
 		dataType: string
+		isHidden
 		lineageTag: 9a5c0cae-e9a1-440a-b10e-dfce328aa703
 		summarizeBy: none
 		sourceColumn: ContentTypeId
@@ -51,6 +56,7 @@ table Historique_Demandes
 
 	column OData__ColorTag
 		dataType: string
+		isHidden
 		lineageTag: dab40b73-18cb-486c-9713-4b0e0b03724a
 		summarizeBy: none
 		sourceColumn: OData__ColorTag
@@ -59,6 +65,7 @@ table Historique_Demandes
 
 	column ComplianceAssetId
 		dataType: string
+		isHidden
 		lineageTag: d1b251c9-9e21-4f9d-963e-455e535c6dc6
 		summarizeBy: none
 		sourceColumn: ComplianceAssetId
@@ -187,6 +194,7 @@ table Historique_Demandes
 
 	column Modified
 		dataType: dateTime
+		isHidden
 		lineageTag: bfffa7a8-5cee-4790-a49c-0c45db6b1569
 		summarizeBy: none
 		sourceColumn: Modified
@@ -195,6 +203,7 @@ table Historique_Demandes
 
 	column Created
 		dataType: dateTime
+		isHidden
 		lineageTag: 05ab7525-927e-4c6d-b7e9-14916143b5bb
 		summarizeBy: none
 		sourceColumn: Created
@@ -203,6 +212,7 @@ table Historique_Demandes
 
 	column AuthorId
 		dataType: int64
+		isHidden
 		lineageTag: 904eaa1c-5cc2-45ef-9be5-c416b99aea8d
 		summarizeBy: none
 		sourceColumn: AuthorId
@@ -211,6 +221,7 @@ table Historique_Demandes
 
 	column EditorId
 		dataType: int64
+		isHidden
 		lineageTag: 106d21a6-45d4-4b07-b338-0472b7f90760
 		summarizeBy: none
 		sourceColumn: EditorId
@@ -219,6 +230,7 @@ table Historique_Demandes
 
 	column OData__UIVersionString
 		dataType: string
+		isHidden
 		lineageTag: 127569ed-9078-4834-9f2f-b9340536fe6b
 		summarizeBy: none
 		sourceColumn: OData__UIVersionString
@@ -227,6 +239,7 @@ table Historique_Demandes
 
 	column Attachments
 		dataType: string
+		isHidden
 		lineageTag: 03be0a93-2b3a-42d4-bb80-3c960efdc72c
 		summarizeBy: none
 		sourceColumn: Attachments
@@ -235,6 +248,7 @@ table Historique_Demandes
 
 	column GUID
 		dataType: string
+		isHidden
 		lineageTag: d4e63573-c5ae-4abc-89eb-9106e5710d6f
 		summarizeBy: none
 		sourceColumn: GUID

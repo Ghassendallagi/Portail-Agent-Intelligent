@@ -38,11 +38,13 @@ table ListeInfoUtilisateur
 
 	column Modified
 		dataType: dateTime
+		isHidden
 		lineageTag: 6cd64af9-c2de-4254-b459-aa27b05cf3fe
 		sourceColumn: Modified
 
 	column Created
 		dataType: dateTime
+		isHidden
 		lineageTag: 865c0940-f380-4b58-912b-600aa438a4ef
 		sourceColumn: Created
 

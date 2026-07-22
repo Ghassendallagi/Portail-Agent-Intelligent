@@ -1,0 +1,302 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "704c2a58ac3746875840",
+  "position": {
+    "x": 20,
+    "y": 498,
+    "z": 6000,
+    "height": 210,
+    "width": 1240,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Title"
+                }
+              },
+              "queryRef": "Demandes.Title",
+              "nativeQueryRef": "N° Demande",
+              "displayName": "N° Demande"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Demandeur_Nom"
+                }
+              },
+              "queryRef": "Demandes.Demandeur_Nom",
+              "nativeQueryRef": "Demandeur",
+              "displayName": "Demandeur"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Services_Siege"
+                    }
+                  },
+                  "Property": "Title"
+                }
+              },
+              "queryRef": "Services_Siege.Title",
+              "nativeQueryRef": "Service",
+              "displayName": "Service"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Gestionnaire_Nom"
+                }
+              },
+              "queryRef": "Demandes.Gestionnaire_Nom",
+              "nativeQueryRef": "Gestionnaire",
+              "displayName": "Gestionnaire"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Statut_Deadline"
+                }
+              },
+              "queryRef": "Demandes.Statut_Deadline",
+              "nativeQueryRef": "Statut Deadline",
+              "displayName": "Statut Deadline"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Ancienneté (Jours)"
+                }
+              },
+              "queryRef": "Demandes.Ancienneté (Jours)",
+              "nativeQueryRef": "Ancienneté (j)",
+              "displayName": "Ancienneté (j)"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#65171B'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Alertes Critiques — Dossiers à Risque'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d45011f83729b1edff20",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Est_Alerte_Active"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "Demandes",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "t"
+                          }
+                        },
+                        "Property": "Est_Alerte_Active"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "true"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "46c01c900d6805aca84f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Title"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f84da971b35ea3fd30bd",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Demandeur_Nom"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "aab13b49f1ca1adc8fdf",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Services_Siege"
+              }
+            },
+            "Property": "Title"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "1ef4ff30e6aecb83f1d7",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Gestionnaire_Nom"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9578aaad3f38f9bf9334",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Statut_Deadline"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "40f27715454cd8e6dd70",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Ancienneté (Jours)"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

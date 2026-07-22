@@ -1,0 +1,32 @@
+/// Table de pont pour le champ multi-valeurs SharePoint Types_Demandes.Service_Par_Defaut
+table Pont_Types_ServiceParDefaut
+	lineageTag: 47b85ed2-2a39-49ad-afff-88bfbfae9bd8
+
+	column Type_Demande_ID
+		dataType: int64
+		lineageTag: 2a33798d-4b25-4e1f-83f4-d2d2cc99762c
+		summarizeBy: none
+		sourceColumn: Type_Demande_ID
+
+	column Service_ID
+		dataType: int64
+		lineageTag: aa7e2433-b516-4347-8cd3-3cc50cb60c69
+		summarizeBy: none
+		sourceColumn: Service_ID
+
+	partition Pont_Types_ServiceParDefaut = m
+		mode: import
+		source =
+				let
+				    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
+				    Items = Source{[Id="32167ee0-e386-46d9-9c4c-ba4998d7a2e4"]}[Items],
+				    Sel = Table.SelectColumns(Items, {"ID", "Service_Par_DefautId"}),
+				    Normalized = Table.TransformColumns(Sel, {{"Service_Par_DefautId", each if _ = null then {} else if _ is list then _ else {_}, type list}}),
+				    Renamed = Table.RenameColumns(Normalized, {{"ID", "Type_Demande_ID"}}),
+				    Expanded = Table.ExpandListColumn(Renamed, "Service_Par_DefautId"),
+				    Filtered = Table.SelectRows(Expanded, each [Service_Par_DefautId] <> null),
+				    Typed = Table.TransformColumnTypes(Filtered, {{"Type_Demande_ID", Int64.Type}, {"Service_Par_DefautId", Int64.Type}}),
+				    Renamed2 = Table.RenameColumns(Typed, {{"Service_Par_DefautId", "Service_ID"}})
+				in
+				    Renamed2
+

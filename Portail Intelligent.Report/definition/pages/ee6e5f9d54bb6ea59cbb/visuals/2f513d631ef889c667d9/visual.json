@@ -1,0 +1,203 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "2f513d631ef889c667d9",
+  "position": {
+    "x": 20,
+    "y": 250,
+    "z": 4000,
+    "height": 235,
+    "width": 610,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Demandes Risque Faible IA"
+                }
+              },
+              "queryRef": "Demandes.Demandes Risque Faible IA",
+              "nativeQueryRef": "Risque Faible",
+              "displayName": "Risque Faible"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Demandes Risque Moyen IA"
+                }
+              },
+              "queryRef": "Demandes.Demandes Risque Moyen IA",
+              "nativeQueryRef": "Risque Moyen",
+              "displayName": "Risque Moyen"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Demandes Risque Élevé IA"
+                }
+              },
+              "queryRef": "Demandes.Demandes Risque Élevé IA",
+              "nativeQueryRef": "Risque Élevé",
+              "displayName": "Risque Élevé"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#65171B'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#65171B'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Demandes.Demandes Risque Faible IA"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#8B2A30'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Demandes.Demandes Risque Moyen IA"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#4A1014'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Demandes.Demandes Risque Élevé IA"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Distribution des Demandes par Niveau de Risque IA'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6359347cf7bafb490d94",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Demandes Risque Faible IA"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1b8faf20f2ea881dea0f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Demandes Risque Moyen IA"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4d36919147ca1f7ea26e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Demandes Risque Élevé IA"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

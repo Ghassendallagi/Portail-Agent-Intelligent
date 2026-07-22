@@ -20,6 +20,8 @@ ref table Services_Siege
 ref table Types_Demandes
 ref table Historique_Demandes
 ref table ListeInfoUtilisateur
+ref table Pont_Types_ServiceParDefaut
+ref table Pont_Types_ServicesATransferer
 
 ref cultureInfo fr-FR
 

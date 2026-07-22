@@ -1,0 +1,203 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "5737a67c267422f10d53",
+  "position": {
+    "x": 20,
+    "y": 498,
+    "z": 4000,
+    "height": 210,
+    "width": 1240,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Délai Moyen Traitement (Heures)"
+                }
+              },
+              "queryRef": "Demandes.Délai Moyen Traitement (Heures)",
+              "nativeQueryRef": "Délai Brut (Temps Agent)",
+              "displayName": "Délai Brut (Temps Agent)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Temps Total Pause (Heures)"
+                }
+              },
+              "queryRef": "Demandes.Temps Total Pause (Heures)",
+              "nativeQueryRef": "Temps de Pause",
+              "displayName": "Temps de Pause"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Délai Traitement Net (Heures)"
+                }
+              },
+              "queryRef": "Demandes.Délai Traitement Net (Heures)",
+              "nativeQueryRef": "Délai Net (Temps Service)",
+              "displayName": "Délai Net (Temps Service)"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#65171B'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#65171B'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Demandes.Délai Moyen Traitement (Heures)"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#8B2A30'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Demandes.Temps Total Pause (Heures)"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#4A1014'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Demandes.Délai Traitement Net (Heures)"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Délai Brut vs Délai Net — Impact des Suspensions'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "0537fd92865abb700d68",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Délai Moyen Traitement (Heures)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b0ebb515c0c1a3dfce8e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Temps Total Pause (Heures)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "405e55a054a8cf4f3b9b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Délai Traitement Net (Heures)"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "0abe9ad8f8a1fd6cb555",
+  "position": {
+    "x": 20,
+    "y": 498,
+    "z": 6000,
+    "height": 210,
+    "width": 1240,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Title"
+                }
+              },
+              "queryRef": "Demandes.Title",
+              "nativeQueryRef": "N° Demande",
+              "displayName": "N° Demande"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Délai Traitement (Heures)"
+                }
+              },
+              "queryRef": "Demandes.Délai Traitement (Heures)",
+              "nativeQueryRef": "Délai Réel (h)",
+              "displayName": "Délai Réel (h)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Prediction_Delai_ML_Numeric"
+                }
+              },
+              "queryRef": "Demandes.Prediction_Delai_ML_Numeric",
+              "nativeQueryRef": "Délai Prédit IA (h)",
+              "displayName": "Délai Prédit IA (h)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Probabilite_Retard_ML"
+                }
+              },
+              "queryRef": "Demandes.Probabilite_Retard_ML",
+              "nativeQueryRef": "Probabilité de Retard",
+              "displayName": "Probabilité de Retard"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#65171B'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Contrôle Qualité du Modèle — Délai Réel vs Délai Prédit (IA)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4a3bde5d1519528df831",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Title"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "5275e869a5599d6ed958",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Délai Traitement (Heures)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f723260147d5608a1d01",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Prediction_Delai_ML_Numeric"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c5dd2c0c68eabc6920a3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Probabilite_Retard_ML"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

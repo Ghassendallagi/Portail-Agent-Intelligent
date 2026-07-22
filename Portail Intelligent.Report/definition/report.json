@@ -9,6 +9,15 @@
         "page": "2.3.1"
       },
       "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "AtTakafulia",
+      "reportVersionAtImport": {
+        "visual": "2.9.0",
+        "report": "3.3.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
     }
   },
   "objects": {
@@ -35,6 +44,87 @@
           "name": "CY26SU05",
           "path": "BaseThemes/CY26SU05.json",
           "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "AtTakafulia",
+          "path": "AtTakafulia",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "Logo.png",
+          "path": "Logo.png",
+          "type": "Image"
+        },
+        {
+          "name": "topbar.png",
+          "path": "topbar.png",
+          "type": "Image"
+        },
+        {
+          "name": "underline.png",
+          "path": "underline.png",
+          "type": "Image"
+        },
+        {
+          "name": "card_frame.png",
+          "path": "card_frame.png",
+          "type": "Image"
+        },
+        {
+          "name": "card_frame_wide.png",
+          "path": "card_frame_wide.png",
+          "type": "Image"
+        },
+        {
+          "name": "pill.png",
+          "path": "pill.png",
+          "type": "Image"
+        },
+        {
+          "name": "dot_primary.png",
+          "path": "dot_primary.png",
+          "type": "Image"
+        },
+        {
+          "name": "dot_secondary.png",
+          "path": "dot_secondary.png",
+          "type": "Image"
+        },
+        {
+          "name": "dot_deep.png",
+          "path": "dot_deep.png",
+          "type": "Image"
+        },
+        {
+          "name": "dot_warning.png",
+          "path": "dot_warning.png",
+          "type": "Image"
+        },
+        {
+          "name": "dot_governance.png",
+          "path": "dot_governance.png",
+          "type": "Image"
+        },
+        {
+          "name": "dot_success.png",
+          "path": "dot_success.png",
+          "type": "Image"
+        },
+        {
+          "name": "transparent.png",
+          "path": "transparent.png",
+          "type": "Image"
+        },
+        {
+          "name": "page_bg.png",
+          "path": "page_bg.png",
+          "type": "Image"
         }
       ]
     }

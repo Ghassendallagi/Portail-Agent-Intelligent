@@ -3,6 +3,7 @@ table Membres_Services
 
 	column FileSystemObjectType
 		dataType: string
+		isHidden
 		lineageTag: f6c5a27f-377c-455d-bc3b-7e5ed6ccc6e4
 		summarizeBy: none
 		sourceColumn: FileSystemObjectType
@@ -11,6 +12,7 @@ table Membres_Services
 
 	column Id
 		dataType: int64
+		isHidden
 		lineageTag: e08977c0-5ca3-4bda-92e4-ff9a7ce25fa5
 		summarizeBy: none
 		sourceColumn: Id
@@ -19,6 +21,7 @@ table Membres_Services
 
 	column ServerRedirectedEmbedUri
 		dataType: string
+		isHidden
 		lineageTag: aedaad69-314d-42e8-8270-35427d2a923b
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUri
@@ -27,6 +30,7 @@ table Membres_Services
 
 	column ServerRedirectedEmbedUrl
 		dataType: string
+		isHidden
 		lineageTag: ce478fe8-94c8-40a9-b5ff-06093c2dd827
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUrl
@@ -35,6 +39,7 @@ table Membres_Services
 
 	column ContentTypeId
 		dataType: string
+		isHidden
 		lineageTag: 9762e068-72c6-4c3d-b10b-80876591fa6f
 		summarizeBy: none
 		sourceColumn: ContentTypeId
@@ -51,6 +56,7 @@ table Membres_Services
 
 	column OData__ColorTag
 		dataType: string
+		isHidden
 		lineageTag: b0e5398c-9354-4ec1-a16d-0519d10cd9a1
 		summarizeBy: none
 		sourceColumn: OData__ColorTag
@@ -59,6 +65,7 @@ table Membres_Services
 
 	column ComplianceAssetId
 		dataType: string
+		isHidden
 		lineageTag: 3cf3f24d-c7cc-494b-afac-7211b477cbb1
 		summarizeBy: none
 		sourceColumn: ComplianceAssetId
@@ -107,6 +114,7 @@ table Membres_Services
 
 	column Modified
 		dataType: dateTime
+		isHidden
 		lineageTag: 4f7770c9-c266-41e8-8aee-1a7d3e779ab4
 		summarizeBy: none
 		sourceColumn: Modified
@@ -115,6 +123,7 @@ table Membres_Services
 
 	column Created
 		dataType: dateTime
+		isHidden
 		lineageTag: d2caadcd-bea6-4fdb-b0eb-6597ebc7b1fa
 		summarizeBy: none
 		sourceColumn: Created
@@ -123,6 +132,7 @@ table Membres_Services
 
 	column AuthorId
 		dataType: int64
+		isHidden
 		lineageTag: 2a7c3fae-781e-483f-aa19-fb16653c3640
 		summarizeBy: none
 		sourceColumn: AuthorId
@@ -131,6 +141,7 @@ table Membres_Services
 
 	column EditorId
 		dataType: int64
+		isHidden
 		lineageTag: 573caf2e-f187-4746-b773-646f561aba0c
 		summarizeBy: none
 		sourceColumn: EditorId
@@ -139,6 +150,7 @@ table Membres_Services
 
 	column OData__UIVersionString
 		dataType: string
+		isHidden
 		lineageTag: c580fde3-7af9-4ab0-af00-2940b120a8e5
 		summarizeBy: none
 		sourceColumn: OData__UIVersionString
@@ -147,6 +159,7 @@ table Membres_Services
 
 	column Attachments
 		dataType: string
+		isHidden
 		lineageTag: a60b1a81-1301-4322-9878-08811ce7fb5b
 		summarizeBy: none
 		sourceColumn: Attachments
@@ -155,6 +168,7 @@ table Membres_Services
 
 	column GUID
 		dataType: string
+		isHidden
 		lineageTag: 9d8a3490-db5b-4d3b-b150-2c0c1cd91902
 		summarizeBy: none
 		sourceColumn: GUID

@@ -41,3 +41,19 @@ relationship Demandes_GestionnaireAssigne_UserInfo
 	fromColumn: Demandes.Gestionnaire_AssigneId
 	toColumn: ListeInfoUtilisateur.'ID.1'
 
+relationship Pont_ServiceParDefaut_TypeDemande
+	fromColumn: Pont_Types_ServiceParDefaut.Type_Demande_ID
+	toColumn: Types_Demandes.'ID.1'
+
+relationship Pont_ServiceParDefaut_Service
+	fromColumn: Pont_Types_ServiceParDefaut.Service_ID
+	toColumn: Services_Siege.'ID.1'
+
+relationship Pont_ServicesATransferer_TypeDemande
+	fromColumn: Pont_Types_ServicesATransferer.Type_Demande_ID
+	toColumn: Types_Demandes.'ID.1'
+
+relationship Pont_ServicesATransferer_Service
+	fromColumn: Pont_Types_ServicesATransferer.Service_ID
+	toColumn: Services_Siege.'ID.1'
+

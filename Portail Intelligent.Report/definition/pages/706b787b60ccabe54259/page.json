@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "706b787b60ccabe54259",
-  "displayName": "Suivi SLA",
+  "displayName": "Deadlines Assurance",
   "displayOption": "FitToPage",
   "height": 720,
   "width": 1280

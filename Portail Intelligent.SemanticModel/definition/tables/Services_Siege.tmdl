@@ -3,6 +3,7 @@ table Services_Siege
 
 	column FileSystemObjectType
 		dataType: string
+		isHidden
 		lineageTag: eee1a9ed-f6ca-43a5-9291-05bad9d60e0e
 		summarizeBy: none
 		sourceColumn: FileSystemObjectType
@@ -11,6 +12,7 @@ table Services_Siege
 
 	column Id
 		dataType: int64
+		isHidden
 		lineageTag: e1f35265-f1b7-4ba5-bfb3-6529f011afe5
 		summarizeBy: none
 		sourceColumn: Id
@@ -19,6 +21,7 @@ table Services_Siege
 
 	column ServerRedirectedEmbedUri
 		dataType: string
+		isHidden
 		lineageTag: f93a3649-d2dd-495f-8d34-68b455ab8de2
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUri
@@ -27,6 +30,7 @@ table Services_Siege
 
 	column ServerRedirectedEmbedUrl
 		dataType: string
+		isHidden
 		lineageTag: 63f3abeb-822d-48f6-9894-b9d105600992
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUrl
@@ -35,6 +39,7 @@ table Services_Siege
 
 	column ContentTypeId
 		dataType: string
+		isHidden
 		lineageTag: fae37003-bb6f-43a9-90cf-06dd3c6fd874
 		summarizeBy: none
 		sourceColumn: ContentTypeId
@@ -51,6 +56,7 @@ table Services_Siege
 
 	column OData__ColorTag
 		dataType: string
+		isHidden
 		lineageTag: c67bac55-d043-47ca-b894-dbc5939c4172
 		summarizeBy: none
 		sourceColumn: OData__ColorTag
@@ -59,6 +65,7 @@ table Services_Siege
 
 	column ComplianceAssetId
 		dataType: string
+		isHidden
 		lineageTag: 06d709f2-a707-4ba3-8d41-bf422c032928
 		summarizeBy: none
 		sourceColumn: ComplianceAssetId
@@ -99,6 +106,7 @@ table Services_Siege
 
 	column Modified
 		dataType: dateTime
+		isHidden
 		lineageTag: 8c7d40e9-0810-4ff3-a131-325023272ea1
 		summarizeBy: none
 		sourceColumn: Modified
@@ -107,6 +115,7 @@ table Services_Siege
 
 	column Created
 		dataType: dateTime
+		isHidden
 		lineageTag: 435cb29f-ab55-4e17-9017-6d614f1e8e38
 		summarizeBy: none
 		sourceColumn: Created
@@ -115,6 +124,7 @@ table Services_Siege
 
 	column AuthorId
 		dataType: int64
+		isHidden
 		lineageTag: a7c0565c-2d09-419d-9d1f-08e9f6eab4a4
 		summarizeBy: none
 		sourceColumn: AuthorId
@@ -123,6 +133,7 @@ table Services_Siege
 
 	column EditorId
 		dataType: int64
+		isHidden
 		lineageTag: 54d7b536-5036-4d7a-a56b-821dba3823be
 		summarizeBy: none
 		sourceColumn: EditorId
@@ -131,6 +142,7 @@ table Services_Siege
 
 	column OData__UIVersionString
 		dataType: string
+		isHidden
 		lineageTag: d26cc0f7-29b8-4c4d-b303-8151d5ed8c5e
 		summarizeBy: none
 		sourceColumn: OData__UIVersionString
@@ -139,6 +151,7 @@ table Services_Siege
 
 	column Attachments
 		dataType: string
+		isHidden
 		lineageTag: bfac9eff-d5e1-4015-be59-54cc780a2c90
 		summarizeBy: none
 		sourceColumn: Attachments
@@ -147,6 +160,7 @@ table Services_Siege
 
 	column GUID
 		dataType: string
+		isHidden
 		lineageTag: 483c6a9e-7984-44c0-b2c5-fc7a96ee6771
 		summarizeBy: none
 		sourceColumn: GUID

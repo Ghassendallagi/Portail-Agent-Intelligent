@@ -1,0 +1,190 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "00b67a1a694f98098760",
+  "position": {
+    "x": 650,
+    "y": 250,
+    "z": 6000,
+    "height": 235,
+    "width": 610,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Gestionnaire_Nom"
+                }
+              },
+              "queryRef": "Demandes.Gestionnaire_Nom",
+              "nativeQueryRef": "Gestionnaire",
+              "displayName": "Gestionnaire"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Total Demandes"
+                }
+              },
+              "queryRef": "Demandes.Total Demandes",
+              "nativeQueryRef": "Demandes",
+              "displayName": "Demandes"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Délai Moyen Traitement (Heures)"
+                }
+              },
+              "queryRef": "Demandes.Délai Moyen Traitement (Heures)",
+              "nativeQueryRef": "Délai Moyen (h)",
+              "displayName": "Délai Moyen (h)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Demandes"
+                    }
+                  },
+                  "Property": "Demandes En Attente Complément"
+                }
+              },
+              "queryRef": "Demandes.Demandes En Attente Complément",
+              "nativeQueryRef": "Compléments",
+              "displayName": "Compléments"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#65171B'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Charge Détaillée par Gestionnaire'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c7aee0ffc1439dcbea98",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Gestionnaire_Nom"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "0a5d9d987a13155da816",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Total Demandes"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1edc5d36b24ae465f2f9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Délai Moyen Traitement (Heures)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3e7a45765c16f900ea38",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Demandes"
+              }
+            },
+            "Property": "Demandes En Attente Complément"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

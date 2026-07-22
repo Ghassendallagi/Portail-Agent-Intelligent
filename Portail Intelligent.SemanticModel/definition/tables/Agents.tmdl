@@ -3,6 +3,7 @@ table Agents
 
 	column FileSystemObjectType
 		dataType: string
+		isHidden
 		lineageTag: 3cd7bfec-467e-4354-89d6-9ad5cae05642
 		summarizeBy: none
 		sourceColumn: FileSystemObjectType
@@ -11,6 +12,7 @@ table Agents
 
 	column Id
 		dataType: int64
+		isHidden
 		lineageTag: 56d50cda-5bcf-4780-95ac-9fd66b88e060
 		summarizeBy: none
 		sourceColumn: Id
@@ -19,6 +21,7 @@ table Agents
 
 	column ServerRedirectedEmbedUri
 		dataType: string
+		isHidden
 		lineageTag: 006c5abb-5b42-4a65-9e32-471e513082bb
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUri
@@ -27,6 +30,7 @@ table Agents
 
 	column ServerRedirectedEmbedUrl
 		dataType: string
+		isHidden
 		lineageTag: 2bbbd1d5-b318-45c1-a671-9c4a99df781f
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUrl
@@ -35,6 +39,7 @@ table Agents
 
 	column ContentTypeId
 		dataType: string
+		isHidden
 		lineageTag: a04be8f6-101e-444e-94c7-44ba3b0988b9
 		summarizeBy: none
 		sourceColumn: ContentTypeId
@@ -51,6 +56,7 @@ table Agents
 
 	column OData__ColorTag
 		dataType: string
+		isHidden
 		lineageTag: 170ff17d-a534-4015-bfc0-ef1304f6840a
 		summarizeBy: none
 		sourceColumn: OData__ColorTag
@@ -59,6 +65,7 @@ table Agents
 
 	column ComplianceAssetId
 		dataType: string
+		isHidden
 		lineageTag: 51ff8883-6bd0-4272-b557-3762d95126a3
 		summarizeBy: none
 		sourceColumn: ComplianceAssetId
@@ -107,6 +114,7 @@ table Agents
 
 	column Modified
 		dataType: dateTime
+		isHidden
 		lineageTag: d723d9fb-4f91-4b4e-8a68-af87659a5ef2
 		summarizeBy: none
 		sourceColumn: Modified
@@ -115,6 +123,7 @@ table Agents
 
 	column Created
 		dataType: dateTime
+		isHidden
 		lineageTag: 1152223a-d396-4b43-857a-52acb340f7e2
 		summarizeBy: none
 		sourceColumn: Created
@@ -123,6 +132,7 @@ table Agents
 
 	column AuthorId
 		dataType: int64
+		isHidden
 		lineageTag: eb3d2452-2d7e-44f8-941c-079ed56567e8
 		summarizeBy: none
 		sourceColumn: AuthorId
@@ -131,6 +141,7 @@ table Agents
 
 	column EditorId
 		dataType: int64
+		isHidden
 		lineageTag: a8f80f2b-f4f3-49f5-8652-8918ee6f4e28
 		summarizeBy: none
 		sourceColumn: EditorId
@@ -139,6 +150,7 @@ table Agents
 
 	column OData__UIVersionString
 		dataType: string
+		isHidden
 		lineageTag: 3f4a0f0b-4245-4420-b58f-7ea391646d3f
 		summarizeBy: none
 		sourceColumn: OData__UIVersionString
@@ -147,6 +159,7 @@ table Agents
 
 	column Attachments
 		dataType: string
+		isHidden
 		lineageTag: e5fe1af8-53be-47ac-99bd-bb729d5f09f4
 		summarizeBy: none
 		sourceColumn: Attachments
@@ -155,6 +168,7 @@ table Agents
 
 	column GUID
 		dataType: string
+		isHidden
 		lineageTag: d9a4434a-6d35-4292-bae6-c051afaf8a16
 		summarizeBy: none
 		sourceColumn: GUID

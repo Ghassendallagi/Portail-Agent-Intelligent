@@ -119,8 +119,228 @@ table Demandes
 		formatString: #,0
 		lineageTag: 8dffc579-248d-4360-9971-7df0713375e3
 
+	/// Nombre de demandes actuellement en attente d'un complément d'information
+	measure 'Demandes En Attente Complément' = COALESCE(CALCULATE(COUNTROWS(Demandes), Demandes[En_Attente_Complement] = TRUE()), 0)
+		formatString: #,0
+		displayFolder: Compléments Information
+		lineageTag: 2a62e181-e96f-40e8-8b92-5dfc93289e98
+
+	/// Durée moyenne de pause (attente complément) en heures, sur les demandes ayant eu une pause
+	measure 'Durée Moyenne Pause (Heures)' = AVERAGE(Demandes[Duree_Pause_Heures])
+		formatString: #,0.00
+		displayFolder: Compléments Information
+		lineageTag: 28d36e93-ddc5-45c0-b3dc-7b2a3ffbe19c
+
+	/// Somme des durées de pause (heures) sur l'ensemble des demandes
+	measure 'Temps Total Pause (Heures)' = SUM(Demandes[Duree_Pause_Heures])
+		formatString: #,0.00
+		displayFolder: Compléments Information
+		lineageTag: 85ef49fc-025b-4b46-80ac-6da51b1eee81
+
+	/// Pourcentage de demandes actuellement suspendues en attente d'un complément
+	measure 'Pourcentage Dossiers Suspendus' = DIVIDE([Demandes En Attente Complément], [Total Demandes]) * 100
+		formatString: #,0.00
+		displayFolder: Compléments Information
+		lineageTag: 9142088d-2ded-4be3-9ff1-b03202aa67ce
+
+	/// Délai moyen de traitement (heures) net du temps de pause côté client, sur les demandes clôturées
+	measure 'Délai Traitement Net (Heures)' =
+			AVERAGEX(
+			    FILTER(Demandes, NOT ISBLANK(Demandes[Date_Cloture])),
+			    Demandes[Délai Traitement (Heures)] - Demandes[Duree_Pause_Heures]
+			)
+		formatString: #,0.00
+		displayFolder: Compléments Information
+		lineageTag: 18423cd5-3e0d-421c-9904-9887fcd6bfda
+
+	/// Nombre de demandes ayant une deadline métier définie
+	measure 'Demandes Avec Deadline' = COALESCE(CALCULATE(COUNTROWS(Demandes), NOT ISBLANK(Demandes[Deadline_Metier])), 0)
+		formatString: #,0
+		displayFolder: Deadlines Métier
+		lineageTag: 45e7fef1-91e5-43d4-8f07-980b149eada1
+
+	/// Demandes avec deadline définie dont le statut n'est pas Dépassée (inclut les statuts non Dépassée et les statuts non encore renseignés)
+	measure 'Deadlines Respectées' =
+			COALESCE(
+			    CALCULATE(
+			        COUNTROWS(Demandes),
+			        NOT ISBLANK(Demandes[Deadline_Metier]),
+			        Demandes[Statut_Deadline] <> "Dépassée"
+			    ),
+			    0
+			)
+		formatString: #,0
+		displayFolder: Deadlines Métier
+		lineageTag: e86348be-4928-44e4-8d94-38fc3fcd3328
+
+	/// Nombre de demandes dont la deadline métier est dépassée
+	measure 'Deadlines Dépassées' = COALESCE(CALCULATE(COUNTROWS(Demandes), Demandes[Statut_Deadline] = "Dépassée"), 0)
+		formatString: #,0
+		displayFolder: Deadlines Métier
+		lineageTag: b1a220cf-e649-447c-846e-75f48b4ca849
+
+	/// Nombre de demandes en échéance proche (statut 'Proche échéance' non encore observé dans les données actuelles)
+	measure 'Deadlines Proches' = COALESCE(CALCULATE(COUNTROWS(Demandes), Demandes[Statut_Deadline] = "Proche échéance"), 0)
+		formatString: #,0
+		displayFolder: Deadlines Métier
+		lineageTag: 572484a1-e7b7-4372-8f85-792dfb8613e5
+
+	/// Pourcentage de demandes avec deadline respectée parmi celles ayant une deadline définie
+	measure 'Taux Respect Deadlines' = DIVIDE([Deadlines Respectées], [Demandes Avec Deadline]) * 100
+		formatString: #,0.00
+		displayFolder: Deadlines Métier
+		lineageTag: 462d734d-468f-4cdc-8f27-8384ba1cc314
+
+	/// Nombre moyen de jours restants avant la deadline métier (négatif = déjà dépassée), pour les demandes non clôturées avec deadline définie
+	measure 'Jours Restants Moyen' =
+			AVERAGEX(
+			    FILTER(
+			        Demandes,
+			        NOT ISBLANK(Demandes[Deadline_Metier]) && Demandes[Statut_Actuel] <> "Clôturé"
+			    ),
+			    DATEDIFF(TODAY(), Demandes[Deadline_Metier], DAY)
+			)
+		formatString: #,0.0
+		displayFolder: Deadlines Métier
+		lineageTag: f277c8d5-02e9-4628-b807-508d11336726
+
+	/// Nombre de demandes dont le type requiert une validation Direction Générale (via Types_Demandes[Niveau_Validation])
+	measure 'Demandes Validation DG' =
+			COALESCE(
+			    CALCULATE(
+			        COUNTROWS(Demandes),
+			        FILTER(Demandes, RELATED(Types_Demandes[Niveau_Validation]) = "Direction_Generale")
+			    ),
+			    0
+			)
+		formatString: #,0
+		displayFolder: Règles Métier Assurance
+		lineageTag: add36919-aa7a-4498-ab2c-bcf927ebe976
+
+	/// Nombre de demandes dont le type requiert une validation Simple (via Types_Demandes[Niveau_Validation])
+	measure 'Demandes Validation Simple' =
+			COALESCE(
+			    CALCULATE(
+			        COUNTROWS(Demandes),
+			        FILTER(Demandes, RELATED(Types_Demandes[Niveau_Validation]) = "Simple")
+			    ),
+			    0
+			)
+		formatString: #,0
+		displayFolder: Règles Métier Assurance
+		lineageTag: 400835a4-a83f-449f-8ba3-0f5190d9de64
+
+	/// Nombre de demandes dans le contexte de filtre courant - à utiliser dans un visuel groupé par Types_Demandes[Code_Metier] via la relation Demandes_TypeDemande
+	measure 'Répartition Code Métier' = CALCULATE(COUNTROWS(Demandes))
+		formatString: #,0
+		displayFolder: Règles Métier Assurance
+		lineageTag: 40138902-eff3-4c1d-89d3-981b0904ad1f
+
+	/// Nombre de demandes possédant un commentaire de transfert renseigné
+	measure 'Nombre Demandes Transférées' = COALESCE(CALCULATE(COUNTROWS(Demandes), NOT ISBLANK(Demandes[Commentaire_Transfert])), 0)
+		formatString: #,0
+		displayFolder: Transferts
+		lineageTag: bacce8ba-8e85-44e5-ba19-47ac8dbf7daf
+
+	/// Pourcentage de demandes ayant fait l'objet d'un transfert (commenté)
+	measure 'Taux Transfert' = DIVIDE([Nombre Demandes Transférées], [Total Demandes]) * 100
+		formatString: #,0.00
+		displayFolder: Transferts
+		lineageTag: a12d8936-ff86-4f57-b2d0-8dd8e166c9f1
+
+	/// Nombre moyen de mouvements de type Transfert (Historique_Demandes) par demande
+	measure 'Moyenne Transferts par Demande' =
+			AVERAGEX(
+			    Demandes,
+			    CALCULATE(COUNTROWS(FILTER(Historique_Demandes, Historique_Demandes[Type_Modification] = "Transfert")))
+			)
+		formatString: #,0.00
+		displayFolder: Transferts
+		lineageTag: 2a32c546-aadf-4c9e-b1c1-925a0eeb5289
+
+	/// Délai moyen prédit par le modèle ML (Prediction_Delai_ML, converti en numérique), sur les demandes ayant une prédiction
+	measure 'Délai Moyen Prédit IA' =
+			AVERAGEX(
+			    FILTER(Demandes, NOT ISBLANK(Demandes[Prediction_Delai_ML])),
+			    VALUE(Demandes[Prediction_Delai_ML])
+			)
+		formatString: #,0.00
+		displayFolder: IA / Machine Learning
+		lineageTag: 0861b298-ccd7-42ac-b884-7696bdc54674
+
+	/// Probabilité moyenne de retard prédite par le modèle ML, en pourcentage
+	measure 'Risque Moyen IA' = AVERAGE(Demandes[Probabilite_Retard_ML]) * 100
+		formatString: #,0.00
+		displayFolder: IA / Machine Learning
+		lineageTag: 6343113e-778e-4a28-b3d6-06f001de825b
+
+	/// Nombre de demandes avec probabilité de retard prédite > 70%
+	measure 'Demandes Risque Élevé IA' =
+			COALESCE(
+			    CALCULATE(
+			        COUNTROWS(Demandes),
+			        NOT ISBLANK(Demandes[Probabilite_Retard_ML]),
+			        Demandes[Probabilite_Retard_ML] > 0.70
+			    ),
+			    0
+			)
+		formatString: #,0
+		displayFolder: IA / Machine Learning
+		lineageTag: f62c90c1-8cea-417d-a1c6-1d12a25a581b
+
+	/// Nombre de demandes avec probabilité de retard prédite entre 30% et 70%
+	measure 'Demandes Risque Moyen IA' =
+			COALESCE(
+			    CALCULATE(
+			        COUNTROWS(Demandes),
+			        NOT ISBLANK(Demandes[Probabilite_Retard_ML]),
+			        Demandes[Probabilite_Retard_ML] >= 0.30,
+			        Demandes[Probabilite_Retard_ML] <= 0.70
+			    ),
+			    0
+			)
+		formatString: #,0
+		displayFolder: IA / Machine Learning
+		lineageTag: efe95e22-a4b9-46a8-b51a-29889d33456b
+
+	/// Nombre de demandes avec probabilité de retard prédite < 30%
+	measure 'Demandes Risque Faible IA' =
+			COALESCE(
+			    CALCULATE(
+			        COUNTROWS(Demandes),
+			        NOT ISBLANK(Demandes[Probabilite_Retard_ML]),
+			        Demandes[Probabilite_Retard_ML] < 0.30
+			    ),
+			    0
+			)
+		formatString: #,0
+		displayFolder: IA / Machine Learning
+		lineageTag: df39a8d3-9d20-4222-8b55-1731a86371ec
+
+	/// Version alternative du taux de respect SLA, basée sur la comparaison réelle entre le délai de traitement et Services_Siege[SLA_Theorique_Heures] (au lieu du flag précalculé Alerte_Retard_Active). Créée en BI-3, la mesure 'Taux de Respect du SLA (%)' d'origine est conservée pour compatibilité.
+	measure 'Taux Respect SLA Réel' =
+			VAR DemandesCloturees =
+			    FILTER(
+			        Demandes,
+			        NOT ISBLANK(Demandes[Date_Cloture]) && NOT ISBLANK(RELATED(Services_Siege[SLA_Theorique_Heures]))
+			    )
+			VAR TotalCloturees = COUNTROWS(DemandesCloturees)
+			VAR RespectSLA =
+			    COUNTROWS(
+			        FILTER(
+			            DemandesCloturees,
+			            Demandes[Délai Traitement (Heures)] <= RELATED(Services_Siege[SLA_Theorique_Heures])
+			        )
+			    )
+			RETURN
+			    IF(TotalCloturees = 0, BLANK(), DIVIDE(RespectSLA, TotalCloturees) * 100)
+		formatString: #,0.00
+		displayFolder: SLA
+		lineageTag: 29fd0ea5-cf3f-4fbe-8146-a1612a3bb25b
+
 	column FileSystemObjectType
 		dataType: string
+		isHidden
 		lineageTag: 8d635576-1293-4c80-8658-b558e973bdc7
 		summarizeBy: none
 		sourceColumn: FileSystemObjectType
@@ -129,6 +349,7 @@ table Demandes
 
 	column Id
 		dataType: int64
+		isHidden
 		lineageTag: 6667ce04-3085-4710-a475-6875d2a5b588
 		summarizeBy: none
 		sourceColumn: Id
@@ -137,6 +358,7 @@ table Demandes
 
 	column ServerRedirectedEmbedUri
 		dataType: string
+		isHidden
 		lineageTag: ad8dc027-a77e-482e-b4b0-41cf15c95dd5
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUri
@@ -145,6 +367,7 @@ table Demandes
 
 	column ServerRedirectedEmbedUrl
 		dataType: string
+		isHidden
 		lineageTag: cd15684e-066d-4c5d-8941-85ec8df47a89
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUrl
@@ -153,6 +376,7 @@ table Demandes
 
 	column ContentTypeId
 		dataType: string
+		isHidden
 		lineageTag: 6ef82266-270e-48e4-9737-36a61f998389
 		summarizeBy: none
 		sourceColumn: ContentTypeId
@@ -169,6 +393,7 @@ table Demandes
 
 	column OData__ColorTag
 		dataType: string
+		isHidden
 		lineageTag: 2e6a3610-800c-4768-a9a7-48f337f77701
 		summarizeBy: none
 		sourceColumn: OData__ColorTag
@@ -177,6 +402,7 @@ table Demandes
 
 	column ComplianceAssetId
 		dataType: string
+		isHidden
 		lineageTag: f822e5a5-52ab-41e4-88b0-e5927c03ec21
 		summarizeBy: none
 		sourceColumn: ComplianceAssetId
@@ -345,6 +571,7 @@ table Demandes
 
 	column Modified
 		dataType: dateTime
+		isHidden
 		lineageTag: 47115cf1-655b-41fc-aacb-2008b6109baf
 		summarizeBy: none
 		sourceColumn: Modified
@@ -353,6 +580,7 @@ table Demandes
 
 	column Created
 		dataType: dateTime
+		isHidden
 		lineageTag: eefa225f-eb30-4d29-abfa-70bf4238ede6
 		summarizeBy: none
 		sourceColumn: Created
@@ -361,6 +589,7 @@ table Demandes
 
 	column AuthorId
 		dataType: int64
+		isHidden
 		lineageTag: 05e718da-bd72-4d52-90a1-cc2812e45c18
 		summarizeBy: none
 		sourceColumn: AuthorId
@@ -369,6 +598,7 @@ table Demandes
 
 	column EditorId
 		dataType: int64
+		isHidden
 		lineageTag: 235084f8-e579-4236-8f5a-50a0ab173368
 		summarizeBy: none
 		sourceColumn: EditorId
@@ -377,6 +607,7 @@ table Demandes
 
 	column OData__UIVersionString
 		dataType: string
+		isHidden
 		lineageTag: 1b8770bd-63bd-4096-9130-c59248af8095
 		summarizeBy: none
 		sourceColumn: OData__UIVersionString
@@ -385,6 +616,7 @@ table Demandes
 
 	column Attachments
 		dataType: string
+		isHidden
 		lineageTag: 6e400cad-150f-4762-838c-9e22ea2c3c92
 		summarizeBy: none
 		sourceColumn: Attachments
@@ -393,6 +625,7 @@ table Demandes
 
 	column GUID
 		dataType: string
+		isHidden
 		lineageTag: d5b75546-bd57-4136-9ebd-e3db290bbd30
 		summarizeBy: none
 		sourceColumn: GUID
@@ -427,6 +660,98 @@ table Demandes
 		lineageTag: efd9891a-c8eb-42c7-b9a5-4333b9bf80a4
 		summarizeBy: none
 
+	/// Phase A - Commentaire saisi lors du transfert d'une demande
+	column Commentaire_Transfert
+		dataType: string
+		lineageTag: 3b8dc7da-2801-4ddb-b993-b76136eeeeb0
+		summarizeBy: none
+		sourceColumn: Commentaire_Transfert
+
+	/// Phase B - Indique si la demande est en attente d'un complément d'information
+	column En_Attente_Complement
+		dataType: boolean
+		lineageTag: 94515e88-1452-4299-a025-1ae095f60b3d
+		summarizeBy: none
+		sourceColumn: En_Attente_Complement
+
+	/// Phase B - Date de début de la pause (attente complément)
+	column Date_Debut_Pause
+		dataType: dateTime
+		lineageTag: bd2e77b3-9a12-4a8e-ba0e-a790874ec4b9
+		summarizeBy: none
+		sourceColumn: Date_Debut_Pause
+
+	/// Phase B - Date de réponse au complément demandé
+	column Date_Reponse_Complement
+		dataType: dateTime
+		lineageTag: aa2afe0c-12ec-4c74-a686-bf06b3fb5d1d
+		summarizeBy: none
+		sourceColumn: Date_Reponse_Complement
+
+	/// Phase B - Durée de la pause en heures
+	column Duree_Pause_Heures
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: 84a14a76-5ef4-40c4-9883-8b75db3adc38
+		summarizeBy: none
+		sourceColumn: Duree_Pause_Heures
+
+	/// Phase C - Date limite métier applicable à la demande
+	column Deadline_Metier
+		dataType: dateTime
+		lineageTag: 366d81fe-b6c9-45e6-be16-1d8fc8508724
+		summarizeBy: none
+		sourceColumn: Deadline_Metier
+
+	/// Phase C - Statut vis-à-vis de la deadline métier (ex: Normale, Dépassée)
+	column Statut_Deadline
+		dataType: string
+		lineageTag: 380a122d-1606-4950-8a2b-1631f0cc89dd
+		summarizeBy: none
+		sourceColumn: Statut_Deadline
+
+	/// Phase C - Date à laquelle la deadline métier a été dépassée
+	column Date_Depassement_Deadline
+		dataType: dateTime
+		lineageTag: 1197ada4-49ec-4db3-b058-9025e6868dff
+		summarizeBy: none
+		sourceColumn: Date_Depassement_Deadline
+
+	/// Commentaire saisi en réponse à une demande de complément
+	column Commentaire_Complement
+		dataType: string
+		lineageTag: db00f904-4cb3-456d-a862-ec0aad11a456
+		summarizeBy: none
+		sourceColumn: Commentaire_Complement
+
+	/// Indique si une alerte de deadline métier a été envoyée
+	column Alerte_Deadline_Envoyee
+		dataType: boolean
+		lineageTag: 2f78291c-ea30-4c88-9644-757b23b2cd7a
+		summarizeBy: none
+		sourceColumn: Alerte_Deadline_Envoyee
+
+	/// Indique si une deadline métier est active pour cette demande
+	column Deadline_Metier_Active
+		dataType: boolean
+		lineageTag: 85f71340-adec-42d4-9b39-5ec877b211b2
+		summarizeBy: none
+		sourceColumn: Deadline_Metier_Active
+
+	/// Description libre de la demande (texte enrichi HTML brut)
+	column Description
+		dataType: string
+		lineageTag: fafd9615-579f-4ef6-8ab5-55bfe3c729aa
+		summarizeBy: none
+		sourceColumn: Description
+
+	/// Conversion numérique de Prediction_Delai_ML (texte), pour comparaison directe avec le délai de traitement réel dans les visuels IA
+	column Prediction_Delai_ML_Numeric = IF(ISBLANK(Demandes[Prediction_Delai_ML]), BLANK(), VALUE(Demandes[Prediction_Delai_ML]))
+		dataType: double
+		formatString: #,0.00
+		lineageTag: fa9f10b2-67bf-4810-890e-36bfa4433daa
+		summarizeBy: average
+
 	partition Demandes = m
 		mode: import
 		source =
@@ -434,9 +759,11 @@ table Demandes
 				    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
 				    #"20c94652-f1e6-4f89-9736-cde7b553c412" = Source{[Id="20c94652-f1e6-4f89-9736-cde7b553c412"]}[Items],
 				    #"Colonnes renommées" = Table.RenameColumns(#"20c94652-f1e6-4f89-9736-cde7b553c412",{{"ID", "ID.1"}}),
-				    #"Types dates modifiés" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Date_Soumission", type datetime}, {"Date_Dernier_Mouvement", type datetime}, {"Date_Cloture", type datetime}, {"Modified", type datetime}, {"Created", type datetime}}, "fr-FR")
+				    #"Types dates modifiés" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Date_Soumission", type datetime}, {"Date_Dernier_Mouvement", type datetime}, {"Date_Cloture", type datetime}, {"Modified", type datetime}, {"Created", type datetime}}, "fr-FR"),
+				    #"Types Phases ABC" = Table.TransformColumnTypes(#"Types dates modifiés", {{"Date_Debut_Pause", type datetime}, {"Date_Reponse_Complement", type datetime}, {"Deadline_Metier", type datetime}, {"Date_Depassement_Deadline", type datetime}, {"Duree_Pause_Heures", type number}, {"En_Attente_Complement", type logical}, {"Commentaire_Transfert", type text}, {"Statut_Deadline", type text}}, "fr-FR"),
+				    #"Types Complémentaires" = Table.TransformColumnTypes(#"Types Phases ABC", {{"Commentaire_Complement", type text}, {"Alerte_Deadline_Envoyee", type logical}, {"Deadline_Metier_Active", type logical}, {"Description", type text}})
 				in
-				    #"Types dates modifiés"
+				    #"Types Complémentaires"
 
 	annotation PBI_ResultType = Table
 

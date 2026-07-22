@@ -1,8 +1,15 @@
 table Types_Demandes
 	lineageTag: 94c7391b-267d-4211-b540-494ab40e3d38
 
+	/// Nombre de codes métiers distincts présents dans Types_Demandes
+	measure 'Nombre Codes Métiers Actifs' = DISTINCTCOUNT(Types_Demandes[Code_Metier])
+		formatString: #,0
+		displayFolder: Règles Métier Assurance
+		lineageTag: 8b8261b2-4cd7-47c9-b736-e6ad06fc0b74
+
 	column FileSystemObjectType
 		dataType: string
+		isHidden
 		lineageTag: 7aff39e9-a269-4553-9871-14f4d1088356
 		summarizeBy: none
 		sourceColumn: FileSystemObjectType
@@ -11,6 +18,7 @@ table Types_Demandes
 
 	column Id
 		dataType: int64
+		isHidden
 		lineageTag: cae94a91-038f-438b-ab7e-0abdcd067d51
 		summarizeBy: none
 		sourceColumn: Id
@@ -19,6 +27,7 @@ table Types_Demandes
 
 	column ServerRedirectedEmbedUri
 		dataType: string
+		isHidden
 		lineageTag: 18286395-cb97-411c-a696-0a6939dba9d0
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUri
@@ -27,6 +36,7 @@ table Types_Demandes
 
 	column ServerRedirectedEmbedUrl
 		dataType: string
+		isHidden
 		lineageTag: a12e345e-dd72-4f00-bb54-24ee0f363a55
 		summarizeBy: none
 		sourceColumn: ServerRedirectedEmbedUrl
@@ -35,6 +45,7 @@ table Types_Demandes
 
 	column ContentTypeId
 		dataType: string
+		isHidden
 		lineageTag: 6363f234-48e8-46ac-9b9a-16cf8798210f
 		summarizeBy: none
 		sourceColumn: ContentTypeId
@@ -51,6 +62,7 @@ table Types_Demandes
 
 	column OData__ColorTag
 		dataType: string
+		isHidden
 		lineageTag: fb91dfe9-f89e-4107-b26a-2bde40a0a8a6
 		summarizeBy: none
 		sourceColumn: OData__ColorTag
@@ -59,6 +71,7 @@ table Types_Demandes
 
 	column ComplianceAssetId
 		dataType: string
+		isHidden
 		lineageTag: 8ac79ff0-7c8e-4710-bb56-08c9a405dafe
 		summarizeBy: none
 		sourceColumn: ComplianceAssetId
@@ -91,6 +104,7 @@ table Types_Demandes
 
 	column Modified
 		dataType: dateTime
+		isHidden
 		lineageTag: 05516d01-23b0-470e-abce-949bdaad47c4
 		summarizeBy: none
 		sourceColumn: Modified
@@ -99,6 +113,7 @@ table Types_Demandes
 
 	column Created
 		dataType: dateTime
+		isHidden
 		lineageTag: 293d52e7-6d45-4d8c-b987-cae8067d20c0
 		summarizeBy: none
 		sourceColumn: Created
@@ -107,6 +122,7 @@ table Types_Demandes
 
 	column AuthorId
 		dataType: int64
+		isHidden
 		lineageTag: f634efa7-a2fd-4799-bbfe-009f9ceb8fd3
 		summarizeBy: none
 		sourceColumn: AuthorId
@@ -115,6 +131,7 @@ table Types_Demandes
 
 	column EditorId
 		dataType: int64
+		isHidden
 		lineageTag: 543e3cde-75e3-4038-8ca0-8c9d8cec7a19
 		summarizeBy: none
 		sourceColumn: EditorId
@@ -123,6 +140,7 @@ table Types_Demandes
 
 	column OData__UIVersionString
 		dataType: string
+		isHidden
 		lineageTag: 0e6aea24-c5dd-4b4b-8304-b5039889b824
 		summarizeBy: none
 		sourceColumn: OData__UIVersionString
@@ -131,6 +149,7 @@ table Types_Demandes
 
 	column Attachments
 		dataType: string
+		isHidden
 		lineageTag: 3003ea49-f511-4df3-9442-e22d735a9727
 		summarizeBy: none
 		sourceColumn: Attachments
@@ -139,11 +158,68 @@ table Types_Demandes
 
 	column GUID
 		dataType: string
+		isHidden
 		lineageTag: a5d0647f-c956-4972-ad0e-b2e9d52b497b
 		summarizeBy: none
 		sourceColumn: GUID
 
 		annotation SummarizationSetBy = Automatic
+
+	/// Phase D - Code métier identifiant le type de demande
+	column Code_Metier
+		dataType: string
+		lineageTag: 92ede0eb-d2c1-48f6-90c0-c8d6bf58f94b
+		summarizeBy: none
+		sourceColumn: Code_Metier
+
+	/// Phase D - Indique si une deadline métier est obligatoire pour ce type de demande
+	column Deadline_Obligatoire
+		dataType: boolean
+		lineageTag: dd8e9bfb-0fb3-4e64-bfbf-f62917068999
+		summarizeBy: none
+		sourceColumn: Deadline_Obligatoire
+
+	/// Phase D - Niveau de validation requis pour ce type de demande
+	column Niveau_Validation
+		dataType: string
+		lineageTag: 60d871ee-6cc3-4cd5-a256-7eb0fc566de5
+		summarizeBy: none
+		sourceColumn: Niveau_Validation
+
+	/// Indique si ce type de demande est actif
+	column Actif
+		dataType: boolean
+		lineageTag: 0fc6a491-647f-415f-a225-044693cb5417
+		summarizeBy: none
+		sourceColumn: Actif
+
+	/// Indique si une demande de complément est autorisée pour ce type
+	column Complement_Autorise
+		dataType: boolean
+		lineageTag: ee426292-8f95-4b03-8839-6095b814d451
+		summarizeBy: none
+		sourceColumn: Complement_Autorise
+
+	/// Description métier du type de demande
+	column Description_Metier
+		dataType: string
+		lineageTag: a9dd38b4-8fec-46bc-9139-4437f33b2899
+		summarizeBy: none
+		sourceColumn: Description_Metier
+
+	/// Indique si le transfert vers la Direction Générale est autorisé pour ce type
+	column Transfert_Direction_Generale_Aut
+		dataType: boolean
+		lineageTag: 577e7a78-bfce-4cbb-9f8d-91d9b555079d
+		summarizeBy: none
+		sourceColumn: Transfert_Direction_Generale_Aut
+
+	/// Indique si une validation par la Direction Générale est possible pour ce type
+	column Validation_Direction_Generale_Po
+		dataType: boolean
+		lineageTag: 8eeb649f-8728-4948-9012-2143389a9120
+		summarizeBy: none
+		sourceColumn: Validation_Direction_Generale_Po
 
 	partition Types_Demandes = m
 		mode: import
@@ -152,9 +228,11 @@ table Types_Demandes
 				    Source = SharePoint.Tables("https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents", [ApiVersion = 15]),
 				    #"32167ee0-e386-46d9-9c4c-ba4998d7a2e4" = Source{[Id="32167ee0-e386-46d9-9c4c-ba4998d7a2e4"]}[Items],
 				    #"Colonnes renommées" = Table.RenameColumns(#"32167ee0-e386-46d9-9c4c-ba4998d7a2e4",{{"ID", "ID.1"}}),
-				    #"Types dates modifiés" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Modified", type datetime}, {"Created", type datetime}}, "fr-FR")
+				    #"Types dates modifiés" = Table.TransformColumnTypes(#"Colonnes renommées", {{"Modified", type datetime}, {"Created", type datetime}}, "fr-FR"),
+				    #"Types Phase D" = Table.TransformColumnTypes(#"Types dates modifiés", {{"Code_Metier", type text}, {"Deadline_Obligatoire", type logical}, {"Niveau_Validation", type text}}),
+				    #"Types Complémentaires" = Table.TransformColumnTypes(#"Types Phase D", {{"Actif", type logical}, {"Complement_Autorise", type logical}, {"Description_Metier", type text}, {"Transfert_Direction_Generale_Aut", type logical}, {"Validation_Direction_Generale_Po", type logical}})
 				in
-				    #"Types dates modifiés"
+				    #"Types Complémentaires"
 
 	annotation PBI_ResultType = Table
 
