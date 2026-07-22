@@ -427,7 +427,7 @@ Screens:
                         DropShadow: =DropShadow.Semilight
                         Fill: =RGBA(255, 255, 255, 1)
                         FillPortions: =0
-                        Height: =420
+                        Height: =480
                         LayoutAlignItems: =LayoutAlignItems.Center
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =14
@@ -451,7 +451,7 @@ Screens:
                               Size: =22
                               Text: ="Rapport de pilotage — Portail Intelligent Agents"
                               Width: =Parent.Width - 80
-                        - TxtSTDescKpi:
+                        - TxtSTDescDirection:
                             Control: ModernText
                             Properties:
                               Align: =Align.Center
@@ -461,7 +461,7 @@ Screens:
                               Text: |-
                                 ="📊 Vue Direction — KPIs globaux et volumétrie"
                               Width: =Parent.Width - 80
-                        - TxtSTDescService:
+                        - TxtSTDescServices:
                             Control: ModernText
                             Properties:
                               Align: =Align.Center
@@ -469,18 +469,9 @@ Screens:
                               Color: =RGBA(112, 112, 112, 1)
                               Size: =14
                               Text: |-
-                                ="🏢 Performance par service — SLA et transferts"
+                                ="🏢 Performance Services — SLA théorique vs réel, transferts"
                               Width: =Parent.Width - 80
-                        - TxtSTDescActivite:
-                            Control: ModernText
-                            Properties:
-                              Align: =Align.Center
-                              AutoHeight: =true
-                              Color: =RGBA(112, 112, 112, 1)
-                              Size: =14
-                              Text: ="⏱ Activité et délais — Traitements et assignations"
-                              Width: =Parent.Width - 80
-                        - TxtSTDescSLA:
+                        - TxtSTDescGestionnaires:
                             Control: ModernText
                             Properties:
                               Align: =Align.Center
@@ -488,7 +479,37 @@ Screens:
                               Color: =RGBA(112, 112, 112, 1)
                               Size: =14
                               Text: |-
-                                ="🚨 Suivi SLA — Alertes retard et échéances"
+                                ="👥 Performance Gestionnaires — Activité et performance individuelle"
+                              Width: =Parent.Width - 80
+                        - TxtSTDescComplements:
+                            Control: ModernText
+                            Properties:
+                              Align: =Align.Center
+                              AutoHeight: =true
+                              Color: =RGBA(112, 112, 112, 1)
+                              Size: =14
+                              Text: |-
+                                ="⏸ Compléments d'Informations — Suivi des suspensions et compléments"
+                              Width: =Parent.Width - 80
+                        - TxtSTDescDeadlines:
+                            Control: ModernText
+                            Properties:
+                              Align: =Align.Center
+                              AutoHeight: =true
+                              Color: =RGBA(112, 112, 112, 1)
+                              Size: =14
+                              Text: |-
+                                ="⏰ Deadlines Assurance — Échéances et délais réglementaires"
+                              Width: =Parent.Width - 80
+                        - TxtSTDescIA:
+                            Control: ModernText
+                            Properties:
+                              Align: =Align.Center
+                              AutoHeight: =true
+                              Color: =RGBA(112, 112, 112, 1)
+                              Size: =14
+                              Text: |-
+                                ="🤖 Intelligence Artificielle — Prédictions de délai et évaluation des risques"
                               Width: =Parent.Width - 80
                         - BtnSTOuvrirRapport:
                             Control: ModernButton
@@ -498,7 +519,7 @@ Screens:
                               Color: =RGBA(255, 255, 255, 1)
                               FontWeight: =FontWeight.Semibold
                               Height: =46
-                              OnSelect: =Launch("https://app.powerbi.com/view?r=eyJrIjoiOTE5ZmY5MDUtMjAyYi00YjhlLWJlODYtZWZiYzdkYWMxNTE1IiwidCI6IjYxZDcwZTY4LTQ0YTgtNDNmZi05ZWIzLTIyNzk5NTdkNDQ1ZCIsImMiOjl9", {}, LaunchTarget.New)
+                              OnSelect: =Launch("https://app.powerbi.com/view?r=eyJrIjoiNWJiODQxMGYtNjUyMC00NDJhLTk4NDQtZGIyYTU2NGM0Nzc1IiwidCI6IjYxZDcwZTY4LTQ0YTgtNDNmZi05ZWIzLTIyNzk5NTdkNDQ1ZCIsImMiOjl9&pageName=122051c91520d265223d", {}, LaunchTarget.New)
                               RadiusBottomLeft: =8
                               RadiusBottomRight: =8
                               RadiusTopLeft: =8
