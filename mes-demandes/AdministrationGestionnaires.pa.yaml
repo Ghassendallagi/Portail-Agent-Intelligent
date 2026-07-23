@@ -1,14 +1,16 @@
 Screens:
-  AdministrationTypesDemandes:
+  AdministrationGestionnaires:
     Properties:
       Fill: =RGBA(249, 250, 251, 1)
       OnVisible: |-
-        =Set(varADFormOpen, false);
-        Set(varADFormMode, "create");
-        Set(varADEditingID, Blank());
-        Reset(InpADSearch)
+        =Set(varAGFormOpen, false);
+        Set(varAGFormMode, "create");
+        Set(varAGEditingID, Blank());
+        Set(varAGTriedSave, false);
+        Set(varAGConfirmRemoveID, Blank());
+        Set(varAGConfirmRemoveName, "")
     Children:
-      - RailAD:
+      - RailAG:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
@@ -22,20 +24,20 @@ Screens:
             PaddingLeft: =12
             PaddingRight: =12
             PaddingTop: =20
-            Visible: =AdministrationTypesDemandes.Size <> ScreenSize.Small
+            Visible: =AdministrationGestionnaires.Size <> ScreenSize.Small
             Width: =300
           Children:
-            - ImgLogoAD:
+            - ImgLogoAG:
                 Control: Image
                 Properties:
                   Height: =60
                   Image: =Logo
-            - RectRailSepAD:
+            - RectRailSepAG:
                 Control: Rectangle
                 Properties:
                   Fill: =RGBA(0, 0, 0, 0)
                   Height: =16
-            - NavADAccueil:
+            - NavAGAccueil:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -51,7 +53,7 @@ Screens:
                   RadiusTopLeft: =8
                   RadiusTopRight: =8
                 Children:
-                  - IcoADAccueil:
+                  - IcoAGAccueil:
                       Control: ModernIcon
                       Properties:
                         Height: =22
@@ -59,7 +61,7 @@ Screens:
                         IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
                         Width: =22
-                  - LblADAccueil:
+                  - LblAGAccueil:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
@@ -68,7 +70,7 @@ Screens:
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
                         Size: =14
                         Text: ="Accueil"
-            - NavADMesDem:
+            - NavAGMesDem:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -85,7 +87,7 @@ Screens:
                   RadiusTopRight: =8
                   Visible: =UserRole = "Agent" || UserRole = "Admin"
                 Children:
-                  - IcoADMesDem:
+                  - IcoAGMesDem:
                       Control: ModernIcon
                       Properties:
                         Height: =22
@@ -93,7 +95,7 @@ Screens:
                         IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
                         Width: =22
-                  - LblADMesDem:
+                  - LblAGMesDem:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
@@ -102,7 +104,40 @@ Screens:
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
                         Size: =14
                         Text: ="Mes demandes"
-            - NavADFile:
+            - NavAGNouvelle:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - IcoAGNouvelle:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Width: =22
+                  - LblAGNouvelle:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Nouvelle demande"
+            - NavAGFile:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -119,7 +154,7 @@ Screens:
                   RadiusTopRight: =8
                   Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
                 Children:
-                  - IcoADFile:
+                  - IcoAGFile:
                       Control: ModernIcon
                       Properties:
                         Height: =22
@@ -127,7 +162,7 @@ Screens:
                         IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
                         Width: =22
-                  - LblADFile:
+                  - LblAGFile:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
@@ -136,7 +171,7 @@ Screens:
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
                         Size: =14
                         Text: ="File à traiter"
-            - NavADAlertes:
+            - NavAGAlertes:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -153,7 +188,7 @@ Screens:
                   RadiusTopRight: =8
                   Visible: =UserRole = "Superviseur" || UserRole = "Admin"
                 Children:
-                  - IcoADAlertes:
+                  - IcoAGAlertes:
                       Control: ModernIcon
                       Properties:
                         Height: =22
@@ -161,7 +196,7 @@ Screens:
                         IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
                         Width: =22
-                  - LblADAlertes:
+                  - LblAGAlertes:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
@@ -170,7 +205,7 @@ Screens:
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
                         Size: =14
                         Text: ="Alertes SLA"
-            - NavADStats:
+            - NavAGStats:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -187,7 +222,7 @@ Screens:
                   RadiusTopRight: =8
                   Visible: =UserRole = "Superviseur" || UserRole = "Admin"
                 Children:
-                  - IcoADStats:
+                  - IcoAGStats:
                       Control: ModernIcon
                       Properties:
                         Height: =22
@@ -195,7 +230,7 @@ Screens:
                         IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
                         Width: =22
-                  - LblADStats:
+                  - LblAGStats:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
@@ -204,11 +239,10 @@ Screens:
                         OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
                         Size: =14
                         Text: ="Statistiques"
-            - NavADAdmin:
+            - NavAGAdmin:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  Fill: =RGBA(140, 12, 20, 0.08)
                   FillPortions: =0
                   Height: =44
                   LayoutAlignItems: =LayoutAlignItems.Center
@@ -222,25 +256,24 @@ Screens:
                   RadiusTopRight: =8
                   Visible: =UserRole = "Admin"
                 Children:
-                  - IcoADAdmin:
+                  - IcoAGAdmin:
                       Control: ModernIcon
                       Properties:
                         Height: =22
                         Icon: ="Settings"
-                        IconColor: =RGBA(140, 12, 20, 1)
+                        IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Width: =22
-                  - LblADAdmin:
+                  - LblAGAdmin:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
-                        Color: =RGBA(140, 12, 20, 1)
+                        Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
-                        FontWeight: =FontWeight.Semibold
                         OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Size: =14
                         Text: ="Administration"
-            - NavADNotifs:
+            - NavAGNotifs:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -256,7 +289,7 @@ Screens:
                   RadiusTopLeft: =8
                   RadiusTopRight: =8
                 Children:
-                  - IcoADNotifs:
+                  - IcoAGNotifs:
                       Control: ModernIcon
                       Properties:
                         Height: =22
@@ -264,7 +297,7 @@ Screens:
                         IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
                         Width: =22
-                  - LblADNotifs:
+                  - LblAGNotifs:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
@@ -273,7 +306,7 @@ Screens:
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
                         Size: =14
                         Text: ="Notifications"
-                  - BdgADNotifs:
+                  - BdgAGNotifs:
                       Control: Badge
                       Properties:
                         Appearance: ='BadgeCanvas.Appearance'.Filled
@@ -284,17 +317,17 @@ Screens:
                         LayoutMinWidth: =30
                         Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
                         Width: =30
-            - RectRailSpacerAD:
+            - RectRailSpacerAG:
                 Control: Rectangle
                 Properties:
                   Fill: =RGBA(0, 0, 0, 0)
                   FillPortions: =1
-            - RectRailSeparatorAD:
+            - RectRailSeparatorAG:
                 Control: Rectangle
                 Properties:
                   Fill: =RGBA(229, 231, 235, 1)
                   Height: =1
-            - TxtRailUserAD:
+            - TxtRailUserAG:
                 Control: ModernText
                 Properties:
                   AutoHeight: =true
@@ -302,31 +335,31 @@ Screens:
                   FontWeight: =FontWeight.Semibold
                   Size: =13
                   Text: =User().FullName
-            - TxtRailRoleAD:
+            - TxtRailRoleAG:
                 Control: ModernText
                 Properties:
                   AutoHeight: =true
                   Color: =RGBA(112, 112, 112, 1)
                   Size: =12
                   Text: =UserRole
-      - ADScreenContainer:
+      - AGMain:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
             Fill: =RGBA(249, 250, 251, 1)
-            Height: =Parent.Height - If(AdministrationTypesDemandes.Size = ScreenSize.Small, 64, 0)
+            Height: =Parent.Height - If(AdministrationGestionnaires.Size = ScreenSize.Small, 64, 0)
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Vertical
-            Width: =Parent.Width - If(AdministrationTypesDemandes.Size = ScreenSize.Small, 0, RailAD.Width)
-            X: =If(AdministrationTypesDemandes.Size = ScreenSize.Small, 0, RailAD.Width)
+            Width: =Parent.Width - If(AdministrationGestionnaires.Size = ScreenSize.Small, 0, RailAG.Width)
+            X: =If(AdministrationGestionnaires.Size = ScreenSize.Small, 0, RailAG.Width)
           Children:
-            - ADHeaderContainer:
+            - AGHeaderContainer:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   Fill: =RGBA(249, 250, 251, 1)
                   FillPortions: =0
-                  Height: =140
+                  Height: =136
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =8
                   PaddingBottom: =16
@@ -334,7 +367,7 @@ Screens:
                   PaddingRight: =28
                   PaddingTop: =28
                 Children:
-                  - ADBackRow:
+                  - AGBackRow:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
@@ -344,7 +377,7 @@ Screens:
                         LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =6
                       Children:
-                        - IconBackAD:
+                        - IconBackAG:
                             Control: ModernIcon
                             Properties:
                               AccessibleLabel: ="Retour à l'espace administrateur"
@@ -353,7 +386,7 @@ Screens:
                               IconColor: =RGBA(140, 12, 20, 1)
                               OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                               Width: =20
-                        - TxtBackAD:
+                        - TxtBackAG:
                             Control: ModernText
                             Properties:
                               AutoHeight: =true
@@ -362,7 +395,7 @@ Screens:
                               OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                               Size: =13
                               Text: ="Espace Administrateur"
-                  - ADTitleRow:
+                  - AGTitleRow:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
@@ -373,7 +406,7 @@ Screens:
                         LayoutGap: =12
                         Width: =Parent.Width - 56
                       Children:
-                        - TxtADTitreMain:
+                        - TxtAGTitreMain:
                             Control: ModernText
                             Properties:
                               AutoHeight: =true
@@ -381,8 +414,8 @@ Screens:
                               FillPortions: =1
                               FontWeight: =FontWeight.Bold
                               Size: =28
-                              Text: ="Administration des types de demande"
-                        - IconNotifAD:
+                              Text: ="Gestionnaires"
+                        - IconNotifAG:
                             Control: ModernIcon
                             Properties:
                               AccessibleLabel: ="Ouvrir les notifications"
@@ -391,7 +424,7 @@ Screens:
                               IconColor: =RGBA(140, 12, 20, 1)
                               OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
                               Width: =28
-                        - BadgeNotifAD:
+                        - BadgeNotifAG:
                             Control: Badge
                             Properties:
                               Appearance: ='BadgeCanvas.Appearance'.Filled
@@ -400,17 +433,18 @@ Screens:
                               FontColor: =RGBA(255, 255, 255, 1)
                               Height: =22
                               Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
-                  - RectADAccentBar:
+                  - RectAGAccentBar:
                       Control: Rectangle
                       Properties:
                         Fill: =RGBA(140, 12, 20, 1)
                         Height: =4
                         Width: =56
-            - ADBody:
+            - AGBody:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   Fill: =RGBA(249, 250, 251, 1)
+                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =14
@@ -420,7 +454,7 @@ Screens:
                   PaddingRight: =28
                   PaddingTop: =20
                 Children:
-                  - ADToolbarRow:
+                  - AGToolbarRow:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
@@ -430,15 +464,16 @@ Screens:
                         LayoutDirection: =LayoutDirection.Horizontal
                         LayoutGap: =12
                       Children:
-                        - InpADSearch:
-                            Control: ModernTextInput
+                        - DdAGFilterService:
+                            Control: ModernDropdown
                             Properties:
-                              AccessibleLabel: ="Rechercher un type de demande"
+                              AccessibleLabel: ="Filtrer par service"
                               BorderColor: =RGBA(229, 231, 235, 1)
                               FillPortions: =1
                               Height: =40
-                              Placeholder: ="Rechercher par nom ou code métier…"
-                        - BtnADNouveau:
+                              ItemDisplayText: =ThisItem.Title
+                              Items: =SortByColumns(Services_Siege, "Title", SortOrder.Ascending)
+                        - BtnAGNouveau:
                             Control: ModernButton
                             Properties:
                               Appearance: ='ButtonCanvas.Appearance'.Primary
@@ -446,23 +481,16 @@ Screens:
                               Height: =40
                               Icon: ="Add"
                               OnSelect: |-
-                                =Set(varADFormMode, "create");
-                                Set(varADEditingID, Blank());
-                                Reset(InpADNom);
-                                Reset(InpADCode);
-                                Reset(InpADDescription);
-                                Reset(DdADService);
-                                Clear(colADSelectedServices);
-                                Reset(RadADDeadline);
-                                Reset(RadADComplement);
-                                Reset(RadADTransfertDG);
-                                Reset(RadADValidationDG);
-                                Reset(RadADNiveauValidation);
-                                Reset(RadADActif);
-                                Set(varADFormOpen, true)
-                              Text: ="Nouveau type"
-                              Width: =180
-                  - GalleryADTypes:
+                                =Set(varAGFormMode, "create");
+                                Set(varAGEditingID, Blank());
+                                Reset(InpAGNom);
+                                Reset(InpAGEmail);
+                                Reset(DdAGService);
+                                Reset(RadAGRole);
+                                Set(varAGFormOpen, true)
+                              Text: ="Ajouter un gestionnaire"
+                              Width: =220
+                  - GalleryAGListe:
                       Control: Gallery
                       Variant: Vertical
                       Properties:
@@ -471,18 +499,17 @@ Screens:
                         Items: |-
                           =SortByColumns(
                               Filter(
-                                  Types_Demandes,
-                                  IsBlank(Trim(InpADSearch.Text))
-                                      || StartsWith(Titre, Trim(InpADSearch.Text))
-                                      || StartsWith(Code_Metier, Trim(InpADSearch.Text))
+                                  Membres_Services,
+                                  Role.Value = "Gestionnaire"
+                                      && (IsBlank(DdAGFilterService.Selected.ID) || Service_ID.Id = DdAGFilterService.Selected.ID)
                               ),
                               "Title", SortOrder.Ascending
                           )
                         TemplatePadding: =10
-                        TemplateSize: =152
+                        TemplateSize: =120
                         Width: =Parent.Width - 56
                       Children:
-                        - ADRowCard:
+                        - AGRowCard:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
@@ -499,152 +526,118 @@ Screens:
                               RadiusTopRight: =12
                               Width: =Parent.TemplateWidth
                             Children:
-                              - ADRowInfo:
+                              - AGRowInfo:
                                   Control: GroupContainer
                                   Variant: AutoLayout
                                   Properties:
+                                    FillPortions: =1
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutGap: =5
                                   Children:
-                                    - TxtADRowTitle:
+                                    - TxtAGRowNom:
                                         Control: ModernText
                                         Properties:
                                           AutoHeight: =true
                                           Color: =RGBA(31, 41, 55, 1)
                                           FontWeight: =FontWeight.Bold
-                                          Text: =Coalesce(ThisItem.Titre, "COALESCE_EMPTY")
+                                          Text: =Coalesce(ThisItem.Utilisateur.DisplayName, "—")
                                           Width: =Parent.Width
-                                    - ADRowBadgesLine:
-                                        Control: GroupContainer
-                                        Variant: AutoLayout
-                                        Properties:
-                                          FillPortions: =0
-                                          Height: =26
-                                          LayoutAlignItems: =LayoutAlignItems.Center
-                                          LayoutDirection: =LayoutDirection.Horizontal
-                                          LayoutGap: =10
-                                          Width: =Parent.Width
-                                        Children:
-                                          - BadgeADRowCode:
-                                              Control: Badge
-                                              Properties:
-                                                Appearance: ='BadgeCanvas.Appearance'.Tint
-                                                BasePaletteColor: =RGBA(219, 234, 254, 1)
-                                                Content: =Coalesce(ThisItem.Code_Metier, "—")
-                                                FontColor: =RGBA(30, 64, 175, 1)
-                                                Height: =28
-                                                LayoutMinWidth: =Len(Coalesce(ThisItem.Code_Metier, "—")) * 8 + 32
-                                                Width: =Len(Coalesce(ThisItem.Code_Metier, "—")) * 8 + 32
-                                          - BadgeADRowActif:
-                                              Control: Badge
-                                              Properties:
-                                                Appearance: ='BadgeCanvas.Appearance'.Tint
-                                                BasePaletteColor: =Coalesce(If(ThisItem.Actif, RGBA(209, 250, 229, 1), RGBA(229, 231, 235, 1)), RGBA(209, 250, 229, 1))
-                                                Content: =Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")
-                                                FontColor: =Coalesce(If(ThisItem.Actif, RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1)), RGBA(6, 95, 70, 1))
-                                                Height: =28
-                                                LayoutMinWidth: =Len(Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")) * 8 + 32
-                                                Width: =Len(Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")) * 8 + 32
-                                    - TxtADRowService:
+                                    - TxtAGRowEmail:
                                         Control: ModernText
                                         Properties:
                                           AutoHeight: =true
                                           Color: =RGBA(112, 112, 112, 1)
                                           Size: =12
-                                          Text: |-
-                                            ="Service par défaut : " & If(CountRows(ThisItem.Service_Par_Defaut) > 0, First(ThisItem.Service_Par_Defaut).Value, "—")
+                                          Text: =Coalesce(ThisItem.Utilisateur.Email, "—")
                                           Width: =Parent.Width
-                                    - ADRowRulesLine:
+                                    - AGRowBadgesLine:
                                         Control: GroupContainer
                                         Variant: AutoLayout
                                         Properties:
                                           FillPortions: =0
-                                          Height: =20
+                                          Height: =28
                                           LayoutAlignItems: =LayoutAlignItems.Center
                                           LayoutDirection: =LayoutDirection.Horizontal
-                                          LayoutGap: =8
+                                          LayoutGap: =10
                                           Width: =Parent.Width
                                         Children:
-                                          - TxtADRowRules:
-                                              Control: ModernText
+                                          - BadgeAGRowService:
+                                              Control: Badge
                                               Properties:
-                                                AutoHeight: =true
-                                                Color: =RGBA(144, 144, 144, 1)
-                                                Size: =12
-                                                Text: |-
-                                                  =If(Coalesce(ThisItem.Deadline_Obligatoire, false), "Deadline obligatoire · ", "") &
-                                                      If(Not(Coalesce(ThisItem.Complement_Autorise, true)), "Complément désactivé · ", "") &
-                                                      If(Coalesce(ThisItem.Niveau_Validation.Value, "Simple") = "Direction_Generale", "Validation DG", "Validation simple")
-                                                Width: =Parent.Width
-                              - BtnADModifier:
+                                                Appearance: ='BadgeCanvas.Appearance'.Tint
+                                                BasePaletteColor: =RGBA(219, 234, 254, 1)
+                                                Content: =Coalesce(LookUp(Services_Siege, ID = ThisItem.Service_ID.Id, Title), "—")
+                                                FontColor: =RGBA(30, 64, 175, 1)
+                                                Height: =28
+                                                LayoutMinWidth: =Len(Coalesce(LookUp(Services_Siege, ID = ThisItem.Service_ID.Id, Title), "—")) * 8 + 32
+                                                Width: =Len(Coalesce(LookUp(Services_Siege, ID = ThisItem.Service_ID.Id, Title), "—")) * 8 + 32
+                                          - BadgeAGRowRole:
+                                              Control: Badge
+                                              Properties:
+                                                Appearance: ='BadgeCanvas.Appearance'.Tint
+                                                BasePaletteColor: =RGBA(209, 250, 229, 1)
+                                                Content: =Coalesce(ThisItem.Role.Value, "—")
+                                                FontColor: =RGBA(6, 95, 70, 1)
+                                                Height: =28
+                                                LayoutMinWidth: =Len(Coalesce(ThisItem.Role.Value, "—")) * 8 + 32
+                                                Width: =Len(Coalesce(ThisItem.Role.Value, "—")) * 8 + 32
+                              - BtnAGModifier:
                                   Control: ModernButton
                                   Properties:
                                     Appearance: ='ButtonCanvas.Appearance'.Outline
                                     BasePaletteColor: =RGBA(140, 12, 20, 1)
                                     Height: =36
                                     OnSelect: |-
-                                      =Set(varADFormMode, "edit");
-                                      Set(varADEditingID, ThisItem.ID);
-                                      Reset(InpADNom);
-                                      Reset(InpADCode);
-                                      Reset(InpADDescription);
-                                      Reset(DdADService);
-                                      ClearCollect(colADSelectedServices, ForAll(ThisItem.Services_A_Transferer As Svc, {ID: Svc.Id, Title: Svc.Value}));
-                                      Reset(RadADDeadline);
-                                      Reset(RadADComplement);
-                                      Reset(RadADTransfertDG);
-                                      Reset(RadADValidationDG);
-                                      Reset(RadADNiveauValidation);
-                                      Reset(RadADActif);
-                                      Set(varADFormOpen, true)
+                                      =Set(varAGFormMode, "edit");
+                                      Set(varAGEditingID, ThisItem.ID);
+                                      Reset(DdAGService);
+                                      Reset(RadAGRole);
+                                      Set(varAGFormOpen, true)
                                     Text: ="Modifier"
                                     Width: =110
-                              - BtnADToggleActif:
+                              - BtnAGRetirer:
                                   Control: ModernButton
                                   Properties:
                                     Appearance: ='ButtonCanvas.Appearance'.Secondary
-                                    BasePaletteColor: =If(Coalesce(ThisItem.Actif, true), RGBA(220, 38, 38, 1), RGBA(6, 95, 70, 1))
+                                    BasePaletteColor: =RGBA(220, 38, 38, 1)
                                     Height: =36
                                     OnSelect: |-
-                                      =IfError(
-                                          Patch(Types_Demandes, ThisItem, {Actif: Not(Coalesce(ThisItem.Actif, true))}),
-                                          Notify("Échec de la mise à jour : " & FirstError.Message, NotificationType.Error),
-                                          Notify("Statut mis à jour.", NotificationType.Success)
-                                      )
-                                    Text: =If(Coalesce(ThisItem.Actif, true), "Désactiver", "Activer")
-                                    Width: =110
-                  - TxtADEmpty:
+                                      =Set(varAGConfirmRemoveID, ThisItem.ID);
+                                      Set(varAGConfirmRemoveName, ThisItem.Utilisateur.DisplayName)
+                                    Text: ="Retirer"
+                                    Width: =100
+                  - TxtAGEmpty:
                       Control: ModernText
                       Properties:
                         Align: =Align.Center
                         AutoHeight: =true
                         Color: =RGBA(144, 144, 144, 1)
                         Size: =14
-                        Text: ="Aucun type de demande ne correspond à la recherche."
-                        Visible: =GalleryADTypes.AllItemsCount = 0
+                        Text: ="Aucun gestionnaire pour ce filtre."
+                        Visible: =GalleryAGListe.AllItemsCount = 0
                         Width: =Parent.Width - 56
-      - ADFormOverlay:
+      - AGFormOverlay:
           Control: GroupContainer
           Variant: ManualLayout
           Properties:
             Height: =Parent.Height
-            Visible: =varADFormOpen
+            Visible: =varAGFormOpen
             Width: =Parent.Width
           Children:
-            - RectADFormScrim:
+            - RectAGFormScrim:
                 Control: Rectangle
                 Properties:
                   Fill: =RGBA(17, 24, 39, 0.45)
                   Height: =Parent.Height
-                  OnSelect: =Set(varADFormOpen, false)
+                  OnSelect: =Set(varAGFormOpen, false)
                   Width: =Parent.Width
-            - ADFormCard:
+            - AGFormCard:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
                   DropShadow: =DropShadow.Regular
                   Fill: =RGBA(255, 255, 255, 1)
-                  Height: =Min(Parent.Height - 40, 720)
+                  Height: =Min(Parent.Height - 40, 480)
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =12
@@ -657,220 +650,103 @@ Screens:
                   RadiusBottomRight: =12
                   RadiusTopLeft: =12
                   RadiusTopRight: =12
-                  Width: =If(AdministrationTypesDemandes.Size = ScreenSize.Small, Parent.Width - 40, 480)
+                  Width: =If(AdministrationGestionnaires.Size = ScreenSize.Small, Parent.Width - 40, 480)
                   X: =(Parent.Width - Self.Width) / 2
                   Y: =(Parent.Height - Self.Height) / 2
                 Children:
-                  - TxtADFormTitle:
+                  - TxtAGFormTitle:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
                         Color: =RGBA(140, 12, 20, 1)
                         FontWeight: =FontWeight.Bold
                         Size: =18
-                        Text: =If(varADFormMode = "edit", "Modifier le type de demande", "Nouveau type de demande")
-                  - TxtADLblNom:
+                        Text: =If(varAGFormMode = "edit", "Modifier l'affectation", "Nouveau gestionnaire")
+                  - TxtAGLblNom:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
                         Size: =13
-                        Text: ="Nom du type *"
-                  - InpADNom:
+                        Text: ="Nom *"
+                        Visible: =varAGFormMode = "create"
+                  - InpAGNom:
                       Control: ModernTextInput
                       Properties:
-                        AccessibleLabel: ="Nom du type (obligatoire)"
+                        AccessibleLabel: ="Nom (obligatoire)"
                         BorderColor: =RGBA(229, 231, 235, 1)
-                        Default: =If(varADFormMode = "edit", LookUp(Types_Demandes, ID = varADEditingID).Titre, "")
                         Height: =40
-                  - TxtADLblCode:
+                        Visible: =varAGFormMode = "create"
+                  - TxtAGLblEmail:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
                         Size: =13
-                        Text: ="Code métier *"
-                  - InpADCode:
+                        Text: ="Email *"
+                        Visible: =varAGFormMode = "create"
+                  - InpAGEmail:
                       Control: ModernTextInput
                       Properties:
-                        AccessibleLabel: ="Code métier (obligatoire)"
+                        AccessibleLabel: ="Email (obligatoire)"
                         BorderColor: =RGBA(229, 231, 235, 1)
-                        Default: =If(varADFormMode = "edit", LookUp(Types_Demandes, ID = varADEditingID).Code_Metier, "")
                         Height: =40
-                        Placeholder: |-
-                          ="Ex: CONTROLE_TECH"
-                  - TxtADLblDescription:
+                        Placeholder: ="prenom.nom@takafulia.tn"
+                        Visible: =varAGFormMode = "create"
+                  - TxtAGEditIdentity:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(31, 41, 55, 1)
+                        FontWeight: =FontWeight.Semibold
+                        Size: =13
+                        Text: |-
+                          ="Gestionnaire : " & LookUp(Membres_Services, ID = varAGEditingID).Utilisateur.DisplayName & " (" & LookUp(Membres_Services, ID = varAGEditingID).Utilisateur.Email & ")"
+                        Visible: =varAGFormMode = "edit"
+                  - TxtAGLblService:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
                         Size: =13
-                        Text: ="Description métier"
-                  - InpADDescription:
-                      Control: ModernTextInput
-                      Properties:
-                        AccessibleLabel: ="Description métier"
-                        BorderColor: =RGBA(229, 231, 235, 1)
-                        Default: =If(varADFormMode = "edit", LookUp(Types_Demandes, ID = varADEditingID).Description_Metier, "")
-                        Height: =72
-                        Type: =TextInputType.Multiline
-                  - TxtADLblService:
-                      Control: ModernText
-                      Properties:
-                        AutoHeight: =true
-                        Color: =RGBA(112, 112, 112, 1)
-                        Size: =13
-                        Text: ="Service par défaut"
-                  - DdADService:
+                        Text: ="Service *"
+                  - DdAGService:
                       Control: ModernDropdown
                       Properties:
-                        AccessibleLabel: ="Service par défaut"
+                        AccessibleLabel: ="Service (obligatoire)"
                         BorderColor: =RGBA(229, 231, 235, 1)
-                        Default: |-
-                          =If(
-                              varADFormMode = "edit" && CountRows(LookUp(Types_Demandes, ID = varADEditingID).Service_Par_Defaut) > 0,
-                              LookUp(Services_Siege, ID = First(LookUp(Types_Demandes, ID = varADEditingID).Service_Par_Defaut).Id),
-                              Blank()
-                          )
+                        Default: =If(varAGFormMode = "edit", LookUp(Services_Siege, ID = LookUp(Membres_Services, ID = varAGEditingID).Service_ID.Id), Blank())
                         Height: =40
                         ItemDisplayText: =ThisItem.Title
                         Items: =SortByColumns(Services_Siege, "Title", SortOrder.Ascending)
-                  - TxtADLblServicesATransferer:
+                  - TxtAGLblRole:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
                         Size: =13
-                        Text: ="Services vers lesquels le transfert est autorisé"
-                  - TxtADHintServicesATransferer:
-                      Control: ModernText
-                      Properties:
-                        AutoHeight: =true
-                        Color: =RGBA(144, 144, 144, 1)
-                        Size: =11
-                        Text: ="Aucune sélection = tous les services restent autorisés."
-                  - GalleryADServicesATransferer:
-                      Control: Gallery
-                      Variant: Vertical
-                      Properties:
-                        BorderColor: =RGBA(229, 231, 235, 1)
-                        BorderThickness: =1
-                        FillPortions: =0
-                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
-                        Items: =SortByColumns(Services_Siege, "Title", SortOrder.Ascending)
-                        TemplatePadding: =2
-                        TemplateSize: =34
-                      Children:
-                        - ChkADServiceATransferer:
-                            Control: CheckBox
-                            Properties:
-                              BasePaletteColor: =RGBA(140, 12, 20, 1)
-                              Checked: =CountRows(Filter(colADSelectedServices, ID = ThisItem.ID)) > 0
-                              Height: =Parent.TemplateHeight
-                              Label: =Coalesce(ThisItem.Title, "—")
-                              OnCheck: |-
-                                =Collect(colADSelectedServices, {ID: ThisItem.ID, Title: ThisItem.Title})
-                              OnUncheck: =RemoveIf(colADSelectedServices, ID = ThisItem.ID)
-                              Width: =Parent.TemplateWidth
-                  - TxtADLblDeadline:
-                      Control: ModernText
-                      Properties:
-                        AutoHeight: =true
-                        Color: =RGBA(112, 112, 112, 1)
-                        Size: =13
-                        Text: ="Deadline obligatoire"
-                  - RadADDeadline:
+                        Text: ="Rôle *"
+                  - RadAGRole:
                       Control: ModernRadio
                       Properties:
-                        AccessibleLabel: ="Deadline obligatoire"
+                        AccessibleLabel: ="Rôle (obligatoire)"
                         Default: |-
-                          =If(varADFormMode = "edit" && Coalesce(LookUp(Types_Demandes, ID = varADEditingID).Deadline_Obligatoire, false), {Value: "Oui"}, {Value: "Non"})
+                          =If(varAGFormMode = "edit", {Value: LookUp(Membres_Services, ID = varAGEditingID).Role.Value}, {Value: "Gestionnaire"})
                         Height: =76
-                        Items: =["Oui", "Non"]
-                  - TxtADLblComplement:
-                      Control: ModernText
-                      Properties:
-                        AutoHeight: =true
-                        Color: =RGBA(112, 112, 112, 1)
-                        Size: =13
-                        Text: ="Complément autorisé"
-                  - RadADComplement:
-                      Control: ModernRadio
-                      Properties:
-                        AccessibleLabel: ="Complément autorisé"
-                        Default: |-
-                          =If(varADFormMode = "edit" && Not(Coalesce(LookUp(Types_Demandes, ID = varADEditingID).Complement_Autorise, true)), {Value: "Non"}, {Value: "Oui"})
-                        Height: =76
-                        Items: =["Oui", "Non"]
-                  - TxtADLblTransfertDG:
-                      Control: ModernText
-                      Properties:
-                        AutoHeight: =true
-                        Color: =RGBA(112, 112, 112, 1)
-                        Size: =13
-                        Text: ="Transfert Direction Générale autorisé"
-                  - RadADTransfertDG:
-                      Control: ModernRadio
-                      Properties:
-                        AccessibleLabel: ="Transfert Direction Générale autorisé"
-                        Default: |-
-                          =If(varADFormMode = "edit" && Not(Coalesce(LookUp(Types_Demandes, ID = varADEditingID).Transfert_Direction_Generale_Autorise, true)), {Value: "Non"}, {Value: "Oui"})
-                        Height: =76
-                        Items: =["Oui", "Non"]
-                  - TxtADLblValidationDG:
-                      Control: ModernText
-                      Properties:
-                        AutoHeight: =true
-                        Color: =RGBA(112, 112, 112, 1)
-                        Size: =13
-                        Text: ="Validation Direction Générale possible"
-                  - RadADValidationDG:
-                      Control: ModernRadio
-                      Properties:
-                        AccessibleLabel: ="Validation Direction Générale possible"
-                        Default: |-
-                          =If(varADFormMode = "edit" && Coalesce(LookUp(Types_Demandes, ID = varADEditingID).Validation_Direction_Generale_Possible, false), {Value: "Oui"}, {Value: "Non"})
-                        Height: =76
-                        Items: =["Oui", "Non"]
-                  - TxtADLblNiveauValidation:
-                      Control: ModernText
-                      Properties:
-                        AutoHeight: =true
-                        Color: =RGBA(112, 112, 112, 1)
-                        Size: =13
-                        Text: ="Niveau de validation"
-                  - RadADNiveauValidation:
-                      Control: ModernRadio
-                      Properties:
-                        AccessibleLabel: ="Niveau de validation"
-                        Default: |-
-                          =If(varADFormMode = "edit" && Coalesce(LookUp(Types_Demandes, ID = varADEditingID).Niveau_Validation.Value, "Simple") = "Direction_Generale", {Value: "Direction_Generale"}, {Value: "Simple"})
-                        Height: =76
-                        Items: =["Simple", "Direction_Generale"]
-                  - TxtADLblActif:
-                      Control: ModernText
-                      Properties:
-                        AutoHeight: =true
-                        Color: =RGBA(112, 112, 112, 1)
-                        Size: =13
-                        Text: ="Actif"
-                  - RadADActif:
-                      Control: ModernRadio
-                      Properties:
-                        AccessibleLabel: ="Actif"
-                        Default: |-
-                          =If(varADFormMode = "edit" && Not(Coalesce(LookUp(Types_Demandes, ID = varADEditingID).Actif, true)), {Value: "Non"}, {Value: "Oui"})
-                        Height: =76
-                        Items: =["Oui", "Non"]
-                  - TxtADFormErr:
+                        Items: =["Gestionnaire", "Superviseur"]
+                  - TxtAGFormErr:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
                         Color: =RGBA(220, 38, 38, 1)
                         Size: =12
-                        Text: ="Le nom et le code métier sont obligatoires."
-                        Visible: =varADTriedSave && (IsBlank(Trim(InpADNom.Text)) || IsBlank(Trim(InpADCode.Text)))
-                  - ADFormButtonsRow:
+                        Text: ="Le nom, l'email et le service sont obligatoires."
+                        Visible: |-
+                          =varAGTriedSave && (
+                              (varAGFormMode = "create" && (IsBlank(Trim(InpAGNom.Text)) || IsBlank(Trim(InpAGEmail.Text))))
+                                  || IsBlank(DdAGService.Selected.ID)
+                          )
+                  - AGFormButtonsRow:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
@@ -881,53 +757,145 @@ Screens:
                         LayoutGap: =12
                         LayoutJustifyContent: =LayoutJustifyContent.End
                       Children:
-                        - BtnADAnnuler:
+                        - BtnAGAnnuler:
                             Control: ModernButton
                             Properties:
                               Appearance: ='ButtonCanvas.Appearance'.Outline
                               BasePaletteColor: =RGBA(140, 12, 20, 1)
                               Height: =40
-                              OnSelect: =Set(varADFormOpen, false)
+                              OnSelect: =Set(varAGFormOpen, false)
                               Text: ="Annuler"
                               Width: =120
-                        - BtnADEnregistrer:
+                        - BtnAGEnregistrer:
                             Control: ModernButton
                             Properties:
                               Appearance: ='ButtonCanvas.Appearance'.Primary
                               BasePaletteColor: =RGBA(140, 12, 20, 1)
                               Height: =40
                               OnSelect: |-
-                                =Set(varADTriedSave, true);
+                                =Set(varAGTriedSave, true);
                                 If(
-                                    Not(IsBlank(Trim(InpADNom.Text))) && Not(IsBlank(Trim(InpADCode.Text))),
+                                    (varAGFormMode = "edit" || (Not(IsBlank(Trim(InpAGNom.Text))) && Not(IsBlank(Trim(InpAGEmail.Text)))))
+                                        && Not(IsBlank(DdAGService.Selected.ID)),
                                     IfError(
                                         Patch(
-                                            Types_Demandes,
-                                            If(varADFormMode = "edit", LookUp(Types_Demandes, ID = varADEditingID), Defaults(Types_Demandes)),
+                                            Membres_Services,
+                                            If(varAGFormMode = "edit", LookUp(Membres_Services, ID = varAGEditingID), Defaults(Membres_Services)),
                                             {
-                                                Titre: Trim(InpADNom.Text),
-                                                Code_Metier: Trim(InpADCode.Text),
-                                                Description_Metier: Trim(InpADDescription.Text),
-                                                Service_Par_Defaut: Filter(Table({Id: DdADService.Selected.ID, Value: DdADService.Selected.Title}), Not(IsBlank(DdADService.Selected.ID))),
-                                                Services_A_Transferer: ForAll(colADSelectedServices As Sel, {Id: Sel.ID, Value: Sel.Title}),
-                                                Deadline_Obligatoire: RadADDeadline.Selected.Value = "Oui",
-                                                Complement_Autorise: RadADComplement.Selected.Value = "Oui",
-                                                Transfert_Direction_Generale_Autorise: RadADTransfertDG.Selected.Value = "Oui",
-                                                Validation_Direction_Generale_Possible: RadADValidationDG.Selected.Value = "Oui",
-                                                Niveau_Validation: {Value: RadADNiveauValidation.Selected.Value},
-                                                Actif: RadADActif.Selected.Value = "Oui"
+                                                Utilisateur: If(
+                                                    varAGFormMode = "edit",
+                                                    LookUp(Membres_Services, ID = varAGEditingID).Utilisateur,
+                                                    {
+                                                        '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                                        Claims: "i:0#.f|membership|" & Lower(Trim(InpAGEmail.Text)),
+                                                        DisplayName: Trim(InpAGNom.Text),
+                                                        Email: Trim(InpAGEmail.Text),
+                                                        Department: "",
+                                                        JobTitle: "",
+                                                        Picture: ""
+                                                    }
+                                                ),
+                                                Service_ID: {Id: DdAGService.Selected.ID, Value: DdAGService.Selected.Title},
+                                                Role: {Value: RadAGRole.Selected.Value}
                                             }
                                         ),
                                         Notify("Échec de l'enregistrement : " & FirstError.Message, NotificationType.Error),
-                                        Set(varADFormOpen, false);
-                                        Set(varADTriedSave, false);
-                                        Refresh(Types_Demandes);
-                                        Notify("Type de demande enregistré.", NotificationType.Success)
+                                        Set(varAGFormOpen, false);
+                                        Set(varAGTriedSave, false);
+                                        Refresh(Membres_Services);
+                                        Notify("Gestionnaire enregistré.", NotificationType.Success)
                                     )
                                 )
                               Text: ="Enregistrer"
                               Width: =140
-      - BarAD:
+      - AGConfirmRemoveOverlay:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            Height: =Parent.Height
+            Visible: =Not(IsBlank(varAGConfirmRemoveID))
+            Width: =Parent.Width
+          Children:
+            - RectAGConfirmScrim:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(17, 24, 39, 0.45)
+                  Height: =Parent.Height
+                  OnSelect: =Set(varAGConfirmRemoveID, Blank())
+                  Width: =Parent.Width
+            - AGConfirmCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.Regular
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =180
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =12
+                  PaddingBottom: =20
+                  PaddingLeft: =20
+                  PaddingRight: =20
+                  PaddingTop: =20
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =If(AdministrationGestionnaires.Size = ScreenSize.Small, Parent.Width - 40, 440)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =(Parent.Height - Self.Height) / 2
+                Children:
+                  - TxtAGConfirmTitle:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(31, 41, 55, 1)
+                        FontWeight: =FontWeight.Bold
+                        Size: =17
+                        Text: ="Retirer ce gestionnaire ?"
+                  - TxtAGConfirmBody:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: ="« " & varAGConfirmRemoveName & " » perdra son affectation de gestionnaire."
+                  - AGConfirmButtonsRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =40
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                      Children:
+                        - BtnAGConfirmAnnuler:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Secondary
+                              Height: =40
+                              OnSelect: =Set(varAGConfirmRemoveID, Blank())
+                              Text: ="Annuler"
+                              Width: =120
+                        - BtnAGConfirmRetirer:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =RGBA(220, 38, 38, 1)
+                              Height: =40
+                              OnSelect: |-
+                                =IfError(
+                                    Remove(Membres_Services, LookUp(Membres_Services, ID = varAGConfirmRemoveID)),
+                                    Notify("Échec de la suppression : " & FirstError.Message, NotificationType.Error),
+                                    Set(varAGConfirmRemoveID, Blank());
+                                    Refresh(Membres_Services);
+                                    Notify("Gestionnaire retiré.", NotificationType.Success)
+                                )
+                              Text: ="Retirer"
+                              Width: =120
+      - BarAG:
           Control: GroupContainer
           Variant: AutoLayout
           Properties:
@@ -936,11 +904,11 @@ Screens:
             Height: =64
             LayoutAlignItems: =LayoutAlignItems.Stretch
             LayoutDirection: =LayoutDirection.Horizontal
-            Visible: =AdministrationTypesDemandes.Size = ScreenSize.Small
+            Visible: =AdministrationGestionnaires.Size = ScreenSize.Small
             Width: =Parent.Width
             Y: =Parent.Height - 64
           Children:
-            - BEntADAccueil:
+            - BEntAGAccueil:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -949,7 +917,7 @@ Screens:
                   LayoutGap: =2
                   PaddingTop: =10
                 Children:
-                  - BIcoADAccueil:
+                  - BIcoAGAccueil:
                       Control: ModernIcon
                       Properties:
                         Height: =22
@@ -957,7 +925,7 @@ Screens:
                         IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
                         Width: =22
-                  - BLblADAccueil:
+                  - BLblAGAccueil:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
@@ -965,7 +933,7 @@ Screens:
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
                         Size: =10
                         Text: ="Accueil"
-            - BEntADFile:
+            - BEntAGFile:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -975,7 +943,7 @@ Screens:
                   PaddingTop: =10
                   Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
                 Children:
-                  - BIcoADFile:
+                  - BIcoAGFile:
                       Control: ModernIcon
                       Properties:
                         Height: =22
@@ -983,7 +951,7 @@ Screens:
                         IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
                         Width: =22
-                  - BLblADFile:
+                  - BLblAGFile:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
@@ -991,7 +959,7 @@ Screens:
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
                         Size: =10
                         Text: ="À traiter"
-            - BEntADStats:
+            - BEntAGStats:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -1001,7 +969,7 @@ Screens:
                   PaddingTop: =10
                   Visible: =UserRole = "Superviseur" || UserRole = "Admin"
                 Children:
-                  - BIcoADStats:
+                  - BIcoAGStats:
                       Control: ModernIcon
                       Properties:
                         Height: =22
@@ -1009,7 +977,7 @@ Screens:
                         IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
                         Width: =22
-                  - BLblADStats:
+                  - BLblAGStats:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
@@ -1017,7 +985,7 @@ Screens:
                         OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
                         Size: =10
                         Text: ="Stats"
-            - BEntADAdmin:
+            - BEntAGAdmin:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -1027,23 +995,23 @@ Screens:
                   PaddingTop: =10
                   Visible: =UserRole = "Admin"
                 Children:
-                  - BIcoADAdmin:
+                  - BIcoAGAdmin:
                       Control: ModernIcon
                       Properties:
                         Height: =22
                         Icon: ="Settings"
-                        IconColor: =RGBA(140, 12, 20, 1)
+                        IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Width: =22
-                  - BLblADAdmin:
+                  - BLblAGAdmin:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
-                        Color: =RGBA(140, 12, 20, 1)
+                        Color: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Size: =10
                         Text: ="Admin"
-            - BEntADNotifs:
+            - BEntAGNotifs:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
@@ -1052,7 +1020,7 @@ Screens:
                   LayoutGap: =2
                   PaddingTop: =10
                 Children:
-                  - BIcoADNotifs:
+                  - BIcoAGNotifs:
                       Control: ModernIcon
                       Properties:
                         Height: =22
@@ -1060,7 +1028,7 @@ Screens:
                         IconColor: =RGBA(112, 112, 112, 1)
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
                         Width: =22
-                  - BLblADNotifs:
+                  - BLblAGNotifs:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true

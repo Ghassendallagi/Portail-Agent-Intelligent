@@ -257,7 +257,7 @@ Screens:
                         Height: =22
                         Icon: ="Settings"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Width: =22
                   - LblSTAdmin:
                       Control: ModernText
@@ -265,7 +265,7 @@ Screens:
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
-                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Size: =14
                         Text: ="Administration"
             - NavSTNotifs:
@@ -488,8 +488,7 @@ Screens:
                               AutoHeight: =true
                               Color: =RGBA(112, 112, 112, 1)
                               Size: =14
-                              Text: |-
-                                ="⏸ Compléments d'Informations — Suivi des suspensions et compléments"
+                              Text: ="⏸ Compléments d'Informations — Suivi des suspensions et compléments"
                               Width: =Parent.Width - 80
                         - TxtSTDescDeadlines:
                             Control: ModernText
@@ -498,8 +497,7 @@ Screens:
                               AutoHeight: =true
                               Color: =RGBA(112, 112, 112, 1)
                               Size: =14
-                              Text: |-
-                                ="⏰ Deadlines Assurance — Échéances et délais réglementaires"
+                              Text: ="⏰ Deadlines Assurance — Échéances et délais réglementaires"
                               Width: =Parent.Width - 80
                         - TxtSTDescIA:
                             Control: ModernText
@@ -718,14 +716,14 @@ Screens:
                         Height: =22
                         Icon: ="Settings"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Width: =22
                   - BLblSTAdmin:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
-                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Size: =10
                         Text: ="Admin"
             - BEntSTNotifs:

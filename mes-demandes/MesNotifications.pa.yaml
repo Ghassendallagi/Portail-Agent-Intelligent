@@ -258,7 +258,7 @@ Screens:
                         Height: =22
                         Icon: ="Settings"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Width: =22
                   - LblNTAdmin:
                       Control: ModernText
@@ -266,7 +266,7 @@ Screens:
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
                         FillPortions: =1
-                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Size: =14
                         Text: ="Administration"
             - NavNTNotifs:
@@ -987,14 +987,14 @@ Screens:
                         Height: =22
                         Icon: ="Settings"
                         IconColor: =RGBA(112, 112, 112, 1)
-                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Width: =22
                   - BLblNTAdmin:
                       Control: ModernText
                       Properties:
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
-                        OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
                         Size: =10
                         Text: ="Admin"
             - BEntNTNotifs:

@@ -1,0 +1,1515 @@
+Screens:
+  EspaceAdministrateur:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+    Children:
+      - RailEA:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.Semilight
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =4
+            PaddingBottom: =20
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =20
+            Visible: =EspaceAdministrateur.Size <> ScreenSize.Small
+            Width: =300
+          Children:
+            - ImgLogoEA:
+                Control: Image
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =0
+                  Height: =60
+                  Image: =Logo
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+            - RectRailSepEA:
+                Control: Rectangle
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FillPortions: =0
+                  Height: =16
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+            - NavEAAccueil:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                Children:
+                  - IcoEAAccueil:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Home"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Width: =22
+                  - LblEAAccueil:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Accueil"
+                        Wrap: =false
+            - NavEAMesDem:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - IcoEAMesDem:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Document"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Width: =22
+                  - LblEAMesDem:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Mes demandes"
+                        Wrap: =false
+            - NavEANouvelle:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - IcoEANouvelle:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Width: =22
+                  - LblEANouvelle:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Nouvelle demande"
+                        Wrap: =false
+            - NavEAFile:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoEAFile:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Briefcase"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Width: =22
+                  - LblEAFile:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="File à traiter"
+                        Wrap: =false
+            - NavEAAlertes:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoEAAlertes:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Clock"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Width: =22
+                  - LblEAAlertes:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Alertes SLA"
+                        Wrap: =false
+            - NavEAStats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoEAStats:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="DataBarVertical"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Width: =22
+                  - LblEAStats:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Statistiques"
+                        Wrap: =false
+            - NavEAAdmin:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  Fill: =RGBA(140, 12, 20, 0.08)
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Admin"
+                Children:
+                  - IcoEAAdmin:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Settings"
+                        IconColor: =RGBA(140, 12, 20, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        Width: =22
+                  - LblEAAdmin:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
+                        FillPortions: =1
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Administration"
+                        Wrap: =false
+            - NavEANotifs:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                Children:
+                  - IcoEANotifs:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Alert"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Width: =22
+                  - LblEANotifs:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Notifications"
+                        Wrap: =false
+                  - BdgEANotifs:
+                      Control: Badge
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        Appearance: ='BadgeCanvas.Appearance'.Filled
+                        BasePaletteColor: =RGBA(220, 38, 38, 1)
+                        Content: =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
+                        FillPortions: =0
+                        FontColor: =RGBA(255, 255, 255, 1)
+                        Height: =22
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =36
+                        Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                        Width: =36
+            - RectRailSpacerEA:
+                Control: Rectangle
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FillPortions: =1
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+            - RectRailSeparatorEA:
+                Control: Rectangle
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  Fill: =RGBA(229, 231, 235, 1)
+                  FillPortions: =0
+                  Height: =1
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+            - TxtRailUserEA:
+                Control: ModernText
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  AutoHeight: =true
+                  Color: =RGBA(55, 65, 81, 1)
+                  FillPortions: =0
+                  FontWeight: =FontWeight.Semibold
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =User().FullName
+                  Wrap: =false
+            - TxtRailRoleEA:
+                Control: ModernText
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  AutoHeight: =true
+                  Color: =RGBA(112, 112, 112, 1)
+                  FillPortions: =0
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: =UserRole
+                  Wrap: =false
+      - EAMain:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(249, 250, 251, 1)
+            Height: =Parent.Height - If(EspaceAdministrateur.Size = ScreenSize.Small, 64, 0)
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width - If(EspaceAdministrateur.Size = ScreenSize.Small, 0, RailEA.Width)
+            X: =If(EspaceAdministrateur.Size = ScreenSize.Small, 0, RailEA.Width)
+          Children:
+            - EAHeader:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  Fill: =RGBA(249, 250, 251, 1)
+                  FillPortions: =0
+                  Height: =128
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =8
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingBottom: =20
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  PaddingTop: =28
+                Children:
+                  - TxtEATitle:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
+                        FillPortions: =0
+                        FontWeight: =FontWeight.Bold
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =28
+                        Text: ="Administration du Portail"
+                        Width: =Parent.Width - 56
+                        Wrap: =false
+                  - TxtEASubtitle:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Gestion centralisée des référentiels et utilisateurs"
+                        Width: =Parent.Width - 56
+                        Wrap: =false
+            - EABody:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  Fill: =RGBA(249, 250, 251, 1)
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =14
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =28
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  PaddingTop: =24
+                Children:
+                  - EAAccessDeniedPanel:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =0
+                        Height: =Parent.Height
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutJustifyContent: =LayoutJustifyContent.Center
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Visible: =UserRole <> "Admin"
+                        Width: =Parent.Width
+                      Children:
+                        - EADeniedCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Center
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =0
+                              Height: =280
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =12
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =24
+                              PaddingLeft: =24
+                              PaddingRight: =24
+                              PaddingTop: =24
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =If(EspaceAdministrateur.Size = ScreenSize.Small, Parent.Width - 56, 480)
+                            Children:
+                              - TxtEADeniedBrand:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Color: =RGBA(112, 112, 112, 1)
+                                    FillPortions: =0
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =12
+                                    Text: ="Assurances At-Takafulia"
+                                    Wrap: =false
+                              - RectEADeniedBar:
+                                  Control: Rectangle
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Fill: =RGBA(140, 12, 20, 1)
+                                    FillPortions: =0
+                                    Height: =4
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    Width: =56
+                              - TxtEADeniedMessage:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Align: =Align.Center
+                                    AutoHeight: =true
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =0
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Text: ="Vous n'avez pas les droits d'administrateur pour accéder à cet espace."
+                              - BtnEARetour:
+                                  Control: ModernButton
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: ='ButtonCanvas.Appearance'.Primary
+                                    BasePaletteColor: =RGBA(140, 12, 20, 1)
+                                    FillPortions: =0
+                                    Height: =40
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                                    Text: ="Retour à l'accueil"
+                                    Width: =180
+                  - EACardsGrid:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        FillPortions: =0
+                        Height: =If(EspaceAdministrateur.Size = ScreenSize.Small, 5 * 216, 216)
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =If(EspaceAdministrateur.Size = ScreenSize.Small, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                        LayoutGap: =16
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        Visible: =UserRole = "Admin"
+                        Width: =Parent.Width - 56
+                      Children:
+                        - CardEATypes:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =10
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =18
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - IconBadgeEATypes:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Fill: =RGBA(140, 12, 20, 0.08)
+                                    FillPortions: =0
+                                    Height: =44
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =11
+                                    PaddingLeft: =11
+                                    PaddingRight: =11
+                                    PaddingTop: =11
+                                    RadiusBottomLeft: =22
+                                    RadiusBottomRight: =22
+                                    RadiusTopLeft: =22
+                                    RadiusTopRight: =22
+                                    Width: =44
+                                  Children:
+                                    - IcoCardEATypes:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          FillPortions: =0
+                                          Height: =22
+                                          Icon: ="Document"
+                                          IconColor: =RGBA(140, 12, 20, 1)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                                          Width: =22
+                              - TxtCardEATypesTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =0
+                                    FontWeight: =FontWeight.Bold
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =16
+                                    Text: ="Types de Demandes"
+                                    Wrap: =false
+                              - TxtCardEATypesDesc:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(112, 112, 112, 1)
+                                    FillPortions: =0
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="Gérer les types de demandes et leurs règles métier"
+                                    Width: =Parent.Width - 36
+                        - CardEAGestionnaires:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =10
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =18
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - IconBadgeEAGestionnaires:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Fill: =RGBA(140, 12, 20, 0.08)
+                                    FillPortions: =0
+                                    Height: =44
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =11
+                                    PaddingLeft: =11
+                                    PaddingRight: =11
+                                    PaddingTop: =11
+                                    RadiusBottomLeft: =22
+                                    RadiusBottomRight: =22
+                                    RadiusTopLeft: =22
+                                    RadiusTopRight: =22
+                                    Width: =44
+                                  Children:
+                                    - IcoCardEAGestionnaires:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          FillPortions: =0
+                                          Height: =22
+                                          Icon: ="Person"
+                                          IconColor: =RGBA(140, 12, 20, 1)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          OnSelect: =Navigate(AdministrationGestionnaires, ScreenTransition.Fade)
+                                          Width: =22
+                              - TxtCardEAGestionnairesTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(31, 41, 55, 1)
+                                    FillPortions: =0
+                                    FontWeight: =FontWeight.Bold
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: =Navigate(AdministrationGestionnaires, ScreenTransition.Fade)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =16
+                                    Text: ="Gestionnaires"
+                                    Wrap: =false
+                              - TxtCardEAGestionnairesDesc:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(112, 112, 112, 1)
+                                    FillPortions: =0
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    OnSelect: =Navigate(AdministrationGestionnaires, ScreenTransition.Fade)
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="Affecter des gestionnaires aux services"
+                                    Width: =Parent.Width - 36
+                        - CardEAServices:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =10
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =18
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - IconBadgeEAServices:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Fill: =RGBA(243, 244, 246, 1)
+                                    FillPortions: =0
+                                    Height: =44
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =11
+                                    PaddingLeft: =11
+                                    PaddingRight: =11
+                                    PaddingTop: =11
+                                    RadiusBottomLeft: =22
+                                    RadiusBottomRight: =22
+                                    RadiusTopLeft: =22
+                                    RadiusTopRight: =22
+                                    Width: =44
+                                  Children:
+                                    - IcoCardEAServices:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          FillPortions: =0
+                                          Height: =22
+                                          Icon: ="Briefcase"
+                                          IconColor: =RGBA(144, 144, 144, 1)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Width: =22
+                              - TxtCardEAServicesTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =0
+                                    FontWeight: =FontWeight.Bold
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =16
+                                    Text: ="Services"
+                                    Wrap: =false
+                              - TxtCardEAServicesDesc:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(144, 144, 144, 1)
+                                    FillPortions: =0
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="Référentiel des services du siège"
+                                    Width: =Parent.Width - 36
+                              - BadgeEAServicesSoon:
+                                  Control: Badge
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: ='BadgeCanvas.Appearance'.Tint
+                                    BasePaletteColor: =RGBA(229, 231, 235, 1)
+                                    Content: ="Bientôt disponible"
+                                    FillPortions: =0
+                                    FontColor: =RGBA(107, 114, 128, 1)
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =Len("Bientôt disponible") * 8 + 32
+                                    Width: =Len("Bientôt disponible") * 8 + 32
+                        - CardEAAgences:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =10
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =18
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - IconBadgeEAAgences:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Fill: =RGBA(243, 244, 246, 1)
+                                    FillPortions: =0
+                                    Height: =44
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =11
+                                    PaddingLeft: =11
+                                    PaddingRight: =11
+                                    PaddingTop: =11
+                                    RadiusBottomLeft: =22
+                                    RadiusBottomRight: =22
+                                    RadiusTopLeft: =22
+                                    RadiusTopRight: =22
+                                    Width: =44
+                                  Children:
+                                    - IcoCardEAAgences:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          FillPortions: =0
+                                          Height: =22
+                                          Icon: ="Flag"
+                                          IconColor: =RGBA(144, 144, 144, 1)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Width: =22
+                              - TxtCardEAAgencesTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =0
+                                    FontWeight: =FontWeight.Bold
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =16
+                                    Text: ="Agences"
+                                    Wrap: =false
+                              - TxtCardEAAgencesDesc:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(144, 144, 144, 1)
+                                    FillPortions: =0
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="Référentiel des agences régionales"
+                                    Width: =Parent.Width - 36
+                              - BadgeEAAgencesSoon:
+                                  Control: Badge
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: ='BadgeCanvas.Appearance'.Tint
+                                    BasePaletteColor: =RGBA(229, 231, 235, 1)
+                                    Content: ="Bientôt disponible"
+                                    FillPortions: =0
+                                    FontColor: =RGBA(107, 114, 128, 1)
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =Len("Bientôt disponible") * 8 + 32
+                                    Width: =Len("Bientôt disponible") * 8 + 32
+                        - CardEAAgents:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              AlignInContainer: =AlignInContainer.Stretch
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              FillPortions: =1
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =10
+                              LayoutMinHeight: =0
+                              LayoutMinWidth: =0
+                              PaddingBottom: =18
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              PaddingTop: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                            Children:
+                              - IconBadgeEAAgents:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Fill: =RGBA(243, 244, 246, 1)
+                                    FillPortions: =0
+                                    Height: =44
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =11
+                                    PaddingLeft: =11
+                                    PaddingRight: =11
+                                    PaddingTop: =11
+                                    RadiusBottomLeft: =22
+                                    RadiusBottomRight: =22
+                                    RadiusTopLeft: =22
+                                    RadiusTopRight: =22
+                                    Width: =44
+                                  Children:
+                                    - IcoCardEAAgents:
+                                        Control: ModernIcon
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          FillPortions: =0
+                                          Height: =22
+                                          Icon: ="Archive"
+                                          IconColor: =RGBA(144, 144, 144, 1)
+                                          LayoutMinHeight: =0
+                                          LayoutMinWidth: =0
+                                          Width: =22
+                              - TxtCardEAAgentsTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(107, 114, 128, 1)
+                                    FillPortions: =0
+                                    FontWeight: =FontWeight.Bold
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =16
+                                    Text: ="Agents"
+                                    Wrap: =false
+                              - TxtCardEAAgentsDesc:
+                                  Control: ModernText
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    AutoHeight: =true
+                                    Color: =RGBA(144, 144, 144, 1)
+                                    FillPortions: =0
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    PaddingTop: =0
+                                    Size: =13
+                                    Text: ="Référentiel des agents terrain"
+                                    Width: =Parent.Width - 36
+                              - BadgeEAAgentsSoon:
+                                  Control: Badge
+                                  Properties:
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Appearance: ='BadgeCanvas.Appearance'.Tint
+                                    BasePaletteColor: =RGBA(229, 231, 235, 1)
+                                    Content: ="Bientôt disponible"
+                                    FillPortions: =0
+                                    FontColor: =RGBA(107, 114, 128, 1)
+                                    Height: =24
+                                    LayoutMinHeight: =0
+                                    LayoutMinWidth: =Len("Bientôt disponible") * 8 + 32
+                                    Width: =Len("Bientôt disponible") * 8 + 32
+      - BarEA:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.Regular
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =64
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            Visible: =EspaceAdministrateur.Size = ScreenSize.Small
+            Width: =Parent.Width
+            Y: =Parent.Height - 64
+          Children:
+            - BEntEAAccueil:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingTop: =10
+                Children:
+                  - BIcoEAAccueil:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Home"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblEAAccueil:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="Accueil"
+                        Wrap: =false
+            - BEntEAMesDem:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingTop: =10
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - BIcoEAMesDem:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Document"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblEAMesDem:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="Demandes"
+                        Wrap: =false
+            - BEntEANouvelle:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingTop: =10
+                  Visible: =UserRole = "Agent"
+                Children:
+                  - BIcoEANouvelle:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblEANouvelle:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="Nouvelle"
+                        Wrap: =false
+            - BEntEAFile:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingTop: =10
+                  Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoEAFile:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Briefcase"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblEAFile:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="À traiter"
+                        Wrap: =false
+            - BEntEAAlertes:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingTop: =10
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoEAAlertes:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Clock"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblEAAlertes:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="SLA"
+                        Wrap: =false
+            - BEntEAStats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingTop: =10
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoEAStats:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="DataBarVertical"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblEAStats:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="Stats"
+                        Wrap: =false
+            - BEntEAAdmin:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingTop: =10
+                  Visible: =UserRole = "Admin"
+                Children:
+                  - BIcoEAAdmin:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Settings"
+                        IconColor: =RGBA(140, 12, 20, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblEAAdmin:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
+                        FillPortions: =0
+                        FontWeight: =FontWeight.Semibold
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="Admin"
+                        Wrap: =false
+            - BEntEANotifs:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  AlignInContainer: =AlignInContainer.Stretch
+                  FillPortions: =1
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  LayoutMinHeight: =0
+                  LayoutMinWidth: =0
+                  PaddingTop: =10
+                Children:
+                  - BIcoEANotifs:
+                      Control: ModernIcon
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Center
+                        FillPortions: =0
+                        Height: =22
+                        Icon: ="Alert"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblEANotifs:
+                      Control: ModernText
+                      Properties:
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =0
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="Notifs"
+                        Wrap: =false
