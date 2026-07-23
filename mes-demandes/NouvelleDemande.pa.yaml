@@ -227,7 +227,7 @@ Screens:
                                     AccessibleLabel: ="Type de demande (obligatoire)"
                                     BorderColor: =RGBA(229, 231, 235, 1)
                                     Height: =40
-                                    ItemDisplayText: =ThisItem.Title
+                                    ItemDisplayText: =ThisItem.Titre
                                     Items: =SortByColumns(Types_Demandes, "Title", SortOrder.Ascending)
                                     OnChange: =Reset(DdNDService)
                                     ValidationState: =If(varTriedSubmitND && IsBlank(Self.Selected.ID), ValidationState.Error, ValidationState.None)
@@ -528,7 +528,7 @@ Screens:
                                                   Defaults(Demandes),
                                                   {
                                                       Titre: Trim(InpNDTitre.Text),
-                                                      Type_Demande_ID: {Id: DdNDType.Selected.ID, Value: DdNDType.Selected.Title},
+                                                      Type_Demande_ID: {Id: DdNDType.Selected.ID, Value: DdNDType.Selected.Titre},
                                                       Service_Actuel_ID: {Id: DdNDService.Selected.ID, Value: DdNDService.Selected.Title},
                                                       Description: InpNDDescription.Text,
                                                       Niveau_Urgence: {Value: RadNDUrgence.Selected.Value},

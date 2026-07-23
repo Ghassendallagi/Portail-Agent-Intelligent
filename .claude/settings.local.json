@@ -20,7 +20,11 @@
       "Read(//c/Users/gdallegi/Documents/pfe/phase3-final/**)",
       "Bash(python -c ' *)",
       "Bash(python -)",
-      "Bash(git commit -m 'Actions Valider/Rejeter/Transférer/Clôturer implémentées — poussées, App Checker propre, EN ATTENTE de validation par test réel *)"
+      "Bash(git commit -m 'Actions Valider/Rejeter/Transférer/Clôturer implémentées — poussées, App Checker propre, EN ATTENTE de validation par test réel *)",
+      "PowerShell(git *)",
+      "PowerShell(Select-String *)",
+      "Read(//c/Users/gdallegi/.claude/jobs/5757378e/tmp/sync-check/**)",
+      "Bash(git commit *)"
     ]
   }
 }

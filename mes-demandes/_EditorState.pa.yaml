@@ -1,0 +1,12 @@
+EditorState:
+  ScreensOrder:
+    - MesDemandes
+    - DetailDemande
+    - NouvelleDemande
+    - AccesNonConfigure
+    - FileATraiter
+    - AlertesSLA
+    - MesNotifications
+    - Accueil
+    - EcranStatistiques
+    - AdministrationTypesDemandes
