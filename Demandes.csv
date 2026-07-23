@@ -1,0 +1,43 @@
+Type_Demande *;Service *;Niveau_Urgence *;Date_Soumission *;Date_Prise_En_Charge *;Date_Cloture *;Statut_Final *;Nb_Transferts;Motif_Rejet;Gestionnaire
+Validation Avenant;Technique AUTO;Normal;01/06/2026 09:00;01/06/2026 11:30;02/06/2026 14:00;Validé;0;;Ahlem Mallous
+Demande de rabais;Commercial;Normal;01/06/2026 11:15;01/06/2026 12:30;01/06/2026 13:30;Validé;1;;Wiem Ben Moussa
+Accompagnement dans les actions de prospection Vie;Commercial;Normal;01/06/2026 11:15;01/06/2026 12:30;01/06/2026 13:30;Validé;0;;Wiem Ben Moussa
+Demande de signature de conventions-cadres.;Commercial;Urgent;01/06/2026 11:15;01/06/2026 12:30;01/06/2026 13:30;Validé;1;;Wiem Ben Moussa
+Demande de formation sur les techniques de vente et l’approche commerciale Vie.;Commercial;Normal;01/06/2026 11:15;01/06/2026 12:30;01/06/2026 13:30;Validé;0;;Wiem Ben Moussa
+demande de transfert;Commercial;Normal;01/06/2026 11:15;01/06/2026 12:30;01/06/2026 13:30;Validé;1;;Narjes Fatnasi
+Connaitre les avantages et points différenciants de nos contrats par rapport à la concurrence en termes de garanties et de bénéfices clients;Commercial;Normal;01/06/2026 11:15;01/06/2026 12:30;01/06/2026 13:30;Validé;0;;Wiem Ben Moussa
+modification de type de la fiche;Reclamation;Urgent;05/07/2026 10:15;05/07/2026 10:30;05/07/2026 11:00;Clôturé;1;;Hanen ben hadedda
+unification de plusieurs codes;Reclamation;Urgent;05/07/2026 10:15;05/07/2026 10:30;05/07/2026 11:00;Clôturé;1;;Hanen ben hadedda
+rectifications des données;Reclamation;Urgent;05/07/2026 10:15;05/07/2026 10:30;05/07/2026 11:00;Clôturé;0;;Hanen ben hadedda
+compléter les fiches incomplétes;Reclamation;Urgent;05/07/2026 10:15;05/07/2026 10:30;05/07/2026 11:00;Clôturé;0;;Hanen ben hadedda
+accés au codes existants;Reclamation;Urgent;05/07/2026 10:15;05/07/2026 10:30;05/07/2026 11:00;Clôturé;1;;Hanen ben hadedda
+demande de cotation TD;Technique VIE;Urgent;06/07/2026 10:15;06/07/2026 13:30;06/07/2026 16:00;Validé;0;;Afef Hamdi
+demande de réduction;Technique VIE;Urgent;06/07/2026 10:15;06/07/2026 13:30;06/07/2026 16:00;Validé;0;;Jamila Hadj Salah
+demande de modification proposition;Technique VIE;Urgent;06/07/2026 10:15;06/07/2026 13:30;06/07/2026 16:00;Validé;0;;Jamila Hadj Salah
+demande de validation proposition;Technique VIE;Urgent;06/07/2026 10:15;06/07/2026 13:30;06/07/2026 16:00;Validé;0;;Jamila Hadj Salah
+demande de projet d'avenant;Technique VIE;Normal;06/07/2026 10:15;06/07/2026 13:30;06/07/2026 16:00;Clôturé;0;;Jamila Hadj Salah
+demande d'avenant;Technique VIE;Normal;06/07/2026 10:15;06/07/2026 13:30;06/07/2026 16:00;Clôturé;0;;Mohamed Arfaoui
+demande de rachat total;Technique VIE;Urgent;05/07/2026 10:15;05/07/2026 12:30;07/07/2026 11:00;Validé;1;;Jamila Hadj Salah
+demande de rachat partiel;Technique VIE;Urgent;05/07/2026 10:15;05/07/2026 12:30;06/07/2026 11:00;Validé;1;;Jamila Hadj Salah
+demande de transfert;Technique VIE;Urgent;10/07/2026 10:15;10/07/2026 14:15;11/07/2026 14:15;Validé;1;;Fatma Mriri
+demande de relevé de compte;Technique VIE;Normal;11/07/2026 10:15;11/07/2026 14:15;12/07/2026 14:15;Validé;0;;Jamila Hadj Salah
+demande d'attestation;Technique VIE;Urgent;12/07/2026 10:15;12/07/2026 14:15;13/07/2026 14:15;Validé;0;;Jamila Hadj Salah
+déclaration de sinistre (décès);Technique VIE;Urgent;13/07/2026 10:15;13/07/2026 14:15;14/07/2026 14:15;Validé;0;;Jamila Hadj Salah
+Demande d'offre;Sce Production maladie;Urgent;01/07/2026;03/07/2026;03/07/2026;En cours;0;;Molka Bne Hssine
+Demande d'avenant;Sce Production maladie;Normal;10/05/2026;12/05/2026;16/05/2026;Clôturé;0;;Mehdi Kahouach
+Etat de réclamation ;Service sinistre maladie;Normal;01/03/2026;04/03/2026;06/03/2026;Clôturé;0;;Mehdi Kahouach
+Réception bulletins d'adhésions;Service sinistre maladie;Urgent;01/01/2026;02/01/2026;02/01/2026;Rejeté;0;;Yosra kthiri
+Borederau d'incapacité;Service sinistre maladie;Normal;01/06/2026;12/06/2026;14/06/2026;Clôturé;0;;Mehdi Kahouach
+Demande de bulletins de soins;Service sinistre maladie;Faible;01/04/2026;02/04/2026;02/04/2026;Validé;0;;Mehdi Kahouach
+changement de fractionnement;production auto;Normal;13/07/2026;13/07/2026;21/11/2026;Validé;0;;Fahd barhoumi
+Validation proposition;production auto;Normal;13/07/2026;13/07/2026;13/07/2026;Rejeté;0;Age véhicule et etat du véhicule.;Med Aziz Ben Mansour
+transcodage attestation;production auto;Urgent;13/07/2026;13/07/2026;13/07/2026;Validé;1;;Med Aziz Ben Mansour
+Résiliation;production auto;Urgent;13/07/2026;13/07/2026;14/07/2026;Validé;0;;Fahd barhoumi
+Mise en circulation;production auto;Normal;13/07/2026;13/07/2026;14/07/2026;Validé;0;;Fahd barhoumi
+Résiliation avec ristourne;production auto;Urgent;10/07/2026;10/07/2026;10/07/2026;Clôturé;0;;Med Aziz Ben Mansour
+Résiliation suite sinistralité;production auto;Critique;10/07/2026;10/07/2026;18/05/2026;Clôturé;1;;Fahd barhoumi
+Validation proposition;production auto;Normal;13/07/2026;13/07/2026;14/07/2026;Validé;0;;Med Aziz Ben Mansour
+demande de validation proposition;IRDS;Normal;14/07/2026;14/07/2026;15/07/2026;Validé;0;;Houida Cherif
+déclaration de sinistre ;IRDS;Normal;15/07/2026;15/07/2026;16/07/2026;Validé;0;;Houida Cherif
+saisie offre;IRDS;Normal;16/07/2026;16/07/2026;17/07/2026;Validé;0;;Shayma Khammesi
+changement de fractionnement;IRDS;Normal;17/07/2026;17/07/2026;18/07/2026;Validé;1;;Houida Cherif

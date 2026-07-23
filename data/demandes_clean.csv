@@ -1,0 +1,41 @@
+Type_Demande,Service,Niveau_Urgence,Date_Soumission,Date_Prise_En_Charge,Date_Cloture,Statut_Final,Nb_Transferts,Motif_Rejet,Gestionnaire,Delai_Traitement_Heures,Delai_Assignation_Heures,Heure_Soumission,Jour_Semaine,SLA_Service_Heures,En_Retard
+Validation Avenant,Technique Auto,Normal,2026-06-01 09:00:00,2026-06-01 11:30:00,2026-06-02 14:00:00,Validé,0,,Ahlem Mallous,29.0,2.5,9,0,48.0,0.0
+Demande De Rabais,Commercial,Normal,2026-06-01 11:15:00,2026-06-01 12:30:00,2026-06-01 13:30:00,Validé,1,,Wiem Ben Moussa,2.25,1.25,11,0,48.0,0.0
+Accompagnement Dans Les Actions De Prospection Vie,Commercial,Normal,2026-06-01 11:15:00,2026-06-01 12:30:00,2026-06-01 13:30:00,Validé,0,,Wiem Ben Moussa,2.25,1.25,11,0,48.0,0.0
+Demande De Signature De Conventions-Cadres.,Commercial,Urgent,2026-06-01 11:15:00,2026-06-01 12:30:00,2026-06-01 13:30:00,Validé,1,,Wiem Ben Moussa,2.25,1.25,11,0,48.0,0.0
+Demande De Formation Sur Les Techniques De Vente Et L'Approche Commerciale Vie.,Commercial,Normal,2026-06-01 11:15:00,2026-06-01 12:30:00,2026-06-01 13:30:00,Validé,0,,Wiem Ben Moussa,2.25,1.25,11,0,48.0,0.0
+Demande De Transfert,Commercial,Normal,2026-06-01 11:15:00,2026-06-01 12:30:00,2026-06-01 13:30:00,Validé,1,,Narjes Fatnasi,2.25,1.25,11,0,48.0,0.0
+Connaitre Les Avantages Et Points Différenciants De Nos Contrats Par Rapport À La Concurrence En Termes De Garanties Et De Bénéfices Clients,Commercial,Normal,2026-06-01 11:15:00,2026-06-01 12:30:00,2026-06-01 13:30:00,Validé,0,,Wiem Ben Moussa,2.25,1.25,11,0,48.0,0.0
+Modification De Type De La Fiche,Reclamation,Urgent,2026-07-05 10:15:00,2026-07-05 10:30:00,2026-07-05 11:00:00,Clôturé,1,,Hanen ben hadedda,0.75,0.25,10,6,48.0,0.0
+Unification De Plusieurs Codes,Reclamation,Urgent,2026-07-05 10:15:00,2026-07-05 10:30:00,2026-07-05 11:00:00,Clôturé,1,,Hanen ben hadedda,0.75,0.25,10,6,48.0,0.0
+Rectifications Des Données,Reclamation,Urgent,2026-07-05 10:15:00,2026-07-05 10:30:00,2026-07-05 11:00:00,Clôturé,0,,Hanen ben hadedda,0.75,0.25,10,6,48.0,0.0
+Compléter Les Fiches Incomplétes,Reclamation,Urgent,2026-07-05 10:15:00,2026-07-05 10:30:00,2026-07-05 11:00:00,Clôturé,0,,Hanen ben hadedda,0.75,0.25,10,6,48.0,0.0
+Accés Au Codes Existants,Reclamation,Urgent,2026-07-05 10:15:00,2026-07-05 10:30:00,2026-07-05 11:00:00,Clôturé,1,,Hanen ben hadedda,0.75,0.25,10,6,48.0,0.0
+Demande De Cotation Td,Technique Vie,Urgent,2026-07-06 10:15:00,2026-07-06 13:30:00,2026-07-06 16:00:00,Validé,0,,Afef Hamdi,5.75,3.25,10,0,48.0,0.0
+Demande De Réduction,Technique Vie,Urgent,2026-07-06 10:15:00,2026-07-06 13:30:00,2026-07-06 16:00:00,Validé,0,,Jamila Hadj Salah,5.75,3.25,10,0,48.0,0.0
+Demande De Modification Proposition,Technique Vie,Urgent,2026-07-06 10:15:00,2026-07-06 13:30:00,2026-07-06 16:00:00,Validé,0,,Jamila Hadj Salah,5.75,3.25,10,0,48.0,0.0
+Demande De Validation Proposition,Technique Vie,Urgent,2026-07-06 10:15:00,2026-07-06 13:30:00,2026-07-06 16:00:00,Validé,0,,Jamila Hadj Salah,5.75,3.25,10,0,48.0,0.0
+Demande De Projet D'Avenant,Technique Vie,Normal,2026-07-06 10:15:00,2026-07-06 13:30:00,2026-07-06 16:00:00,Clôturé,0,,Jamila Hadj Salah,5.75,3.25,10,0,48.0,0.0
+Demande D'Avenant,Technique Vie,Normal,2026-07-06 10:15:00,2026-07-06 13:30:00,2026-07-06 16:00:00,Clôturé,0,,Mohamed Arfaoui,5.75,3.25,10,0,48.0,0.0
+Demande De Rachat Total,Technique Vie,Urgent,2026-07-05 10:15:00,2026-07-05 12:30:00,2026-07-07 11:00:00,Validé,1,,Jamila Hadj Salah,48.75,2.25,10,6,48.0,1.0
+Demande De Rachat Partiel,Technique Vie,Urgent,2026-07-05 10:15:00,2026-07-05 12:30:00,2026-07-06 11:00:00,Validé,1,,Jamila Hadj Salah,24.75,2.25,10,6,48.0,0.0
+Demande De Transfert,Technique Vie,Urgent,2026-07-10 10:15:00,2026-07-10 14:15:00,2026-07-11 14:15:00,Validé,1,,Fatma Mriri,28.0,4.0,10,4,48.0,0.0
+Demande De Relevé De Compte,Technique Vie,Normal,2026-07-11 10:15:00,2026-07-11 14:15:00,2026-07-12 14:15:00,Validé,0,,Jamila Hadj Salah,28.0,4.0,10,5,48.0,0.0
+Demande D'Attestation,Technique Vie,Urgent,2026-07-12 10:15:00,2026-07-12 14:15:00,2026-07-13 14:15:00,Validé,0,,Jamila Hadj Salah,28.0,4.0,10,6,48.0,0.0
+Déclaration De Sinistre (Décès),Technique Vie,Urgent,2026-07-13 10:15:00,2026-07-13 14:15:00,2026-07-14 14:15:00,Validé,0,,Jamila Hadj Salah,28.0,4.0,10,0,48.0,0.0
+Demande D'Offre,SCE Production Maladie,Urgent,2026-07-01 00:00:00,2026-07-03 00:00:00,2026-07-03 00:00:00,Clôturé,0,,Molka Bne Hssine,48.0,48.0,0,2,48.0,0.0
+Demande D'Avenant,SCE Production Maladie,Normal,2026-05-10 00:00:00,2026-05-12 00:00:00,2026-05-16 00:00:00,Clôturé,0,,Mehdi Kahouach,144.0,48.0,0,6,48.0,1.0
+Etat De Réclamation,Service Sinistre Maladie,Normal,2026-03-01 00:00:00,2026-03-04 00:00:00,2026-03-06 00:00:00,Clôturé,0,,Mehdi Kahouach,120.0,72.0,0,6,48.0,1.0
+Réception Bulletins D'Adhésions,Service Sinistre Maladie,Urgent,2026-01-01 00:00:00,2026-01-02 00:00:00,2026-01-02 00:00:00,Rejeté,0,,Yosra kthiri,24.0,24.0,0,3,48.0,0.0
+Borederau D'Incapacité,Service Sinistre Maladie,Normal,2026-06-01 00:00:00,2026-06-12 00:00:00,2026-06-14 00:00:00,Clôturé,0,,Mehdi Kahouach,312.0,264.0,0,0,48.0,1.0
+Demande De Bulletins De Soins,Service Sinistre Maladie,Faible,2026-04-01 00:00:00,2026-04-02 00:00:00,2026-04-02 00:00:00,Validé,0,,Mehdi Kahouach,24.0,24.0,0,2,48.0,0.0
+Validation Proposition,Technique Auto,Normal,2026-07-13 00:00:00,2026-07-13 00:00:00,2026-07-13 00:00:00,Rejeté,0,Age véhicule et etat du véhicule.,Med Aziz Ben Mansour,0.5,0.0,0,0,48.0,0.0
+Transcodage Attestation,Technique Auto,Urgent,2026-07-13 00:00:00,2026-07-13 00:00:00,2026-07-13 00:00:00,Validé,1,,Med Aziz Ben Mansour,0.5,0.0,0,0,48.0,0.0
+Résiliation,Technique Auto,Urgent,2026-07-13 00:00:00,2026-07-13 00:00:00,2026-07-14 00:00:00,Validé,0,,Fahd barhoumi,24.0,0.0,0,0,48.0,0.0
+Mise En Circulation,Technique Auto,Normal,2026-07-13 00:00:00,2026-07-13 00:00:00,2026-07-14 00:00:00,Validé,0,,Fahd barhoumi,24.0,0.0,0,0,48.0,0.0
+Résiliation Avec Ristourne,Technique Auto,Urgent,2026-07-10 00:00:00,2026-07-10 00:00:00,2026-07-10 00:00:00,Clôturé,0,,Med Aziz Ben Mansour,0.5,0.0,0,4,48.0,0.0
+Validation Proposition,Technique Auto,Normal,2026-07-13 00:00:00,2026-07-13 00:00:00,2026-07-14 00:00:00,Validé,0,,Med Aziz Ben Mansour,24.0,0.0,0,0,48.0,0.0
+Demande De Validation Proposition,IRDS,Normal,2026-07-14 00:00:00,2026-07-14 00:00:00,2026-07-15 00:00:00,Validé,0,,Houida Cherif,24.0,0.0,0,1,48.0,0.0
+Déclaration De Sinistre,IRDS,Normal,2026-07-15 00:00:00,2026-07-15 00:00:00,2026-07-16 00:00:00,Validé,0,,Houida Cherif,24.0,0.0,0,2,48.0,0.0
+Saisie Offre,IRDS,Normal,2026-07-16 00:00:00,2026-07-16 00:00:00,2026-07-17 00:00:00,Validé,0,,Shayma Khammesi,24.0,0.0,0,3,48.0,0.0
+Changement De Fractionnement,IRDS,Normal,2026-07-17 00:00:00,2026-07-17 00:00:00,2026-07-18 00:00:00,Validé,1,,Houida Cherif,24.0,0.0,0,4,48.0,0.0

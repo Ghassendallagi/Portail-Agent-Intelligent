@@ -1,0 +1,16 @@
+Gestionnaire,Service,nb_demandes,delai_moyen_h,taux_retard,taux_rejet,Cluster,Profil_Label
+Afef Hamdi,Technique Vie,14,23.171784721689658,0.07142857142857142,0.07142857142857142,0,Efficace
+Ahlem Mallous,Technique Auto,11,14.132327562223601,0.0,0.18181818181818182,0,Efficace
+Fahd barhoumi,Technique Auto,19,12.379689553596855,0.0,0.0,0,Efficace
+Fatma Mriri,Technique Vie,17,14.411869244960336,0.0,0.35294117647058826,0,Efficace
+Hanen ben hadedda,Reclamation,41,0.75,0.0,0.1951219512195122,0,Efficace
+Houida Cherif,IRDS,23,24.0,0.0,0.17391304347826086,0,Efficace
+Jamila Hadj Salah,Technique Vie,30,20.51737730040923,0.1,0.1,0,Efficace
+Med Aziz Ben Mansour,Technique Auto,24,17.17121956349034,0.0,0.20833333333333334,0,Efficace
+Mehdi Kahouach,Service Sinistre Maladie,20,169.67470755048015,0.85,0.05,1,À risque
+Mohamed Arfaoui,Technique Vie,17,20.927899353467758,0.0,0.17647058823529413,0,Efficace
+Molka Bne Hssine,SCE Production Maladie,10,113.15609366674084,0.8,0.1,1,À risque
+Narjes Fatnasi,Commercial,25,2.25,0.0,0.2,0,Efficace
+Shayma Khammesi,IRDS,11,24.0,0.0,0.0,0,Efficace
+Wiem Ben Moussa,Commercial,23,2.25,0.0,0.13043478260869565,0,Efficace
+Yosra kthiri,Service Sinistre Maladie,15,117.63061924160463,0.5333333333333333,0.2,1,À risque

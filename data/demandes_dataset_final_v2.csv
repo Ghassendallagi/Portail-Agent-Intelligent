@@ -1,0 +1,301 @@
+Type_Demande,Service,Niveau_Urgence,Date_Soumission,Date_Prise_En_Charge,Date_Cloture,Statut_Final,Nb_Transferts,Motif_Rejet,Gestionnaire,Delai_Traitement_Heures,Delai_Assignation_Heures,Heure_Soumission,Jour_Semaine,SLA_Service_Heures,En_Retard,Source
+Validation Avenant,Technique Auto,Normal,2026-06-01 09:00:00,2026-06-01 11:30:00.000000,2026-06-02 14:00:00.000000,Validé,0,,Ahlem Mallous,29.0,2.5,9,0,48.0,0.0,reel
+Demande De Rabais,Commercial,Normal,2026-06-01 11:15:00,2026-06-01 12:30:00.000000,2026-06-01 13:30:00.000000,Validé,1,,Wiem Ben Moussa,2.25,1.25,11,0,48.0,0.0,reel
+Accompagnement Dans Les Actions De Prospection Vie,Commercial,Normal,2026-06-01 11:15:00,2026-06-01 12:30:00.000000,2026-06-01 13:30:00.000000,Validé,0,,Wiem Ben Moussa,2.25,1.25,11,0,48.0,0.0,reel
+Demande De Signature De Conventions-Cadres.,Commercial,Urgent,2026-06-01 11:15:00,2026-06-01 12:30:00.000000,2026-06-01 13:30:00.000000,Validé,1,,Wiem Ben Moussa,2.25,1.25,11,0,48.0,0.0,reel
+Demande De Formation Sur Les Techniques De Vente Et L'Approche Commerciale Vie.,Commercial,Normal,2026-06-01 11:15:00,2026-06-01 12:30:00.000000,2026-06-01 13:30:00.000000,Validé,0,,Wiem Ben Moussa,2.25,1.25,11,0,48.0,0.0,reel
+Demande De Transfert,Commercial,Normal,2026-06-01 11:15:00,2026-06-01 12:30:00.000000,2026-06-01 13:30:00.000000,Validé,1,,Narjes Fatnasi,2.25,1.25,11,0,48.0,0.0,reel
+Connaitre Les Avantages Et Points Différenciants De Nos Contrats Par Rapport À La Concurrence En Termes De Garanties Et De Bénéfices Clients,Commercial,Normal,2026-06-01 11:15:00,2026-06-01 12:30:00.000000,2026-06-01 13:30:00.000000,Validé,0,,Wiem Ben Moussa,2.25,1.25,11,0,48.0,0.0,reel
+Modification De Type De La Fiche,Reclamation,Urgent,2026-07-05 10:15:00,2026-07-05 10:30:00.000000,2026-07-05 11:00:00.000000,Clôturé,1,,Hanen ben hadedda,0.75,0.25,10,6,48.0,0.0,reel
+Unification De Plusieurs Codes,Reclamation,Urgent,2026-07-05 10:15:00,2026-07-05 10:30:00.000000,2026-07-05 11:00:00.000000,Clôturé,1,,Hanen ben hadedda,0.75,0.25,10,6,48.0,0.0,reel
+Rectifications Des Données,Reclamation,Urgent,2026-07-05 10:15:00,2026-07-05 10:30:00.000000,2026-07-05 11:00:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.25,10,6,48.0,0.0,reel
+Compléter Les Fiches Incomplétes,Reclamation,Urgent,2026-07-05 10:15:00,2026-07-05 10:30:00.000000,2026-07-05 11:00:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.25,10,6,48.0,0.0,reel
+Accés Au Codes Existants,Reclamation,Urgent,2026-07-05 10:15:00,2026-07-05 10:30:00.000000,2026-07-05 11:00:00.000000,Clôturé,1,,Hanen ben hadedda,0.75,0.25,10,6,48.0,0.0,reel
+Demande De Cotation Td,Technique Vie,Urgent,2026-07-06 10:15:00,2026-07-06 13:30:00.000000,2026-07-06 16:00:00.000000,Validé,0,,Afef Hamdi,5.75,3.25,10,0,48.0,0.0,reel
+Demande De Réduction,Technique Vie,Urgent,2026-07-06 10:15:00,2026-07-06 13:30:00.000000,2026-07-06 16:00:00.000000,Validé,0,,Jamila Hadj Salah,5.75,3.25,10,0,48.0,0.0,reel
+Demande De Modification Proposition,Technique Vie,Urgent,2026-07-06 10:15:00,2026-07-06 13:30:00.000000,2026-07-06 16:00:00.000000,Validé,0,,Jamila Hadj Salah,5.75,3.25,10,0,48.0,0.0,reel
+Demande De Validation Proposition,Technique Vie,Urgent,2026-07-06 10:15:00,2026-07-06 13:30:00.000000,2026-07-06 16:00:00.000000,Validé,0,,Jamila Hadj Salah,5.75,3.25,10,0,48.0,0.0,reel
+Demande De Projet D'Avenant,Technique Vie,Normal,2026-07-06 10:15:00,2026-07-06 13:30:00.000000,2026-07-06 16:00:00.000000,Clôturé,0,,Jamila Hadj Salah,5.75,3.25,10,0,48.0,0.0,reel
+Demande D'Avenant,Technique Vie,Normal,2026-07-06 10:15:00,2026-07-06 13:30:00.000000,2026-07-06 16:00:00.000000,Clôturé,0,,Mohamed Arfaoui,5.75,3.25,10,0,48.0,0.0,reel
+Demande De Rachat Total,Technique Vie,Urgent,2026-07-05 10:15:00,2026-07-05 12:30:00.000000,2026-07-07 11:00:00.000000,Validé,1,,Jamila Hadj Salah,48.75,2.25,10,6,48.0,1.0,reel
+Demande De Rachat Partiel,Technique Vie,Urgent,2026-07-05 10:15:00,2026-07-05 12:30:00.000000,2026-07-06 11:00:00.000000,Validé,1,,Jamila Hadj Salah,24.75,2.25,10,6,48.0,0.0,reel
+Demande De Transfert,Technique Vie,Urgent,2026-07-10 10:15:00,2026-07-10 14:15:00.000000,2026-07-11 14:15:00.000000,Validé,1,,Fatma Mriri,28.0,4.0,10,4,48.0,0.0,reel
+Demande De Relevé De Compte,Technique Vie,Normal,2026-07-11 10:15:00,2026-07-11 14:15:00.000000,2026-07-12 14:15:00.000000,Validé,0,,Jamila Hadj Salah,28.0,4.0,10,5,48.0,0.0,reel
+Demande D'Attestation,Technique Vie,Urgent,2026-07-12 10:15:00,2026-07-12 14:15:00.000000,2026-07-13 14:15:00.000000,Validé,0,,Jamila Hadj Salah,28.0,4.0,10,6,48.0,0.0,reel
+Déclaration De Sinistre (Décès),Technique Vie,Urgent,2026-07-13 10:15:00,2026-07-13 14:15:00.000000,2026-07-14 14:15:00.000000,Validé,0,,Jamila Hadj Salah,28.0,4.0,10,0,48.0,0.0,reel
+Demande D'Offre,SCE Production Maladie,Urgent,2026-07-01 00:00:00,2026-07-03 00:00:00.000000,2026-07-03 00:00:00.000000,Clôturé,0,,Molka Bne Hssine,48.0,48.0,0,2,48.0,0.0,reel
+Demande D'Avenant,SCE Production Maladie,Normal,2026-05-10 00:00:00,2026-05-12 00:00:00.000000,2026-05-16 00:00:00.000000,Clôturé,0,,Mehdi Kahouach,144.0,48.0,0,6,48.0,1.0,reel
+Etat De Réclamation,Service Sinistre Maladie,Normal,2026-03-01 00:00:00,2026-03-04 00:00:00.000000,2026-03-06 00:00:00.000000,Clôturé,0,,Mehdi Kahouach,120.0,72.0,0,6,48.0,1.0,reel
+Réception Bulletins D'Adhésions,Service Sinistre Maladie,Urgent,2026-01-01 00:00:00,2026-01-02 00:00:00.000000,2026-01-02 00:00:00.000000,Rejeté,0,,Yosra kthiri,24.0,24.0,0,3,48.0,0.0,reel
+Borederau D'Incapacité,Service Sinistre Maladie,Normal,2026-06-01 00:00:00,2026-06-12 00:00:00.000000,2026-06-14 00:00:00.000000,Clôturé,0,,Mehdi Kahouach,312.0,264.0,0,0,48.0,1.0,reel
+Demande De Bulletins De Soins,Service Sinistre Maladie,Faible,2026-04-01 00:00:00,2026-04-02 00:00:00.000000,2026-04-02 00:00:00.000000,Validé,0,,Mehdi Kahouach,24.0,24.0,0,2,48.0,0.0,reel
+Validation Proposition,Technique Auto,Normal,2026-07-13 00:00:00,2026-07-13 00:00:00.000000,2026-07-13 00:00:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Med Aziz Ben Mansour,0.5,0.0,0,0,48.0,0.0,reel
+Transcodage Attestation,Technique Auto,Urgent,2026-07-13 00:00:00,2026-07-13 00:00:00.000000,2026-07-13 00:00:00.000000,Validé,1,,Med Aziz Ben Mansour,0.5,0.0,0,0,48.0,0.0,reel
+Résiliation,Technique Auto,Urgent,2026-07-13 00:00:00,2026-07-13 00:00:00.000000,2026-07-14 00:00:00.000000,Validé,0,,Fahd barhoumi,24.0,0.0,0,0,48.0,0.0,reel
+Mise En Circulation,Technique Auto,Normal,2026-07-13 00:00:00,2026-07-13 00:00:00.000000,2026-07-14 00:00:00.000000,Validé,0,,Fahd barhoumi,24.0,0.0,0,0,48.0,0.0,reel
+Résiliation Avec Ristourne,Technique Auto,Urgent,2026-07-10 00:00:00,2026-07-10 00:00:00.000000,2026-07-10 00:00:00.000000,Clôturé,0,,Med Aziz Ben Mansour,0.5,0.0,0,4,48.0,0.0,reel
+Validation Proposition,Technique Auto,Normal,2026-07-13 00:00:00,2026-07-13 00:00:00.000000,2026-07-14 00:00:00.000000,Validé,0,,Med Aziz Ben Mansour,24.0,0.0,0,0,48.0,0.0,reel
+Demande De Validation Proposition,IRDS,Normal,2026-07-14 00:00:00,2026-07-14 00:00:00.000000,2026-07-15 00:00:00.000000,Validé,0,,Houida Cherif,24.0,0.0,0,1,48.0,0.0,reel
+Déclaration De Sinistre,IRDS,Normal,2026-07-15 00:00:00,2026-07-15 00:00:00.000000,2026-07-16 00:00:00.000000,Validé,0,,Houida Cherif,24.0,0.0,0,2,48.0,0.0,reel
+Saisie Offre,IRDS,Normal,2026-07-16 00:00:00,2026-07-16 00:00:00.000000,2026-07-17 00:00:00.000000,Validé,0,,Shayma Khammesi,24.0,0.0,0,3,48.0,0.0,reel
+Changement De Fractionnement,IRDS,Normal,2026-07-17 00:00:00,2026-07-17 00:00:00.000000,2026-07-18 00:00:00.000000,Validé,1,,Houida Cherif,24.0,0.0,0,4,48.0,0.0,reel
+Autre,Reclamation,Urgent,2024-03-28 12:35:00,2024-03-28 12:35:47.047726,2024-03-28 13:20:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.0130688127378448,12,3,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-10-03 08:11:00,2024-10-03 08:48:41.766847,2024-10-03 19:42:04.178092,Rejeté,0,Age véhicule et etat du véhicule.,Ahlem Mallous,11.517827247732717,0.6282685684848153,8,3,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2025-11-17 10:43:00,2025-11-17 10:49:09.416687,2025-11-17 11:28:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.102615746448833,10,0,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-11-11 09:57:00,2024-11-11 10:05:32.398190,2024-11-11 10:27:00.000000,Validé,0,,Fahd barhoumi,0.5,0.1423328305879999,9,0,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-07-15 15:03:00,2025-07-15 15:18:50.277276,2025-07-15 17:18:00.000000,Clôturé,0,,Narjes Fatnasi,2.25,0.2639659101119375,15,1,48.0,0.0,synthetique
+Demande De Transfert,Commercial,Urgent,2024-07-20 11:13:00,2024-07-20 11:31:12.902544,2024-07-20 13:28:00.000000,Validé,0,,Wiem Ben Moussa,2.25,0.3035840400245918,11,5,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-08-04 16:28:00,2024-08-04 16:35:27.518255,2024-08-04 16:58:00.000000,Validé,1,,Med Aziz Ben Mansour,0.5,0.1243106263727893,16,6,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2025-01-26 10:34:00,2025-01-26 10:36:41.062347,2025-01-26 11:19:00.000000,Validé,1,,Hanen ben hadedda,0.75,0.0447395409199811,10,6,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2024-04-08 15:21:00,2024-04-08 18:19:01.680137,2024-04-09 06:08:14.755354,Rejeté,1,Age véhicule et etat du véhicule.,Fatma Mriri,14.787432042900573,2.967133371375476,15,0,48.0,0.0,synthetique
+Autre,IRDS,Urgent,2025-01-27 17:41:00,2025-01-27 19:31:37.290926,2025-01-28 17:41:00.000000,Clôturé,0,,Houida Cherif,24.0,1.8436919238815324,17,0,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-06-19 11:12:00,2024-06-19 12:38:30.426438,2024-06-19 22:54:39.213965,Validé,0,,Fahd barhoumi,11.710892768007742,1.44178512164755,11,2,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2024-01-28 11:29:00,2024-01-28 12:13:35.863155,2024-01-29 10:58:10.039632,Clôturé,1,,Afef Hamdi,23.48612212012185,0.7432953208036802,11,6,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2024-12-24 13:07:00,2024-12-27 16:45:22.479294,2025-01-05 18:02:40.118172,Validé,0,,Mehdi Kahouach,292.9278106033862,75.6395775817969,13,1,48.0,1.0,synthetique
+Demande De Transfert,Commercial,Normal,2025-08-30 15:40:00,2025-08-30 15:53:05.383125,2025-08-30 17:55:00.000000,Validé,0,,Narjes Fatnasi,2.25,0.2181619791140097,15,5,48.0,0.0,synthetique
+Autre,IRDS,Urgent,2024-04-22 09:01:00,2024-04-22 09:16:56.109675,2024-04-23 09:01:00.000000,Validé,0,,Shayma Khammesi,24.0,0.2655860209526361,9,0,48.0,0.0,synthetique
+Autre,Commercial,Urgent,2025-11-02 13:31:00,2025-11-02 13:50:49.370207,2025-11-02 15:46:00.000000,Validé,0,,Narjes Fatnasi,2.25,0.330380613187355,13,6,48.0,0.0,synthetique
+Autre,SCE Production Maladie,Normal,2024-05-23 08:08:00,2024-05-24 14:53:44.401751,2024-05-31 07:31:18.597378,Clôturé,0,,Mehdi Kahouach,191.3884992715952,30.76233381983432,8,3,48.0,1.0,synthetique
+Autre,Technique Vie,Urgent,2025-05-25 10:19:00,2025-05-25 18:30:50.647638,2025-05-27 00:44:23.687176,Validé,0,,Mohamed Arfaoui,38.42324643770572,8.197402121677547,10,6,48.0,0.0,synthetique
+Demande De Validation Proposition,IRDS,Normal,2025-02-18 17:34:00,2025-02-18 19:04:19.136410,2025-02-19 17:34:00.000000,Clôturé,0,,Shayma Khammesi,24.0,1.5053156693115384,17,1,48.0,0.0,synthetique
+Demande De Validation Proposition,IRDS,Urgent,2025-03-28 12:31:00,2025-03-28 19:28:03.669585,2025-03-29 12:31:00.000000,Validé,0,,Shayma Khammesi,24.0,6.951019329279314,12,4,48.0,0.0,synthetique
+Demande De Transfert,Commercial,Urgent,2025-09-16 15:35:00,2025-09-16 16:09:27.756131,2025-09-16 17:50:00.000000,Rejeté,1,Age véhicule et etat du véhicule.,Wiem Ben Moussa,2.25,0.5743767029180711,15,1,48.0,0.0,synthetique
+Autre,Reclamation,Urgent,2025-12-06 13:34:00,2025-12-06 13:38:07.344727,2025-12-06 14:19:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Hanen ben hadedda,0.75,0.0687068685774885,13,5,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-10-01 08:47:00,2025-10-01 09:16:11.884016,2025-10-01 11:02:00.000000,Clôturé,0,,Narjes Fatnasi,2.25,0.4866344488701872,8,2,48.0,0.0,synthetique
+Demande De Transfert,Technique Vie,Normal,2024-10-09 09:20:00,2024-10-09 10:27:45.895139,2024-10-09 17:04:04.277952,Clôturé,0,,Jamila Hadj Salah,7.734521653339099,1.1294153164973393,9,2,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2024-06-20 12:05:00,2024-06-20 12:36:08.901630,2024-06-22 03:46:10.028164,Validé,0,,Mohamed Arfaoui,39.68611893453979,0.5191393415522954,12,3,48.0,0.0,synthetique
+Autre,IRDS,Normal,2024-04-25 12:31:00,2024-04-25 19:34:30.194650,2024-04-26 12:31:00.000000,Clôturé,1,,Houida Cherif,24.0,7.058387402755528,12,3,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2025-09-30 17:01:00,2025-09-30 23:27:06.303499,2025-10-01 14:40:56.779323,Clôturé,0,,Afef Hamdi,21.665772034163552,6.43508430537147,17,1,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2025-02-11 17:06:00,2025-02-11 18:43:02.584172,2025-02-11 23:45:40.164821,Validé,0,,Fatma Mriri,6.661156894597374,1.6173844923104994,17,1,48.0,0.0,synthetique
+Autre,Commercial,Normal,2024-02-20 16:57:00,2024-02-20 17:24:13.023509,2024-02-20 19:12:00.000000,Validé,0,,Narjes Fatnasi,2.25,0.4536176413242595,16,1,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Urgent,2025-03-19 12:32:00,2025-03-21 00:09:31.702799,2025-04-04 20:06:34.543631,Validé,1,,Yosra kthiri,391.5762621197717,35.62547299967081,12,2,48.0,1.0,synthetique
+Autre,Technique Vie,Normal,2024-09-25 09:59:00,2024-09-25 20:42:55.204652,2024-09-27 11:15:06.137737,Validé,0,,Jamila Hadj Salah,49.26837159370913,10.732001292245986,9,2,48.0,1.0,synthetique
+Autre,SCE Production Maladie,Normal,2024-04-26 14:08:00,2024-04-26 15:11:26.525621,2024-05-02 09:09:54.660658,Validé,0,,Mehdi Kahouach,139.03185018280436,1.0573682281681809,14,4,48.0,1.0,synthetique
+Autre,Technique Auto,Normal,2024-09-28 14:04:00,2024-09-28 16:21:21.744658,2024-09-29 17:19:39.176754,Validé,0,,Med Aziz Ben Mansour,27.26088243165487,2.289373515983501,14,5,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-08-07 12:46:00,2024-08-07 16:00:07.587103,2024-08-08 20:18:44.198528,Validé,0,,Med Aziz Ben Mansour,31.545610702132883,3.235440861963162,12,2,48.0,0.0,synthetique
+Demande De Validation Proposition,IRDS,Normal,2024-12-22 14:57:00,2024-12-22 18:17:44.345231,2024-12-23 14:57:00.000000,Validé,0,,Houida Cherif,24.0,3.345651453165202,14,6,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2024-11-20 11:15:00,2024-11-22 03:40:11.240027,2024-12-01 16:09:21.590159,Validé,0,,Mehdi Kahouach,268.9059972663404,40.41978889633326,11,2,48.0,1.0,synthetique
+Demande De Validation Proposition,IRDS,Urgent,2025-11-21 12:11:00,2025-11-21 13:06:30.729156,2025-11-22 12:11:00.000000,Clôturé,0,,Houida Cherif,24.0,0.9252025432841532,12,4,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2024-09-09 10:49:00,2024-09-09 15:50:44.518539,2024-09-11 07:15:05.386684,Validé,0,,Mohamed Arfaoui,44.4348296343478,5.029032927373603,10,0,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-09-17 15:35:00,2025-09-17 19:18:32.346814,2025-09-18 09:30:23.661145,Clôturé,0,,Fatma Mriri,17.923239206989084,3.7256518929156295,15,2,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-07-01 09:48:00,2025-07-01 10:28:06.927495,2025-07-01 12:03:00.000000,Clôturé,1,,Wiem Ben Moussa,2.25,0.6685909708504544,9,1,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-08-18 16:21:00,2025-08-18 17:50:20.080102,2025-08-19 01:38:18.171458,Clôturé,0,,Fatma Mriri,9.288380960492832,1.488911139542857,16,0,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2025-12-18 11:18:00,2025-12-18 11:22:18.644046,2025-12-18 12:03:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Hanen ben hadedda,0.75,0.0718455684578433,11,3,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-01-09 17:57:00,2024-01-10 05:14:22.588817,2024-01-11 08:47:59.623365,Clôturé,0,,Fahd barhoumi,38.84989537919901,11.289608004675864,17,1,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2024-07-12 12:28:00,2024-07-14 11:16:19.157297,2024-07-19 19:23:40.782966,Validé,0,,Mehdi Kahouach,174.92799526842,46.80532147152672,12,4,48.0,1.0,synthetique
+Autre,Technique Vie,Urgent,2024-09-08 10:43:00,2024-09-08 12:55:30.589151,2024-09-09 07:44:12.710050,Rejeté,0,Age véhicule et etat du véhicule.,Mohamed Arfaoui,21.02019723599568,2.2084969863855544,10,6,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-09-29 17:19:00,2025-09-29 17:35:24.641071,2025-09-29 19:34:00.000000,Validé,0,,Wiem Ben Moussa,2.25,0.2735114085774565,17,0,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Urgent,2024-04-26 13:57:00,2024-04-26 15:04:47.034138,2024-04-28 11:22:48.851473,Clôturé,0,,Yosra kthiri,45.43023652034252,1.1297317050038642,13,4,48.0,0.0,synthetique
+Validation Proposition,Technique Auto,Urgent,2024-08-14 10:19:00,2024-08-14 10:19:39.850145,2024-08-14 10:49:00.000000,Clôturé,0,,Fahd barhoumi,0.5,0.0110694847103098,10,2,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2024-01-12 17:31:00,2024-01-12 17:56:17.621971,2024-01-14 00:26:12.273144,Clôturé,0,,Jamila Hadj Salah,30.920075873229283,0.4215616584964539,17,4,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2025-11-28 09:27:00,2025-11-28 12:22:06.053487,2025-11-29 06:25:43.611724,Validé,0,,Afef Hamdi,20.97878103436679,2.918348190966309,9,4,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-07-11 10:05:00,2025-07-11 10:15:58.427071,2025-07-11 12:20:00.000000,Validé,1,,Narjes Fatnasi,2.25,0.1828964086977126,10,4,48.0,0.0,synthetique
+Autre,IRDS,Normal,2025-01-08 08:17:00,2025-01-08 09:28:12.504049,2025-01-09 08:17:00.000000,Rejeté,1,Age véhicule et etat du véhicule.,Houida Cherif,24.0,1.1868066801864068,8,2,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-10-06 13:02:00,2025-10-06 16:28:41.010141,2025-10-07 10:31:19.387354,Rejeté,0,Age véhicule et etat du véhicule.,Fatma Mriri,21.488718709352423,3.44472503924952,13,0,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2024-01-01 10:44:00,2024-01-01 11:25:52.174716,2024-01-01 22:04:39.339189,Validé,0,,Mohamed Arfaoui,11.344260885934876,0.6978263100060713,10,0,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Urgent,2024-11-01 08:53:00,2024-11-02 01:59:42.675409,2024-11-06 08:39:40.417692,Validé,1,,Yosra kthiri,119.77789380329536,17.11185428039635,8,4,48.0,1.0,synthetique
+Autre,Reclamation,Normal,2025-07-31 10:38:00,2025-07-31 10:46:22.450737,2025-07-31 11:23:00.000000,Validé,0,,Hanen ben hadedda,0.75,0.1395696490545295,10,3,48.0,0.0,synthetique
+Autre,IRDS,Urgent,2025-04-25 15:14:00,2025-04-25 19:10:29.808275,2025-04-26 15:14:00.000000,Clôturé,0,,Shayma Khammesi,24.0,3.941613409673603,15,4,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2025-05-22 11:23:00,2025-05-22 14:21:38.413701,2025-05-22 23:10:07.751942,Clôturé,0,,Afef Hamdi,11.785486650558012,2.977337139075753,11,3,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-11-26 16:02:00,2025-11-26 17:19:20.275769,2025-11-27 15:39:22.768406,Clôturé,1,,Jamila Hadj Salah,23.62299122397425,1.2889654912730082,16,2,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-06-17 12:05:00,2025-06-17 12:34:51.462526,2025-06-17 16:51:18.399539,Rejeté,0,Age véhicule et etat du véhicule.,Jamila Hadj Salah,4.771777649602699,0.4976284794722748,12,1,48.0,0.0,synthetique
+Autre,Reclamation,Urgent,2024-08-01 15:29:00,2024-08-01 15:35:29.727769,2024-08-01 16:14:00.000000,Validé,0,,Hanen ben hadedda,0.75,0.1082577136626659,15,3,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-10-29 15:21:00,2024-10-29 18:36:07.128908,2024-10-30 02:20:27.539890,Validé,0,,Med Aziz Ben Mansour,10.990983302911344,3.251980252185501,15,1,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2024-12-28 09:57:00,2024-12-28 10:09:05.117539,2024-12-28 10:42:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.2014215384796198,9,5,48.0,0.0,synthetique
+Autre,Commercial,Normal,2024-08-18 13:25:00,2024-08-18 13:38:02.652372,2024-08-18 15:40:00.000000,Validé,0,,Wiem Ben Moussa,2.25,0.2174034367686453,13,6,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Urgent,2024-02-03 15:39:00,2024-02-03 15:52:00.397560,2024-02-03 16:59:43.220104,Clôturé,0,,Yosra kthiri,1.3453389178648931,0.216777100124496,15,5,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2024-11-10 13:36:00,2024-11-10 13:39:17.926056,2024-11-10 14:21:00.000000,Rejeté,1,Age véhicule et etat du véhicule.,Hanen ben hadedda,0.75,0.0549794599795472,13,6,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-08-30 15:36:00,2024-08-30 16:33:50.871831,2024-08-30 19:11:01.448306,Validé,1,,Ahlem Mallous,3.583735640690783,0.9641310640718772,15,4,48.0,0.0,synthetique
+Demande De Transfert,Technique Vie,Urgent,2025-07-27 16:01:00,2025-07-27 17:33:27.637659,2025-07-28 02:29:01.449882,Validé,0,,Mohamed Arfaoui,10.467069411769874,1.5410104608729085,16,6,48.0,0.0,synthetique
+Demande De Transfert,Technique Vie,Urgent,2024-05-19 08:25:00,2024-05-19 09:34:00.604125,2024-05-19 13:37:26.440129,Validé,1,,Mohamed Arfaoui,5.207344480288057,1.1501678124479848,8,6,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-01-10 12:22:00,2024-01-10 14:42:21.806705,2024-01-11 11:31:59.679787,Clôturé,0,,Fahd barhoumi,23.16657771854261,2.339390751352019,12,2,48.0,0.0,synthetique
+Autre,Commercial,Urgent,2025-02-22 08:04:00,2025-02-22 08:23:05.930138,2025-02-22 10:19:00.000000,Validé,2,,Narjes Fatnasi,2.25,0.3183139272713569,8,5,48.0,0.0,synthetique
+Demande De Validation Proposition,IRDS,Normal,2025-07-25 15:10:00,2025-07-25 20:21:43.782595,2025-07-26 15:10:00.000000,Validé,1,,Houida Cherif,24.0,5.195495165409195,15,4,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2025-02-05 15:07:00,2025-02-06 05:43:45.244378,2025-02-09 01:54:40.215545,Validé,0,,Yosra kthiri,82.79450431795786,14.612567882819176,15,2,48.0,1.0,synthetique
+Autre,Service Sinistre Maladie,Urgent,2024-05-24 08:46:00,2024-05-25 19:51:33.842936,2024-06-01 19:19:37.006535,Clôturé,0,,Mehdi Kahouach,202.56027959313064,35.09273414878176,8,4,48.0,1.0,synthetique
+Autre,Technique Auto,Normal,2025-05-14 08:51:00,2025-05-14 15:16:17.608362,2025-05-15 15:42:20.782319,Clôturé,1,,Ahlem Mallous,30.85577286641596,6.421557878241279,8,2,48.0,0.0,synthetique
+Validation Proposition,Technique Auto,Normal,2025-08-20 09:09:00,2025-08-20 09:10:44.514956,2025-08-20 12:02:09.439051,Validé,0,,Fahd barhoumi,2.8859552918112605,0.0290319322419114,9,2,48.0,0.0,synthetique
+Autre,Reclamation,Urgent,2024-09-17 11:11:00,2024-09-17 11:21:45.809246,2024-09-17 11:56:00.000000,Validé,1,,Hanen ben hadedda,0.75,0.1793914573003995,11,1,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2025-07-03 13:07:00,2025-07-03 13:20:45.829744,2025-07-03 17:19:38.592649,Validé,0,,Jamila Hadj Salah,4.2107201801510445,0.2293971512415352,13,3,48.0,0.0,synthetique
+Autre,IRDS,Normal,2025-04-04 11:47:00,2025-04-04 18:03:45.451720,2025-04-05 11:47:00.000000,Clôturé,0,,Houida Cherif,24.0,6.27929214439789,11,4,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-02-20 15:40:00,2024-02-20 15:58:56.554870,2024-02-21 06:56:08.537667,Clôturé,1,,Med Aziz Ben Mansour,15.269038240761075,0.315709686063055,15,1,48.0,0.0,synthetique
+Demande De Transfert,Commercial,Normal,2025-10-22 16:52:00,2025-10-22 17:01:12.571359,2025-10-22 19:07:00.000000,Validé,0,,Narjes Fatnasi,2.25,0.153492044092051,16,2,48.0,0.0,synthetique
+Autre,SCE Production Maladie,Urgent,2025-01-20 14:17:00,2025-01-20 19:49:12.686061,2025-01-21 11:39:23.707082,Validé,0,,Molka Bne Hssine,21.373251967132788,5.536857239253219,14,0,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2024-06-09 08:28:00,2024-06-09 10:45:31.288393,2024-06-10 02:42:14.389520,Clôturé,0,,Jamila Hadj Salah,18.23733042234055,2.2920245534825945,8,6,48.0,0.0,synthetique
+Demande De Transfert,Commercial,Normal,2024-05-27 13:21:00,2024-05-27 13:39:35.343241,2024-05-27 15:36:00.000000,Clôturé,0,,Wiem Ben Moussa,2.25,0.3098175669114837,13,0,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-10-31 08:44:00,2025-10-31 08:58:09.010408,2025-10-31 10:59:00.000000,Validé,0,,Narjes Fatnasi,2.25,0.2358362243582997,8,4,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2024-04-22 09:29:00,2024-04-22 11:39:36.970461,2024-04-22 23:03:38.186763,Clôturé,0,,Jamila Hadj Salah,13.577274100802974,2.1769362391165767,9,0,48.0,0.0,synthetique
+Validation Proposition,Technique Auto,Normal,2024-03-27 14:27:00,2024-03-27 17:50:47.432455,2024-03-28 11:57:01.775353,Validé,1,,Ahlem Mallous,21.50049315358624,3.396509015170225,14,2,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-02-23 16:46:00,2024-02-23 16:49:48.071728,2024-02-24 03:28:50.185355,Validé,0,,Ahlem Mallous,10.713940376377472,0.0633532578859784,16,4,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-03-27 11:36:00,2025-03-27 18:43:16.476593,2025-03-28 16:11:30.471340,Validé,0,,Mohamed Arfaoui,28.5917975943541,7.121243497953449,11,3,48.0,0.0,synthetique
+Autre,Commercial,Urgent,2024-05-26 10:35:00,2024-05-26 10:43:25.163600,2024-05-26 12:50:00.000000,Validé,0,,Narjes Fatnasi,2.25,0.1403232222235684,10,6,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Urgent,2024-09-17 12:37:00,2024-09-18 12:37:57.262081,2024-09-29 23:15:03.785025,Validé,1,,Yosra kthiri,298.6343847291764,24.015906133620778,12,1,48.0,1.0,synthetique
+Autre,Commercial,Urgent,2025-09-23 14:31:00,2025-09-23 15:06:10.377181,2025-09-23 16:46:00.000000,Clôturé,0,,Wiem Ben Moussa,2.25,0.5862158837310911,14,1,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2025-10-27 17:28:00,2025-10-27 20:54:46.953326,2025-10-28 20:42:30.014759,Clôturé,0,,Afef Hamdi,27.241670766365285,3.446375923794407,17,0,48.0,0.0,synthetique
+Demande De Validation Proposition,Technique Vie,Urgent,2024-02-03 08:36:00,2024-02-03 08:45:06.567525,2024-02-03 09:36:57.750595,Clôturé,0,,Fatma Mriri,1.016041831891986,0.1518243124937345,8,5,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-03-30 17:44:00,2025-03-30 20:06:05.418782,2025-04-01 01:13:00.995252,Validé,1,,Mohamed Arfaoui,31.483609792120127,2.36817188401256,17,6,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2024-10-18 10:25:00,2024-10-18 10:32:36.811947,2024-10-18 15:31:30.470874,Validé,0,,Mohamed Arfaoui,5.108464131758957,0.1268922075758788,10,4,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-02-09 12:55:00,2025-02-09 13:21:52.720932,2025-02-09 15:10:00.000000,Clôturé,0,,Wiem Ben Moussa,2.25,0.4479780366197874,12,6,48.0,0.0,synthetique
+Demande D'Avenant,Technique Vie,Normal,2025-04-26 16:25:00,2025-04-27 08:33:18.755967,2025-04-29 00:43:57.811900,Rejeté,0,Age véhicule et etat du véhicule.,Jamila Hadj Salah,56.31605886107678,16.138543324072018,16,5,48.0,1.0,synthetique
+Autre,Technique Auto,Urgent,2024-08-16 10:29:00,2024-08-16 10:36:22.315252,2024-08-16 10:59:00.000000,Clôturé,0,,Fahd barhoumi,0.5,0.1228653476511299,10,4,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2025-05-11 15:18:00,2025-05-11 15:30:49.692257,2025-05-11 16:03:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Hanen ben hadedda,0.75,0.2138034046096805,15,6,48.0,0.0,synthetique
+Demande D'Avenant,SCE Production Maladie,Urgent,2025-05-03 17:46:00,2025-05-04 17:29:59.542566,2025-05-08 11:53:40.732630,Clôturé,0,,Mehdi Kahouach,114.12798128624374,23.733206268373184,17,5,48.0,1.0,synthetique
+Autre,IRDS,Urgent,2025-06-02 16:50:00,2025-06-02 17:42:03.945242,2025-06-03 16:50:00.000000,Clôturé,3,,Houida Cherif,24.0,0.8677625672625439,16,0,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-04-07 10:36:00,2024-04-07 10:41:02.765685,2024-04-07 11:06:00.000000,Clôturé,0,,Fahd barhoumi,0.5,0.0841015791005271,10,6,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-01-31 09:32:00,2025-01-31 18:43:20.294332,2025-02-02 00:16:11.647144,Validé,1,,Fatma Mriri,38.73656865119352,9.188970647662057,9,4,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2024-02-08 11:28:00,2024-02-08 11:40:35.397827,2024-02-08 12:13:00.000000,Rejeté,1,Age véhicule et etat du véhicule.,Hanen ben hadedda,0.75,0.2098327296206819,11,3,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2024-12-24 11:04:00,2024-12-24 11:06:00.393832,2024-12-24 12:16:56.397839,Validé,0,,Jamila Hadj Salah,1.2156660662505594,0.0334427309978112,11,1,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-05-19 17:36:00,2024-05-19 17:42:07.009533,2024-05-19 18:06:00.000000,Validé,1,,Fahd barhoumi,0.5,0.1019470924039604,17,6,48.0,0.0,synthetique
+Demande De Validation Proposition,IRDS,Urgent,2025-12-11 11:03:00,2025-12-11 18:10:19.672862,2025-12-12 11:03:00.000000,Clôturé,0,,Houida Cherif,24.0,7.122131350656184,11,3,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2025-05-20 10:55:00,2025-05-20 12:02:49.931729,2025-05-24 17:30:36.333638,Rejeté,0,Age véhicule et etat du véhicule.,Mehdi Kahouach,102.59342601059927,1.1305365913809742,10,1,48.0,1.0,synthetique
+Autre,Technique Vie,Normal,2025-05-04 10:49:00,2025-05-04 12:33:55.420719,2025-05-04 21:55:08.527025,Clôturé,0,,Mohamed Arfaoui,11.102368617996664,1.7487279775832187,10,6,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2025-09-01 16:55:00,2025-09-02 00:56:25.591682,2025-09-03 15:01:24.476626,Validé,0,,Med Aziz Ben Mansour,46.10679906291016,8.023775467183048,16,0,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-06-20 12:10:00,2025-06-20 15:18:44.193151,2025-06-21 20:01:55.556524,Rejeté,0,Age véhicule et etat du véhicule.,Afef Hamdi,31.865432367753467,3.1456092086131675,12,4,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-08-15 09:39:00,2025-08-15 09:43:26.009330,2025-08-15 11:54:00.000000,Clôturé,1,,Narjes Fatnasi,2.25,0.0738914805367563,9,4,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2024-09-18 15:18:00,2024-09-19 01:20:09.046453,2024-09-23 20:34:41.516681,Clôturé,1,,Mehdi Kahouach,125.2781990781365,10.035846236932551,15,2,48.0,1.0,synthetique
+Autre,Service Sinistre Maladie,Urgent,2024-01-07 12:42:00,2024-01-09 22:43:00.074944,2024-01-18 05:37:16.779073,Rejeté,1,Age véhicule et etat du véhicule.,Yosra kthiri,256.92132752040675,58.0166874845546,12,6,48.0,1.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2024-12-21 09:13:00,2024-12-22 01:01:58.725244,2025-01-04 01:09:56.282283,Validé,1,,Mehdi Kahouach,327.94896730078943,15.81631256772748,9,5,48.0,1.0,synthetique
+Autre,Commercial,Urgent,2025-11-05 13:18:00,2025-11-05 13:39:52.164473,2025-11-05 15:33:00.000000,Rejeté,1,Age véhicule et etat du véhicule.,Narjes Fatnasi,2.25,0.3644901313082024,13,2,48.0,0.0,synthetique
+Autre,Reclamation,Urgent,2025-04-28 09:03:00,2025-04-28 09:15:39.155075,2025-04-28 09:48:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Hanen ben hadedda,0.75,0.2108764096282014,9,0,48.0,0.0,synthetique
+Autre,SCE Production Maladie,Urgent,2025-04-04 14:28:00,2025-04-06 08:02:29.702294,2025-04-14 07:36:57.959546,Clôturé,0,,Mehdi Kahouach,233.14943320725484,41.57491730396237,14,4,48.0,1.0,synthetique
+Autre,Reclamation,Urgent,2024-10-11 11:16:00,2024-10-11 11:18:08.740009,2024-10-11 12:01:00.000000,Validé,0,,Hanen ben hadedda,0.75,0.0357611137372702,11,4,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2025-06-22 10:16:00,2025-06-22 13:46:50.797834,2025-06-23 04:09:48.729705,Clôturé,1,,Fahd barhoumi,17.89686936252154,3.5141105094884453,10,6,48.0,0.0,synthetique
+Autre,IRDS,Normal,2025-01-21 08:57:00,2025-01-21 10:55:27.658045,2025-01-22 08:57:00.000000,Clôturé,1,,Shayma Khammesi,24.0,1.974349456910424,8,1,48.0,0.0,synthetique
+Autre,Commercial,Urgent,2025-10-18 12:07:00,2025-10-18 12:13:26.967144,2025-10-18 14:22:00.000000,Clôturé,1,,Wiem Ben Moussa,2.25,0.1074908733385035,12,5,48.0,0.0,synthetique
+Validation Proposition,Technique Auto,Urgent,2025-07-11 16:29:00,2025-07-11 16:37:42.456082,2025-07-11 16:59:00.000000,Validé,0,,Fahd barhoumi,0.5,0.1451266895420666,16,4,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-01-20 15:07:00,2025-01-20 17:32:11.733267,2025-01-21 15:51:57.398341,Clôturé,0,,Jamila Hadj Salah,24.74927731702675,2.419925907609152,15,0,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-06-14 16:32:00,2024-06-14 16:55:49.357352,2024-06-14 17:53:28.196605,Clôturé,2,,Fahd barhoumi,1.357832390399352,0.3970437089362419,16,4,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2025-12-14 15:31:00,2025-12-15 01:21:31.603697,2025-12-16 14:13:09.872107,Rejeté,1,Age véhicule et etat du véhicule.,Med Aziz Ben Mansour,46.70274225206544,9.842112138127808,15,6,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-07-12 13:38:00,2024-07-12 15:20:27.733142,2024-07-13 03:58:28.223983,Validé,0,,Med Aziz Ben Mansour,14.341173328573335,1.7077036506456829,13,4,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2024-03-13 14:30:00,2024-03-13 17:26:14.454337,2024-03-26 12:28:58.058227,Validé,0,,Yosra kthiri,309.982793952043,2.937348426967916,14,2,48.0,1.0,synthetique
+Demande De Validation Proposition,IRDS,Urgent,2025-01-17 14:10:00,2025-01-17 18:34:29.726994,2025-01-18 14:10:00.000000,Clôturé,1,,Shayma Khammesi,24.0,4.408257498344337,14,4,48.0,0.0,synthetique
+Autre,SCE Production Maladie,Urgent,2025-06-07 16:44:00,2025-06-09 06:11:08.297476,2025-06-16 11:09:32.163904,Validé,0,,Molka Bne Hssine,210.4256010843914,37.45230485436138,16,5,48.0,1.0,synthetique
+Demande De Validation Proposition,IRDS,Normal,2024-11-02 09:05:00,2024-11-02 13:49:33.705541,2024-11-03 09:05:00.000000,Validé,0,,Houida Cherif,24.0,4.742695983606308,9,5,48.0,0.0,synthetique
+Autre,Reclamation,Urgent,2024-07-25 08:06:00,2024-07-25 08:11:38.903829,2024-07-25 08:51:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.0941399524502218,8,3,48.0,0.0,synthetique
+Autre,IRDS,Normal,2025-01-16 11:59:00,2025-01-16 17:16:40.279741,2025-01-17 11:59:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Houida Cherif,24.0,5.294522150393418,11,3,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2024-10-21 17:50:00,2024-10-22 03:22:36.085741,2024-10-23 09:57:01.975672,Validé,0,,Afef Hamdi,40.11721546450197,9.543357150355238,17,0,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2025-06-03 11:47:00,2025-06-03 11:50:10.991596,2025-06-03 12:32:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.0530532211408222,11,1,48.0,0.0,synthetique
+Demande De Transfert,Commercial,Urgent,2025-09-14 15:38:00,2025-09-14 16:13:15.922260,2025-09-14 17:53:00.000000,Validé,0,,Wiem Ben Moussa,2.25,0.5877561833589451,15,6,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-09-17 08:39:00,2024-09-17 12:14:44.825989,2024-09-17 22:37:11.504980,Validé,0,,Fahd barhoumi,13.969862494424616,3.595784996822004,8,1,48.0,0.0,synthetique
+Autre,IRDS,Normal,2024-12-26 08:04:00,2024-12-26 10:29:35.122333,2024-12-27 08:04:00.000000,Validé,0,,Shayma Khammesi,24.0,2.4264228703052613,8,3,48.0,0.0,synthetique
+Autre,IRDS,Normal,2025-11-17 12:11:00,2025-11-17 16:32:35.549046,2025-11-18 12:11:00.000000,Validé,0,,Houida Cherif,24.0,4.359874735043156,12,0,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-05-25 12:19:00,2025-05-25 15:32:15.608927,2025-05-25 23:11:53.309759,Rejeté,0,Age véhicule et etat du véhicule.,Fatma Mriri,10.88147493308814,3.221002479723144,12,6,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-07-24 17:19:00,2024-07-24 19:38:05.052970,2024-07-25 08:33:00.170189,Rejeté,2,Age véhicule et etat du véhicule.,Med Aziz Ben Mansour,15.233380607953814,2.318070269505876,17,2,48.0,0.0,synthetique
+Autre,Commercial,Urgent,2024-05-30 11:15:00,2024-05-30 11:36:33.355323,2024-05-30 13:30:00.000000,Clôturé,1,,Wiem Ben Moussa,2.25,0.3592653674577519,11,3,48.0,0.0,synthetique
+Autre,IRDS,Normal,2024-03-26 09:00:00,2024-03-26 15:15:02.247233,2024-03-27 09:00:00.000000,Clôturé,2,,Shayma Khammesi,24.0,6.250624231518038,9,1,48.0,0.0,synthetique
+Autre,Commercial,Urgent,2024-01-01 10:30:00,2024-01-01 11:07:12.387047,2024-01-01 12:45:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Narjes Fatnasi,2.25,0.6201075129706153,10,0,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2025-07-28 16:32:00,2025-07-28 19:10:50.728651,2025-07-29 07:07:14.901240,Validé,0,,Mohamed Arfaoui,14.587472566685236,2.6474246254070657,16,0,48.0,0.0,synthetique
+Demande D'Avenant,SCE Production Maladie,Urgent,2025-03-29 09:17:00,2025-03-29 09:23:00.500428,2025-03-29 09:47:00.000000,Clôturé,1,,Mehdi Kahouach,0.5,0.1001390078345377,9,5,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2024-03-16 17:06:00,2024-03-16 17:08:55.276348,2024-03-16 17:36:00.000000,Clôturé,0,,Yosra kthiri,0.5,0.0486878744850405,17,5,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2024-01-03 12:25:00,2024-01-03 12:33:21.787180,2024-01-03 13:10:00.000000,Validé,2,,Hanen ben hadedda,0.75,0.1393853278521632,12,2,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2024-02-12 14:05:00,2024-02-12 14:12:12.218063,2024-02-12 14:50:00.000000,Validé,1,,Hanen ben hadedda,0.75,0.1200605730135476,14,0,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-11-19 12:12:00,2024-11-19 15:20:03.750996,2024-11-19 23:28:12.925283,Validé,0,,Ahlem Mallous,11.270257022985891,3.134375276712331,12,1,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-06-04 10:07:00,2024-06-04 15:39:35.010140,2024-06-05 05:59:33.657395,Clôturé,0,,Med Aziz Ben Mansour,19.876015943144125,5.543058372143983,10,1,48.0,0.0,synthetique
+Demande De Validation Proposition,Technique Vie,Normal,2024-02-08 14:55:00,2024-02-08 15:42:18.519270,2024-02-08 17:58:29.491532,Rejeté,1,Age véhicule et etat du véhicule.,Fatma Mriri,3.0581920921996577,0.7884775748766579,14,3,48.0,0.0,synthetique
+Autre,IRDS,Urgent,2024-12-27 14:21:00,2024-12-27 14:39:45.252852,2024-12-28 14:21:00.000000,Rejeté,1,Age véhicule et etat du véhicule.,Houida Cherif,24.0,0.3125702365546979,14,4,48.0,0.0,synthetique
+Autre,SCE Production Maladie,Urgent,2024-10-19 11:49:00,2024-10-20 05:50:55.315044,2024-10-23 23:47:55.137906,Validé,0,,Mehdi Kahouach,107.98198275173456,18.03203195672966,11,5,48.0,1.0,synthetique
+Autre,Reclamation,Urgent,2024-08-29 12:46:00,2024-08-29 12:52:05.931820,2024-08-29 13:31:00.000000,Validé,0,,Hanen ben hadedda,0.75,0.1016477277158765,12,3,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2025-10-11 16:13:00,2025-10-13 15:09:54.514175,2025-10-23 14:28:18.346739,Validé,0,,Mehdi Kahouach,286.2550963163444,46.94847615970872,16,5,48.0,1.0,synthetique
+Autre,Technique Vie,Faible,2025-01-08 14:40:00,2025-01-08 19:43:53.953467,2025-01-10 08:25:26.548467,Validé,0,,Jamila Hadj Salah,41.75737457420689,5.064987074133846,14,2,48.0,0.0,synthetique
+Autre,Reclamation,Urgent,2024-12-18 11:02:00,2024-12-18 11:05:34.565312,2024-12-18 11:47:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.059601475628265,11,2,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-05-31 12:07:00,2025-05-31 12:09:44.298530,2025-05-31 14:22:00.000000,Validé,1,,Wiem Ben Moussa,2.25,0.045638480424745,12,5,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-04-15 11:07:00,2025-04-15 11:47:19.017592,2025-04-15 13:22:00.000000,Validé,0,,Narjes Fatnasi,2.25,0.6719493312253735,11,1,48.0,0.0,synthetique
+Autre,IRDS,Normal,2025-03-21 16:54:00,2025-03-21 20:45:28.653582,2025-03-22 16:54:00.000000,Clôturé,1,,Houida Cherif,24.0,3.8579593282061846,16,4,48.0,0.0,synthetique
+Autre,IRDS,Normal,2024-10-12 12:19:00,2024-10-12 14:04:15.582080,2024-10-13 12:19:00.000000,Validé,0,,Houida Cherif,24.0,1.7543283556598397,12,5,48.0,0.0,synthetique
+Demande D'Avenant,SCE Production Maladie,Urgent,2025-05-23 11:32:00,2025-05-23 18:36:00.540929,2025-05-29 15:24:06.822422,Clôturé,0,,Molka Bne Hssine,147.86856178394538,7.066816924598578,11,4,48.0,1.0,synthetique
+Autre,Reclamation,Normal,2024-07-14 09:54:00,2024-07-14 10:00:02.234058,2024-07-14 10:39:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Hanen ben hadedda,0.75,0.100620571613588,9,6,48.0,0.0,synthetique
+Autre,Technique Vie,Faible,2024-02-11 13:17:00,2024-02-11 13:25:22.521416,2024-02-11 13:47:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Fatma Mriri,0.5,0.1395892821965874,13,6,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Urgent,2025-07-31 09:34:00,2025-07-31 15:45:01.731469,2025-08-02 12:43:02.485098,Rejeté,0,Age véhicule et etat du véhicule.,Yosra kthiri,51.15069030487916,6.183814296906485,9,3,48.0,1.0,synthetique
+Autre,Technique Vie,Urgent,2024-04-04 08:45:00,2024-04-04 10:09:16.286542,2024-04-04 23:40:22.667612,Clôturé,2,,Afef Hamdi,14.922963225608164,1.4045240395633347,8,3,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2025-08-30 11:17:00,2025-08-30 11:30:02.315951,2025-08-30 12:02:00.000000,Validé,0,,Hanen ben hadedda,0.75,0.2173099862594744,11,5,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-05-31 10:33:00,2025-05-31 11:44:04.964535,2025-06-01 12:31:34.633676,Clôturé,0,,Afef Hamdi,25.976287132294487,1.1847123708343985,10,5,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2024-06-04 10:06:00,2024-06-04 10:06:46.299445,2024-06-04 10:40:27.960151,Clôturé,0,,Fatma Mriri,0.5744333751771933,0.0128609568415491,10,1,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2024-08-08 11:35:00,2024-08-08 12:32:56.100609,2024-08-09 02:09:36.739252,Validé,0,,Afef Hamdi,14.576872014541626,0.9655835024578436,11,3,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2025-03-30 12:21:00,2025-03-30 15:47:31.145843,2025-03-31 12:10:17.539712,Validé,1,,Fatma Mriri,23.821538808779994,3.441984956517306,12,6,48.0,0.0,synthetique
+Demande De Validation Proposition,Technique Vie,Normal,2025-02-26 12:00:00,2025-02-26 12:01:14.039241,2025-02-26 12:30:00.000000,Validé,0,,Jamila Hadj Salah,0.5,0.0205664558593498,12,2,48.0,0.0,synthetique
+Demande De Transfert,Commercial,Faible,2025-12-03 12:51:00,2025-12-03 13:13:11.541558,2025-12-03 15:06:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Narjes Fatnasi,2.25,0.3698726550572427,12,2,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-03-11 13:41:00,2025-03-11 16:14:15.654737,2025-03-12 07:34:12.888772,Validé,1,,Jamila Hadj Salah,17.886913547709128,2.554348538148404,13,1,48.0,0.0,synthetique
+Validation Proposition,Technique Auto,Urgent,2024-08-19 12:27:00,2024-08-19 15:47:59.700496,2024-08-20 00:27:09.916846,Rejeté,0,Age véhicule et etat du véhicule.,Med Aziz Ben Mansour,12.002754679423964,3.3499168045031014,12,0,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2024-06-21 10:04:00,2024-06-21 10:10:05.001922,2024-06-21 10:49:00.000000,Validé,0,,Hanen ben hadedda,0.75,0.1013894227641955,10,4,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2024-01-17 12:19:00,2024-01-17 12:20:25.347703,2024-01-17 13:04:00.000000,Validé,0,,Hanen ben hadedda,0.75,0.0237076951393813,12,2,48.0,0.0,synthetique
+Demande De Transfert,Technique Vie,Faible,2025-07-16 17:04:00,2025-07-16 23:19:48.166599,2025-07-17 19:42:07.296721,Rejeté,0,Age véhicule et etat du véhicule.,Mohamed Arfaoui,26.635360200393777,6.263379610844346,17,2,48.0,0.0,synthetique
+Autre,SCE Production Maladie,Normal,2025-07-14 11:03:00,2025-07-15 02:46:19.826105,2025-07-20 04:15:48.332771,Validé,1,,Molka Bne Hssine,137.21342576960157,15.7221739181943,11,0,48.0,1.0,synthetique
+Autre,Technique Vie,Urgent,2025-01-08 12:31:00,2025-01-08 17:49:03.610887,2025-01-10 01:46:07.513557,Validé,1,,Mohamed Arfaoui,37.252087099177245,5.301003024153356,12,2,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2025-09-17 13:51:00,2025-09-17 15:44:27.871295,2025-09-18 01:18:32.930004,Validé,0,,Med Aziz Ben Mansour,11.45914722331547,1.8910753596207888,13,2,48.0,0.0,synthetique
+Demande De Transfert,Technique Vie,Urgent,2024-08-09 14:38:00,2024-08-09 16:03:43.580431,2024-08-09 21:43:34.503080,Validé,2,,Fatma Mriri,7.092917522306619,1.4287723419460396,14,4,48.0,0.0,synthetique
+Autre,Commercial,Faible,2025-04-10 09:28:00,2025-04-10 09:38:54.475055,2025-04-10 11:43:00.000000,Clôturé,0,,Narjes Fatnasi,2.25,0.1817986263538669,9,3,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2025-11-13 12:32:00,2025-11-13 15:03:18.175832,2025-11-14 00:00:14.380889,Clôturé,0,,Yosra kthiri,11.47066135793156,2.5217155087748355,12,3,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-07-04 15:00:00,2024-07-04 15:35:29.575546,2024-07-05 03:15:32.208531,Validé,1,,Med Aziz Ben Mansour,12.258946814044704,0.5915487629052663,15,3,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-10-28 14:26:00,2024-10-28 19:08:00.050725,2024-10-29 18:39:26.374222,Rejeté,0,Age véhicule et etat du véhicule.,Med Aziz Ben Mansour,28.22399283942555,4.700014090314187,14,0,48.0,0.0,synthetique
+Autre,Reclamation,Urgent,2025-09-24 09:52:00,2025-09-24 09:52:08.935608,2025-09-24 10:37:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.0024821132090548,9,2,48.0,0.0,synthetique
+Demande D'Avenant,SCE Production Maladie,Urgent,2025-09-14 11:19:00,2025-09-14 15:43:10.061668,2025-09-19 08:59:37.400640,Clôturé,1,,Molka Bne Hssine,117.67705573345182,4.402794907771974,11,6,48.0,1.0,synthetique
+Autre,Reclamation,Normal,2024-01-20 08:54:00,2024-01-20 09:04:43.299838,2024-01-20 09:39:00.000000,Clôturé,1,,Hanen ben hadedda,0.75,0.1786943995373439,8,5,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-06-10 09:18:00,2024-06-10 15:00:07.123296,2024-06-11 16:47:40.518124,Clôturé,0,,Fahd barhoumi,31.494588367736828,5.701978693338403,9,0,48.0,0.0,synthetique
+Autre,Commercial,Urgent,2025-11-15 11:29:00,2025-11-15 11:50:04.320682,2025-11-15 13:44:00.000000,Validé,0,,Wiem Ben Moussa,2.25,0.3512001894200914,11,5,48.0,0.0,synthetique
+Autre,Commercial,Normal,2024-04-27 08:16:00,2024-04-27 08:47:02.810113,2024-04-27 10:31:00.000000,Validé,0,,Wiem Ben Moussa,2.25,0.5174472536808592,8,5,48.0,0.0,synthetique
+Demande D'Avenant,SCE Production Maladie,Normal,2025-05-19 11:09:00,2025-05-20 18:25:30.625682,2025-05-26 20:30:59.308075,Validé,0,,Molka Bne Hssine,177.36647446517946,31.275173800433983,11,0,48.0,1.0,synthetique
+Autre,Technique Vie,Urgent,2025-07-16 12:18:00,2025-07-16 12:26:21.993138,2025-07-16 12:48:00.000000,Clôturé,0,,Afef Hamdi,0.5,0.1394425384313526,12,2,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-08-24 11:38:00,2025-08-24 12:06:35.626189,2025-08-24 13:53:00.000000,Clôturé,2,,Wiem Ben Moussa,2.25,0.4765628301732165,11,6,48.0,0.0,synthetique
+Autre,SCE Production Maladie,Normal,2025-10-25 16:35:00,2025-10-26 12:38:57.829580,2025-10-29 09:36:09.456258,Clôturé,0,,Molka Bne Hssine,89.01929340503816,20.06606377213662,16,5,48.0,1.0,synthetique
+Autre,Technique Auto,Normal,2024-06-30 17:24:00,2024-06-30 18:20:52.871905,2024-07-01 05:01:12.142454,Validé,1,,Fahd barhoumi,11.620039570488409,0.9480199736394532,17,6,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2025-11-20 08:26:00,2025-11-21 02:03:44.367782,2025-11-27 10:18:30.702289,Clôturé,0,,Yosra kthiri,169.87519508040046,17.62899105049492,8,3,48.0,1.0,synthetique
+Autre,Commercial,Urgent,2024-05-21 16:36:00,2024-05-21 17:09:31.720152,2024-05-21 18:51:00.000000,Clôturé,1,,Narjes Fatnasi,2.25,0.5588111533424666,16,1,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-03-20 16:32:00,2025-03-21 01:32:27.858970,2025-03-22 00:14:18.073561,Validé,0,,Jamila Hadj Salah,31.705020433521327,9.00773860276088,16,3,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2024-06-25 08:33:00,2024-06-25 08:43:41.276991,2024-06-25 09:18:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.1781324974020041,8,1,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2024-04-07 10:38:00,2024-04-07 10:39:56.688845,2024-04-07 11:08:00.000000,Validé,0,,Yosra kthiri,0.5,0.0324135679777961,10,6,48.0,0.0,synthetique
+Demande D'Avenant,SCE Production Maladie,Normal,2024-10-03 11:25:00,2024-10-03 21:06:29.280987,2024-10-07 10:29:35.792321,Validé,0,,Molka Bne Hssine,95.07660897795404,9.691466940962176,11,3,48.0,1.0,synthetique
+Demande D'Avenant,SCE Production Maladie,Normal,2025-01-15 16:39:00,2025-01-16 02:06:04.700751,2025-01-23 19:34:43.605986,Validé,2,,Mehdi Kahouach,194.92877944067413,9.451305764216102,16,2,48.0,1.0,synthetique
+Autre,Technique Auto,Normal,2025-01-13 09:42:00,2025-01-13 10:44:47.884548,2025-01-13 17:25:25.409789,Validé,2,,Med Aziz Ben Mansour,7.723724941338378,1.046634596586888,9,0,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2025-07-12 15:17:00,2025-07-12 18:09:57.022794,2025-07-13 22:02:41.717431,Clôturé,0,,Fahd barhoumi,30.761588175208875,2.882506331729558,15,5,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-06-03 12:31:00,2025-06-03 13:04:04.283874,2025-06-05 19:33:09.597314,Clôturé,0,,Afef Hamdi,55.03599925388198,0.551189964902151,12,1,48.0,1.0,synthetique
+Demande De Transfert,Commercial,Urgent,2024-01-16 08:44:00,2024-01-16 08:48:45.874891,2024-01-16 10:59:00.000000,Rejeté,1,Age véhicule et etat du véhicule.,Wiem Ben Moussa,2.25,0.0794096920075445,8,1,48.0,0.0,synthetique
+Autre,Commercial,Faible,2024-07-14 16:19:00,2024-07-14 16:22:46.064082,2024-07-14 18:34:00.000000,Rejeté,1,Age véhicule et etat du véhicule.,Narjes Fatnasi,2.25,0.0627955783605183,16,6,48.0,0.0,synthetique
+Demande De Validation Proposition,IRDS,Normal,2025-07-25 16:10:00,2025-07-25 16:57:50.599703,2025-07-26 16:10:00.000000,Validé,1,,Houida Cherif,24.0,0.7973888062964983,16,4,48.0,0.0,synthetique
+Autre,Reclamation,Urgent,2024-07-08 08:20:00,2024-07-08 08:31:09.042352,2024-07-08 09:05:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Hanen ben hadedda,0.75,0.1858450978593183,8,0,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2025-10-23 08:04:00,2025-10-23 08:12:22.952140,2025-10-23 08:49:00.000000,Clôturé,1,,Hanen ben hadedda,0.75,0.139708927682647,8,3,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2024-07-19 11:59:00,2024-07-19 12:35:36.459056,2024-07-19 23:36:45.679435,Clôturé,1,,Jamila Hadj Salah,11.629355398497731,0.6101275156557856,11,4,48.0,0.0,synthetique
+Autre,Reclamation,Urgent,2024-11-08 12:52:00,2024-11-08 12:52:55.489379,2024-11-08 13:37:00.000000,Validé,0,,Hanen ben hadedda,0.75,0.0154137164910704,12,4,48.0,0.0,synthetique
+Autre,IRDS,Normal,2024-08-06 14:58:00,2024-08-06 21:15:39.956690,2024-08-07 14:58:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Houida Cherif,24.0,6.29443241379613,14,1,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2025-05-21 11:48:00,2025-05-21 11:53:34.336515,2025-05-21 12:33:00.000000,Validé,0,,Hanen ben hadedda,0.75,0.0928712540848558,11,2,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2025-12-18 16:58:00,2025-12-19 00:35:42.790436,2025-12-19 18:51:59.719523,Validé,0,,Med Aziz Ben Mansour,25.899922089721983,7.628552898972332,16,3,48.0,0.0,synthetique
+Autre,Commercial,Urgent,2025-04-09 16:32:00,2025-04-09 16:53:53.897298,2025-04-09 18:47:00.000000,Validé,0,,Wiem Ben Moussa,2.25,0.3649714717353144,16,2,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Normal,2025-05-28 16:45:00,2025-05-29 00:54:18.469141,2025-05-29 23:44:16.272356,Validé,0,,Mehdi Kahouach,30.987853432149592,8.15513031703222,16,2,48.0,0.0,synthetique
+Autre,Commercial,Normal,2024-02-04 09:20:00,2024-02-04 09:21:24.248748,2024-02-04 11:35:00.000000,Validé,0,,Narjes Fatnasi,2.25,0.0234024300403762,9,6,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-04-26 15:31:00,2025-04-26 16:06:10.580160,2025-04-26 17:46:00.000000,Clôturé,0,,Narjes Fatnasi,2.25,0.5862722667661948,15,5,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-10-20 17:51:00,2025-10-20 18:37:22.380587,2025-10-21 12:34:59.989687,Rejeté,0,Age véhicule et etat du véhicule.,Mohamed Arfaoui,18.7333304684894,0.7728834962763809,17,0,48.0,0.0,synthetique
+Autre,IRDS,Normal,2024-03-16 10:21:00,2024-03-16 12:02:10.060861,2024-03-17 10:21:00.000000,Clôturé,0,,Houida Cherif,24.0,1.6861280170714967,10,5,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2025-10-26 09:16:00,2025-10-26 09:46:34.134288,2025-10-27 09:12:31.878594,Clôturé,0,,Fatma Mriri,23.942188498464148,0.509481746786581,9,6,48.0,0.0,synthetique
+Validation Proposition,Technique Auto,Normal,2024-10-17 11:55:00,2024-10-17 12:36:18.719999,2024-10-17 23:37:14.096734,Validé,0,,Ahlem Mallous,11.703915759523989,0.6885333331576454,11,3,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2025-08-24 14:20:00,2025-08-24 14:20:58.333907,2025-08-24 14:50:00.000000,Validé,0,,Med Aziz Ben Mansour,0.5,0.0162038631196037,14,6,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2025-07-24 14:54:00,2025-07-24 15:01:10.595566,2025-07-24 15:39:00.000000,Validé,1,,Hanen ben hadedda,0.75,0.1196098795359969,14,3,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-01-19 15:07:00,2024-01-19 15:55:52.468640,2024-01-19 22:04:52.040616,Rejeté,0,Age véhicule et etat du véhicule.,Ahlem Mallous,6.964455726741411,0.8145746223425656,15,4,48.0,0.0,synthetique
+Demande De Transfert,Technique Vie,Normal,2025-12-27 08:46:00,2025-12-27 09:38:41.430067,2025-12-27 20:07:47.627543,Rejeté,1,Age véhicule et etat du véhicule.,Jamila Hadj Salah,11.363229872926803,0.8781750184733357,8,5,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2024-03-24 08:32:00,2024-03-24 08:37:39.347710,2024-03-24 09:17:00.000000,Validé,0,,Hanen ben hadedda,0.75,0.0942632527921819,8,6,48.0,0.0,synthetique
+Autre,Reclamation,Urgent,2024-07-28 10:53:00,2024-07-28 10:53:08.206259,2024-07-28 11:38:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.0022795164062422,10,6,48.0,0.0,synthetique
+Autre,Service Sinistre Maladie,Urgent,2024-12-15 15:01:00,2024-12-15 15:01:35.879676,2024-12-15 15:31:00.000000,Validé,0,,Yosra kthiri,0.5,0.0099665766533662,15,6,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2024-10-20 12:53:00,2024-10-20 16:45:28.453279,2024-10-21 04:41:48.521338,Validé,1,,Jamila Hadj Salah,15.813478149446466,3.8745703553416457,12,6,48.0,0.0,synthetique
+Autre,Commercial,Normal,2025-03-26 10:27:00,2025-03-26 10:59:20.064227,2025-03-26 12:42:00.000000,Clôturé,0,,Narjes Fatnasi,2.25,0.5389067298498879,10,2,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2025-11-09 09:55:00,2025-11-09 10:04:17.608065,2025-11-09 10:40:00.000000,Clôturé,0,,Hanen ben hadedda,0.75,0.1548911291607307,9,6,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2025-03-19 09:27:00,2025-03-19 09:38:28.401785,2025-03-20 10:29:51.890420,Validé,0,,Med Aziz Ben Mansour,25.04774733880888,0.1912227181373756,9,2,48.0,0.0,synthetique
+Autre,Technique Auto,Normal,2024-07-22 13:00:00,2024-07-22 13:01:57.661979,2024-07-22 13:30:00.000000,Validé,0,,Fahd barhoumi,0.5,0.0326838831382485,13,0,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2025-10-27 13:42:00,2025-10-27 22:50:47.855748,2025-10-28 21:19:36.366439,Validé,0,,Med Aziz Ben Mansour,31.626768455306298,9.146626596538896,13,0,48.0,0.0,synthetique
+Autre,Reclamation,Normal,2024-05-03 12:34:00,2024-05-03 12:39:00.021559,2024-05-03 13:19:00.000000,Validé,1,,Hanen ben hadedda,0.75,0.0833393219119439,12,4,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2024-10-04 11:04:00,2024-10-04 11:13:48.048740,2024-10-05 04:39:58.490404,Clôturé,0,,Jamila Hadj Salah,17.599580667831564,0.1633468722365901,11,4,48.0,0.0,synthetique
+Demande D'Avenant,Technique Vie,Normal,2025-05-11 12:45:00,2025-05-11 19:54:34.899574,2025-05-12 22:24:37.248013,Validé,0,,Fatma Mriri,33.660346670323094,7.15969432605551,12,6,48.0,0.0,synthetique
+Autre,IRDS,Urgent,2025-04-27 09:10:00,2025-04-27 10:10:07.978499,2025-04-28 09:10:00.000000,Validé,0,,Shayma Khammesi,24.0,1.0022162496890077,9,6,48.0,0.0,synthetique
+Autre,IRDS,Urgent,2024-10-10 12:16:00,2024-10-10 15:06:41.970305,2024-10-11 12:16:00.000000,Clôturé,0,,Houida Cherif,24.0,2.844991751503094,12,3,48.0,0.0,synthetique
+Autre,Commercial,Urgent,2024-05-19 13:20:00,2024-05-19 13:41:36.129508,2024-05-19 15:35:00.000000,Rejeté,1,Age véhicule et etat du véhicule.,Narjes Fatnasi,2.25,0.3600359744166197,13,6,48.0,0.0,synthetique
+Demande D'Avenant,SCE Production Maladie,Normal,2025-08-04 14:57:00,2025-08-05 16:42:46.388827,2025-08-08 06:29:26.388531,Rejeté,0,Age véhicule et etat du véhicule.,Molka Bne Hssine,87.54066348071387,25.762885785170223,14,0,48.0,1.0,synthetique
+Autre,Commercial,Urgent,2025-04-09 10:52:00,2025-04-09 11:11:56.350916,2025-04-09 13:07:00.000000,Validé,1,,Narjes Fatnasi,2.25,0.3323196990007978,10,2,48.0,0.0,synthetique
+Autre,Technique Vie,Urgent,2024-11-18 12:12:00,2024-11-18 12:32:02.270748,2024-11-18 15:46:08.929080,Rejeté,1,Age véhicule et etat du véhicule.,Fatma Mriri,3.5691469665690736,0.3339640965818887,12,0,48.0,0.0,synthetique
+Validation Proposition,Technique Auto,Urgent,2024-11-15 12:15:00,2024-11-15 13:05:21.387703,2024-11-15 16:17:22.701373,Clôturé,1,,Med Aziz Ben Mansour,4.039639270275865,0.8392743619130799,12,4,48.0,0.0,synthetique
+Demande De Transfert,Commercial,Urgent,2025-10-08 10:00:00,2025-10-08 10:11:55.925133,2025-10-08 12:15:00.000000,Validé,0,,Narjes Fatnasi,2.25,0.1988680925336803,10,2,48.0,0.0,synthetique
+Demande De Validation Proposition,Technique Vie,Normal,2024-05-06 08:35:00,2024-05-06 13:40:04.523569,2024-05-07 10:19:11.973739,Clôturé,0,,Jamila Hadj Salah,25.73665937181486,5.084589880301852,8,0,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2024-07-06 09:44:00,2024-07-06 10:19:21.436032,2024-07-06 15:21:52.468938,Validé,1,,Ahlem Mallous,5.631241371787523,0.5892877866653841,9,5,48.0,0.0,synthetique
+Autre,Technique Auto,Urgent,2025-03-25 17:12:00,2025-03-25 17:23:29.657439,2025-03-26 05:54:50.270467,Clôturé,0,,Ahlem Mallous,12.713964018617633,0.1915715107654917,17,1,48.0,0.0,synthetique
+Demande De Transfert,Commercial,Normal,2025-07-18 14:00:00,2025-07-18 14:13:01.234554,2025-07-18 16:15:00.000000,Rejeté,0,Age véhicule et etat du véhicule.,Wiem Ben Moussa,2.25,0.2170095983423203,14,4,48.0,0.0,synthetique
+Autre,IRDS,Urgent,2024-12-02 14:22:00,2024-12-02 15:15:06.103986,2024-12-03 14:22:00.000000,Validé,1,,Shayma Khammesi,24.0,0.8850288849507904,14,0,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2024-01-22 11:12:00,2024-01-22 18:33:24.463241,2024-01-23 17:42:08.582542,Clôturé,1,,Afef Hamdi,30.502384039498068,7.356795344756604,11,0,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-12-16 08:14:00,2025-12-16 08:39:49.446045,2025-12-17 10:38:20.311397,Validé,0,,Jamila Hadj Salah,26.405642054818948,0.430401679093067,8,1,48.0,0.0,synthetique
+Autre,Technique Vie,Normal,2025-07-30 10:08:00,2025-07-30 10:18:54.400810,2025-07-30 16:04:48.233463,Validé,1,,Mohamed Arfaoui,5.9467315173945785,0.1817780026484285,10,2,48.0,0.0,synthetique
+Autre,IRDS,Urgent,2025-11-21 12:16:00,2025-11-21 19:00:29.444311,2025-11-22 12:16:00.000000,Validé,0,,Houida Cherif,24.0,6.741512308577929,12,4,48.0,0.0,synthetique
