@@ -1241,12 +1241,15 @@ Screens:
                                                   TL_Statut: If(ThisRecord.Value = 1, "Soumis", Index(_hist, ThisRecord.Value - 1).Statut_A_Ce_Moment),
                                                   TL_Comment: If(ThisRecord.Value = 1, "Demande créée", Index(_hist, ThisRecord.Value - 1).Commentaire_Action),
                                                   TL_Acteur: If(ThisRecord.Value = 1, varSelectedDemande.Agent_Demandeur.DisplayName, Index(_hist, ThisRecord.Value - 1).Actionneur.DisplayName),
-                                                  TL_Date: If(ThisRecord.Value = 1, varSelectedDemande.Date_Soumission, Index(_hist, ThisRecord.Value - 1).Date_Debut_Etape)
+                                                  TL_Date: If(ThisRecord.Value = 1, varSelectedDemande.Date_Soumission, Index(_hist, ThisRecord.Value - 1).Date_Debut_Etape),
+                                                  TL_ServiceDest: If(ThisRecord.Value = 1, Blank(), Index(_hist, ThisRecord.Value - 1).Service_A_Ce_Moment),
+                                                  TL_ServiceSource: If(ThisRecord.Value <= 2, Blank(), Index(_hist, ThisRecord.Value - 2).Service_A_Ce_Moment),
+                                                  TL_Gestionnaire: If(ThisRecord.Value = 1, Blank(), Index(_hist, ThisRecord.Value - 1).Gestionnaire_A_Ce_Moment.DisplayName)
                                               }
                                           )
                                       )
                                     TemplatePadding: =12
-                                    TemplateSize: =160
+                                    TemplateSize: =182
                                     Width: =Parent.Width
                                   Children:
                                     - TLCardContainer:
@@ -1393,6 +1396,26 @@ Screens:
                                                             LayoutMinWidth: =66
                                                             Visible: =ThisItem.TL_Num = Max(Filter(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID)), Num_Mouvement)
                                                             Width: =66
+                                                - TxtTLTransfertRoute:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AutoHeight: =true
+                                                      Color: =RGBA(180, 83, 9, 1)
+                                                      Size: =13
+                                                      Text: |-
+                                                        ="De : " & Coalesce(ThisItem.TL_ServiceSource, "Information indisponible") & "   →   Vers : " & Coalesce(ThisItem.TL_ServiceDest, "Information indisponible")
+                                                      Visible: =ThisItem.TL_Type = "Transfert"
+                                                      Width: =Parent.Width - 54
+                                                - TxtTLAssignee:
+                                                    Control: ModernText
+                                                    Properties:
+                                                      AutoHeight: =true
+                                                      Color: =RGBA(30, 64, 175, 1)
+                                                      Size: =13
+                                                      Text: |-
+                                                        ="A : " & Coalesce(ThisItem.TL_Gestionnaire, "Information indisponible")
+                                                      Visible: =ThisItem.TL_Type = "Assignation" || ThisItem.TL_Type = "Réaffectation"
+                                                      Width: =Parent.Width - 54
                                                 - TxtTLStatut:
                                                     Control: ModernText
                                                     Properties:
@@ -1426,7 +1449,7 @@ Screens:
                                                       Color: =RGBA(144, 144, 144, 1)
                                                       Size: =12
                                                       Text: |-
-                                                        ="Par " & If(
+                                                        ="Par : " & If(
                                                           IsBlank(ThisItem.TL_Acteur),
                                                           "Information indisponible",
                                                           ThisItem.TL_Acteur
@@ -1652,7 +1675,7 @@ Screens:
                                     "prendre",
                                     IfError(
                                         Set(varPollMode, "assign");
-                                        Patch(Demandes, varSelectedDemande, {
+                                        Patch(Demandes, LookUp(Demandes, ID = varSelectedDemande.ID), {
                                             Gestionnaire_Assigne: {
                                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
                                                 Claims: "i:0#.f|membership|" & Lower(User().Email),
@@ -1661,7 +1684,25 @@ Screens:
                                                 Department: "",
                                                 JobTitle: "",
                                                 Picture: ""
-                                            }
+                                            },
+                                            Statut_Actuel: {Value: "En cours"},
+                                            Type_Modification: {Value: "Assignation"},
+                                            Num_Mouvement_Cours: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Date_Dernier_Mouvement: Now(),
+                                            Alerte_Retard_Active: false,
+                                            Service_Precedent_ID: varSelectedDemande.Service_Actuel_ID.Id
+                                        });
+                                        Patch(Historique_Demandes, Defaults(Historique_Demandes), {
+                                            Title: varSelectedDemande.Titre & " - M" & varSelectedDemande.Num_Mouvement_Cours,
+                                            Demande_ID: Text(varSelectedDemande.ID),
+                                            Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours,
+                                            Service_A_Ce_Moment: varSelectedDemande.Service_Actuel_ID.Value,
+                                            Gestionnaire_A_Ce_Moment: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Statut_A_Ce_Moment: "En cours",
+                                            Date_Debut_Etape: Now(),
+                                            Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Commentaire_Action: "Prise en charge effective",
+                                            Type_Modification: {Value: "Assignation"}
                                         }),
                                         Notify("Échec de la prise en charge : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
@@ -1669,7 +1710,7 @@ Screens:
                                         Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
                                         Set(varPollCount, 0);
                                         Set(varPolling, true);
-                                        Notify("Demande prise en charge — le statut se met à jour dans quelques secondes.", NotificationType.Success)
+                                        Notify("Demande prise en charge — le statut passe à En cours.", NotificationType.Success)
                                     ),
                                     "valider",
                                     IfError(
@@ -1692,19 +1733,40 @@ Screens:
                                     "transferer",
                                     IfError(
                                         Set(varPollMode, "transfert");
-                                        Patch(Demandes, varSelectedDemande, {Service_Actuel_ID: {Id: DdServiceCible.Selected.ID, Value: DdServiceCible.Selected.Title}, Commentaire_Transfert: Trim(TxtTransferComment.Text)}),
+                                        Patch(Demandes, LookUp(Demandes, ID = varSelectedDemande.ID), {
+                                            Service_Actuel_ID: {Id: DdServiceCible.Selected.ID, Value: DdServiceCible.Selected.Title},
+                                            Commentaire_Transfert: Trim(TxtTransferComment.Text),
+                                            Gestionnaire_Assigne: Blank(),
+                                            Statut_Actuel: {Value: "En cours"},
+                                            Type_Modification: {Value: "Transfert"},
+                                            Num_Mouvement_Cours: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Date_Dernier_Mouvement: Now(),
+                                            Alerte_Retard_Active: false,
+                                            Service_Precedent_ID: DdServiceCible.Selected.ID
+                                        });
+                                        Patch(Historique_Demandes, Defaults(Historique_Demandes), {
+                                            Title: varSelectedDemande.Titre & " - M" & varSelectedDemande.Num_Mouvement_Cours,
+                                            Demande_ID: Text(varSelectedDemande.ID),
+                                            Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours,
+                                            Service_A_Ce_Moment: DdServiceCible.Selected.Title,
+                                            Statut_A_Ce_Moment: "En cours",
+                                            Date_Debut_Etape: Now(),
+                                            Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Commentaire_Action: Trim(TxtTransferComment.Text),
+                                            Type_Modification: {Value: "Transfert"}
+                                        }),
                                         Notify("Échec du transfert : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
                                         Refresh(Demandes);
                                         Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
                                         Set(varPollCount, 0);
                                         Set(varPolling, true);
-                                        Notify("Demande transférée — le traitement se finalise dans quelques secondes.", NotificationType.Success)
+                                        Notify("Demande transférée avec succès.", NotificationType.Success)
                                     ),
                                     "assigner",
                                     IfError(
                                         Set(varPollMode, "assign");
-                                        Patch(Demandes, varSelectedDemande, {
+                                        Patch(Demandes, LookUp(Demandes, ID = varSelectedDemande.ID), {
                                             Gestionnaire_Assigne: {
                                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
                                                 Claims: "i:0#.f|membership|" & Lower(DdGestionnaireCible.Selected.Utilisateur.Email),
@@ -1713,7 +1775,25 @@ Screens:
                                                 Department: "",
                                                 JobTitle: "",
                                                 Picture: ""
-                                            }
+                                            },
+                                            Statut_Actuel: {Value: "En cours"},
+                                            Type_Modification: {Value: "Assignation"},
+                                            Num_Mouvement_Cours: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Date_Dernier_Mouvement: Now(),
+                                            Alerte_Retard_Active: false,
+                                            Service_Precedent_ID: varSelectedDemande.Service_Actuel_ID.Id
+                                        });
+                                        Patch(Historique_Demandes, Defaults(Historique_Demandes), {
+                                            Title: varSelectedDemande.Titre & " - M" & varSelectedDemande.Num_Mouvement_Cours,
+                                            Demande_ID: Text(varSelectedDemande.ID),
+                                            Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours,
+                                            Service_A_Ce_Moment: varSelectedDemande.Service_Actuel_ID.Value,
+                                            Gestionnaire_A_Ce_Moment: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(DdGestionnaireCible.Selected.Utilisateur.Email), DisplayName: DdGestionnaireCible.Selected.Utilisateur.DisplayName, Email: DdGestionnaireCible.Selected.Utilisateur.Email, Department: "", JobTitle: "", Picture: ""},
+                                            Statut_A_Ce_Moment: "En cours",
+                                            Date_Debut_Etape: Now(),
+                                            Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Commentaire_Action: "Assignation par le superviseur",
+                                            Type_Modification: {Value: "Assignation"}
                                         }),
                                         Notify("Échec de l'assignation : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
@@ -1721,7 +1801,7 @@ Screens:
                                         Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
                                         Set(varPollCount, 0);
                                         Set(varPolling, true);
-                                        Notify("Demande assignée — le statut se met à jour dans quelques secondes.", NotificationType.Success)
+                                        Notify("Demande assignée — le statut passe à En cours.", NotificationType.Success)
                                     ),
                                     "cloturer",
                                     IfError(
