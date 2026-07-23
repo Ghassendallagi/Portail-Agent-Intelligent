@@ -1,0 +1,123 @@
+﻿{
+    "$schema":  "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion":  "1.0.0.0",
+    "parameters":  {
+                       "$authentication":  {
+                                               "defaultValue":  {
+
+                                                                },
+                                               "type":  "SecureObject"
+                                           },
+                       "$connections":  {
+                                            "defaultValue":  {
+
+                                                             },
+                                            "type":  "Object"
+                                        }
+                   },
+    "triggers":  {
+                     "Lorsqu’un_élément_est_créé_ou_modifié":  {
+                                                                   "recurrence":  {
+                                                                                      "frequency":  "Minute",
+                                                                                      "interval":  1
+                                                                                  },
+                                                                   "evaluatedRecurrence":  {
+                                                                                               "frequency":  "Minute",
+                                                                                               "interval":  1
+                                                                                           },
+                                                                   "splitOn":  "@triggerOutputs()?[\u0027body/value\u0027]",
+                                                                   "type":  "OpenApiConnection",
+                                                                   "inputs":  {
+                                                                                  "parameters":  {
+                                                                                                     "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                     "table":  "20c94652-f1e6-4f89-9736-cde7b553c412"
+                                                                                                 },
+                                                                                  "host":  {
+                                                                                               "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                               "connectionName":  "shared_sharepointonline",
+                                                                                               "operationId":  "GetOnUpdatedItems"
+                                                                                           },
+                                                                                  "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                              }
+                                                               }
+                 },
+    "actions":  {
+                    "Condition_Validation":  {
+                                                 "actions":  {
+                                                                 "Creer_Historique_Validation":  {
+                                                                                                     "type":  "OpenApiConnection",
+                                                                                                     "inputs":  {
+                                                                                                                    "parameters":  {
+                                                                                                                                       "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                       "table":  "711be3b1-2c60-4936-b580-9e20ceac050c",
+                                                                                                                                       "item/Title":  "@concat(triggerOutputs()?[\u0027body/Title\u0027],\u0027 - M\u0027, add(triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027],1))",
+                                                                                                                                       "item/Demande_ID":  "@string(triggerBody()?[\u0027ID\u0027])",
+                                                                                                                                       "item/Num_Mouvement":  "@triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027]",
+                                                                                                                                       "item/Service_A_Ce_Moment":  "@triggerOutputs()?[\u0027body/Service_Actuel_ID/Value\u0027]",
+                                                                                                                                       "item/Gestionnaire_A_Ce_Moment/Claims":  "@if(empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]))",
+                                                                                                                                       "item/Statut_A_Ce_Moment":  "Validé",
+                                                                                                                                       "item/Date_Debut_Etape":  "@utcNow()",
+                                                                                                                                       "item/Date_Fin_Etape":  "@utcNow()",
+                                                                                                                                       "item/Actionneur/Claims":  "@if(empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]))",
+                                                                                                                                       "item/Commentaire_Action":  "Demande validée",
+                                                                                                                                       "item/Type_Modification/Value":  "Validation"
+                                                                                                                                   },
+                                                                                                                    "host":  {
+                                                                                                                                 "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                 "connectionName":  "shared_sharepointonline",
+                                                                                                                                 "operationId":  "PostItem"
+                                                                                                                             },
+                                                                                                                    "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                }
+                                                                                                 },
+                                                                 "Mettre_a_jour_Demande_Validation":  {
+                                                                                                          "runAfter":  {
+                                                                                                                           "Creer_Historique_Validation":  [
+                                                                                                                                                               "Succeeded"
+                                                                                                                                                           ]
+                                                                                                                       },
+                                                                                                          "type":  "OpenApiConnection",
+                                                                                                          "inputs":  {
+                                                                                                                         "parameters":  {
+                                                                                                                                            "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                            "table":  "20c94652-f1e6-4f89-9736-cde7b553c412",
+                                                                                                                                            "id":  "@triggerBody()?[\u0027ID\u0027]",
+                                                                                                                                            "item/Title":  "@triggerBody()?[\u0027Title\u0027]",
+                                                                                                                                            "item/Type_Modification/Value":  "Validation",
+                                                                                                                                            "item/Num_Mouvement_Cours":  "@add(triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027],1)",
+                                                                                                                                            "item/Date_Dernier_Mouvement":  "@utcNow()"
+                                                                                                                                        },
+                                                                                                                         "host":  {
+                                                                                                                                      "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                      "connectionName":  "shared_sharepointonline",
+                                                                                                                                      "operationId":  "PatchItem"
+                                                                                                                                  },
+                                                                                                                         "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                     }
+                                                                                                      }
+                                                             },
+                                                 "runAfter":  {
+
+                                                              },
+                                                 "expression":  {
+                                                                    "and":  [
+                                                                                {
+                                                                                    "equals":  [
+                                                                                                   "@triggerOutputs()?[\u0027body/Statut_Actuel/Value\u0027]",
+                                                                                                   "Validé"
+                                                                                               ]
+                                                                                },
+                                                                                {
+                                                                                    "not":  {
+                                                                                                "equals":  [
+                                                                                                               "@triggerOutputs()?[\u0027body/Type_Modification/Value\u0027]",
+                                                                                                               "Validation"
+                                                                                                           ]
+                                                                                            }
+                                                                                }
+                                                                            ]
+                                                                },
+                                                 "type":  "If"
+                                             }
+                }
+}

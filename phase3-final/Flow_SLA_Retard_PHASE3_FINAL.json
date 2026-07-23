@@ -1,0 +1,349 @@
+﻿{
+    "$schema":  "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion":  "1.0.0.0",
+    "parameters":  {
+                       "$authentication":  {
+                                               "defaultValue":  {
+
+                                                                },
+                                               "type":  "SecureObject"
+                                           },
+                       "$connections":  {
+                                            "defaultValue":  {
+
+                                                             },
+                                            "type":  "Object"
+                                        }
+                   },
+    "triggers":  {
+                     "Recurrence":  {
+                                        "recurrence":  {
+                                                           "frequency":  "Minute",
+                                                           "interval":  30
+                                                       },
+                                        "evaluatedRecurrence":  {
+                                                                    "frequency":  "Minute",
+                                                                    "interval":  30
+                                                                },
+                                        "type":  "Recurrence"
+                                    }
+                 },
+    "actions":  {
+                    "Get_Demandes_Ouvertes":  {
+                                                  "runAfter":  {
+
+                                                               },
+                                                  "type":  "OpenApiConnection",
+                                                  "inputs":  {
+                                                                 "parameters":  {
+                                                                                    "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                    "table":  "20c94652-f1e6-4f89-9736-cde7b553c412",
+                                                                                    "$filter":  "Statut_Actuel ne \u0027Validé\u0027 and Statut_Actuel ne \u0027Rejeté\u0027 and Statut_Actuel ne \u0027Clôturé\u0027",
+                                                                                    "$top":  500
+                                                                                },
+                                                                 "host":  {
+                                                                              "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                              "connectionName":  "shared_sharepointonline",
+                                                                              "operationId":  "GetItems"
+                                                                          },
+                                                                 "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                             }
+                                              },
+                    "Pour_Chaque_Demande":  {
+                                                "foreach":  "@outputs(\u0027Get_Demandes_Ouvertes\u0027)?[\u0027body/value\u0027]",
+                                                "actions":  {
+                                                                "Get_Service_SLA":  {
+                                                                                        "runAfter":  {
+
+                                                                                                     },
+                                                                                        "type":  "OpenApiConnection",
+                                                                                        "inputs":  {
+                                                                                                       "parameters":  {
+                                                                                                                          "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                          "table":  "3ab13499-7d73-4eb7-a97e-ab1ffb218b48",
+                                                                                                                          "id":  "@item()?[\u0027Service_Actuel_ID#Id\u0027]"
+                                                                                                                      },
+                                                                                                       "host":  {
+                                                                                                                    "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                    "connectionName":  "shared_sharepointonline",
+                                                                                                                    "operationId":  "GetItem"
+                                                                                                                },
+                                                                                                       "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                   }
+                                                                                    },
+                                                                "Calculer_Heures_Ecoulees":  {
+                                                                                                 "runAfter":  {
+                                                                                                                  "Get_Service_SLA":  [
+                                                                                                                                          "Succeeded"
+                                                                                                                                      ]
+                                                                                                              },
+                                                                                                 "type":  "Compose",
+                                                                                                 "inputs":  "@div(sub(ticks(utcNow()), ticks(item()?[\u0027Date_Soumission\u0027])), 36000000000)"
+                                                                                             },
+                                                                "Condition_Retard":  {
+                                                                                         "actions":  {
+                                                                                                         "PATCH_Demande_Retard":  {
+                                                                                                                                      "runAfter":  {
+
+                                                                                                                                                   },
+                                                                                                                                      "type":  "OpenApiConnection",
+                                                                                                                                      "inputs":  {
+                                                                                                                                                     "parameters":  {
+                                                                                                                                                                        "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                        "table":  "20c94652-f1e6-4f89-9736-cde7b553c412",
+                                                                                                                                                                        "id":  "@item()?[\u0027ID\u0027]",
+                                                                                                                                                                        "item/Title":  "@item()?[\u0027Title\u0027]",
+                                                                                                                                                                        "item/Alerte_Retard_Active":  true
+                                                                                                                                                                    },
+                                                                                                                                                     "host":  {
+                                                                                                                                                                  "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                  "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                  "operationId":  "PatchItem"
+                                                                                                                                                              },
+                                                                                                                                                     "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                 }
+                                                                                                                                  },
+                                                                                                         "Creer_Notification_Retard_Gestionnaire":  {
+                                                                                                                                                        "runAfter":  {
+                                                                                                                                                                         "PATCH_Demande_Retard":  [
+                                                                                                                                                                                                      "Succeeded"
+                                                                                                                                                                                                  ]
+                                                                                                                                                                     },
+                                                                                                                                                        "type":  "OpenApiConnection",
+                                                                                                                                                        "inputs":  {
+                                                                                                                                                                       "parameters":  {
+                                                                                                                                                                                          "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                          "table":  "4ba26efc-2982-4bc0-9da6-d44155c3c1de",
+                                                                                                                                                                                          "item/Title":  "@concat(\u0027SLA depasse : \u0027, item()?[\u0027Title\u0027])",
+                                                                                                                                                                                          "item/Destinataire/Claims":  "@if(empty(item()?[\u0027Gestionnaire_Assigne\u0027]?[\u0027Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,item()?[\u0027Gestionnaire_Assigne\u0027]?[\u0027Email\u0027]))",
+                                                                                                                                                                                          "item/Type_Notification/Value":  "Error",
+                                                                                                                                                                                          "item/Priority/Value":  "Critical",
+                                                                                                                                                                                          "item/Module":  "Demandes",
+                                                                                                                                                                                          "item/ObjectID":  "@string(item()?[\u0027ID\u0027])",
+                                                                                                                                                                                          "item/Message":  "@concat(\u0027Le SLA theorique de \u0027, string(outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/SLA_Theorique_Heures\u0027]), \u0027h est depasse (\u0027, string(outputs(\u0027Calculer_Heures_Ecoulees\u0027)), \u0027h ecoulees).\u0027)",
+                                                                                                                                                                                          "item/Link":  "@concat(\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=\u0027, string(item()?[\u0027ID\u0027]))",
+                                                                                                                                                                                          "item/IsRead":  false
+                                                                                                                                                                                      },
+                                                                                                                                                                       "host":  {
+                                                                                                                                                                                    "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                                    "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                                    "operationId":  "PostItem"
+                                                                                                                                                                                },
+                                                                                                                                                                       "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                                   }
+                                                                                                                                                    },
+                                                                                                         "Envoyer_Email_Retard_Gestionnaire":  {
+                                                                                                                                                   "runAfter":  {
+                                                                                                                                                                    "Creer_Notification_Retard_Gestionnaire":  [
+                                                                                                                                                                                                                   "Succeeded"
+                                                                                                                                                                                                               ]
+                                                                                                                                                                },
+                                                                                                                                                   "type":  "OpenApiConnection",
+                                                                                                                                                   "inputs":  {
+                                                                                                                                                                  "parameters":  {
+                                                                                                                                                                                     "emailMessage/To":  "@item()?[\u0027Gestionnaire_Assigne\u0027]?[\u0027Email\u0027]",
+                                                                                                                                                                                     "emailMessage/Subject":  "@concat(\u0027SLA depasse - \u0027, item()?[\u0027Title\u0027])",
+                                                                                                                                                                                     "emailMessage/Body":  "\u003cp\u003eLe SLA theorique de @{outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/SLA_Theorique_Heures\u0027]}h est depasse (@{outputs(\u0027Calculer_Heures_Ecoulees\u0027)}h ecoulees).\u003c/p\u003e\u003c!-- TODO Phase 2.1 : filtrer par Priority si volume trop eleve --\u003e"
+                                                                                                                                                                                 },
+                                                                                                                                                                  "host":  {
+                                                                                                                                                                               "apiId":  "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                                                                                                                                                               "connectionName":  "shared_office365_1",
+                                                                                                                                                                               "operationId":  "SendEmailV2"
+                                                                                                                                                                           },
+                                                                                                                                                                  "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                              }
+                                                                                                                                               },
+                                                                                                         "Creer_Notification_Retard_Responsable":  {
+                                                                                                                                                       "runAfter":  {
+                                                                                                                                                                        "PATCH_Demande_Retard":  [
+                                                                                                                                                                                                     "Succeeded"
+                                                                                                                                                                                                 ]
+                                                                                                                                                                    },
+                                                                                                                                                       "type":  "OpenApiConnection",
+                                                                                                                                                       "inputs":  {
+                                                                                                                                                                      "parameters":  {
+                                                                                                                                                                                         "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                         "table":  "4ba26efc-2982-4bc0-9da6-d44155c3c1de",
+                                                                                                                                                                                         "item/Title":  "@concat(\u0027SLA depasse (service) : \u0027, item()?[\u0027Title\u0027])",
+                                                                                                                                                                                         "item/Destinataire/Claims":  "@if(empty(outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/Responsable_Service/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/Responsable_Service/Email\u0027]))",
+                                                                                                                                                                                         "item/Type_Notification/Value":  "Error",
+                                                                                                                                                                                         "item/Priority/Value":  "Critical",
+                                                                                                                                                                                         "item/Module":  "Demandes",
+                                                                                                                                                                                         "item/ObjectID":  "@string(item()?[\u0027ID\u0027])",
+                                                                                                                                                                                         "item/Message":  "@concat(\u0027Une demande de votre service depasse le SLA theorique de \u0027, string(outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/SLA_Theorique_Heures\u0027]), \u0027h (\u0027, string(outputs(\u0027Calculer_Heures_Ecoulees\u0027)), \u0027h ecoulees).\u0027)",
+                                                                                                                                                                                         "item/Link":  "@concat(\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=\u0027, string(item()?[\u0027ID\u0027]))",
+                                                                                                                                                                                         "item/IsRead":  false
+                                                                                                                                                                                     },
+                                                                                                                                                                      "host":  {
+                                                                                                                                                                                   "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                                   "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                                   "operationId":  "PostItem"
+                                                                                                                                                                               },
+                                                                                                                                                                      "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                                  }
+                                                                                                                                                   },
+                                                                                                         "Envoyer_Email_Retard_Responsable":  {
+                                                                                                                                                  "runAfter":  {
+                                                                                                                                                                   "Creer_Notification_Retard_Responsable":  [
+                                                                                                                                                                                                                 "Succeeded"
+                                                                                                                                                                                                             ]
+                                                                                                                                                               },
+                                                                                                                                                  "type":  "OpenApiConnection",
+                                                                                                                                                  "inputs":  {
+                                                                                                                                                                 "parameters":  {
+                                                                                                                                                                                    "emailMessage/To":  "@outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/Responsable_Service/Email\u0027]",
+                                                                                                                                                                                    "emailMessage/Subject":  "@concat(\u0027SLA depasse (service) - \u0027, item()?[\u0027Title\u0027])",
+                                                                                                                                                                                    "emailMessage/Body":  "\u003cp\u003eUne demande de votre service depasse le SLA theorique de @{outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/SLA_Theorique_Heures\u0027]}h (@{outputs(\u0027Calculer_Heures_Ecoulees\u0027)}h ecoulees).\u003c/p\u003e\u003c!-- TODO Phase 2.1 : filtrer par Priority si volume trop eleve --\u003e"
+                                                                                                                                                                                },
+                                                                                                                                                                 "host":  {
+                                                                                                                                                                              "apiId":  "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                                                                                                                                                              "connectionName":  "shared_office365_1",
+                                                                                                                                                                              "operationId":  "SendEmailV2"
+                                                                                                                                                                          },
+                                                                                                                                                                 "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                             }
+                                                                                                                                              }
+                                                                                                     },
+                                                                                         "runAfter":  {
+                                                                                                          "Calculer_Heures_Ecoulees":  [
+                                                                                                                                           "Succeeded"
+                                                                                                                                       ]
+                                                                                                      },
+                                                                                         "else":  {
+                                                                                                      "actions":  {
+                                                                                                                      "Condition_Echeance_Proche":  {
+                                                                                                                                                        "actions":  {
+                                                                                                                                                                        "PATCH_Demande_Echeance":  {
+                                                                                                                                                                                                       "runAfter":  {
+
+                                                                                                                                                                                                                    },
+                                                                                                                                                                                                       "type":  "OpenApiConnection",
+                                                                                                                                                                                                       "inputs":  {
+                                                                                                                                                                                                                      "parameters":  {
+                                                                                                                                                                                                                                         "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                                                                         "table":  "20c94652-f1e6-4f89-9736-cde7b553c412",
+                                                                                                                                                                                                                                         "id":  "@item()?[\u0027ID\u0027]",
+                                                                                                                                                                                                                                         "item/Title":  "@item()?[\u0027Title\u0027]",
+                                                                                                                                                                                                                                         "item/Alerte_Echeance_Notifiee":  true
+                                                                                                                                                                                                                                     },
+                                                                                                                                                                                                                      "host":  {
+                                                                                                                                                                                                                                   "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                                                                                   "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                                                                                   "operationId":  "PatchItem"
+                                                                                                                                                                                                                               },
+                                                                                                                                                                                                                      "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                                                                                  }
+                                                                                                                                                                                                   },
+                                                                                                                                                                        "Creer_Notification_Echeance":  {
+                                                                                                                                                                                                            "runAfter":  {
+                                                                                                                                                                                                                             "PATCH_Demande_Echeance":  [
+                                                                                                                                                                                                                                                            "Succeeded"
+                                                                                                                                                                                                                                                        ]
+                                                                                                                                                                                                                         },
+                                                                                                                                                                                                            "type":  "OpenApiConnection",
+                                                                                                                                                                                                            "inputs":  {
+                                                                                                                                                                                                                           "parameters":  {
+                                                                                                                                                                                                                                              "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                                                                              "table":  "4ba26efc-2982-4bc0-9da6-d44155c3c1de",
+                                                                                                                                                                                                                                              "item/Title":  "@concat(\u0027Echeance proche : \u0027, item()?[\u0027Title\u0027])",
+                                                                                                                                                                                                                                              "item/Destinataire/Claims":  "@if(empty(item()?[\u0027Gestionnaire_Assigne\u0027]?[\u0027Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,item()?[\u0027Gestionnaire_Assigne\u0027]?[\u0027Email\u0027]))",
+                                                                                                                                                                                                                                              "item/Type_Notification/Value":  "Reminder",
+                                                                                                                                                                                                                                              "item/Priority/Value":  "Normal",
+                                                                                                                                                                                                                                              "item/Module":  "Demandes",
+                                                                                                                                                                                                                                              "item/ObjectID":  "@string(item()?[\u0027ID\u0027])",
+                                                                                                                                                                                                                                              "item/Message":  "@concat(\u0027Echeance SLA proche : \u0027, string(outputs(\u0027Calculer_Heures_Ecoulees\u0027)), \u0027h ecoulees sur \u0027, string(outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/SLA_Theorique_Heures\u0027]), \u0027h theoriques.\u0027)",
+                                                                                                                                                                                                                                              "item/Link":  "@concat(\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=\u0027, string(item()?[\u0027ID\u0027]))",
+                                                                                                                                                                                                                                              "item/IsRead":  false
+                                                                                                                                                                                                                                          },
+                                                                                                                                                                                                                           "host":  {
+                                                                                                                                                                                                                                        "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                                                                                        "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                                                                                        "operationId":  "PostItem"
+                                                                                                                                                                                                                                    },
+                                                                                                                                                                                                                           "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                                                                                       }
+                                                                                                                                                                                                        },
+                                                                                                                                                                        "Envoyer_Email_Echeance":  {
+                                                                                                                                                                                                       "runAfter":  {
+                                                                                                                                                                                                                        "Creer_Notification_Echeance":  [
+                                                                                                                                                                                                                                                            "Succeeded"
+                                                                                                                                                                                                                                                        ]
+                                                                                                                                                                                                                    },
+                                                                                                                                                                                                       "type":  "OpenApiConnection",
+                                                                                                                                                                                                       "inputs":  {
+                                                                                                                                                                                                                      "parameters":  {
+                                                                                                                                                                                                                                         "emailMessage/To":  "@item()?[\u0027Gestionnaire_Assigne\u0027]?[\u0027Email\u0027]",
+                                                                                                                                                                                                                                         "emailMessage/Subject":  "@concat(\u0027Echeance SLA proche - \u0027, item()?[\u0027Title\u0027])",
+                                                                                                                                                                                                                                         "emailMessage/Body":  "\u003cp\u003eEcheance SLA proche : @{outputs(\u0027Calculer_Heures_Ecoulees\u0027)}h ecoulees sur @{outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/SLA_Theorique_Heures\u0027]}h theoriques.\u003c/p\u003e\u003c!-- TODO Phase 2.1 : filtrer par Priority si volume trop eleve --\u003e"
+                                                                                                                                                                                                                                     },
+                                                                                                                                                                                                                      "host":  {
+                                                                                                                                                                                                                                   "apiId":  "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                                                                                                                                                                                                                   "connectionName":  "shared_office365_1",
+                                                                                                                                                                                                                                   "operationId":  "SendEmailV2"
+                                                                                                                                                                                                                               },
+                                                                                                                                                                                                                      "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                                                                                  }
+                                                                                                                                                                                                   }
+                                                                                                                                                                    },
+                                                                                                                                                        "runAfter":  {
+
+                                                                                                                                                                     },
+                                                                                                                                                        "else":  {
+                                                                                                                                                                     "actions":  {
+
+                                                                                                                                                                                 }
+                                                                                                                                                                 },
+                                                                                                                                                        "expression":  {
+                                                                                                                                                                           "and":  [
+                                                                                                                                                                                       {
+                                                                                                                                                                                           "greaterOrEquals":  [
+                                                                                                                                                                                                                   "@int(outputs(\u0027Calculer_Heures_Ecoulees\u0027))",
+                                                                                                                                                                                                                   "@mul(outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/SLA_Theorique_Heures\u0027], 0.8)"
+                                                                                                                                                                                                               ]
+                                                                                                                                                                                       },
+                                                                                                                                                                                       {
+                                                                                                                                                                                           "less":  [
+                                                                                                                                                                                                        "@int(outputs(\u0027Calculer_Heures_Ecoulees\u0027))",
+                                                                                                                                                                                                        "@outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/SLA_Theorique_Heures\u0027]"
+                                                                                                                                                                                                    ]
+                                                                                                                                                                                       },
+                                                                                                                                                                                       {
+                                                                                                                                                                                           "equals":  [
+                                                                                                                                                                                                          "@item()?[\u0027Alerte_Echeance_Notifiee\u0027]",
+                                                                                                                                                                                                          false
+                                                                                                                                                                                                      ]
+                                                                                                                                                                                       }
+                                                                                                                                                                                   ]
+                                                                                                                                                                       },
+                                                                                                                                                        "type":  "If"
+                                                                                                                                                    }
+                                                                                                                  }
+                                                                                                  },
+                                                                                         "expression":  {
+                                                                                                            "and":  [
+                                                                                                                        {
+                                                                                                                            "greaterOrEquals":  [
+                                                                                                                                                    "@int(outputs(\u0027Calculer_Heures_Ecoulees\u0027))",
+                                                                                                                                                    "@outputs(\u0027Get_Service_SLA\u0027)?[\u0027body/SLA_Theorique_Heures\u0027]"
+                                                                                                                                                ]
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "equals":  [
+                                                                                                                                           "@item()?[\u0027Alerte_Retard_Active\u0027]",
+                                                                                                                                           false
+                                                                                                                                       ]
+                                                                                                                        }
+                                                                                                                    ]
+                                                                                                        },
+                                                                                         "type":  "If"
+                                                                                     }
+                                                            },
+                                                "runAfter":  {
+                                                                 "Get_Demandes_Ouvertes":  [
+                                                                                               "Succeeded"
+                                                                                           ]
+                                                             },
+                                                "type":  "Foreach"
+                                            }
+                }
+}

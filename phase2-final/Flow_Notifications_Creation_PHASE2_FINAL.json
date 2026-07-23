@@ -1,0 +1,116 @@
+﻿{
+    "$schema":  "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion":  "1.0.0.0",
+    "parameters":  {
+                       "$authentication":  {
+                                               "defaultValue":  {
+
+                                                                },
+                                               "type":  "SecureObject"
+                                           },
+                       "$connections":  {
+                                            "defaultValue":  {
+
+                                                             },
+                                            "type":  "Object"
+                                        }
+                   },
+    "triggers":  {
+                     "Lorsqu’un_élément_est_créé":  {
+                                                        "recurrence":  {
+                                                                           "frequency":  "Minute",
+                                                                           "interval":  1
+                                                                       },
+                                                        "evaluatedRecurrence":  {
+                                                                                    "frequency":  "Minute",
+                                                                                    "interval":  1
+                                                                                },
+                                                        "splitOn":  "@triggerOutputs()?[\u0027body/value\u0027]",
+                                                        "type":  "OpenApiConnection",
+                                                        "inputs":  {
+                                                                       "parameters":  {
+                                                                                          "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                          "table":  "20c94652-f1e6-4f89-9736-cde7b553c412"
+                                                                                      },
+                                                                       "host":  {
+                                                                                    "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                    "connectionName":  "shared_sharepointonline",
+                                                                                    "operationId":  "GetOnNewItems"
+                                                                                },
+                                                                       "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                   }
+                                                    }
+                 },
+    "actions":  {
+                    "Get_Service_Responsable":  {
+                                                    "runAfter":  {
+
+                                                                 },
+                                                    "type":  "OpenApiConnection",
+                                                    "inputs":  {
+                                                                   "parameters":  {
+                                                                                      "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                      "table":  "3ab13499-7d73-4eb7-a97e-ab1ffb218b48",
+                                                                                      "id":  "@triggerOutputs()?[\u0027body/Service_Actuel_ID#Id\u0027]"
+                                                                                  },
+                                                                   "host":  {
+                                                                                "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                "connectionName":  "shared_sharepointonline",
+                                                                                "operationId":  "GetItem"
+                                                                            },
+                                                                   "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                               }
+                                                },
+                    "Creer_Notification":  {
+                                               "runAfter":  {
+                                                                "Get_Service_Responsable":  [
+                                                                                                "Succeeded"
+                                                                                            ]
+                                                            },
+                                               "type":  "OpenApiConnection",
+                                               "inputs":  {
+                                                              "parameters":  {
+                                                                                 "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                 "table":  "4ba26efc-2982-4bc0-9da6-d44155c3c1de",
+                                                                                 "item/Title":  "@concat(\u0027Nouvelle demande : \u0027, triggerOutputs()?[\u0027body/Title\u0027])",
+                                                                                 "item/Destinataire/Claims":  "@if(empty(outputs(\u0027Get_Service_Responsable\u0027)?[\u0027body/Responsable_Service/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,outputs(\u0027Get_Service_Responsable\u0027)?[\u0027body/Responsable_Service/Email\u0027]))",
+                                                                                 "item/Type_Notification/Value":  "Information",
+                                                                                 "item/Priority/Value":  "Normal",
+                                                                                 "item/Module":  "Demandes",
+                                                                                 "item/ObjectID":  "@string(triggerBody()?[\u0027ID\u0027])",
+                                                                                 "item/Message":  "@concat(\u0027Type : \u0027, triggerOutputs()?[\u0027body/Type_Demande_ID/Value\u0027], \u0027 | Urgence : \u0027, triggerOutputs()?[\u0027body/Niveau_Urgence/Value\u0027], \u0027 | Demandeur : \u0027, triggerOutputs()?[\u0027body/Agent_Demandeur/DisplayName\u0027])",
+                                                                                 "item/Link":  "@concat(\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=\u0027, string(triggerBody()?[\u0027ID\u0027]))",
+                                                                                 "item/IsRead":  false
+                                                                             },
+                                                              "host":  {
+                                                                           "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                           "connectionName":  "shared_sharepointonline",
+                                                                           "operationId":  "PostItem"
+                                                                       },
+                                                              "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                          }
+                                           },
+                    "Envoyer_Email_Responsable":  {
+                                                      "runAfter":  {
+                                                                       "Creer_Notification":  [
+                                                                                                  "Succeeded"
+                                                                                              ]
+                                                                   },
+                                                      "type":  "OpenApiConnection",
+                                                      "inputs":  {
+                                                                     "parameters":  {
+                                                                                        "emailMessage/To":  "@outputs(\u0027Get_Service_Responsable\u0027)?[\u0027body/Responsable_Service/Email\u0027]",
+                                                                                        "emailMessage/Subject":  "@concat(\u0027Nouvelle demande a traiter - \u0027, triggerOutputs()?[\u0027body/Title\u0027])",
+                                                                                        "emailMessage/Body":  "\u003cp\u003eUne nouvelle demande a ete soumise et necessite votre attention.\u003c/p\u003e\u003cp\u003eType : @{triggerOutputs()?[\u0027body/Type_Demande_ID/Value\u0027]}\u003cbr/\u003eUrgence : @{triggerOutputs()?[\u0027body/Niveau_Urgence/Value\u0027]}\u003cbr/\u003eDemandeur : @{triggerOutputs()?[\u0027body/Agent_Demandeur/DisplayName\u0027]}\u003c/p\u003e\u003cp\u003e\u003ca href=\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=@{string(triggerBody()?[\u0027ID\u0027])}\u0027\u003eOuvrir la demande\u003c/a\u003e\u003c/p\u003e\u003c!-- TODO Phase 2.1 : filtrer par Priority si volume trop eleve --\u003e",
+                                                                                        "emailMessage/Importance":  "Normal"
+                                                                                    },
+                                                                     "host":  {
+                                                                                  "apiId":  "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                                                                  "connectionName":  "shared_office365_1",
+                                                                                  "operationId":  "SendEmailV2"
+                                                                              },
+                                                                     "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                 }
+                                                  }
+                }
+}

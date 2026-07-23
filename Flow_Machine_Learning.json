@@ -1,0 +1,123 @@
+{
+  "properties": {
+    "displayName": "Flow_Machine_Learning",
+    "state": "Started",
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "connectionName": "shared-sharepointonl-94536be7-f10c-44b1-8968-22b7ea3c7333",
+        "source": "Embedded",
+        "id": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": { "defaultValue": {}, "type": "SecureObject" },
+        "$connections": { "defaultValue": {}, "type": "Object" }
+      },
+      "triggers": {
+        "Lorsqu_un_element_est_cree": {
+          "recurrence": { "frequency": "Minute", "interval": 1 },
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+              "table": "20c94652-f1e6-4f89-9736-cde7b553c412"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "connectionName": "shared_sharepointonline",
+              "operationId": "GetOnNewItems"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Check_API_Health": {
+          "type": "Http",
+          "inputs": {
+            "method": "GET",
+            "uri": "https://e9bf-197-23-242-73.ngrok-free.app/health",
+            "headers": { "ngrok-skip-browser-warning": "true" }
+          },
+          "limit": { "timeout": "PT30S" },
+          "runAfter": {}
+        },
+        "Condition_API_OK": {
+          "type": "If",
+          "expression": {
+            "and": [{ "equals": ["@outputs('Check_API_Health')?['statusCode']", 200] }]
+          },
+          "actions": {
+            "Compose_ML_Payload": {
+              "type": "Compose",
+              "inputs": {
+                "service": "@triggerOutputs()?['body/Service_Actuel_ID/Value']",
+                "niveau_urgence": "@triggerOutputs()?['body/Niveau_Urgence/Value']",
+                "type_demande": "@triggerOutputs()?['body/Type_Demande_ID/Value']",
+                "heure_soumission": "@int(formatDateTime(triggerOutputs()?['body/Date_Soumission'],'H'))",
+                "jour_semaine": "@int(dayOfWeek(triggerOutputs()?['body/Date_Soumission']))",
+                "sla_service_heures": 48.0
+              },
+              "runAfter": {}
+            },
+            "Predict_Delai": {
+              "type": "Http",
+              "inputs": {
+                "method": "POST",
+                "uri": "https://e9bf-197-23-242-73.ngrok-free.app/predict/delai",
+                "headers": { "Content-Type": "application/json", "ngrok-skip-browser-warning": "true" },
+                "body": "@outputs('Compose_ML_Payload')"
+              },
+              "limit": { "timeout": "PT30S" },
+              "runAfter": { "Compose_ML_Payload": ["Succeeded"] }
+            },
+            "Predict_Risque": {
+              "type": "Http",
+              "inputs": {
+                "method": "POST",
+                "uri": "https://e9bf-197-23-242-73.ngrok-free.app/predict/risque",
+                "headers": { "Content-Type": "application/json", "ngrok-skip-browser-warning": "true" },
+                "body": "@outputs('Compose_ML_Payload')"
+              },
+              "limit": { "timeout": "PT30S" },
+              "runAfter": { "Predict_Delai": ["Succeeded"] }
+            },
+            "Update_Demande_ML": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                  "table": "20c94652-f1e6-4f89-9736-cde7b553c412",
+                  "id": "@triggerBody()?['ID']",
+                  "item/Title": "@triggerBody()?['Title']",
+                  "item/Prediction_Delai_ML": "@body('Predict_Delai')?['prediction_heures']",
+                  "item/Probabilite_Retard_ML": "@body('Predict_Risque')?['probabilite_retard']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "PatchItem"
+                }
+              },
+              "runAfter": { "Predict_Risque": ["Succeeded"] }
+            }
+          },
+          "else": {
+            "actions": {
+              "Terminate_API_Indisponible": {
+                "type": "Terminate",
+                "inputs": { "runStatus": "Succeeded" },
+                "runAfter": {}
+              }
+            }
+          },
+          "runAfter": { "Check_API_Health": ["Succeeded", "Failed", "TimedOut"] }
+        }
+      }
+    }
+  }
+}

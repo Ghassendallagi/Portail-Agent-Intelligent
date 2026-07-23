@@ -1,0 +1,445 @@
+﻿{
+    "$schema":  "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion":  "1.0.0.0",
+    "parameters":  {
+                       "$authentication":  {
+                                               "defaultValue":  {
+
+                                                                },
+                                               "type":  "SecureObject"
+                                           },
+                       "$connections":  {
+                                            "defaultValue":  {
+
+                                                             },
+                                            "type":  "Object"
+                                        }
+                   },
+    "triggers":  {
+                     "Lorsqu’un_élément_est_créé":  {
+                                                        "recurrence":  {
+                                                                           "frequency":  "Minute",
+                                                                           "interval":  1
+                                                                       },
+                                                        "evaluatedRecurrence":  {
+                                                                                    "frequency":  "Minute",
+                                                                                    "interval":  1
+                                                                                },
+                                                        "splitOn":  "@triggerOutputs()?[\u0027body/value\u0027]",
+                                                        "type":  "OpenApiConnection",
+                                                        "inputs":  {
+                                                                       "parameters":  {
+                                                                                          "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                          "table":  "711be3b1-2c60-4936-b580-9e20ceac050c"
+                                                                                      },
+                                                                       "host":  {
+                                                                                    "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                    "connectionName":  "shared_sharepointonline",
+                                                                                    "operationId":  "GetOnNewItems"
+                                                                                },
+                                                                       "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                   }
+                                                    }
+                 },
+    "actions":  {
+                    "Get_Demande":  {
+                                        "runAfter":  {
+
+                                                     },
+                                        "type":  "OpenApiConnection",
+                                        "inputs":  {
+                                                       "parameters":  {
+                                                                          "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                          "table":  "20c94652-f1e6-4f89-9736-cde7b553c412",
+                                                                          "id":  "@int(triggerOutputs()?[\u0027body/Demande_ID\u0027])"
+                                                                      },
+                                                       "host":  {
+                                                                    "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                    "connectionName":  "shared_sharepointonline",
+                                                                    "operationId":  "GetItem"
+                                                                },
+                                                       "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                   }
+                                    },
+                    "Switch_Type_Modification":  {
+                                                     "runAfter":  {
+                                                                      "Get_Demande":  [
+                                                                                          "Succeeded"
+                                                                                      ]
+                                                                  },
+                                                     "cases":  {
+                                                                   "Case_Assignation":  {
+                                                                                            "case":  "Assignation",
+                                                                                            "actions":  {
+                                                                                                            "Creer_Notification_Assignation":  {
+                                                                                                                                                   "runAfter":  {
+
+                                                                                                                                                                },
+                                                                                                                                                   "type":  "OpenApiConnection",
+                                                                                                                                                   "inputs":  {
+                                                                                                                                                                  "parameters":  {
+                                                                                                                                                                                     "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                     "table":  "4ba26efc-2982-4bc0-9da6-d44155c3c1de",
+                                                                                                                                                                                     "item/Title":  "@concat(\u0027Demande prise en charge : \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                                     "item/Destinataire/Claims":  "@if(empty(outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]))",
+                                                                                                                                                                                     "item/Type_Notification/Value":  "Information",
+                                                                                                                                                                                     "item/Priority/Value":  "Normal",
+                                                                                                                                                                                     "item/Module":  "Demandes",
+                                                                                                                                                                                     "item/ObjectID":  "@triggerOutputs()?[\u0027body/Demande_ID\u0027]",
+                                                                                                                                                                                     "item/Message":  "@concat(\u0027Votre demande est prise en charge par \u0027, triggerOutputs()?[\u0027body/Gestionnaire_A_Ce_Moment/DisplayName\u0027])",
+                                                                                                                                                                                     "item/Link":  "@concat(\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=\u0027, triggerOutputs()?[\u0027body/Demande_ID\u0027])",
+                                                                                                                                                                                     "item/IsRead":  false
+                                                                                                                                                                                 },
+                                                                                                                                                                  "host":  {
+                                                                                                                                                                               "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                               "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                               "operationId":  "PostItem"
+                                                                                                                                                                           },
+                                                                                                                                                                  "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                              }
+                                                                                                                                               },
+                                                                                                            "Envoyer_Email_Assignation":  {
+                                                                                                                                              "runAfter":  {
+                                                                                                                                                               "Creer_Notification_Assignation":  [
+                                                                                                                                                                                                      "Succeeded"
+                                                                                                                                                                                                  ]
+                                                                                                                                                           },
+                                                                                                                                              "type":  "OpenApiConnection",
+                                                                                                                                              "inputs":  {
+                                                                                                                                                             "parameters":  {
+                                                                                                                                                                                "emailMessage/To":  "@outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]",
+                                                                                                                                                                                "emailMessage/Subject":  "@concat(\u0027Votre demande est prise en charge - \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                                "emailMessage/Body":  "\u003cp\u003eVotre demande est desormais prise en charge par @{triggerOutputs()?[\u0027body/Gestionnaire_A_Ce_Moment/DisplayName\u0027]}.\u003c/p\u003e\u003c!-- TODO Phase 2.1 : filtrer par Priority si volume trop eleve --\u003e"
+                                                                                                                                                                            },
+                                                                                                                                                             "host":  {
+                                                                                                                                                                          "apiId":  "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                                                                                                                                                          "connectionName":  "shared_office365_1",
+                                                                                                                                                                          "operationId":  "SendEmailV2"
+                                                                                                                                                                      },
+                                                                                                                                                             "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                         }
+                                                                                                                                          }
+                                                                                                        }
+                                                                                        },
+                                                                   "Case_Transfert":  {
+                                                                                          "case":  "Transfert",
+                                                                                          "actions":  {
+                                                                                                          "Get_Nouveau_Service":  {
+                                                                                                                                      "runAfter":  {
+
+                                                                                                                                                   },
+                                                                                                                                      "type":  "OpenApiConnection",
+                                                                                                                                      "inputs":  {
+                                                                                                                                                     "parameters":  {
+                                                                                                                                                                        "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                        "table":  "3ab13499-7d73-4eb7-a97e-ab1ffb218b48",
+                                                                                                                                                                        "$filter":  "Title eq \u0027@{triggerOutputs()?[\u0027body/Service_A_Ce_Moment\u0027]}\u0027",
+                                                                                                                                                                        "$top":  1
+                                                                                                                                                                    },
+                                                                                                                                                     "host":  {
+                                                                                                                                                                  "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                  "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                  "operationId":  "GetItems"
+                                                                                                                                                              },
+                                                                                                                                                     "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                 }
+                                                                                                                                  },
+                                                                                                          "Creer_Notification_Transfert":  {
+                                                                                                                                               "runAfter":  {
+                                                                                                                                                                "Get_Nouveau_Service":  [
+                                                                                                                                                                                            "Succeeded"
+                                                                                                                                                                                        ]
+                                                                                                                                                            },
+                                                                                                                                               "type":  "OpenApiConnection",
+                                                                                                                                               "inputs":  {
+                                                                                                                                                              "parameters":  {
+                                                                                                                                                                                 "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                 "table":  "4ba26efc-2982-4bc0-9da6-d44155c3c1de",
+                                                                                                                                                                                 "item/Title":  "@concat(\u0027Transfert de demande : \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                                 "item/Destinataire/Claims":  "@if(empty(first(outputs(\u0027Get_Nouveau_Service\u0027)?[\u0027body/value\u0027])?[\u0027Responsable_Service\u0027]?[\u0027Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,first(outputs(\u0027Get_Nouveau_Service\u0027)?[\u0027body/value\u0027])?[\u0027Responsable_Service\u0027]?[\u0027Email\u0027]))",
+                                                                                                                                                                                 "item/Type_Notification/Value":  "Warning",
+                                                                                                                                                                                 "item/Priority/Value":  "Normal",
+                                                                                                                                                                                 "item/Module":  "Demandes",
+                                                                                                                                                                                 "item/ObjectID":  "@triggerOutputs()?[\u0027body/Demande_ID\u0027]",
+                                                                                                                                                                                 "item/Message":  "@concat(\u0027La demande a ete transferee vers le service : \u0027, triggerOutputs()?[\u0027body/Service_A_Ce_Moment\u0027])",
+                                                                                                                                                                                 "item/Link":  "@concat(\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=\u0027, triggerOutputs()?[\u0027body/Demande_ID\u0027])",
+                                                                                                                                                                                 "item/IsRead":  false
+                                                                                                                                                                             },
+                                                                                                                                                              "host":  {
+                                                                                                                                                                           "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                           "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                           "operationId":  "PostItem"
+                                                                                                                                                                       },
+                                                                                                                                                              "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                          }
+                                                                                                                                           },
+                                                                                                          "Envoyer_Email_Transfert":  {
+                                                                                                                                          "runAfter":  {
+                                                                                                                                                           "Creer_Notification_Transfert":  [
+                                                                                                                                                                                                "Succeeded"
+                                                                                                                                                                                            ]
+                                                                                                                                                       },
+                                                                                                                                          "type":  "OpenApiConnection",
+                                                                                                                                          "inputs":  {
+                                                                                                                                                         "parameters":  {
+                                                                                                                                                                            "emailMessage/To":  "@first(outputs(\u0027Get_Nouveau_Service\u0027)?[\u0027body/value\u0027])?[\u0027Responsable_Service\u0027]?[\u0027Email\u0027]",
+                                                                                                                                                                            "emailMessage/Subject":  "@concat(\u0027Demande transferee vers votre service - \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                            "emailMessage/Body":  "\u003cp\u003eUne demande a ete transferee vers votre service : @{triggerOutputs()?[\u0027body/Service_A_Ce_Moment\u0027]}.\u003c/p\u003e\u003c!-- TODO Phase 2.1 : filtrer par Priority si volume trop eleve --\u003e"
+                                                                                                                                                                        },
+                                                                                                                                                         "host":  {
+                                                                                                                                                                      "apiId":  "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                                                                                                                                                      "connectionName":  "shared_office365_1",
+                                                                                                                                                                      "operationId":  "SendEmailV2"
+                                                                                                                                                                  },
+                                                                                                                                                         "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                     }
+                                                                                                                                      }
+                                                                                                      }
+                                                                                      },
+                                                                   "Case_Validation":  {
+                                                                                           "case":  "Validation",
+                                                                                           "actions":  {
+                                                                                                           "Creer_Notification_Validation":  {
+                                                                                                                                                 "runAfter":  {
+
+                                                                                                                                                              },
+                                                                                                                                                 "type":  "OpenApiConnection",
+                                                                                                                                                 "inputs":  {
+                                                                                                                                                                "parameters":  {
+                                                                                                                                                                                   "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                   "table":  "4ba26efc-2982-4bc0-9da6-d44155c3c1de",
+                                                                                                                                                                                   "item/Title":  "@concat(\u0027Demande validee : \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                                   "item/Destinataire/Claims":  "@if(empty(outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]))",
+                                                                                                                                                                                   "item/Type_Notification/Value":  "Validation",
+                                                                                                                                                                                   "item/Priority/Value":  "High",
+                                                                                                                                                                                   "item/Module":  "Demandes",
+                                                                                                                                                                                   "item/ObjectID":  "@triggerOutputs()?[\u0027body/Demande_ID\u0027]",
+                                                                                                                                                                                   "item/Message":  "Votre demande a ete validee.",
+                                                                                                                                                                                   "item/Link":  "@concat(\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=\u0027, triggerOutputs()?[\u0027body/Demande_ID\u0027])",
+                                                                                                                                                                                   "item/IsRead":  false
+                                                                                                                                                                               },
+                                                                                                                                                                "host":  {
+                                                                                                                                                                             "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                             "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                             "operationId":  "PostItem"
+                                                                                                                                                                         },
+                                                                                                                                                                "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                            }
+                                                                                                                                             },
+                                                                                                           "Envoyer_Email_Validation":  {
+                                                                                                                                            "runAfter":  {
+                                                                                                                                                             "Creer_Notification_Validation":  [
+                                                                                                                                                                                                   "Succeeded"
+                                                                                                                                                                                               ]
+                                                                                                                                                         },
+                                                                                                                                            "type":  "OpenApiConnection",
+                                                                                                                                            "inputs":  {
+                                                                                                                                                           "parameters":  {
+                                                                                                                                                                              "emailMessage/To":  "@outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]",
+                                                                                                                                                                              "emailMessage/Subject":  "@concat(\u0027Votre demande a ete validee - \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                              "emailMessage/Body":  "\u003cp\u003eVotre demande a ete validee.\u003c/p\u003e\u003c!-- TODO Phase 2.1 : filtrer par Priority si volume trop eleve --\u003e"
+                                                                                                                                                                          },
+                                                                                                                                                           "host":  {
+                                                                                                                                                                        "apiId":  "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                                                                                                                                                        "connectionName":  "shared_office365_1",
+                                                                                                                                                                        "operationId":  "SendEmailV2"
+                                                                                                                                                                    },
+                                                                                                                                                           "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                       }
+                                                                                                                                        }
+                                                                                                       }
+                                                                                       },
+                                                                   "Case_Rejet":  {
+                                                                                      "case":  "Rejet",
+                                                                                      "actions":  {
+                                                                                                      "Get_Service_Actuel_Rejet":  {
+                                                                                                                                       "runAfter":  {
+
+                                                                                                                                                    },
+                                                                                                                                       "type":  "OpenApiConnection",
+                                                                                                                                       "inputs":  {
+                                                                                                                                                      "parameters":  {
+                                                                                                                                                                         "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                         "table":  "3ab13499-7d73-4eb7-a97e-ab1ffb218b48",
+                                                                                                                                                                         "id":  "@outputs(\u0027Get_Demande\u0027)?[\u0027body/Service_Actuel_ID#Id\u0027]"
+                                                                                                                                                                     },
+                                                                                                                                                      "host":  {
+                                                                                                                                                                   "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                   "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                   "operationId":  "GetItem"
+                                                                                                                                                               },
+                                                                                                                                                      "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                  }
+                                                                                                                                   },
+                                                                                                      "Creer_Notification_Rejet_Agent":  {
+                                                                                                                                             "runAfter":  {
+                                                                                                                                                              "Get_Service_Actuel_Rejet":  [
+                                                                                                                                                                                               "Succeeded"
+                                                                                                                                                                                           ]
+                                                                                                                                                          },
+                                                                                                                                             "type":  "OpenApiConnection",
+                                                                                                                                             "inputs":  {
+                                                                                                                                                            "parameters":  {
+                                                                                                                                                                               "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                               "table":  "4ba26efc-2982-4bc0-9da6-d44155c3c1de",
+                                                                                                                                                                               "item/Title":  "@concat(\u0027Demande rejetee : \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                               "item/Destinataire/Claims":  "@if(empty(outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]))",
+                                                                                                                                                                               "item/Type_Notification/Value":  "Refus",
+                                                                                                                                                                               "item/Priority/Value":  "High",
+                                                                                                                                                                               "item/Module":  "Demandes",
+                                                                                                                                                                               "item/ObjectID":  "@triggerOutputs()?[\u0027body/Demande_ID\u0027]",
+                                                                                                                                                                               "item/Message":  "@if(empty(outputs(\u0027Get_Demande\u0027)?[\u0027body/Motif_Rejet\u0027]),\u0027Votre demande a ete rejetee.\u0027,concat(\u0027Votre demande a ete rejetee. Motif : \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Motif_Rejet\u0027]))",
+                                                                                                                                                                               "item/Link":  "@concat(\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=\u0027, triggerOutputs()?[\u0027body/Demande_ID\u0027])",
+                                                                                                                                                                               "item/IsRead":  false
+                                                                                                                                                                           },
+                                                                                                                                                            "host":  {
+                                                                                                                                                                         "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                         "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                         "operationId":  "PostItem"
+                                                                                                                                                                     },
+                                                                                                                                                            "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                        }
+                                                                                                                                         },
+                                                                                                      "Envoyer_Email_Rejet_Agent":  {
+                                                                                                                                        "runAfter":  {
+                                                                                                                                                         "Creer_Notification_Rejet_Agent":  [
+                                                                                                                                                                                                "Succeeded"
+                                                                                                                                                                                            ]
+                                                                                                                                                     },
+                                                                                                                                        "type":  "OpenApiConnection",
+                                                                                                                                        "inputs":  {
+                                                                                                                                                       "parameters":  {
+                                                                                                                                                                          "emailMessage/To":  "@outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]",
+                                                                                                                                                                          "emailMessage/Subject":  "@concat(\u0027Votre demande a ete rejetee - \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                          "emailMessage/Body":  "\u003cp\u003e@{if(empty(outputs(\u0027Get_Demande\u0027)?[\u0027body/Motif_Rejet\u0027]),\u0027Votre demande a ete rejetee.\u0027,concat(\u0027Votre demande a ete rejetee. Motif : \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Motif_Rejet\u0027]))}\u003c/p\u003e\u003c!-- TODO Phase 2.1 : filtrer par Priority si volume trop eleve --\u003e"
+                                                                                                                                                                      },
+                                                                                                                                                       "host":  {
+                                                                                                                                                                    "apiId":  "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                                                                                                                                                    "connectionName":  "shared_office365_1",
+                                                                                                                                                                    "operationId":  "SendEmailV2"
+                                                                                                                                                                },
+                                                                                                                                                       "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                   }
+                                                                                                                                    },
+                                                                                                      "Creer_Notification_Rejet_Responsable":  {
+                                                                                                                                                   "runAfter":  {
+                                                                                                                                                                    "Get_Service_Actuel_Rejet":  [
+                                                                                                                                                                                                     "Succeeded"
+                                                                                                                                                                                                 ]
+                                                                                                                                                                },
+                                                                                                                                                   "type":  "OpenApiConnection",
+                                                                                                                                                   "inputs":  {
+                                                                                                                                                                  "parameters":  {
+                                                                                                                                                                                     "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                     "table":  "4ba26efc-2982-4bc0-9da6-d44155c3c1de",
+                                                                                                                                                                                     "item/Title":  "@concat(\u0027Demande rejetee (service) : \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                                     "item/Destinataire/Claims":  "@if(empty(outputs(\u0027Get_Service_Actuel_Rejet\u0027)?[\u0027body/Responsable_Service/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,outputs(\u0027Get_Service_Actuel_Rejet\u0027)?[\u0027body/Responsable_Service/Email\u0027]))",
+                                                                                                                                                                                     "item/Type_Notification/Value":  "Refus",
+                                                                                                                                                                                     "item/Priority/Value":  "High",
+                                                                                                                                                                                     "item/Module":  "Demandes",
+                                                                                                                                                                                     "item/ObjectID":  "@triggerOutputs()?[\u0027body/Demande_ID\u0027]",
+                                                                                                                                                                                     "item/Message":  "@if(empty(outputs(\u0027Get_Demande\u0027)?[\u0027body/Motif_Rejet\u0027]),\u0027La demande a ete rejetee.\u0027,concat(\u0027La demande a ete rejetee. Motif : \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Motif_Rejet\u0027]))",
+                                                                                                                                                                                     "item/Link":  "@concat(\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=\u0027, triggerOutputs()?[\u0027body/Demande_ID\u0027])",
+                                                                                                                                                                                     "item/IsRead":  false
+                                                                                                                                                                                 },
+                                                                                                                                                                  "host":  {
+                                                                                                                                                                               "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                               "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                               "operationId":  "PostItem"
+                                                                                                                                                                           },
+                                                                                                                                                                  "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                              }
+                                                                                                                                               },
+                                                                                                      "Envoyer_Email_Rejet_Responsable":  {
+                                                                                                                                              "runAfter":  {
+                                                                                                                                                               "Creer_Notification_Rejet_Responsable":  [
+                                                                                                                                                                                                            "Succeeded"
+                                                                                                                                                                                                        ]
+                                                                                                                                                           },
+                                                                                                                                              "type":  "OpenApiConnection",
+                                                                                                                                              "inputs":  {
+                                                                                                                                                             "parameters":  {
+                                                                                                                                                                                "emailMessage/To":  "@outputs(\u0027Get_Service_Actuel_Rejet\u0027)?[\u0027body/Responsable_Service/Email\u0027]",
+                                                                                                                                                                                "emailMessage/Subject":  "@concat(\u0027Une demande de votre service a ete rejetee - \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                                "emailMessage/Body":  "\u003cp\u003e@{if(empty(outputs(\u0027Get_Demande\u0027)?[\u0027body/Motif_Rejet\u0027]),\u0027La demande a ete rejetee.\u0027,concat(\u0027La demande a ete rejetee. Motif : \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Motif_Rejet\u0027]))}\u003c/p\u003e\u003c!-- TODO Phase 2.1 : filtrer par Priority si volume trop eleve --\u003e"
+                                                                                                                                                                            },
+                                                                                                                                                             "host":  {
+                                                                                                                                                                          "apiId":  "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                                                                                                                                                          "connectionName":  "shared_office365_1",
+                                                                                                                                                                          "operationId":  "SendEmailV2"
+                                                                                                                                                                      },
+                                                                                                                                                             "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                         }
+                                                                                                                                          }
+                                                                                                  }
+                                                                                  },
+                                                                   "Case_Cloture":  {
+                                                                                        "case":  "Clôture",
+                                                                                        "actions":  {
+                                                                                                        "Creer_Notification_Cloture":  {
+                                                                                                                                           "runAfter":  {
+
+                                                                                                                                                        },
+                                                                                                                                           "type":  "OpenApiConnection",
+                                                                                                                                           "inputs":  {
+                                                                                                                                                          "parameters":  {
+                                                                                                                                                                             "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                             "table":  "4ba26efc-2982-4bc0-9da6-d44155c3c1de",
+                                                                                                                                                                             "item/Title":  "@concat(\u0027Demande cloturee : \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                             "item/Destinataire/Claims":  "@if(empty(outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]))",
+                                                                                                                                                                             "item/Type_Notification/Value":  "Success",
+                                                                                                                                                                             "item/Priority/Value":  "Normal",
+                                                                                                                                                                             "item/Module":  "Demandes",
+                                                                                                                                                                             "item/ObjectID":  "@triggerOutputs()?[\u0027body/Demande_ID\u0027]",
+                                                                                                                                                                             "item/Message":  "Votre demande a ete cloturee.",
+                                                                                                                                                                             "item/Link":  "@concat(\u0027https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents/Lists/Demandes/DispForm.aspx?ID=\u0027, triggerOutputs()?[\u0027body/Demande_ID\u0027])",
+                                                                                                                                                                             "item/IsRead":  false
+                                                                                                                                                                         },
+                                                                                                                                                          "host":  {
+                                                                                                                                                                       "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                       "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                       "operationId":  "PostItem"
+                                                                                                                                                                   },
+                                                                                                                                                          "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                        "Envoyer_Email_Cloture":  {
+                                                                                                                                      "runAfter":  {
+                                                                                                                                                       "Creer_Notification_Cloture":  [
+                                                                                                                                                                                          "Succeeded"
+                                                                                                                                                                                      ]
+                                                                                                                                                   },
+                                                                                                                                      "type":  "OpenApiConnection",
+                                                                                                                                      "inputs":  {
+                                                                                                                                                     "parameters":  {
+                                                                                                                                                                        "emailMessage/To":  "@outputs(\u0027Get_Demande\u0027)?[\u0027body/Agent_Demandeur/Email\u0027]",
+                                                                                                                                                                        "emailMessage/Subject":  "@concat(\u0027Votre demande a ete cloturee - \u0027, outputs(\u0027Get_Demande\u0027)?[\u0027body/Title\u0027])",
+                                                                                                                                                                        "emailMessage/Body":  "\u003cp\u003eVotre demande a ete cloturee.\u003c/p\u003e\u003c!-- TODO Phase 2.1 : filtrer par Priority si volume trop eleve --\u003e"
+                                                                                                                                                                    },
+                                                                                                                                                     "host":  {
+                                                                                                                                                                  "apiId":  "/providers/Microsoft.PowerApps/apis/shared_office365",
+                                                                                                                                                                  "connectionName":  "shared_office365_1",
+                                                                                                                                                                  "operationId":  "SendEmailV2"
+                                                                                                                                                              },
+                                                                                                                                                     "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                 }
+                                                                                                                                  }
+                                                                                                    }
+                                                                                    },
+                                                                   "Case_Reaffectation":  {
+                                                                                              "case":  "Réaffectation",
+                                                                                              "actions":  {
+
+                                                                                                          }
+                                                                                          }
+                                                               },
+                                                     "default":  {
+                                                                     "actions":  {
+
+                                                                                 }
+                                                                 },
+                                                     "expression":  "@triggerOutputs()?[\u0027body/Type_Modification/Value\u0027]",
+                                                     "type":  "Switch"
+                                                 }
+                }
+}

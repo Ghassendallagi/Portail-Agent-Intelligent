@@ -1,0 +1,413 @@
+﻿{
+    "$schema":  "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion":  "1.0.0.0",
+    "parameters":  {
+                       "$authentication":  {
+                                               "defaultValue":  {
+
+                                                                },
+                                               "type":  "SecureObject"
+                                           },
+                       "$connections":  {
+                                            "defaultValue":  {
+
+                                                             },
+                                            "type":  "Object"
+                                        }
+                   },
+    "triggers":  {
+                     "Lorsqu’un_élément_est_créé_ou_modifié":  {
+                                                                   "recurrence":  {
+                                                                                      "frequency":  "Minute",
+                                                                                      "interval":  1
+                                                                                  },
+                                                                   "evaluatedRecurrence":  {
+                                                                                               "frequency":  "Minute",
+                                                                                               "interval":  1
+                                                                                           },
+                                                                   "splitOn":  "@triggerOutputs()?[\u0027body/value\u0027]",
+                                                                   "type":  "OpenApiConnection",
+                                                                   "inputs":  {
+                                                                                  "parameters":  {
+                                                                                                     "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                     "table":  "20c94652-f1e6-4f89-9736-cde7b553c412"
+                                                                                                 },
+                                                                                  "host":  {
+                                                                                               "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                               "connectionName":  "shared_sharepointonline",
+                                                                                               "operationId":  "GetOnUpdatedItems"
+                                                                                           },
+                                                                                  "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                              }
+                                                               }
+                 },
+    "actions":  {
+                    "Condition":  {
+                                      "actions":  {
+                                                      "Mettre_à_jour_l\u0027élément":  {
+                                                                                           "type":  "OpenApiConnection",
+                                                                                           "inputs":  {
+                                                                                                          "parameters":  {
+                                                                                                                             "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                             "table":  "20c94652-f1e6-4f89-9736-cde7b553c412",
+                                                                                                                             "id":  "@triggerBody()?[\u0027ID\u0027]",
+                                                                                                                             "item/Title":  "@triggerBody()?[\u0027Title\u0027]",
+                                                                                                                             "item/Agent_Demandeur/Claims":  "@triggerBody()?[\u0027Agent_Demandeur/Claims\u0027]",
+                                                                                                                             "item/Statut_Actuel/Value":  "Soumis",
+                                                                                                                             "item/Num_Mouvement_Cours":  1,
+                                                                                                                             "item/Type_Modification/Value":  "Nouvelle demande",
+                                                                                                                             "item/Date_Soumission":  "@utcNow()",
+                                                                                                                             "item/Date_Dernier_Mouvement":  "@utcNow()",
+                                                                                                                             "item/Alerte_Retard_Active":  false
+                                                                                                                         },
+                                                                                                          "host":  {
+                                                                                                                       "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                       "connectionName":  "shared_sharepointonline",
+                                                                                                                       "operationId":  "PatchItem"
+                                                                                                                   },
+                                                                                                          "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                      }
+                                                                                       }
+                                                  },
+                                      "runAfter":  {
+
+                                                   },
+                                      "else":  {
+                                                   "actions":  {
+                                                                   "Condition_1":  {
+                                                                                       "actions":  {
+                                                                                                       "Créer_un_élément_1":  {
+                                                                                                                                  "type":  "OpenApiConnection",
+                                                                                                                                  "inputs":  {
+                                                                                                                                                 "parameters":  {
+                                                                                                                                                                    "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                    "table":  "711be3b1-2c60-4936-b580-9e20ceac050c",
+                                                                                                                                                                    "item/Title":  "@concat(triggerOutputs()?[\u0027body/Title\u0027],\u0027 - M\u0027, triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027])",
+                                                                                                                                                                    "item/Demande_ID":  "@triggerBody()?[\u0027ID\u0027]",
+                                                                                                                                                                    "item/Num_Mouvement":  "@triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027]",
+                                                                                                                                                                    "item/Service_A_Ce_Moment":  "@triggerOutputs()?[\u0027body/Service_Actuel_ID/Value\u0027]",
+                                                                                                                                                                    "item/Gestionnaire_A_Ce_Moment/Claims":  "@if(empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]))",
+                                                                                                                                                                    "item/Statut_A_Ce_Moment":  "@triggerOutputs()?[\u0027body/Statut_Actuel/Value\u0027]",
+                                                                                                                                                                    "item/Date_Debut_Etape":  "@utcNow()",
+                                                                                                                                                                    "item/Actionneur/Claims":  "@if(empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]))",
+                                                                                                                                                                    "item/Commentaire_Action":  "Prise en charge effective",
+                                                                                                                                                                    "item/Type_Modification/Value":  "Assignation"
+                                                                                                                                                                },
+                                                                                                                                                 "host":  {
+                                                                                                                                                              "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                              "connectionName":  "shared_sharepointonline",
+                                                                                                                                                              "operationId":  "PostItem"
+                                                                                                                                                          },
+                                                                                                                                                 "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                             }
+                                                                                                                              },
+                                                                                                       "Mettre_à_jour_l\u0027élément_1":  {
+                                                                                                                                              "runAfter":  {
+                                                                                                                                                               "Créer_un_élément_1":  [
+                                                                                                                                                                                          "Succeeded"
+                                                                                                                                                                                      ]
+                                                                                                                                                           },
+                                                                                                                                              "type":  "OpenApiConnection",
+                                                                                                                                              "inputs":  {
+                                                                                                                                                             "parameters":  {
+                                                                                                                                                                                "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                "table":  "20c94652-f1e6-4f89-9736-cde7b553c412",
+                                                                                                                                                                                "id":  "@triggerBody()?[\u0027ID\u0027]",
+                                                                                                                                                                                "item/Title":  "@triggerBody()?[\u0027Title\u0027]",
+                                                                                                                                                                                "item/Statut_Actuel/Value":  "En cours",
+                                                                                                                                                                                "item/Num_Mouvement_Cours":  "@add(triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027],1)",
+                                                                                                                                                                                "item/Type_Modification/Value":  "Assignation",
+                                                                                                                                                                                "item/Date_Dernier_Mouvement":  "@utcNow()",
+                                                                                                                                                                                "item/Alerte_Retard_Active":  false,
+                                                                                                                                                                                "item/Service_Precedent_ID":  "@triggerOutputs()?[\u0027body/Service_Actuel_ID#Id\u0027]"
+                                                                                                                                                                            },
+                                                                                                                                                             "host":  {
+                                                                                                                                                                          "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                          "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                          "operationId":  "PatchItem"
+                                                                                                                                                                      },
+                                                                                                                                                             "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                         }
+                                                                                                                                          }
+                                                                                                   },
+                                                                                       "else":  {
+                                                                                                    "actions":  {
+                                                                                                                    "Condition_2":  {
+                                                                                                                                        "actions":  {
+                                                                                                                                                        "Créer_un_élément":  {
+                                                                                                                                                                                 "type":  "OpenApiConnection",
+                                                                                                                                                                                 "inputs":  {
+                                                                                                                                                                                                "parameters":  {
+                                                                                                                                                                                                                   "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                                                   "table":  "711be3b1-2c60-4936-b580-9e20ceac050c",
+                                                                                                                                                                                                                   "item/Title":  "@concat(triggerOutputs()?[\u0027body/Title\u0027],\u0027 - M\u0027, triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027])",
+                                                                                                                                                                                                                   "item/Demande_ID":  "@triggerBody()?[\u0027ID\u0027]",
+                                                                                                                                                                                                                   "item/Num_Mouvement":  "@triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027]",
+                                                                                                                                                                                                                   "item/Service_A_Ce_Moment":  "@triggerOutputs()?[\u0027body/Service_Actuel_ID/Value\u0027]",
+                                                                                                                                                                                                                   "item/Gestionnaire_A_Ce_Moment/Claims":  "@if(empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]))",
+                                                                                                                                                                                                                   "item/Statut_A_Ce_Moment":  "@triggerOutputs()?[\u0027body/Statut_Actuel/Value\u0027]",
+                                                                                                                                                                                                                   "item/Date_Debut_Etape":  "@utcNow()",
+                                                                                                                                                                                                                   "item/Actionneur/Claims":  "@if(empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]))",
+                                                                                                                                                                                                                   "item/Commentaire_Action":  "Transfert vers nouveau service",
+                                                                                                                                                                                                                   "item/Type_Modification/Value":  "Transfert"
+                                                                                                                                                                                                               },
+                                                                                                                                                                                                "host":  {
+                                                                                                                                                                                                             "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                                                             "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                                                             "operationId":  "PostItem"
+                                                                                                                                                                                                         },
+                                                                                                                                                                                                "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                                                            }
+                                                                                                                                                                             },
+                                                                                                                                                        "Envoyer_une_requête_HTTP_à_SharePoint":  {
+                                                                                                                                                                                                      "runAfter":  {
+                                                                                                                                                                                                                       "Créer_un_élément":  [
+                                                                                                                                                                                                                                                "Succeeded"
+                                                                                                                                                                                                                                            ]
+                                                                                                                                                                                                                   },
+                                                                                                                                                                                                      "type":  "OpenApiConnection",
+                                                                                                                                                                                                      "inputs":  {
+                                                                                                                                                                                                                     "parameters":  {
+                                                                                                                                                                                                                                        "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                                                                        "parameters/method":  "POST",
+                                                                                                                                                                                                                                        "parameters/uri":  "_api/web/lists/GetByTitle(\u0027Demandes\u0027)/items(@{triggerBody()?[\u0027ID\u0027]})",
+                                                                                                                                                                                                                                        "parameters/headers":  {
+                                                                                                                                                                                                                                                                   "Accept":  "application/json;odata=verbose",
+                                                                                                                                                                                                                                                                   "Content-Type":  "application/json;odata=verbose",
+                                                                                                                                                                                                                                                                   "IF-MATCH":  "*",
+                                                                                                                                                                                                                                                                   "X-HTTP-Method":  "MERGE"
+                                                                                                                                                                                                                                                               },
+                                                                                                                                                                                                                                        "parameters/body":  "{  \"__metadata\": {    \"type\": \"SP.Data.DemandesListItem\" },\"Gestionnaire_AssigneId\": null}"
+                                                                                                                                                                                                                                    },
+                                                                                                                                                                                                                     "host":  {
+                                                                                                                                                                                                                                  "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                                                                                  "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                                                                                  "operationId":  "HttpRequest"
+                                                                                                                                                                                                                              },
+                                                                                                                                                                                                                     "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                                                                                 }
+                                                                                                                                                                                                  },
+                                                                                                                                                        "Mettre_à_jour_l\u0027élément_2":  {
+                                                                                                                                                                                               "runAfter":  {
+                                                                                                                                                                                                                "Envoyer_une_requête_HTTP_à_SharePoint":  [
+                                                                                                                                                                                                                                                              "Succeeded"
+                                                                                                                                                                                                                                                          ]
+                                                                                                                                                                                                            },
+                                                                                                                                                                                               "type":  "OpenApiConnection",
+                                                                                                                                                                                               "inputs":  {
+                                                                                                                                                                                                              "parameters":  {
+                                                                                                                                                                                                                                 "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                                                                 "table":  "20c94652-f1e6-4f89-9736-cde7b553c412",
+                                                                                                                                                                                                                                 "id":  "@triggerBody()?[\u0027ID\u0027]",
+                                                                                                                                                                                                                                 "item/Title":  "@triggerBody()?[\u0027Title\u0027]",
+                                                                                                                                                                                                                                 "item/Statut_Actuel/Value":  "En cours",
+                                                                                                                                                                                                                                 "item/Num_Mouvement_Cours":  "@add(triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027],1)",
+                                                                                                                                                                                                                                 "item/Type_Modification/Value":  "Transfert",
+                                                                                                                                                                                                                                 "item/Date_Dernier_Mouvement":  "@utcNow()",
+                                                                                                                                                                                                                                 "item/Alerte_Retard_Active":  false,
+                                                                                                                                                                                                                                 "item/Service_Precedent_ID":  "@triggerOutputs()?[\u0027body/Service_Actuel_ID#Id\u0027]"
+                                                                                                                                                                                                                             },
+                                                                                                                                                                                                              "host":  {
+                                                                                                                                                                                                                           "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                                                                           "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                                                                           "operationId":  "PatchItem"
+                                                                                                                                                                                                                       },
+                                                                                                                                                                                                              "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                                                                          }
+                                                                                                                                                                                           }
+                                                                                                                                                    },
+                                                                                                                                        "else":  {
+                                                                                                                                                     "actions":  {
+                                                                                                                                                                     "Condition_3":  {
+                                                                                                                                                                                         "actions":  {
+                                                                                                                                                                                                         "Créer_un_élément_2":  {
+                                                                                                                                                                                                                                    "type":  "OpenApiConnection",
+                                                                                                                                                                                                                                    "inputs":  {
+                                                                                                                                                                                                                                                   "parameters":  {
+                                                                                                                                                                                                                                                                      "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                                                                                                      "table":  "711be3b1-2c60-4936-b580-9e20ceac050c",
+                                                                                                                                                                                                                                                                      "item/Title":  "@concat(triggerOutputs()?[\u0027body/Title\u0027],\u0027 - M\u0027, triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027])",
+                                                                                                                                                                                                                                                                      "item/Demande_ID":  "@triggerBody()?[\u0027ID\u0027]",
+                                                                                                                                                                                                                                                                      "item/Num_Mouvement":  "@triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027]",
+                                                                                                                                                                                                                                                                      "item/Service_A_Ce_Moment":  "@triggerOutputs()?[\u0027body/Service_Actuel_ID/Value\u0027]",
+                                                                                                                                                                                                                                                                      "item/Gestionnaire_A_Ce_Moment/Claims":  "@if(empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]))",
+                                                                                                                                                                                                                                                                      "item/Statut_A_Ce_Moment":  "@triggerOutputs()?[\u0027body/Statut_Actuel/Value\u0027]",
+                                                                                                                                                                                                                                                                      "item/Date_Debut_Etape":  "@utcNow()",
+                                                                                                                                                                                                                                                                      "item/Actionneur/Claims":  "@if(empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]),\u0027\u0027,concat(\u0027i:0#.f|membership|\u0027,triggerOutputs()?[\u0027body/Gestionnaire_Assigne/Email\u0027]))",
+                                                                                                                                                                                                                                                                      "item/Commentaire_Action":  "Affectation Nouveau service",
+                                                                                                                                                                                                                                                                      "item/Type_Modification/Value":  "Réaffectation"
+                                                                                                                                                                                                                                                                  },
+                                                                                                                                                                                                                                                   "host":  {
+                                                                                                                                                                                                                                                                "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                                                                                                                "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                                                                                                                "operationId":  "PostItem"
+                                                                                                                                                                                                                                                            },
+                                                                                                                                                                                                                                                   "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                                                                                                               }
+                                                                                                                                                                                                                                },
+                                                                                                                                                                                                         "Mettre_à_jour_l\u0027élément_3":  {
+                                                                                                                                                                                                                                                "runAfter":  {
+                                                                                                                                                                                                                                                                 "Créer_un_élément_2":  [
+                                                                                                                                                                                                                                                                                            "Succeeded"
+                                                                                                                                                                                                                                                                                        ]
+                                                                                                                                                                                                                                                             },
+                                                                                                                                                                                                                                                "type":  "OpenApiConnection",
+                                                                                                                                                                                                                                                "inputs":  {
+                                                                                                                                                                                                                                                               "parameters":  {
+                                                                                                                                                                                                                                                                                  "dataset":  "https://attakafulia254.sharepoint.com/sites/PortailIntelligentAgents",
+                                                                                                                                                                                                                                                                                  "table":  "20c94652-f1e6-4f89-9736-cde7b553c412",
+                                                                                                                                                                                                                                                                                  "id":  "@triggerBody()?[\u0027ID\u0027]",
+                                                                                                                                                                                                                                                                                  "item/Title":  "@triggerBody()?[\u0027Title\u0027]",
+                                                                                                                                                                                                                                                                                  "item/Statut_Actuel/Value":  "Soumis",
+                                                                                                                                                                                                                                                                                  "item/Num_Mouvement_Cours":  "@add(triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027],1)",
+                                                                                                                                                                                                                                                                                  "item/Type_Modification/Value":  "Réaffectation",
+                                                                                                                                                                                                                                                                                  "item/Date_Dernier_Mouvement":  "@utcNow()",
+                                                                                                                                                                                                                                                                                  "item/Alerte_Retard_Active":  false
+                                                                                                                                                                                                                                                                              },
+                                                                                                                                                                                                                                                               "host":  {
+                                                                                                                                                                                                                                                                            "apiId":  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                                                                                                                                                                                                                                                            "connectionName":  "shared_sharepointonline",
+                                                                                                                                                                                                                                                                            "operationId":  "PatchItem"
+                                                                                                                                                                                                                                                                        },
+                                                                                                                                                                                                                                                               "authentication":  "@parameters(\u0027$authentication\u0027)"
+                                                                                                                                                                                                                                                           }
+                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                     },
+                                                                                                                                                                                         "else":  {
+                                                                                                                                                                                                      "actions":  {
+
+                                                                                                                                                                                                                  }
+                                                                                                                                                                                                  },
+                                                                                                                                                                                         "expression":  {
+                                                                                                                                                                                                            "and":  [
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                            "equals":  [
+                                                                                                                                                                                                                                           "@empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne\u0027])",
+                                                                                                                                                                                                                                           false
+                                                                                                                                                                                                                                       ]
+                                                                                                                                                                                                                        },
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                            "equals":  [
+                                                                                                                                                                                                                                           "@triggerOutputs()?[\u0027body/Type_Modification/Value\u0027]",
+                                                                                                                                                                                                                                           "Transfert"
+                                                                                                                                                                                                                                       ]
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                    ]
+                                                                                                                                                                                                        },
+                                                                                                                                                                                         "type":  "If"
+                                                                                                                                                                                     }
+                                                                                                                                                                 }
+                                                                                                                                                 },
+                                                                                                                                        "expression":  {
+                                                                                                                                                           "and":  [
+                                                                                                                                                                       {
+                                                                                                                                                                           "not":  {
+                                                                                                                                                                                       "equals":  [
+                                                                                                                                                                                                      "@triggerOutputs()?[\u0027body/Statut_Actuel/Value\u0027]",
+                                                                                                                                                                                                      "Soumis"
+                                                                                                                                                                                                  ]
+                                                                                                                                                                                   }
+                                                                                                                                                                       },
+                                                                                                                                                                       {
+                                                                                                                                                                           "not":  {
+                                                                                                                                                                                       "equals":  [
+                                                                                                                                                                                                      "@triggerOutputs()?[\u0027body/Service_Actuel_ID#Id\u0027]",
+                                                                                                                                                                                                      "@triggerOutputs()?[\u0027body/Service_Precedent_ID\u0027]"
+                                                                                                                                                                                                  ]
+                                                                                                                                                                                   }
+                                                                                                                                                                       },
+                                                                                                                                                                       {
+                                                                                                                                                                           "not":  {
+                                                                                                                                                                                       "equals":  [
+                                                                                                                                                                                                      "@triggerOutputs()?[\u0027body/Service_Precedent_ID\u0027]",
+                                                                                                                                                                                                      null
+                                                                                                                                                                                                  ]
+                                                                                                                                                                                   }
+                                                                                                                                                                       },
+                                                                                                                                                                       {
+                                                                                                                                                                           "equals":  [
+                                                                                                                                                                                          "@empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne\u0027])",
+                                                                                                                                                                                          false
+                                                                                                                                                                                      ]
+                                                                                                                                                                       },
+                                                                                                                                                                       {
+                                                                                                                                                                           "not":  {
+                                                                                                                                                                                       "equals":  [
+                                                                                                                                                                                                      "@triggerOutputs()?[\u0027body/Type_Modification/Value\u0027]",
+                                                                                                                                                                                                      "Transfert"
+                                                                                                                                                                                                  ]
+                                                                                                                                                                                   }
+                                                                                                                                                                       }
+                                                                                                                                                                   ]
+                                                                                                                                                       },
+                                                                                                                                        "type":  "If"
+                                                                                                                                    }
+                                                                                                                }
+                                                                                                },
+                                                                                       "expression":  {
+                                                                                                          "and":  [
+                                                                                                                      {
+                                                                                                                          "equals":  [
+                                                                                                                                         "@triggerOutputs()?[\u0027body/Statut_Actuel/Value\u0027]",
+                                                                                                                                         "Soumis"
+                                                                                                                                     ]
+                                                                                                                      },
+                                                                                                                      {
+                                                                                                                          "equals":  [
+                                                                                                                                         "@empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne\u0027])",
+                                                                                                                                         false
+                                                                                                                                     ]
+                                                                                                                      },
+                                                                                                                      {
+                                                                                                                          "or":  [
+                                                                                                                                     {
+                                                                                                                                         "equals":  [
+                                                                                                                                                        "@triggerOutputs()?[\u0027body/Type_Modification/Value\u0027]",
+                                                                                                                                                        "Nouvelle demande"
+                                                                                                                                                    ]
+                                                                                                                                     },
+                                                                                                                                     {
+                                                                                                                                         "equals":  [
+                                                                                                                                                        "@triggerOutputs()?[\u0027body/Type_Modification/Value\u0027]",
+                                                                                                                                                        "Réaffectation"
+                                                                                                                                                    ]
+                                                                                                                                     }
+                                                                                                                                 ]
+                                                                                                                      }
+                                                                                                                  ]
+                                                                                                      },
+                                                                                       "type":  "If"
+                                                                                   }
+                                                               }
+                                               },
+                                      "expression":  {
+                                                         "and":  [
+                                                                     {
+                                                                         "equals":  [
+                                                                                        "@empty(triggerOutputs()?[\u0027body/Gestionnaire_Assigne\u0027])",
+                                                                                        true
+                                                                                    ]
+                                                                     },
+                                                                     {
+                                                                         "equals":  [
+                                                                                        "@triggerOutputs()?[\u0027body/Num_Mouvement_Cours\u0027]",
+                                                                                        1
+                                                                                    ]
+                                                                     },
+                                                                     {
+                                                                         "not":  {
+                                                                                     "equals":  [
+                                                                                                    "@triggerOutputs()?[\u0027body/Type_Modification/Value\u0027]",
+                                                                                                    "Nouvelle demande"
+                                                                                                ]
+                                                                                 }
+                                                                     }
+                                                                 ]
+                                                     },
+                                      "type":  "If"
+                                  }
+                },
+    "outputs":  {
+
+                }
+}
