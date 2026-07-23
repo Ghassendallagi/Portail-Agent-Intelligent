@@ -4,10 +4,10 @@
   "position": {
     "x": 902,
     "y": 398,
-    "z": 500,
+    "z": 17000,
     "height": 28,
     "width": 328,
-    "tabOrder": 500
+    "tabOrder": 17000
   },
   "visual": {
     "visualType": "textbox",
@@ -17,7 +17,6 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "Performance Gestionnaires",
@@ -28,7 +27,8 @@
                       "fontFamily": "Segoe UI"
                     }
                   }
-                ]
+                ],
+                "horizontalTextAlignment": "left"
               }
             ]
           }
@@ -76,8 +76,5 @@
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

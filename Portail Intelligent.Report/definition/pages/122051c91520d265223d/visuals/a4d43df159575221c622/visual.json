@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "a4d43df159575221c622",
   "position": {
-    "x": 20,
-    "y": 360,
-    "z": 500,
-    "height": 22,
-    "width": 700,
-    "tabOrder": 500
+    "x": 20.425531914893618,
+    "y": 350.15197568389061,
+    "z": 30000,
+    "height": 32.097264437689972,
+    "width": 699.33130699088144,
+    "tabOrder": 30000
   },
   "visual": {
     "visualType": "textbox",
@@ -17,15 +17,14 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "TABLEAUX DE BORD",
                     "textStyle": {
-                      "fontSize": "11px",
                       "fontWeight": "bold",
-                      "color": "#8A8A8A",
-                      "fontFamily": "Segoe UI"
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "11px",
+                      "color": "#8a8a8a"
                     }
                   }
                 ]
@@ -76,8 +75,5 @@
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

@@ -4,10 +4,10 @@
   "position": {
     "x": 959,
     "y": 210,
-    "z": 2000,
+    "z": 42000,
     "height": 140,
     "width": 298,
-    "tabOrder": 2000
+    "tabOrder": 42000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -120,23 +120,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "2b0fc4fe37d656c8cce7",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Risque Moyen IA"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

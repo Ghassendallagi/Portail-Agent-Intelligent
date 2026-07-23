@@ -4,10 +4,10 @@
   "position": {
     "x": 650,
     "y": 250,
-    "z": 5000,
+    "z": 11000,
     "height": 235,
     "width": 610,
-    "tabOrder": 5000
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "lineChart",
@@ -119,37 +119,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "d167fd18ee1eecdc930a",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Date_Soumission"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "8ba0a385d1494c6b5159",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Délai Moyen Prédit IA"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

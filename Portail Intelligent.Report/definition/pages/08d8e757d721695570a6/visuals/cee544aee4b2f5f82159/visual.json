@@ -4,10 +4,10 @@
   "position": {
     "x": 20,
     "y": 250,
-    "z": 4000,
+    "z": 11000,
     "height": 235,
     "width": 610,
-    "tabOrder": 4000
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "columnChart",
@@ -117,37 +117,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "8d6b1923b095eb388e7c",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Gestionnaire_Nom"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "67513b81b3f9f619e97e",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Total Demandes"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

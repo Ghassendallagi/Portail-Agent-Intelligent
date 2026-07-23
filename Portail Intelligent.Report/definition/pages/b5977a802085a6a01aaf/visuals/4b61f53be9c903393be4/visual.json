@@ -4,10 +4,10 @@
   "position": {
     "x": 860,
     "y": 250,
-    "z": 5000,
+    "z": 13000,
     "height": 235,
     "width": 400,
-    "tabOrder": 5000
+    "tabOrder": 13000
   },
   "visual": {
     "visualType": "lineChart",
@@ -119,37 +119,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "f2bcbeda80618cb94c29",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Date_Soumission"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "313feb0eeb940300792b",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Total Demandes"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

@@ -4,10 +4,10 @@
   "position": {
     "x": 438,
     "y": 96,
-    "z": 2000,
+    "z": 10000,
     "height": 140,
     "width": 194,
-    "tabOrder": 2000
+    "tabOrder": 10000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -120,23 +120,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "d0f8d8825550e9812932",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Taux de Respect du SLA (%)"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

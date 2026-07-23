@@ -4,10 +4,10 @@
   "position": {
     "x": 545,
     "y": 14,
-    "z": 600,
+    "z": 39000,
     "height": 64,
     "width": 190,
-    "tabOrder": 600
+    "tabOrder": 39000
   },
   "visual": {
     "visualType": "image",
@@ -42,8 +42,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

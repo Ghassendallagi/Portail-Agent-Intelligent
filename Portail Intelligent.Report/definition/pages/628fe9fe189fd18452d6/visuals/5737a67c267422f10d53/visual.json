@@ -4,10 +4,10 @@
   "position": {
     "x": 20,
     "y": 498,
-    "z": 4000,
+    "z": 10000,
     "height": 210,
     "width": 1240,
-    "tabOrder": 4000
+    "tabOrder": 10000
   },
   "visual": {
     "visualType": "columnChart",
@@ -153,51 +153,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "0537fd92865abb700d68",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Délai Moyen Traitement (Heures)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "b0ebb515c0c1a3dfce8e",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Temps Total Pause (Heures)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "405e55a054a8cf4f3b9b",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Délai Traitement Net (Heures)"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

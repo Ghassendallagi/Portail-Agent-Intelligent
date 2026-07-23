@@ -4,10 +4,10 @@
   "position": {
     "x": 482,
     "y": 584,
-    "z": 500,
+    "z": 16000,
     "height": 50,
     "width": 328,
-    "tabOrder": 500
+    "tabOrder": 16000
   },
   "visual": {
     "visualType": "textbox",
@@ -17,7 +17,6 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "Suivi des échéances et des délais réglementaires.",
@@ -28,7 +27,8 @@
                       "fontFamily": "Segoe UI"
                     }
                   }
-                ]
+                ],
+                "horizontalTextAlignment": "left"
               }
             ]
           }
@@ -76,8 +76,5 @@
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

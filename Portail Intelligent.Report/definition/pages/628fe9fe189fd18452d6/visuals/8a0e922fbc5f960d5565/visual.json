@@ -4,10 +4,10 @@
   "position": {
     "x": 650,
     "y": 250,
-    "z": 6000,
+    "z": 11000,
     "height": 235,
     "width": 610,
-    "tabOrder": 6000
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "tableEx",
@@ -197,76 +197,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "bca3f676d83d6c0744c0",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Title"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "5c59869d552c8f3fac9e",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Services_Siege"
-              }
-            },
-            "Property": "Title"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "b7ef2a9625f8db52f700",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Demandeur_Nom"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "024d1c4b44001dc33090",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Date_Debut_Pause"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "62a1c042c0ce44d93724",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Duree_Pause_Heures"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

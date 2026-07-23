@@ -4,10 +4,10 @@
   "position": {
     "x": 20,
     "y": 250,
-    "z": 4000,
+    "z": 10000,
     "height": 235,
     "width": 610,
-    "tabOrder": 4000
+    "tabOrder": 10000
   },
   "visual": {
     "visualType": "columnChart",
@@ -153,51 +153,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "6359347cf7bafb490d94",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Demandes Risque Faible IA"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "1b8faf20f2ea881dea0f",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Demandes Risque Moyen IA"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "4d36919147ca1f7ea26e",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Demandes Risque Élevé IA"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

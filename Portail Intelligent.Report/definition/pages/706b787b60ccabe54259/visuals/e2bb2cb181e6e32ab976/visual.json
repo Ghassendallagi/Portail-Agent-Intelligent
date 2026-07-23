@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "e2bb2cb181e6e32ab976",
   "position": {
-    "x": 20,
-    "y": 498,
-    "z": 6000,
-    "height": 210,
-    "width": 610,
-    "tabOrder": 6000
+    "x": 20.425531914893618,
+    "y": 497.99392097264439,
+    "z": 13000,
+    "height": 210.09118541033436,
+    "width": 442.55319148936172,
+    "tabOrder": 13000
   },
   "visual": {
     "visualType": "tableEx",
@@ -199,7 +199,7 @@
         "howCreated": "User"
       },
       {
-        "name": "babe98cec6ca21a7c64b",
+        "name": "ca29bcd6d7d941b93e01",
         "field": {
           "Column": {
             "Expression": {
@@ -213,7 +213,7 @@
         "type": "Categorical"
       },
       {
-        "name": "e96f83de8feff4ae6d4f",
+        "name": "903cb60facbb95050b61",
         "field": {
           "Column": {
             "Expression": {
@@ -227,7 +227,7 @@
         "type": "Categorical"
       },
       {
-        "name": "e6c6896ca618cf585046",
+        "name": "11995e296a7514d6cdb5",
         "field": {
           "Column": {
             "Expression": {
@@ -238,10 +238,10 @@
             "Property": "Deadline_Metier"
           }
         },
-        "type": "Advanced"
+        "type": "Categorical"
       },
       {
-        "name": "9cc816c565c179378808",
+        "name": "7d990e56ea2aa70a5026",
         "field": {
           "Column": {
             "Expression": {
@@ -252,10 +252,10 @@
             "Property": "Date_Depassement_Deadline"
           }
         },
-        "type": "Advanced"
+        "type": "Categorical"
       },
       {
-        "name": "0072cd39ec03c7136a7e",
+        "name": "66213bbecce7caa4c664",
         "field": {
           "Column": {
             "Expression": {

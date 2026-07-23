@@ -4,10 +4,10 @@
   "position": {
     "x": 271,
     "y": 96,
-    "z": 2000,
+    "z": 8000,
     "height": 140,
     "width": 236,
-    "tabOrder": 2000
+    "tabOrder": 8000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -120,23 +120,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "2b45aed104cf702c76b6",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Taux Respect SLA Réel"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

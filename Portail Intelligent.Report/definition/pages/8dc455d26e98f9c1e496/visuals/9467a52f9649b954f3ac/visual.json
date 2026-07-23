@@ -4,10 +4,10 @@
   "position": {
     "x": 20,
     "y": 498,
-    "z": 4000,
+    "z": 11000,
     "height": 210,
     "width": 610,
-    "tabOrder": 4000
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "columnChart",
@@ -117,37 +117,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "e3e706a017c367ddbe49",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Services_Siege"
-              }
-            },
-            "Property": "Title"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "a0aa9f28785f6bfafa51",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Délai Moyen Traitement (Heures)"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

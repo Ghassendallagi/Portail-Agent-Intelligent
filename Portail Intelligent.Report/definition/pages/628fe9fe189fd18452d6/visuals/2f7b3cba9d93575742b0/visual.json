@@ -4,10 +4,10 @@
   "position": {
     "x": 20,
     "y": 250,
-    "z": 4000,
+    "z": 9000,
     "height": 235,
     "width": 610,
-    "tabOrder": 4000
+    "tabOrder": 9000
   },
   "visual": {
     "visualType": "columnChart",
@@ -117,37 +117,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "3df5bd4edef11c0e6f6a",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Services_Siege"
-              }
-            },
-            "Property": "Title"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "8252ab3fb9f924cf1fa7",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Demandes En Attente Complément"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

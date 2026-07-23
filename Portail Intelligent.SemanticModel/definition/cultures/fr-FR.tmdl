@@ -6746,6 +6746,16 @@ cultureInfo fr-FR
 			            },
 			            "Weight": 0.9
 			          }
+			        },
+			        {
+			          "Volume": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },

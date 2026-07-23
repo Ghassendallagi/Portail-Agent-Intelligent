@@ -4,10 +4,10 @@
   "position": {
     "x": 902,
     "y": 584,
-    "z": 500,
+    "z": 26000,
     "height": 50,
     "width": 328,
-    "tabOrder": 500
+    "tabOrder": 26000
   },
   "visual": {
     "visualType": "textbox",
@@ -17,7 +17,6 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "left",
                 "textRuns": [
                   {
                     "value": "Prédiction des délais et évaluation intelligente des risques.",
@@ -28,7 +27,8 @@
                       "fontFamily": "Segoe UI"
                     }
                   }
-                ]
+                ],
+                "horizontalTextAlignment": "left"
               }
             ]
           }
@@ -76,8 +76,5 @@
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

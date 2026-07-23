@@ -4,10 +4,10 @@
   "position": {
     "x": 773,
     "y": 96,
-    "z": 2000,
+    "z": 9000,
     "height": 140,
     "width": 236,
-    "tabOrder": 2000
+    "tabOrder": 9000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -120,23 +120,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "dd3fb3bd8119aee42f16",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Taux Respect Deadlines"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

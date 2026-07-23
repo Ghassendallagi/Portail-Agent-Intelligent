@@ -4,10 +4,10 @@
   "position": {
     "x": 650,
     "y": 498,
-    "z": 4000,
+    "z": 12000,
     "height": 210,
     "width": 610,
-    "tabOrder": 4000
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "columnChart",
@@ -117,37 +117,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "d86f1ad83294b2996a04",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Services_Siege"
-              }
-            },
-            "Property": "Title"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "e0047d0317f92464b1aa",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Taux Respect SLA Réel"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

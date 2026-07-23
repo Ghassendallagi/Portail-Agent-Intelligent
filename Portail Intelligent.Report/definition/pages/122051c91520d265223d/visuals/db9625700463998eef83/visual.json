@@ -4,10 +4,10 @@
   "position": {
     "x": 500,
     "y": 88,
-    "z": 500,
+    "z": 37000,
     "height": 28,
     "width": 280,
-    "tabOrder": 500
+    "tabOrder": 37000
   },
   "visual": {
     "visualType": "textbox",
@@ -17,7 +17,6 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "center",
                 "textRuns": [
                   {
                     "value": "PILOTAGE OPÉRATIONNEL",
@@ -28,7 +27,8 @@
                       "fontFamily": "Segoe UI"
                     }
                   }
-                ]
+                ],
+                "horizontalTextAlignment": "center"
               }
             ]
           }
@@ -76,8 +76,5 @@
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

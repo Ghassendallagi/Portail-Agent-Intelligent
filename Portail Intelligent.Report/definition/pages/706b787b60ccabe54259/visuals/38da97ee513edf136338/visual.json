@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "38da97ee513edf136338",
   "position": {
-    "x": 650,
-    "y": 498,
-    "z": 6000,
-    "height": 210,
-    "width": 610,
-    "tabOrder": 6000
+    "x": 649.726443768997,
+    "y": 497.99392097264439,
+    "z": 12000,
+    "height": 210.09118541033436,
+    "width": 217.87234042553192,
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "tableEx",
@@ -169,7 +169,7 @@
         "howCreated": "User"
       },
       {
-        "name": "89865104a745179c3e6b",
+        "name": "e867f2e400e9603d5088",
         "field": {
           "Column": {
             "Expression": {
@@ -183,7 +183,7 @@
         "type": "Categorical"
       },
       {
-        "name": "6ce9ccdcc7e389ea5429",
+        "name": "1c111df08e6880b093c6",
         "field": {
           "Column": {
             "Expression": {
@@ -197,7 +197,7 @@
         "type": "Categorical"
       },
       {
-        "name": "6a9a3a4267b4b0a45a01",
+        "name": "4b8f75835b4ee786ae76",
         "field": {
           "Column": {
             "Expression": {
@@ -208,7 +208,7 @@
             "Property": "Deadline_Metier"
           }
         },
-        "type": "Advanced"
+        "type": "Categorical"
       }
     ]
   }

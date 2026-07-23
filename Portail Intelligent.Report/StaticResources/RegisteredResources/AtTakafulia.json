@@ -1,64 +1,215 @@
 {
   "name": "AtTakafulia",
-  "dataColors": ["#A91C25", "#1B3A4B", "#1E7145", "#D98E04", "#6B3FA0", "#808080", "#65171B", "#C4A35A"],
+  "dataColors": [
+    "#A91C25",
+    "#1B3A4B",
+    "#1E7145",
+    "#D98E04",
+    "#6B3FA0",
+    "#808080",
+    "#65171B",
+    "#C4A35A"
+  ],
   "background": "#FFFFFF",
   "foreground": "#414141",
   "tableAccent": "#A91C25",
   "textClasses": {
-    "title": { "fontFace": "Segoe UI Semibold", "fontSize": 11, "color": "#414141" },
-    "label": { "fontFace": "Segoe UI", "fontSize": 10, "color": "#414141" },
-    "callout": { "fontFace": "Segoe UI Semibold", "fontSize": 22, "color": "#252423" },
-    "header": { "fontFace": "Segoe UI Semibold", "fontSize": 12, "color": "#414141" }
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 11,
+      "color": "#414141"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 10,
+      "color": "#414141"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 22,
+      "color": "#252423"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#414141"
+    }
   },
   "visualStyles": {
     "*": {
       "*": {
-        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
-        "border": [{ "show": true, "color": { "solid": { "color": "#E6E2DC" } }, "radius": 10 }],
-        "title": [{ "show": true, "fontColor": { "solid": { "color": "#414141" } }, "fontSize": 12, "fontFamily": "Segoe UI Semibold", "alignment": "left" }],
-        "dropShadow": [{ "show": true, "color": { "solid": { "color": "#000000" } }, "transparency": 92, "position": "Outer", "preset": "BottomRight" }]
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#E6E2DC"
+              }
+            },
+            "radius": 10
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#414141"
+              }
+            },
+            "fontSize": 12,
+            "fontFamily": "Segoe UI Semibold",
+            "alignment": "left"
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#000000"
+              }
+            },
+            "transparency": 92,
+            "position": "Outer",
+            "preset": "BottomRight"
+          }
+        ]
       }
     },
     "page": {
       "*": {
-        "background": [{ "color": { "solid": { "color": "#F7F6F3" } }, "transparency": 0 }],
-        "outspace": [{ "color": { "solid": { "color": "#F7F6F3" } }, "transparency": 0 }]
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F7F6F3"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F7F6F3"
+              }
+            },
+            "transparency": 0
+          }
+        ]
       }
     },
     "shape": {
       "*": {
-        "border": [{ "show": false }],
-        "title": [{ "show": false }],
-        "dropShadow": [{ "show": false }]
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "title": [
+          {
+            "show": false
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ]
       }
     },
     "textbox": {
       "*": {
-        "background": [{ "show": false }],
-        "border": [{ "show": false }],
-        "title": [{ "show": false }],
-        "dropShadow": [{ "show": false }]
+        "background": [
+          {
+            "show": false
+          }
+        ],
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "title": [
+          {
+            "show": false
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ]
       }
     },
     "image": {
       "*": {
-        "background": [{ "show": false }],
-        "border": [{ "show": false }],
-        "title": [{ "show": false }],
-        "dropShadow": [{ "show": false }]
+        "background": [
+          {
+            "show": false
+          }
+        ],
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "title": [
+          {
+            "show": false
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ]
       }
     },
     "actionButton": {
       "*": {
-        "background": [{ "show": false }],
-        "border": [{ "show": false }],
-        "title": [{ "show": false }],
-        "dropShadow": [{ "show": false }]
+        "background": [
+          {
+            "show": false
+          }
+        ],
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "title": [
+          {
+            "show": false
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ]
       }
     },
     "slicer": {
       "*": {
-        "dropShadow": [{ "show": false }]
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ]
       }
     }
   }

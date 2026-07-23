@@ -4,10 +4,10 @@
   "position": {
     "x": 190,
     "y": 692,
-    "z": 500,
+    "z": 38000,
     "height": 24,
     "width": 900,
-    "tabOrder": 500
+    "tabOrder": 38000
   },
   "visual": {
     "visualType": "textbox",
@@ -17,7 +17,6 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "center",
                 "textRuns": [
                   {
                     "value": "Assurances At-Takafulia  —  Portail Intelligent Agents",
@@ -28,7 +27,8 @@
                       "fontFamily": "Segoe UI"
                     }
                   }
-                ]
+                ],
+                "horizontalTextAlignment": "center"
               }
             ]
           }
@@ -76,8 +76,5 @@
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

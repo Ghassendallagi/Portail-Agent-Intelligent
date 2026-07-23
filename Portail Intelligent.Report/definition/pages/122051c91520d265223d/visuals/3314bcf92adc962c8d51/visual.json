@@ -4,10 +4,10 @@
   "position": {
     "x": 646,
     "y": 210,
-    "z": 2000,
+    "z": 41000,
     "height": 140,
     "width": 298,
-    "tabOrder": 2000
+    "tabOrder": 41000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -120,23 +120,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "0b6aab3de39d530258f7",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Deadlines Dépassées"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

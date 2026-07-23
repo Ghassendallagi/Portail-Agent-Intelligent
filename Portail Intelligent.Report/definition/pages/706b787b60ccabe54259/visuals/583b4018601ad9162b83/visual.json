@@ -4,10 +4,10 @@
   "position": {
     "x": 20,
     "y": 250,
-    "z": 4000,
+    "z": 11000,
     "height": 235,
     "width": 610,
-    "tabOrder": 4000
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "columnChart",
@@ -117,37 +117,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "b45e69090d8ab9b9344a",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Types_Demandes"
-              }
-            },
-            "Property": "Code_Metier"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "ac183d22ead52362bc20",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Demandes Avec Deadline"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

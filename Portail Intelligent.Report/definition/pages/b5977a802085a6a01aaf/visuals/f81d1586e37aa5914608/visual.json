@@ -4,10 +4,10 @@
   "position": {
     "x": 229,
     "y": 96,
-    "z": 2000,
+    "z": 9000,
     "height": 140,
     "width": 194,
-    "tabOrder": 2000
+    "tabOrder": 9000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -120,23 +120,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "e0498346b01c10ce55ab",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Demandes En Retard"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

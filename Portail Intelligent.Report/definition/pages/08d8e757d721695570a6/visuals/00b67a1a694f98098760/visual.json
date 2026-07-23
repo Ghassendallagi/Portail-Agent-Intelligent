@@ -4,10 +4,10 @@
   "position": {
     "x": 650,
     "y": 250,
-    "z": 6000,
+    "z": 12000,
     "height": 235,
     "width": 610,
-    "tabOrder": 6000
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "tableEx",
@@ -126,65 +126,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "c7aee0ffc1439dcbea98",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Gestionnaire_Nom"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "0a5d9d987a13155da816",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Total Demandes"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "1edc5d36b24ae465f2f9",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Délai Moyen Traitement (Heures)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "3e7a45765c16f900ea38",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Demandes En Attente Complément"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

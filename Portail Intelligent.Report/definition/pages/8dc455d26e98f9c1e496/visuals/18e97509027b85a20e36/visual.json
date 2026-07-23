@@ -4,10 +4,10 @@
   "position": {
     "x": 1060,
     "y": 22,
-    "z": 500,
+    "z": 1000,
     "height": 28,
     "width": 200,
-    "tabOrder": 500
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "textbox",
@@ -17,7 +17,6 @@
           "properties": {
             "paragraphs": [
               {
-                "horizontalTextAlignment": "right",
                 "textRuns": [
                   {
                     "value": "←  Accueil",
@@ -28,7 +27,8 @@
                       "fontFamily": "Segoe UI"
                     }
                   }
-                ]
+                ],
+                "horizontalTextAlignment": "right"
               }
             ]
           }
@@ -76,8 +76,5 @@
         }
       ]
     }
-  },
-  "filterConfig": {
-    "filters": []
   }
 }

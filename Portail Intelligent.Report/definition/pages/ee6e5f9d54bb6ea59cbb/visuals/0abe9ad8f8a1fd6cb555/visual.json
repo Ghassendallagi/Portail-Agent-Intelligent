@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "0abe9ad8f8a1fd6cb555",
   "position": {
-    "x": 20,
-    "y": 498,
-    "z": 6000,
-    "height": 210,
-    "width": 1240,
-    "tabOrder": 6000
+    "x": 20.425531914893618,
+    "y": 497.99392097264439,
+    "z": 12000,
+    "height": 210.09118541033436,
+    "width": 668.20668693009122,
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "tableEx",
@@ -130,7 +130,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "4a3bde5d1519528df831",
+        "name": "43361106b2e9012137e3",
         "field": {
           "Column": {
             "Expression": {
@@ -144,7 +144,7 @@
         "type": "Categorical"
       },
       {
-        "name": "5275e869a5599d6ed958",
+        "name": "843c02e0e19429066277",
         "field": {
           "Column": {
             "Expression": {
@@ -158,7 +158,7 @@
         "type": "Advanced"
       },
       {
-        "name": "f723260147d5608a1d01",
+        "name": "e40d593071414905bd81",
         "field": {
           "Column": {
             "Expression": {
@@ -172,7 +172,7 @@
         "type": "Advanced"
       },
       {
-        "name": "c5dd2c0c68eabc6920a3",
+        "name": "9c8c14e984c667ae52a6",
         "field": {
           "Column": {
             "Expression": {

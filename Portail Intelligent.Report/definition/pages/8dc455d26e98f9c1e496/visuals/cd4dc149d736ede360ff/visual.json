@@ -4,10 +4,10 @@
   "position": {
     "x": 20,
     "y": 96,
-    "z": 2000,
+    "z": 7000,
     "height": 140,
     "width": 236,
-    "tabOrder": 2000
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -120,23 +120,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "66f5461da99bb7be7463",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Demandes"
-              }
-            },
-            "Property": "Total Demandes"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }
