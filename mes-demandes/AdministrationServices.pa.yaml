@@ -1,0 +1,1089 @@
+Screens:
+  AdministrationServices:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+      OnVisible: |-
+        =Set(varSVFormOpen, false);
+        Set(varSVFormMode, "create");
+        Set(varSVEditingID, Blank());
+        Set(varSVTriedSave, false);
+        Set(varSVConfirmRemoveID, Blank());
+        Set(varSVConfirmRemoveName, "");
+        Set(varSVRefCount, 0)
+    Children:
+      - RailSV:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.Semilight
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =4
+            PaddingBottom: =20
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =20
+            Visible: =AdministrationServices.Size <> ScreenSize.Small
+            Width: =300
+          Children:
+            - ImgLogoSV:
+                Control: Image
+                Properties:
+                  Height: =60
+                  Image: =Logo
+            - RectRailSepSV:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Height: =16
+            - NavSVAccueil:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                Children:
+                  - IcoSVAccueil:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Home"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Width: =22
+                  - LblSVAccueil:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Accueil"
+            - NavSVMesDem:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - IcoSVMesDem:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Document"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Width: =22
+                  - LblSVMesDem:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Mes demandes"
+            - NavSVNouvelle:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - IcoSVNouvelle:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Width: =22
+                  - LblSVNouvelle:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Nouvelle demande"
+            - NavSVFile:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoSVFile:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Briefcase"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Width: =22
+                  - LblSVFile:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="File à traiter"
+            - NavSVAlertes:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoSVAlertes:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Clock"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Width: =22
+                  - LblSVAlertes:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Alertes SLA"
+            - NavSVStats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoSVStats:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="DataBarVertical"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Width: =22
+                  - LblSVStats:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Statistiques"
+            - NavSVAdmin:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Admin"
+                Children:
+                  - IcoSVAdmin:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Settings"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        Width: =22
+                  - LblSVAdmin:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Administration"
+            - NavSVNotifs:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                Children:
+                  - IcoSVNotifs:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Alert"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Width: =22
+                  - LblSVNotifs:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Size: =14
+                        Text: ="Notifications"
+                  - BdgSVNotifs:
+                      Control: Badge
+                      Properties:
+                        Appearance: ='BadgeCanvas.Appearance'.Filled
+                        BasePaletteColor: =RGBA(220, 38, 38, 1)
+                        Content: =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
+                        FontColor: =RGBA(255, 255, 255, 1)
+                        Height: =20
+                        LayoutMinWidth: =30
+                        Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                        Width: =30
+            - RectRailSpacerSV:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FillPortions: =1
+            - RectRailSeparatorSV:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(229, 231, 235, 1)
+                  Height: =1
+            - TxtRailUserSV:
+                Control: ModernText
+                Properties:
+                  AutoHeight: =true
+                  Color: =RGBA(55, 65, 81, 1)
+                  FontWeight: =FontWeight.Semibold
+                  Size: =13
+                  Text: =User().FullName
+            - TxtRailRoleSV:
+                Control: ModernText
+                Properties:
+                  AutoHeight: =true
+                  Color: =RGBA(112, 112, 112, 1)
+                  Size: =12
+                  Text: =UserRole
+      - SVMain:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(249, 250, 251, 1)
+            Height: =Parent.Height - If(AdministrationServices.Size = ScreenSize.Small, 64, 0)
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width - If(AdministrationServices.Size = ScreenSize.Small, 0, RailSV.Width)
+            X: =If(AdministrationServices.Size = ScreenSize.Small, 0, RailSV.Width)
+          Children:
+            - SVHeaderContainer:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(249, 250, 251, 1)
+                  FillPortions: =0
+                  Height: =136
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =8
+                  PaddingBottom: =16
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  PaddingTop: =28
+                Children:
+                  - SVBackRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =28
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =6
+                      Children:
+                        - IconBackSV:
+                            Control: ModernIcon
+                            Properties:
+                              AccessibleLabel: ="Retour à l'espace administrateur"
+                              Height: =20
+                              Icon: ="ArrowLeft"
+                              IconColor: =RGBA(140, 12, 20, 1)
+                              OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                              Width: =20
+                        - TxtBackSV:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(140, 12, 20, 1)
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                              Size: =13
+                              Text: ="Espace Administrateur"
+                  - SVTitleRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =42
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        Width: =Parent.Width - 56
+                      Children:
+                        - TxtSVTitreMain:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(140, 12, 20, 1)
+                              FillPortions: =1
+                              FontWeight: =FontWeight.Bold
+                              Size: =28
+                              Text: ="Services"
+                        - IconNotifSV:
+                            Control: ModernIcon
+                            Properties:
+                              AccessibleLabel: ="Ouvrir les notifications"
+                              Height: =28
+                              Icon: ="Alert"
+                              IconColor: =RGBA(140, 12, 20, 1)
+                              OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                              Width: =28
+                        - BadgeNotifSV:
+                            Control: Badge
+                            Properties:
+                              Appearance: ='BadgeCanvas.Appearance'.Filled
+                              BasePaletteColor: =RGBA(220, 38, 38, 1)
+                              Content: =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
+                              FontColor: =RGBA(255, 255, 255, 1)
+                              Height: =22
+                              Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                  - RectSVAccentBar:
+                      Control: Rectangle
+                      Properties:
+                        Fill: =RGBA(140, 12, 20, 1)
+                        Height: =4
+                        Width: =56
+            - SVBody:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(249, 250, 251, 1)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =14
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =28
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  PaddingTop: =20
+                Children:
+                  - SVToolbarRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =40
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                      Children:
+                        - BtnSVNouveau:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Height: =40
+                              Icon: ="Add"
+                              OnSelect: |-
+                                =Set(varSVFormMode, "create");
+                                Set(varSVEditingID, Blank());
+                                Reset(InpSVNom);
+                                Reset(InpSVSla);
+                                Reset(InpSVDescription);
+                                Reset(InpSVRespNom);
+                                Reset(InpSVRespEmail);
+                                Reset(RadSVActif);
+                                Set(varSVFormOpen, true)
+                              Text: ="Ajouter un service"
+                              Width: =220
+                  - GallerySVListe:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        FillPortions: =0
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        Items: =SortByColumns(Services_Siege, "Title", SortOrder.Ascending)
+                        TemplatePadding: =10
+                        TemplateSize: =120
+                        Width: =Parent.Width - 56
+                      Children:
+                        - SVRowCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              Height: =Parent.TemplateHeight
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutGap: =12
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =Parent.TemplateWidth
+                            Children:
+                              - SVRowInfo:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =5
+                                  Children:
+                                    - TxtSVRowNom:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          Text: =Coalesce(ThisItem.Title, "—")
+                                          Width: =Parent.Width
+                                    - TxtSVRowSla:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =12
+                                          Text: '="SLA : " & Coalesce(Text(ThisItem.SLA_Theorique_Heures), "—") & " h"'
+                                          Width: =Parent.Width
+                                    - SVRowBadgesLine:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          FillPortions: =0
+                                          Height: =28
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =10
+                                          Width: =Parent.Width
+                                        Children:
+                                          - TxtSVRowResp:
+                                              Control: ModernText
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =RGBA(112, 112, 112, 1)
+                                                Size: =12
+                                                Text: '="Responsable : " & Coalesce(ThisItem.Responsable_Service.DisplayName, "—")'
+                                          - BadgeSVRowActif:
+                                              Control: Badge
+                                              Properties:
+                                                Appearance: ='BadgeCanvas.Appearance'.Tint
+                                                BasePaletteColor: =Coalesce(If(ThisItem.Actif, RGBA(209, 250, 229, 1), RGBA(229, 231, 235, 1)), RGBA(209, 250, 229, 1))
+                                                Content: =Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")
+                                                FontColor: =Coalesce(If(ThisItem.Actif, RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1)), RGBA(6, 95, 70, 1))
+                                                Height: =28
+                                                LayoutMinWidth: =Len(Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")) * 8 + 32
+                                                Width: =Len(Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")) * 8 + 32
+                              - BtnSVModifier:
+                                  Control: ModernButton
+                                  Properties:
+                                    Appearance: ='ButtonCanvas.Appearance'.Outline
+                                    BasePaletteColor: =RGBA(140, 12, 20, 1)
+                                    FillPortions: =0
+                                    Height: =36
+                                    OnSelect: |-
+                                      =Set(varSVFormMode, "edit");
+                                      Set(varSVEditingID, ThisItem.ID);
+                                      Set(varSVFormOpen, true)
+                                    Text: ="Modifier"
+                                    Width: =110
+                              - BtnSVToggleActif:
+                                  Control: ModernButton
+                                  Properties:
+                                    Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                    BasePaletteColor: =If(Coalesce(ThisItem.Actif, true), RGBA(220, 38, 38, 1), RGBA(6, 95, 70, 1))
+                                    FillPortions: =0
+                                    Height: =36
+                                    OnSelect: |-
+                                      =IfError(
+                                          Patch(Services_Siege, ThisItem, {Actif: Not(Coalesce(ThisItem.Actif, true))}),
+                                          Notify("Échec de la mise à jour : " & FirstError.Message, NotificationType.Error),
+                                          Notify("Statut mis à jour.", NotificationType.Success)
+                                      )
+                                    Text: =If(Coalesce(ThisItem.Actif, true), "Désactiver", "Activer")
+                                    Width: =110
+                              - BtnSVSupprimer:
+                                  Control: ModernButton
+                                  Properties:
+                                    Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                    BasePaletteColor: =RGBA(220, 38, 38, 1)
+                                    FillPortions: =0
+                                    Height: =36
+                                    OnSelect: |-
+                                      =Set(varSVConfirmRemoveID, ThisItem.ID);
+                                      Set(varSVConfirmRemoveName, ThisItem.Title);
+                                      Set(varSVRefCount,
+                                          CountRows(Filter(Membres_Services, Service_ID.Id = ThisItem.ID))
+                                          + CountRows(Filter(Demandes, Service_Actuel_ID.Id = ThisItem.ID))
+                                          + CountRows(Filter(Types_Demandes, ThisItem.ID in Service_Par_Defaut.Id || ThisItem.ID in Services_A_Transferer.Id))
+                                      )
+                                    Text: ="Supprimer"
+                                    Width: =110
+                  - TxtSVEmpty:
+                      Control: ModernText
+                      Properties:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Color: =RGBA(144, 144, 144, 1)
+                        Size: =14
+                        Text: ="Aucun service."
+                        Visible: =GallerySVListe.AllItemsCount = 0
+                        Width: =Parent.Width - 56
+      - SVFormOverlay:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            Height: =Parent.Height
+            Visible: =varSVFormOpen
+            Width: =Parent.Width
+          Children:
+            - RectSVFormScrim:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(17, 24, 39, 0.45)
+                  Height: =Parent.Height
+                  OnSelect: =Set(varSVFormOpen, false)
+                  Width: =Parent.Width
+            - SVFormCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.Regular
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =Min(Parent.Height - 40, 620)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =12
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =20
+                  PaddingLeft: =20
+                  PaddingRight: =20
+                  PaddingTop: =20
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =If(AdministrationServices.Size = ScreenSize.Small, Parent.Width - 40, 480)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =(Parent.Height - Self.Height) / 2
+                Children:
+                  - TxtSVFormTitle:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
+                        FontWeight: =FontWeight.Bold
+                        Size: =18
+                        Text: =If(varSVFormMode = "edit", "Modifier le service", "Nouveau service")
+                  - TxtSVLblNom:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: ="Nom du service *"
+                  - InpSVNom:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Nom du service (obligatoire)"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =If(varSVFormMode = "edit", LookUp(Services_Siege, ID = varSVEditingID).Title, "")
+                        Height: =40
+                  - TxtSVLblSla:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: ="SLA (heures) *"
+                  - InpSVSla:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="SLA en heures (obligatoire)"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =If(varSVFormMode = "edit", Text(LookUp(Services_Siege, ID = varSVEditingID).SLA_Theorique_Heures), "")
+                        Height: =40
+                        Placeholder: '="Nombre d''heures, ex: 48"'
+                  - TxtSVLblDescription:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: ="Description"
+                  - InpSVDescription:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Description"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =If(varSVFormMode = "edit", LookUp(Services_Siege, ID = varSVEditingID).Description, "")
+                        Height: =72
+                        Type: =TextInputType.Multiline
+                  - TxtSVLblRespNom:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: ="Responsable — Nom"
+                  - InpSVRespNom:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Responsable — Nom"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =If(varSVFormMode = "edit", LookUp(Services_Siege, ID = varSVEditingID).Responsable_Service.DisplayName, "")
+                        Height: =40
+                  - TxtSVLblRespEmail:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: ="Responsable — Email"
+                  - InpSVRespEmail:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Responsable — Email"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =If(varSVFormMode = "edit", LookUp(Services_Siege, ID = varSVEditingID).Responsable_Service.Email, "")
+                        Height: =40
+                        Placeholder: ="prenom.nom@takafulia.tn"
+                  - TxtSVLblActif:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: ="Statut"
+                  - RadSVActif:
+                      Control: ModernRadio
+                      Properties:
+                        AccessibleLabel: ="Actif"
+                        Default: |-
+                          =If(varSVFormMode = "edit" && Not(Coalesce(LookUp(Services_Siege, ID = varSVEditingID).Actif, true)), {Value: "Non"}, {Value: "Oui"})
+                        Height: =76
+                        Items: =["Oui", "Non"]
+                  - TxtSVFormErr:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(220, 38, 38, 1)
+                        Size: =12
+                        Text: ="Le nom et un SLA numérique valide sont obligatoires."
+                        Visible: |-
+                          =varSVTriedSave && (IsBlank(Trim(InpSVNom.Text)) || IsBlank(Trim(InpSVSla.Text)) || IsError(Value(Trim(InpSVSla.Text))))
+                  - SVFormButtonsRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =44
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                      Children:
+                        - BtnSVAnnuler:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Outline
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Height: =40
+                              OnSelect: =Set(varSVFormOpen, false)
+                              Text: ="Annuler"
+                              Width: =120
+                        - BtnSVEnregistrer:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Height: =40
+                              OnSelect: |-
+                                =Set(varSVTriedSave, true);
+                                If(
+                                    Not(IsBlank(Trim(InpSVNom.Text)))
+                                        && Not(IsBlank(Trim(InpSVSla.Text)))
+                                        && Not(IsError(Value(Trim(InpSVSla.Text)))),
+                                    IfError(
+                                        Patch(
+                                            Services_Siege,
+                                            If(varSVFormMode = "edit", LookUp(Services_Siege, ID = varSVEditingID), Defaults(Services_Siege)),
+                                            {
+                                                Title: Trim(InpSVNom.Text),
+                                                SLA_Theorique_Heures: Value(Trim(InpSVSla.Text)),
+                                                Description: Trim(InpSVDescription.Text),
+                                                Responsable_Service: If(
+                                                    IsBlank(Trim(InpSVRespEmail.Text)),
+                                                    Blank(),
+                                                    {
+                                                        '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                                        Claims: "i:0#.f|membership|" & Lower(Trim(InpSVRespEmail.Text)),
+                                                        DisplayName: Trim(InpSVRespNom.Text),
+                                                        Email: Trim(InpSVRespEmail.Text),
+                                                        Department: "",
+                                                        JobTitle: "",
+                                                        Picture: ""
+                                                    }
+                                                ),
+                                                Actif: RadSVActif.Selected.Value = "Oui"
+                                            }
+                                        ),
+                                        Notify("Échec de l'enregistrement : " & FirstError.Message, NotificationType.Error),
+                                        Set(varSVFormOpen, false);
+                                        Set(varSVTriedSave, false);
+                                        Refresh(Services_Siege);
+                                        Notify("Service enregistré.", NotificationType.Success)
+                                    )
+                                )
+                              Text: ="Enregistrer"
+                              Width: =140
+      - SVConfirmRemoveOverlay:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            Height: =Parent.Height
+            Visible: =Not(IsBlank(varSVConfirmRemoveID))
+            Width: =Parent.Width
+          Children:
+            - RectSVConfirmScrim:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(17, 24, 39, 0.45)
+                  Height: =Parent.Height
+                  OnSelect: =Set(varSVConfirmRemoveID, Blank())
+                  Width: =Parent.Width
+            - SVConfirmCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.Regular
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =If(varSVRefCount > 0, 230, 190)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =12
+                  PaddingBottom: =20
+                  PaddingLeft: =20
+                  PaddingRight: =20
+                  PaddingTop: =20
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =If(AdministrationServices.Size = ScreenSize.Small, Parent.Width - 40, 440)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =(Parent.Height - Self.Height) / 2
+                Children:
+                  - TxtSVConfirmTitle:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(31, 41, 55, 1)
+                        FontWeight: =FontWeight.Bold
+                        Size: =17
+                        Text: =If(varSVRefCount > 0, "Suppression impossible", "Supprimer ?")
+                  - TxtSVConfirmBody:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: |-
+                          =If(
+                              varSVRefCount > 0,
+                              "« " & varSVConfirmRemoveName & " » est référencé(e) par " & varSVRefCount & " enregistrement(s). Désactivez-le à la place.",
+                              "« " & varSVConfirmRemoveName & " » sera définitivement supprimé(e)."
+                          )
+                  - SVConfirmButtonsRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =40
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                      Children:
+                        - BtnSVConfirmFermer:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Secondary
+                              Height: =40
+                              OnSelect: =Set(varSVConfirmRemoveID, Blank())
+                              Text: ="Fermer"
+                              Visible: =varSVRefCount > 0
+                              Width: =110
+                        - BtnSVConfirmDesactiver:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Height: =40
+                              OnSelect: |-
+                                =IfError(
+                                    Patch(Services_Siege, LookUp(Services_Siege, ID = varSVConfirmRemoveID), {Actif: false}),
+                                    Notify("Échec de la mise à jour : " & FirstError.Message, NotificationType.Error),
+                                    Set(varSVConfirmRemoveID, Blank());
+                                    Refresh(Services_Siege);
+                                    Notify("Service désactivé.", NotificationType.Success)
+                                )
+                              Text: ="Désactiver à la place"
+                              Visible: =varSVRefCount > 0
+                              Width: =200
+                        - BtnSVConfirmAnnuler:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Secondary
+                              Height: =40
+                              OnSelect: =Set(varSVConfirmRemoveID, Blank())
+                              Text: ="Annuler"
+                              Visible: =varSVRefCount = 0
+                              Width: =120
+                        - BtnSVConfirmSupprimer:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =RGBA(220, 38, 38, 1)
+                              Height: =40
+                              OnSelect: |-
+                                =IfError(
+                                    Remove(Services_Siege, LookUp(Services_Siege, ID = varSVConfirmRemoveID)),
+                                    Notify("Échec de la suppression : " & FirstError.Message, NotificationType.Error),
+                                    Set(varSVConfirmRemoveID, Blank());
+                                    Refresh(Services_Siege);
+                                    Notify("Service supprimé.", NotificationType.Success)
+                                )
+                              Text: ="Supprimer"
+                              Visible: =varSVRefCount = 0
+                              Width: =120
+      - BarSV:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.Regular
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =64
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            Visible: =AdministrationServices.Size = ScreenSize.Small
+            Width: =Parent.Width
+            Y: =Parent.Height - 64
+          Children:
+            - BEntSVAccueil:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                Children:
+                  - BIcoSVAccueil:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Home"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblSVAccueil:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Accueil"
+            - BEntSVFile:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoSVFile:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Briefcase"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblSVFile:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="À traiter"
+            - BEntSVStats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoSVStats:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="DataBarVertical"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblSVStats:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Stats"
+            - BEntSVAdmin:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Admin"
+                Children:
+                  - BIcoSVAdmin:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Settings"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblSVAdmin:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Admin"
+            - BEntSVNotifs:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                Children:
+                  - BIcoSVNotifs:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Alert"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblSVNotifs:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Size: =10
+                        Text: ="Notifs"

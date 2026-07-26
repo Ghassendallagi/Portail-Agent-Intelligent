@@ -24,7 +24,6 @@ Screens:
                 Control: Image
                 Properties:
                   AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =0
                   Height: =60
                   Image: =Logo
                   LayoutMinHeight: =0
@@ -34,7 +33,6 @@ Screens:
                 Properties:
                   AlignInContainer: =AlignInContainer.Stretch
                   Fill: =RGBA(0, 0, 0, 0)
-                  FillPortions: =0
                   Height: =16
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
@@ -42,7 +40,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   FillPortions: =0
                   Height: =44
                   LayoutAlignItems: =LayoutAlignItems.Center
@@ -61,7 +58,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Home"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -90,7 +86,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   FillPortions: =0
                   Height: =44
                   LayoutAlignItems: =LayoutAlignItems.Center
@@ -110,7 +105,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Document"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -139,7 +133,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   FillPortions: =0
                   Height: =44
                   LayoutAlignItems: =LayoutAlignItems.Center
@@ -159,7 +152,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         IconColor: =RGBA(112, 112, 112, 1)
                         LayoutMinHeight: =0
@@ -187,7 +179,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   FillPortions: =0
                   Height: =44
                   LayoutAlignItems: =LayoutAlignItems.Center
@@ -207,7 +198,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Briefcase"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -236,7 +226,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   FillPortions: =0
                   Height: =44
                   LayoutAlignItems: =LayoutAlignItems.Center
@@ -256,7 +245,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Clock"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -285,7 +273,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   FillPortions: =0
                   Height: =44
                   LayoutAlignItems: =LayoutAlignItems.Center
@@ -305,7 +292,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="DataBarVertical"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -334,7 +320,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   Fill: =RGBA(140, 12, 20, 0.08)
                   FillPortions: =0
                   Height: =44
@@ -355,7 +340,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Settings"
                         IconColor: =RGBA(140, 12, 20, 1)
@@ -385,7 +369,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   FillPortions: =0
                   Height: =44
                   LayoutAlignItems: =LayoutAlignItems.Center
@@ -404,7 +387,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Alert"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -436,7 +418,6 @@ Screens:
                         Appearance: ='BadgeCanvas.Appearance'.Filled
                         BasePaletteColor: =RGBA(220, 38, 38, 1)
                         Content: =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
-                        FillPortions: =0
                         FontColor: =RGBA(255, 255, 255, 1)
                         Height: =22
                         LayoutMinHeight: =0
@@ -456,7 +437,6 @@ Screens:
                 Properties:
                   AlignInContainer: =AlignInContainer.Stretch
                   Fill: =RGBA(229, 231, 235, 1)
-                  FillPortions: =0
                   Height: =1
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
@@ -466,7 +446,6 @@ Screens:
                   AlignInContainer: =AlignInContainer.Stretch
                   AutoHeight: =true
                   Color: =RGBA(55, 65, 81, 1)
-                  FillPortions: =0
                   FontWeight: =FontWeight.Semibold
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
@@ -483,7 +462,6 @@ Screens:
                   AlignInContainer: =AlignInContainer.Stretch
                   AutoHeight: =true
                   Color: =RGBA(112, 112, 112, 1)
-                  FillPortions: =0
                   LayoutMinHeight: =0
                   LayoutMinWidth: =0
                   PaddingBottom: =0
@@ -508,7 +486,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   Fill: =RGBA(249, 250, 251, 1)
                   FillPortions: =0
                   Height: =128
@@ -527,7 +504,6 @@ Screens:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =true
                         Color: =RGBA(140, 12, 20, 1)
-                        FillPortions: =0
                         FontWeight: =FontWeight.Bold
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
@@ -545,7 +521,6 @@ Screens:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
                         PaddingBottom: =0
@@ -560,9 +535,7 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
                   Fill: =RGBA(249, 250, 251, 1)
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Stretch
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =14
@@ -578,7 +551,6 @@ Screens:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        AlignInContainer: =AlignInContainer.Stretch
                         FillPortions: =0
                         Height: =Parent.Height
                         LayoutAlignItems: =LayoutAlignItems.Center
@@ -616,11 +588,10 @@ Screens:
                               - TxtEADeniedBrand:
                                   Control: ModernText
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
                                     Color: =RGBA(112, 112, 112, 1)
-                                    FillPortions: =0
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
                                     PaddingBottom: =0
@@ -635,7 +606,6 @@ Screens:
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Center
                                     Fill: =RGBA(140, 12, 20, 1)
-                                    FillPortions: =0
                                     Height: =4
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
@@ -643,11 +613,10 @@ Screens:
                               - TxtEADeniedMessage:
                                   Control: ModernText
                                   Properties:
-                                    AlignInContainer: =AlignInContainer.Stretch
                                     Align: =Align.Center
+                                    AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
                                     Color: =RGBA(31, 41, 55, 1)
-                                    FillPortions: =0
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
                                     PaddingBottom: =0
@@ -661,7 +630,6 @@ Screens:
                                     AlignInContainer: =AlignInContainer.Center
                                     Appearance: ='ButtonCanvas.Appearance'.Primary
                                     BasePaletteColor: =RGBA(140, 12, 20, 1)
-                                    FillPortions: =0
                                     Height: =40
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
@@ -672,7 +640,6 @@ Screens:
                       Control: GroupContainer
                       Variant: AutoLayout
                       Properties:
-                        AlignInContainer: =AlignInContainer.Stretch
                         FillPortions: =0
                         Height: =If(EspaceAdministrateur.Size = ScreenSize.Small, 5 * 216, 216)
                         LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -687,10 +654,8 @@ Screens:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               DropShadow: =DropShadow.Semilight
                               Fill: =RGBA(255, 255, 255, 1)
-                              FillPortions: =1
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =10
                               LayoutMinHeight: =0
@@ -729,7 +694,6 @@ Screens:
                                         Control: ModernIcon
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Center
-                                          FillPortions: =0
                                           Height: =22
                                           Icon: ="Document"
                                           IconColor: =RGBA(140, 12, 20, 1)
@@ -743,7 +707,6 @@ Screens:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
                                     Color: =RGBA(31, 41, 55, 1)
-                                    FillPortions: =0
                                     FontWeight: =FontWeight.Bold
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
@@ -761,7 +724,6 @@ Screens:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
                                     Color: =RGBA(112, 112, 112, 1)
-                                    FillPortions: =0
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
                                     OnSelect: =Navigate(AdministrationTypesDemandes, ScreenTransition.Fade)
@@ -776,10 +738,8 @@ Screens:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               DropShadow: =DropShadow.Semilight
                               Fill: =RGBA(255, 255, 255, 1)
-                              FillPortions: =1
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =10
                               LayoutMinHeight: =0
@@ -818,7 +778,6 @@ Screens:
                                         Control: ModernIcon
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Center
-                                          FillPortions: =0
                                           Height: =22
                                           Icon: ="Person"
                                           IconColor: =RGBA(140, 12, 20, 1)
@@ -832,7 +791,6 @@ Screens:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
                                     Color: =RGBA(31, 41, 55, 1)
-                                    FillPortions: =0
                                     FontWeight: =FontWeight.Bold
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
@@ -850,7 +808,6 @@ Screens:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
                                     Color: =RGBA(112, 112, 112, 1)
-                                    FillPortions: =0
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
                                     OnSelect: =Navigate(AdministrationGestionnaires, ScreenTransition.Fade)
@@ -865,10 +822,8 @@ Screens:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               DropShadow: =DropShadow.Semilight
                               Fill: =RGBA(255, 255, 255, 1)
-                              FillPortions: =1
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =10
                               LayoutMinHeight: =0
@@ -887,7 +842,7 @@ Screens:
                                   Variant: AutoLayout
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Center
-                                    Fill: =RGBA(243, 244, 246, 1)
+                                    Fill: =RGBA(140, 12, 20, 0.08)
                                     FillPortions: =0
                                     Height: =44
                                     LayoutDirection: =LayoutDirection.Horizontal
@@ -907,23 +862,23 @@ Screens:
                                         Control: ModernIcon
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Center
-                                          FillPortions: =0
                                           Height: =22
                                           Icon: ="Briefcase"
-                                          IconColor: =RGBA(144, 144, 144, 1)
+                                          IconColor: =RGBA(140, 12, 20, 1)
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
+                                          OnSelect: =Navigate(AdministrationServices, ScreenTransition.Fade)
                                           Width: =22
                               - TxtCardEAServicesTitle:
                                   Control: ModernText
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
-                                    Color: =RGBA(107, 114, 128, 1)
-                                    FillPortions: =0
+                                    Color: =RGBA(31, 41, 55, 1)
                                     FontWeight: =FontWeight.Bold
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
+                                    OnSelect: =Navigate(AdministrationServices, ScreenTransition.Fade)
                                     PaddingBottom: =0
                                     PaddingLeft: =0
                                     PaddingRight: =0
@@ -936,10 +891,10 @@ Screens:
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
-                                    Color: =RGBA(144, 144, 144, 1)
-                                    FillPortions: =0
+                                    Color: =RGBA(112, 112, 112, 1)
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
+                                    OnSelect: =Navigate(AdministrationServices, ScreenTransition.Fade)
                                     PaddingBottom: =0
                                     PaddingLeft: =0
                                     PaddingRight: =0
@@ -947,27 +902,12 @@ Screens:
                                     Size: =13
                                     Text: ="Référentiel des services du siège"
                                     Width: =Parent.Width - 36
-                              - BadgeEAServicesSoon:
-                                  Control: Badge
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Center
-                                    Appearance: ='BadgeCanvas.Appearance'.Tint
-                                    BasePaletteColor: =RGBA(229, 231, 235, 1)
-                                    Content: ="Bientôt disponible"
-                                    FillPortions: =0
-                                    FontColor: =RGBA(107, 114, 128, 1)
-                                    Height: =24
-                                    LayoutMinHeight: =0
-                                    LayoutMinWidth: =Len("Bientôt disponible") * 8 + 32
-                                    Width: =Len("Bientôt disponible") * 8 + 32
                         - CardEAAgences:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               DropShadow: =DropShadow.Semilight
                               Fill: =RGBA(255, 255, 255, 1)
-                              FillPortions: =1
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =10
                               LayoutMinHeight: =0
@@ -986,7 +926,7 @@ Screens:
                                   Variant: AutoLayout
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Center
-                                    Fill: =RGBA(243, 244, 246, 1)
+                                    Fill: =RGBA(140, 12, 20, 0.08)
                                     FillPortions: =0
                                     Height: =44
                                     LayoutDirection: =LayoutDirection.Horizontal
@@ -1006,23 +946,23 @@ Screens:
                                         Control: ModernIcon
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Center
-                                          FillPortions: =0
                                           Height: =22
                                           Icon: ="Flag"
-                                          IconColor: =RGBA(144, 144, 144, 1)
+                                          IconColor: =RGBA(140, 12, 20, 1)
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
+                                          OnSelect: =Navigate(AdministrationAgences, ScreenTransition.Fade)
                                           Width: =22
                               - TxtCardEAAgencesTitle:
                                   Control: ModernText
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
-                                    Color: =RGBA(107, 114, 128, 1)
-                                    FillPortions: =0
+                                    Color: =RGBA(31, 41, 55, 1)
                                     FontWeight: =FontWeight.Bold
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
+                                    OnSelect: =Navigate(AdministrationAgences, ScreenTransition.Fade)
                                     PaddingBottom: =0
                                     PaddingLeft: =0
                                     PaddingRight: =0
@@ -1035,10 +975,10 @@ Screens:
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
-                                    Color: =RGBA(144, 144, 144, 1)
-                                    FillPortions: =0
+                                    Color: =RGBA(112, 112, 112, 1)
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
+                                    OnSelect: =Navigate(AdministrationAgences, ScreenTransition.Fade)
                                     PaddingBottom: =0
                                     PaddingLeft: =0
                                     PaddingRight: =0
@@ -1046,27 +986,12 @@ Screens:
                                     Size: =13
                                     Text: ="Référentiel des agences régionales"
                                     Width: =Parent.Width - 36
-                              - BadgeEAAgencesSoon:
-                                  Control: Badge
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Center
-                                    Appearance: ='BadgeCanvas.Appearance'.Tint
-                                    BasePaletteColor: =RGBA(229, 231, 235, 1)
-                                    Content: ="Bientôt disponible"
-                                    FillPortions: =0
-                                    FontColor: =RGBA(107, 114, 128, 1)
-                                    Height: =24
-                                    LayoutMinHeight: =0
-                                    LayoutMinWidth: =Len("Bientôt disponible") * 8 + 32
-                                    Width: =Len("Bientôt disponible") * 8 + 32
                         - CardEAAgents:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
-                              AlignInContainer: =AlignInContainer.Stretch
                               DropShadow: =DropShadow.Semilight
                               Fill: =RGBA(255, 255, 255, 1)
-                              FillPortions: =1
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =10
                               LayoutMinHeight: =0
@@ -1085,7 +1010,7 @@ Screens:
                                   Variant: AutoLayout
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Center
-                                    Fill: =RGBA(243, 244, 246, 1)
+                                    Fill: =RGBA(140, 12, 20, 0.08)
                                     FillPortions: =0
                                     Height: =44
                                     LayoutDirection: =LayoutDirection.Horizontal
@@ -1105,23 +1030,23 @@ Screens:
                                         Control: ModernIcon
                                         Properties:
                                           AlignInContainer: =AlignInContainer.Center
-                                          FillPortions: =0
                                           Height: =22
                                           Icon: ="Archive"
-                                          IconColor: =RGBA(144, 144, 144, 1)
+                                          IconColor: =RGBA(140, 12, 20, 1)
                                           LayoutMinHeight: =0
                                           LayoutMinWidth: =0
+                                          OnSelect: =Navigate(AdministrationAgents, ScreenTransition.Fade)
                                           Width: =22
                               - TxtCardEAAgentsTitle:
                                   Control: ModernText
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
-                                    Color: =RGBA(107, 114, 128, 1)
-                                    FillPortions: =0
+                                    Color: =RGBA(31, 41, 55, 1)
                                     FontWeight: =FontWeight.Bold
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
+                                    OnSelect: =Navigate(AdministrationAgents, ScreenTransition.Fade)
                                     PaddingBottom: =0
                                     PaddingLeft: =0
                                     PaddingRight: =0
@@ -1134,10 +1059,10 @@ Screens:
                                   Properties:
                                     AlignInContainer: =AlignInContainer.Stretch
                                     AutoHeight: =true
-                                    Color: =RGBA(144, 144, 144, 1)
-                                    FillPortions: =0
+                                    Color: =RGBA(112, 112, 112, 1)
                                     LayoutMinHeight: =0
                                     LayoutMinWidth: =0
+                                    OnSelect: =Navigate(AdministrationAgents, ScreenTransition.Fade)
                                     PaddingBottom: =0
                                     PaddingLeft: =0
                                     PaddingRight: =0
@@ -1145,19 +1070,6 @@ Screens:
                                     Size: =13
                                     Text: ="Référentiel des agents terrain"
                                     Width: =Parent.Width - 36
-                              - BadgeEAAgentsSoon:
-                                  Control: Badge
-                                  Properties:
-                                    AlignInContainer: =AlignInContainer.Center
-                                    Appearance: ='BadgeCanvas.Appearance'.Tint
-                                    BasePaletteColor: =RGBA(229, 231, 235, 1)
-                                    Content: ="Bientôt disponible"
-                                    FillPortions: =0
-                                    FontColor: =RGBA(107, 114, 128, 1)
-                                    Height: =24
-                                    LayoutMinHeight: =0
-                                    LayoutMinWidth: =Len("Bientôt disponible") * 8 + 32
-                                    Width: =Len("Bientôt disponible") * 8 + 32
       - BarEA:
           Control: GroupContainer
           Variant: AutoLayout
@@ -1175,8 +1087,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
@@ -1188,7 +1098,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Home"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -1202,7 +1111,6 @@ Screens:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
                         OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
@@ -1217,8 +1125,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
@@ -1231,7 +1137,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Document"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -1245,7 +1150,6 @@ Screens:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
                         OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
@@ -1260,8 +1164,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
@@ -1274,7 +1176,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         IconColor: =RGBA(112, 112, 112, 1)
                         LayoutMinHeight: =0
@@ -1287,7 +1188,6 @@ Screens:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
                         OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
@@ -1302,8 +1202,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
@@ -1316,7 +1214,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Briefcase"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -1330,7 +1227,6 @@ Screens:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
                         OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
@@ -1345,8 +1241,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
@@ -1359,7 +1253,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Clock"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -1373,7 +1266,6 @@ Screens:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
                         OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
@@ -1388,8 +1280,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
@@ -1402,7 +1292,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="DataBarVertical"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -1416,7 +1305,6 @@ Screens:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
                         OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
@@ -1431,8 +1319,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
@@ -1445,7 +1331,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Settings"
                         IconColor: =RGBA(140, 12, 20, 1)
@@ -1459,7 +1344,6 @@ Screens:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =true
                         Color: =RGBA(140, 12, 20, 1)
-                        FillPortions: =0
                         FontWeight: =FontWeight.Semibold
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
@@ -1475,8 +1359,6 @@ Screens:
                 Control: GroupContainer
                 Variant: AutoLayout
                 Properties:
-                  AlignInContainer: =AlignInContainer.Stretch
-                  FillPortions: =1
                   LayoutAlignItems: =LayoutAlignItems.Center
                   LayoutDirection: =LayoutDirection.Vertical
                   LayoutGap: =2
@@ -1488,7 +1370,6 @@ Screens:
                       Control: ModernIcon
                       Properties:
                         AlignInContainer: =AlignInContainer.Center
-                        FillPortions: =0
                         Height: =22
                         Icon: ="Alert"
                         IconColor: =RGBA(112, 112, 112, 1)
@@ -1502,7 +1383,6 @@ Screens:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =true
                         Color: =RGBA(112, 112, 112, 1)
-                        FillPortions: =0
                         LayoutMinHeight: =0
                         LayoutMinWidth: =0
                         OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)

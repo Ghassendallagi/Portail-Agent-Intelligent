@@ -1,0 +1,1234 @@
+Screens:
+  AdministrationAgences:
+    Properties:
+      Fill: =RGBA(249, 250, 251, 1)
+      OnVisible: |-
+        =Set(varANFormOpen, false);
+        Set(varANFormMode, "create");
+        Set(varANEditingID, Blank());
+        Set(varANTriedSave, false);
+        Set(varANConfirmRemoveID, Blank());
+        Set(varANConfirmRemoveName, "");
+        Set(varANRefCount, 0)
+    Children:
+      - RailAN:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.Semilight
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =4
+            PaddingBottom: =20
+            PaddingLeft: =12
+            PaddingRight: =12
+            PaddingTop: =20
+            Visible: =AdministrationAgences.Size <> ScreenSize.Small
+            Width: =300
+          Children:
+            - ImgLogoAN:
+                Control: Image
+                Properties:
+                  Height: =60
+                  Image: =Logo
+            - RectRailSepAN:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(0, 0, 0, 0)
+                  Height: =16
+            - NavANAccueil:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                Children:
+                  - IcoANAccueil:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Home"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Width: =22
+                  - LblANAccueil:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Accueil"
+                        Wrap: =false
+            - NavANMesDem:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - IcoANMesDem:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Document"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        Width: =22
+                  - LblANMesDem:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(MesDemandes, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Mes demandes"
+                        Wrap: =false
+            - NavANNouvelle:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Agent" || UserRole = "Admin"
+                Children:
+                  - IcoANNouvelle:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        Width: =22
+                  - LblANNouvelle:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(NouvelleDemande, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Nouvelle demande"
+                        Wrap: =false
+            - NavANFile:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoANFile:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Briefcase"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Width: =22
+                  - LblANFile:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="File à traiter"
+                        Wrap: =false
+            - NavANAlertes:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoANAlertes:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Clock"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        Width: =22
+                  - LblANAlertes:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(AlertesSLA, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Alertes SLA"
+                        Wrap: =false
+            - NavANStats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - IcoANStats:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="DataBarVertical"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Width: =22
+                  - LblANStats:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Statistiques"
+                        Wrap: =false
+            - NavANAdmin:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                  Visible: =UserRole = "Admin"
+                Children:
+                  - IcoANAdmin:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Settings"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        Width: =22
+                  - LblANAdmin:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Administration"
+                        Wrap: =false
+            - NavANNotifs:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  FillPortions: =0
+                  Height: =44
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutGap: =10
+                  PaddingLeft: =12
+                  PaddingRight: =12
+                  RadiusBottomLeft: =8
+                  RadiusBottomRight: =8
+                  RadiusTopLeft: =8
+                  RadiusTopRight: =8
+                Children:
+                  - IcoANNotifs:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Alert"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Width: =22
+                  - LblANNotifs:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        FillPortions: =1
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Notifications"
+                        Wrap: =false
+                  - BadgeANNotifs:
+                      Control: Badge
+                      Properties:
+                        Appearance: ='BadgeCanvas.Appearance'.Filled
+                        BasePaletteColor: =RGBA(220, 38, 38, 1)
+                        Content: =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
+                        FontColor: =RGBA(255, 255, 255, 1)
+                        Height: =20
+                        LayoutMinWidth: =30
+                        Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                        Width: =30
+            - RectRailSpacerAN:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FillPortions: =1
+            - RectRailSeparatorAN:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(229, 231, 235, 1)
+                  Height: =1
+            - TxtRailUserAN:
+                Control: ModernText
+                Properties:
+                  AutoHeight: =true
+                  Color: =RGBA(55, 65, 81, 1)
+                  FontWeight: =FontWeight.Semibold
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =13
+                  Text: =User().FullName
+                  Wrap: =false
+            - TxtRailRoleAN:
+                Control: ModernText
+                Properties:
+                  AutoHeight: =true
+                  Color: =RGBA(112, 112, 112, 1)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: =UserRole
+                  Wrap: =false
+      - ANMain:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            Fill: =RGBA(249, 250, 251, 1)
+            Height: =Parent.Height - If(AdministrationAgences.Size = ScreenSize.Small, 64, 0)
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            Width: =Parent.Width - If(AdministrationAgences.Size = ScreenSize.Small, 0, RailAN.Width)
+            X: =If(AdministrationAgences.Size = ScreenSize.Small, 0, RailAN.Width)
+          Children:
+            - ANHeaderContainer:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(249, 250, 251, 1)
+                  FillPortions: =0
+                  Height: =136
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =8
+                  PaddingBottom: =16
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  PaddingTop: =28
+                Children:
+                  - ANBackRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =28
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =6
+                      Children:
+                        - IconBackAN:
+                            Control: ModernIcon
+                            Properties:
+                              AccessibleLabel: ="Retour à l'espace administrateur"
+                              Height: =20
+                              Icon: ="ArrowLeft"
+                              IconColor: =RGBA(140, 12, 20, 1)
+                              OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                              Width: =20
+                        - TxtBackAN:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(140, 12, 20, 1)
+                              FontWeight: =FontWeight.Semibold
+                              OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =13
+                              Text: ="Espace Administrateur"
+                              Wrap: =false
+                  - ANTitleRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =42
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        Width: =Parent.Width - 56
+                      Children:
+                        - TxtANTitreMain:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(140, 12, 20, 1)
+                              FillPortions: =1
+                              FontWeight: =FontWeight.Bold
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              PaddingTop: =0
+                              Size: =28
+                              Text: ="Agences"
+                              Wrap: =false
+                        - IconNotifAN:
+                            Control: ModernIcon
+                            Properties:
+                              AccessibleLabel: ="Ouvrir les notifications"
+                              Height: =28
+                              Icon: ="Alert"
+                              IconColor: =RGBA(140, 12, 20, 1)
+                              OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                              Width: =28
+                        - BadgeNotifAN:
+                            Control: Badge
+                            Properties:
+                              Appearance: ='BadgeCanvas.Appearance'.Filled
+                              BasePaletteColor: =RGBA(220, 38, 38, 1)
+                              Content: =Text(CountRows(Filter(Notifications, Destinataire.Email = User().Email && IsRead = false)))
+                              FontColor: =RGBA(255, 255, 255, 1)
+                              Height: =22
+                              Visible: =Not(IsBlank(LookUp(Notifications, Destinataire.Email = User().Email && IsRead = false, ID)))
+                  - RectANAccentBar:
+                      Control: Rectangle
+                      Properties:
+                        Fill: =RGBA(140, 12, 20, 1)
+                        Height: =4
+                        Width: =56
+            - ANBody:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  Fill: =RGBA(249, 250, 251, 1)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =14
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =28
+                  PaddingLeft: =28
+                  PaddingRight: =28
+                  PaddingTop: =20
+                Children:
+                  - ANToolbarRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =40
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                      Children:
+                        - BtnANNouveau:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Height: =40
+                              Icon: ="Add"
+                              OnSelect: |-
+                                =Set(varANFormMode, "create");
+                                Set(varANEditingID, Blank());
+                                Reset(InpANCode);
+                                Reset(InpANNom);
+                                Reset(InpANVille);
+                                Reset(InpANRespNom);
+                                Reset(InpANRespEmail);
+                                Reset(RadANActif);
+                                Set(varANFormOpen, true)
+                              Text: ="Ajouter une agence"
+                              Width: =220
+                  - GalleryANListe:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        FillPortions: =0
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        Items: =SortByColumns(Agences, "Title", SortOrder.Ascending)
+                        TemplatePadding: =10
+                        TemplateSize: =120
+                        Width: =Parent.Width - 56
+                      Children:
+                        - ANRowCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              DropShadow: =DropShadow.Semilight
+                              Fill: =RGBA(255, 255, 255, 1)
+                              Height: =Parent.TemplateHeight
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              PaddingLeft: =18
+                              PaddingRight: =18
+                              RadiusBottomLeft: =12
+                              RadiusBottomRight: =12
+                              RadiusTopLeft: =12
+                              RadiusTopRight: =12
+                              Width: =Parent.TemplateWidth
+                            Children:
+                              - ANRowInfo:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =1
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    LayoutGap: =5
+                                  Children:
+                                    - TxtANRowNom:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(31, 41, 55, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Text: =Coalesce(ThisItem.Code_Agence, "—") & " — " & Coalesce(ThisItem.Title, "—")
+                                          Width: =Parent.Width
+                                          Wrap: =false
+                                    - TxtANRowVille:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          PaddingTop: =0
+                                          Size: =12
+                                          Text: '="Ville : " & Coalesce(ThisItem.Ville, "—")'
+                                          Width: =Parent.Width
+                                          Wrap: =false
+                                    - ANRowBadgesLine:
+                                        Control: GroupContainer
+                                        Variant: AutoLayout
+                                        Properties:
+                                          FillPortions: =0
+                                          Height: =28
+                                          LayoutAlignItems: =LayoutAlignItems.Center
+                                          LayoutDirection: =LayoutDirection.Horizontal
+                                          LayoutGap: =10
+                                          Width: =Parent.Width
+                                        Children:
+                                          - TxtANRowResp:
+                                              Control: ModernText
+                                              Properties:
+                                                AutoHeight: =true
+                                                Color: =RGBA(112, 112, 112, 1)
+                                                PaddingBottom: =0
+                                                PaddingLeft: =0
+                                                PaddingRight: =0
+                                                PaddingTop: =0
+                                                Size: =12
+                                                Text: '="Responsable : " & Coalesce(ThisItem.Responsable.DisplayName, "—")'
+                                                Wrap: =false
+                                          - BadgeANRowActif:
+                                              Control: Badge
+                                              Properties:
+                                                Appearance: ='BadgeCanvas.Appearance'.Tint
+                                                BasePaletteColor: =Coalesce(If(ThisItem.Actif, RGBA(209, 250, 229, 1), RGBA(229, 231, 235, 1)), RGBA(209, 250, 229, 1))
+                                                Content: =Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")
+                                                FontColor: =Coalesce(If(ThisItem.Actif, RGBA(6, 95, 70, 1), RGBA(107, 114, 128, 1)), RGBA(6, 95, 70, 1))
+                                                Height: =28
+                                                LayoutMinWidth: =Len(Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")) * 8 + 32
+                                                Width: =Len(Coalesce(If(ThisItem.Actif, "Actif", "Inactif"), "Actif")) * 8 + 32
+                              - BtnANModifier:
+                                  Control: ModernButton
+                                  Properties:
+                                    Appearance: ='ButtonCanvas.Appearance'.Outline
+                                    BasePaletteColor: =RGBA(140, 12, 20, 1)
+                                    FillPortions: =0
+                                    Height: =36
+                                    OnSelect: |-
+                                      =Set(varANFormMode, "edit");
+                                      Set(varANEditingID, ThisItem.ID);
+                                      Set(varANFormOpen, true)
+                                    Text: ="Modifier"
+                                    Width: =110
+                              - BtnANToggleActif:
+                                  Control: ModernButton
+                                  Properties:
+                                    Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                    BasePaletteColor: =If(Coalesce(ThisItem.Actif, true), RGBA(220, 38, 38, 1), RGBA(6, 95, 70, 1))
+                                    FillPortions: =0
+                                    Height: =36
+                                    OnSelect: |-
+                                      =IfError(
+                                          Patch(Agences, ThisItem, {Actif: Not(Coalesce(ThisItem.Actif, true))}),
+                                          Notify("Échec de la mise à jour : " & FirstError.Message, NotificationType.Error),
+                                          Notify("Statut mis à jour.", NotificationType.Success)
+                                      )
+                                    Text: =If(Coalesce(ThisItem.Actif, true), "Désactiver", "Activer")
+                                    Width: =110
+                              - BtnANSupprimer:
+                                  Control: ModernButton
+                                  Properties:
+                                    Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                    BasePaletteColor: =RGBA(220, 38, 38, 1)
+                                    FillPortions: =0
+                                    Height: =36
+                                    OnSelect: |-
+                                      =Set(varANConfirmRemoveID, ThisItem.ID);
+                                      Set(varANConfirmRemoveName, ThisItem.Title);
+                                      Set(varANRefCount, CountRows(Filter(Agents, Agence_ID.Id = ThisItem.ID)))
+                                    Text: ="Supprimer"
+                                    Width: =110
+                  - TxtANEmpty:
+                      Control: ModernText
+                      Properties:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Color: =RGBA(144, 144, 144, 1)
+                        FillPortions: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =14
+                        Text: ="Aucune agence."
+                        Visible: =GalleryANListe.AllItemsCount = 0
+                        Width: =Parent.Width - 56
+                        Wrap: =false
+      - ANFormOverlay:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            Height: =Parent.Height
+            Visible: =varANFormOpen
+            Width: =Parent.Width
+          Children:
+            - RectANFormScrim:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(17, 24, 39, 0.45)
+                  Height: =Parent.Height
+                  OnSelect: =Set(varANFormOpen, false)
+                  Width: =Parent.Width
+            - ANFormCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.Regular
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =Min(Parent.Height - 40, 620)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =12
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =20
+                  PaddingLeft: =20
+                  PaddingRight: =20
+                  PaddingTop: =20
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =If(AdministrationAgences.Size = ScreenSize.Small, Parent.Width - 40, 480)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =(Parent.Height - Self.Height) / 2
+                Children:
+                  - TxtANFormTitle:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
+                        FontWeight: =FontWeight.Bold
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =18
+                        Text: =If(varANFormMode = "edit", "Modifier l'agence", "Nouvelle agence")
+                        Wrap: =false
+                  - TxtANLblCode:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Text: ="Code agence *"
+                        Wrap: =false
+                  - InpANCode:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Code agence (obligatoire)"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =If(varANFormMode = "edit", LookUp(Agences, ID = varANEditingID).Code_Agence, "")
+                        Height: =40
+                  - TxtANLblNom:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Text: ="Nom *"
+                        Wrap: =false
+                  - InpANNom:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Nom (obligatoire)"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =If(varANFormMode = "edit", LookUp(Agences, ID = varANEditingID).Title, "")
+                        Height: =40
+                  - TxtANLblVille:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Text: ="Ville"
+                        Wrap: =false
+                  - InpANVille:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Ville"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =If(varANFormMode = "edit", LookUp(Agences, ID = varANEditingID).Ville, "")
+                        Height: =40
+                  - TxtANLblRespNom:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Text: ="Responsable — Nom"
+                        Wrap: =false
+                  - InpANRespNom:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Responsable — Nom"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =If(varANFormMode = "edit", LookUp(Agences, ID = varANEditingID).Responsable.DisplayName, "")
+                        Height: =40
+                  - TxtANLblRespEmail:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Text: ="Responsable — Email"
+                        Wrap: =false
+                  - InpANRespEmail:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Responsable — Email"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =If(varANFormMode = "edit", LookUp(Agences, ID = varANEditingID).Responsable.Email, "")
+                        Height: =40
+                        Placeholder: ="prenom.nom@takafulia.tn"
+                  - TxtANLblActif:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Text: ="Actif"
+                        Wrap: =false
+                  - RadANActif:
+                      Control: ModernRadio
+                      Properties:
+                        AccessibleLabel: ="Actif"
+                        Default: |-
+                          =If(varANFormMode = "edit" && Not(Coalesce(LookUp(Agences, ID = varANEditingID).Actif, true)), {Value: "Non"}, {Value: "Oui"})
+                        Height: =76
+                        Items: =["Oui", "Non"]
+                  - TxtANFormErr:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(220, 38, 38, 1)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =12
+                        Text: ="Le code agence et le nom sont obligatoires."
+                        Visible: =varANTriedSave && (IsBlank(Trim(InpANCode.Text)) || IsBlank(Trim(InpANNom.Text)))
+                  - ANFormButtonsRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =44
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =12
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                      Children:
+                        - BtnANAnnuler:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Outline
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Height: =40
+                              OnSelect: =Set(varANFormOpen, false)
+                              Text: ="Annuler"
+                              Width: =120
+                        - BtnANEnregistrer:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Height: =40
+                              OnSelect: |-
+                                =Set(varANTriedSave, true);
+                                If(
+                                    Not(IsBlank(Trim(InpANCode.Text))) && Not(IsBlank(Trim(InpANNom.Text))),
+                                    IfError(
+                                        Patch(
+                                            Agences,
+                                            If(varANFormMode = "edit", LookUp(Agences, ID = varANEditingID), Defaults(Agences)),
+                                            {
+                                                Code_Agence: Trim(InpANCode.Text),
+                                                Title: Trim(InpANNom.Text),
+                                                Ville: Trim(InpANVille.Text),
+                                                Responsable: If(
+                                                    IsBlank(Trim(InpANRespEmail.Text)),
+                                                    Blank(),
+                                                    {
+                                                        '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                                        Claims: "i:0#.f|membership|" & Lower(Trim(InpANRespEmail.Text)),
+                                                        DisplayName: Trim(InpANRespNom.Text),
+                                                        Email: Trim(InpANRespEmail.Text),
+                                                        Department: "",
+                                                        JobTitle: "",
+                                                        Picture: ""
+                                                    }
+                                                ),
+                                                Actif: RadANActif.Selected.Value = "Oui"
+                                            }
+                                        ),
+                                        Notify("Échec de l'enregistrement : " & FirstError.Message, NotificationType.Error),
+                                        Set(varANFormOpen, false);
+                                        Set(varANTriedSave, false);
+                                        Refresh(Agences);
+                                        Notify("Agence enregistrée.", NotificationType.Success)
+                                    )
+                                )
+                              Text: ="Enregistrer"
+                              Width: =140
+      - ANConfirmRemoveOverlay:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            Height: =Parent.Height
+            Visible: =Not(IsBlank(varANConfirmRemoveID))
+            Width: =Parent.Width
+          Children:
+            - RectANConfirmScrim:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(17, 24, 39, 0.45)
+                  Height: =Parent.Height
+                  OnSelect: =Set(varANConfirmRemoveID, Blank())
+                  Width: =Parent.Width
+            - ANConfirmCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.Regular
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =If(varANRefCount > 0, 230, 190)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =12
+                  PaddingBottom: =20
+                  PaddingLeft: =20
+                  PaddingRight: =20
+                  PaddingTop: =20
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =If(AdministrationAgences.Size = ScreenSize.Small, Parent.Width - 40, 440)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =(Parent.Height - Self.Height) / 2
+                Children:
+                  - TxtANConfirmTitle:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(31, 41, 55, 1)
+                        FontWeight: =FontWeight.Bold
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =17
+                        Text: =If(varANRefCount > 0, "Suppression impossible", "Supprimer ?")
+                        Wrap: =false
+                  - TxtANConfirmBody:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =13
+                        Text: |-
+                          =If(
+                              varANRefCount > 0,
+                              "« " & varANConfirmRemoveName & " » est référencé(e) par " & varANRefCount & " enregistrement(s). Désactivez-le à la place.",
+                              "« " & varANConfirmRemoveName & " » sera définitivement supprimé(e)."
+                          )
+                  - ANConfirmButtonsRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =40
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                      Children:
+                        - BtnANConfirmFermer:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Secondary
+                              Height: =40
+                              OnSelect: =Set(varANConfirmRemoveID, Blank())
+                              Text: ="Fermer"
+                              Visible: =varANRefCount > 0
+                              Width: =120
+                        - BtnANConfirmDesactiver:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Height: =40
+                              OnSelect: |-
+                                =IfError(
+                                    Patch(Agences, LookUp(Agences, ID = varANConfirmRemoveID), {Actif: false}),
+                                    Notify("Échec de la mise à jour : " & FirstError.Message, NotificationType.Error),
+                                    Set(varANConfirmRemoveID, Blank());
+                                    Refresh(Agences);
+                                    Notify("Agence désactivée.", NotificationType.Success)
+                                )
+                              Text: ="Désactiver à la place"
+                              Visible: =varANRefCount > 0
+                              Width: =180
+                        - BtnANConfirmAnnuler:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Secondary
+                              Height: =40
+                              OnSelect: =Set(varANConfirmRemoveID, Blank())
+                              Text: ="Annuler"
+                              Visible: =varANRefCount = 0
+                              Width: =120
+                        - BtnANConfirmSupprimer:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =RGBA(220, 38, 38, 1)
+                              Height: =40
+                              OnSelect: |-
+                                =IfError(
+                                    Remove(Agences, LookUp(Agences, ID = varANConfirmRemoveID)),
+                                    Notify("Échec de la suppression : " & FirstError.Message, NotificationType.Error),
+                                    Set(varANConfirmRemoveID, Blank());
+                                    Refresh(Agences);
+                                    Notify("Agence supprimée.", NotificationType.Success)
+                                )
+                              Text: ="Supprimer"
+                              Visible: =varANRefCount = 0
+                              Width: =120
+      - BarAN:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            DropShadow: =DropShadow.Regular
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =64
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Horizontal
+            Visible: =AdministrationAgences.Size = ScreenSize.Small
+            Width: =Parent.Width
+            Y: =Parent.Height - 64
+          Children:
+            - BEntANAccueil:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                Children:
+                  - BIcoANAccueil:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Home"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblANAccueil:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(Accueil, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="Accueil"
+                        Wrap: =false
+            - BEntANFile:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Gestionnaire" || UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoANFile:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Briefcase"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblANFile:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(FileATraiter, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="À traiter"
+                        Wrap: =false
+            - BEntANStats:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Superviseur" || UserRole = "Admin"
+                Children:
+                  - BIcoANStats:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="DataBarVertical"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblANStats:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EcranStatistiques, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="Stats"
+                        Wrap: =false
+            - BEntANAdmin:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                  Visible: =UserRole = "Admin"
+                Children:
+                  - BIcoANAdmin:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Settings"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblANAdmin:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(EspaceAdministrateur, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="Admin"
+                        Wrap: =false
+            - BEntANNotifs:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =2
+                  PaddingTop: =10
+                Children:
+                  - BIcoANNotifs:
+                      Control: ModernIcon
+                      Properties:
+                        Height: =22
+                        Icon: ="Alert"
+                        IconColor: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        Width: =22
+                  - BLblANNotifs:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        OnSelect: =Navigate(MesNotifications, ScreenTransition.Fade)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Size: =10
+                        Text: ="Notifs"
+                        Wrap: =false
