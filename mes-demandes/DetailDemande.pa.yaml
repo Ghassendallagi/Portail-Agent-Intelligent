@@ -6,7 +6,9 @@ Screens:
         =Set(varActionDialog, "");
         Set(varPolling, false);
         Set(varPollCount, 0);
-        Set(varPollMode, "")
+        Set(varPollMode, "");
+        Set(varShowParcours, false);
+        Set(varRetourPrevStep, Blank())
     Children:
       - DetailScreenContainer:
           Control: GroupContainer
@@ -966,6 +968,8 @@ Screens:
                                               && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
                                               && (Coalesce(TypeRulesActuelles.Niveau_Validation.Value, "Simple") <> "Direction_Generale"
                                                   || varSelectedDemande.Service_Actuel_ID.Value = "Direction Generale")
+                                              && (CountRows(TypeRulesActuelles.Service_Par_Defaut) = 0
+                                                  || varSelectedDemande.Service_Actuel_ID.Id in TypeRulesActuelles.Service_Par_Defaut.Id)
                                     - BtnRejeter:
                                         Control: ModernButton
                                         Properties:
@@ -981,6 +985,8 @@ Screens:
                                           Visible: |-
                                             =varSelectedDemande.Statut_Actuel.Value = "En cours"
                                               && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
+                                              && (CountRows(TypeRulesActuelles.Service_Par_Defaut) = 0
+                                                  || varSelectedDemande.Service_Actuel_ID.Id in TypeRulesActuelles.Service_Par_Defaut.Id)
                                     - BtnTransferer:
                                         Control: ModernButton
                                         Properties:
@@ -996,6 +1002,30 @@ Screens:
                                           Visible: |-
                                             =varSelectedDemande.Statut_Actuel.Value = "En cours"
                                               && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
+                                    - BtnRetourService:
+                                        Control: ModernButton
+                                        Properties:
+                                          Appearance: ='ButtonCanvas.Appearance'.Secondary
+                                          BasePaletteColor: =RGBA(13, 148, 136, 1)
+                                          DisplayMode: =If(varPolling, DisplayMode.Disabled, DisplayMode.Edit)
+                                          FillPortions: =1
+                                          Height: =40
+                                          Icon: ="ArrowLeft"
+                                          OnSelect: |-
+                                            =Set(
+                                                varRetourPrevStep,
+                                                With(
+                                                    {_prevHist: LookUp(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID) && Num_Mouvement = Max(Filter(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID) && Type_Modification.Value = "Transfert"), Num_Mouvement) - 1)},
+                                                    {Service: _prevHist.Service_A_Ce_Moment, Gestionnaire: _prevHist.Gestionnaire_A_Ce_Moment}
+                                                )
+                                            );
+                                            Set(varActionDialog, "retour_service")
+                                          Text: ="Retour au service précédent"
+                                          Visible: |-
+                                            =varSelectedDemande.Statut_Actuel.Value = "En cours"
+                                              && Not(IsBlank(varSelectedDemande.Gestionnaire_Assigne.DisplayName))
+                                              && Coalesce(Max(Filter(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID) && Type_Modification.Value = "Transfert"), Num_Mouvement), 0)
+                                                  > Coalesce(Max(Filter(Historique_Demandes, Demande_ID = Text(varSelectedDemande.ID) && Type_Modification.Value = "Retour transfert"), Num_Mouvement), 0)
                               - ComplementRow:
                                   Control: GroupContainer
                                   Variant: AutoLayout
@@ -1183,7 +1213,18 @@ Screens:
                                               Duree_Pause_Heures: varSelectedDemande.Duree_Pause_Heures + DateDiff(varSelectedDemande.Date_Debut_Pause, Now(), TimeUnit.Minutes) / 60,
                                               Num_Mouvement_Cours: varSelectedDemande.Num_Mouvement_Cours + 1,
                                               Type_Modification: {Value: "Réponse complément"}
-                                          }),
+                                          });
+                                          With(
+                                              {_openStep: LookUp(Temps_Parcours_Demande, Demande_ID = Text(varSelectedDemande.ID) && Num_Mouvement = varSelectedDemande.Num_Mouvement_Cours && IsBlank(Date_Fin))},
+                                              If(
+                                                  Not(IsBlank(_openStep)),
+                                                  Patch(Temps_Parcours_Demande, _openStep, {
+                                                      Date_Fin: Now(),
+                                                      Duree_Heures: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 60,
+                                                      Duree_Jours: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 1440
+                                                  })
+                                              )
+                                          ),
                                           Notify("Échec de l'envoi du complément : " & FirstError.Message, NotificationType.Error),
                                           Refresh(Demandes);
                                           Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
@@ -1200,20 +1241,43 @@ Screens:
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =10
                       Children:
-                        - TxtTimelineTitle:
-                            Control: ModernText
+                        - TimelineHeaderRow:
+                            Control: GroupContainer
+                            Variant: AutoLayout
                             Properties:
-                              AutoHeight: =true
-                              Color: =RGBA(140, 12, 20, 1)
-                              FontWeight: =FontWeight.Semibold
-                              Size: =16
-                              Text: ="Historique"
+                              Fill: =RGBA(249, 250, 251, 1)
+                              FillPortions: =0
+                              Height: =32
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
                               Width: =Parent.Width
+                            Children:
+                              - TxtTimelineTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    AutoHeight: =true
+                                    Color: =RGBA(140, 12, 20, 1)
+                                    FontWeight: =FontWeight.Semibold
+                                    Size: =16
+                                    Text: ="Historique"
+                              - IconAnalyseParcours:
+                                  Control: ModernIcon
+                                  Properties:
+                                    AccessibleLabel: ="Analyse du parcours"
+                                    Height: =22
+                                    Icon: ="DataBarVertical"
+                                    IconColor: =RGBA(140, 12, 20, 1)
+                                    OnSelect: |-
+                                      =ClearCollect(colParcours, SortByColumns(Filter(Temps_Parcours_Demande, Demande_ID = Text(varSelectedDemande.ID)), "Num_Mouvement", SortOrder.Ascending));
+                                      Set(varShowParcours, true)
+                                    Width: =22
                         - TimelineScroll:
                             Control: GroupContainer
                             Variant: AutoLayout
                             Properties:
                               Fill: =RGBA(249, 250, 251, 1)
+                              FillPortions: =1
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutOverflowY: =LayoutOverflow.Scroll
@@ -1249,7 +1313,7 @@ Screens:
                                           )
                                       )
                                     TemplatePadding: =12
-                                    TemplateSize: =182
+                                    TemplateSize: =220
                                     Width: =Parent.Width
                                   Children:
                                     - TLCardContainer:
@@ -1288,6 +1352,7 @@ Screens:
                                                             "Assignation", RGBA(30, 64, 175, 1),
                                                             "Réaffectation", RGBA(96, 165, 250, 1),
                                                             "Transfert", RGBA(180, 83, 9, 1),
+                                                            "Retour transfert", RGBA(13, 148, 136, 1),
                                                             "Validation", RGBA(21, 128, 61, 1),
                                                             "Rejet", RGBA(220, 38, 38, 1),
                                                             "Clôture", RGBA(140, 12, 20, 1),
@@ -1341,6 +1406,7 @@ Screens:
                                                                   "Assignation", "Person",
                                                                   "Réaffectation", "ArrowRepeatAll",
                                                                   "Transfert", "ArrowForward",
+                                                                  "Retour transfert", "ArrowLeft",
                                                                   "Validation", "CheckmarkCircle",
                                                                   "Rejet", "DismissCircle",
                                                                   "Clôture", "Flag",
@@ -1355,6 +1421,7 @@ Screens:
                                                                   "Assignation", RGBA(30, 64, 175, 1),
                                                                   "Réaffectation", RGBA(96, 165, 250, 1),
                                                                   "Transfert", RGBA(180, 83, 9, 1),
+                                                                  "Retour transfert", RGBA(13, 148, 136, 1),
                                                                   "Validation", RGBA(21, 128, 61, 1),
                                                                   "Rejet", RGBA(220, 38, 38, 1),
                                                                   "Clôture", RGBA(140, 12, 20, 1),
@@ -1374,6 +1441,7 @@ Screens:
                                                                   "Assignation", RGBA(30, 64, 175, 1),
                                                                   "Réaffectation", RGBA(96, 165, 250, 1),
                                                                   "Transfert", RGBA(180, 83, 9, 1),
+                                                                  "Retour transfert", RGBA(13, 148, 136, 1),
                                                                   "Validation", RGBA(21, 128, 61, 1),
                                                                   "Rejet", RGBA(220, 38, 38, 1),
                                                                   "Clôture", RGBA(140, 12, 20, 1),
@@ -1404,7 +1472,7 @@ Screens:
                                                       Size: =13
                                                       Text: |-
                                                         ="De : " & Coalesce(ThisItem.TL_ServiceSource, "Information indisponible") & "   →   Vers : " & Coalesce(ThisItem.TL_ServiceDest, "Information indisponible")
-                                                      Visible: =ThisItem.TL_Type = "Transfert"
+                                                      Visible: =ThisItem.TL_Type = "Transfert" || ThisItem.TL_Type = "Retour transfert"
                                                       Width: =Parent.Width - 54
                                                 - TxtTLAssignee:
                                                     Control: ModernText
@@ -1414,7 +1482,7 @@ Screens:
                                                       Size: =13
                                                       Text: |-
                                                         ="A : " & Coalesce(ThisItem.TL_Gestionnaire, "Information indisponible")
-                                                      Visible: =ThisItem.TL_Type = "Assignation" || ThisItem.TL_Type = "Réaffectation"
+                                                      Visible: =ThisItem.TL_Type = "Assignation" || ThisItem.TL_Type = "Réaffectation" || ThisItem.TL_Type = "Retour transfert"
                                                       Width: =Parent.Width - 54
                                                 - TxtTLStatut:
                                                     Control: ModernText
@@ -1507,6 +1575,352 @@ Screens:
                                     Text: ="Aucun historique disponible"
                                     Visible: =GalleryHistorique.AllItemsCount = 0
                                     Width: =Parent.Width
+      - ParcoursOverlay:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            Height: =Parent.Height
+            Visible: =varShowParcours
+            Width: =Parent.Width
+          Children:
+            - RectParcoursScrim:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(17, 24, 39, 0.45)
+                  Height: =Parent.Height
+                  OnSelect: =Set(varShowParcours, false)
+                  Width: =Parent.Width
+            - ParcoursCard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.Regular
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =Min(Parent.Height - 40, 640)
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =14
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                  PaddingBottom: =20
+                  PaddingLeft: =24
+                  PaddingRight: =24
+                  PaddingTop: =20
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =If(DetailDemande.Size = ScreenSize.Small, Parent.Width - 32, 760)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =(Parent.Height - Self.Height) / 2
+                Children:
+                  - ParcoursHeaderRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =If(DetailDemande.Size = ScreenSize.Small, 44, 32)
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                      Children:
+                        - TxtParcoursTitle:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(31, 41, 55, 1)
+                              FontWeight: =FontWeight.Bold
+                              Size: =If(DetailDemande.Size = ScreenSize.Small, 15, 18)
+                              Text: ="Analyse du Parcours"
+                              Width: =Parent.Width - 34
+                        - IconParcoursClose:
+                            Control: ModernIcon
+                            Properties:
+                              AccessibleLabel: ="Fermer"
+                              Height: =22
+                              Icon: ="Dismiss"
+                              IconColor: =RGBA(112, 112, 112, 1)
+                              OnSelect: =Set(varShowParcours, false)
+                              Width: =22
+                  - ParcoursMetricsRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =If(DetailDemande.Size = ScreenSize.Small, 322, 140)
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =8
+                      Children:
+                        - ParcoursMetricsRowTop:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =If(DetailDemande.Size = ScreenSize.Small, 190, 66)
+                              LayoutDirection: =If(DetailDemande.Size = ScreenSize.Small, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                              LayoutGap: =8
+                            Children:
+                              - TileParcoursTotal:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Fill: =RGBA(249, 250, 251, 1)
+                                    FillPortions: =1
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    PaddingBottom: =8
+                                    PaddingTop: =8
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                  Children:
+                                    - TxtParcoursTotalVal:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(140, 12, 20, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: |-
+                                            =With(
+                                                {_last: Last(colParcours)},
+                                                Text(
+                                                    Round(
+                                                        Sum(colParcours, Coalesce(Duree_Heures, 0))
+                                                            + If(Not(IsBlank(_last)) && IsBlank(_last.Date_Fin), DateDiff(_last.Date_Debut, Now(), TimeUnit.Hours), 0),
+                                                        1
+                                                    )
+                                                ) & " h"
+                                            )
+                                    - TxtParcoursTotalLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Align: =Align.Center
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =11
+                                          Text: ="Temps total"
+                              - TileParcoursAttente:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Fill: =RGBA(249, 250, 251, 1)
+                                    FillPortions: =1
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    PaddingBottom: =8
+                                    PaddingTop: =8
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                  Children:
+                                    - TxtParcoursAttenteVal:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(217, 119, 6, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: =Text(Round(Sum(Filter(colParcours, Type_Etape.Value = "Attente"), Coalesce(Duree_Heures, 0)), 1)) & " h"
+                                    - TxtParcoursAttenteLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Align: =Align.Center
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =11
+                                          Text: ="Temps attente"
+                              - TileParcoursTraitement:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Fill: =RGBA(249, 250, 251, 1)
+                                    FillPortions: =1
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    PaddingBottom: =8
+                                    PaddingTop: =8
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                  Children:
+                                    - TxtParcoursTraitementVal:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(21, 128, 61, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: =Text(Round(Sum(Filter(colParcours, Type_Etape.Value = "Traitement"), Coalesce(Duree_Heures, 0)), 1)) & " h"
+                                    - TxtParcoursTraitementLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Align: =Align.Center
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =11
+                                          Text: ="Temps traitement"
+                        - ParcoursMetricsRowBottom:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              FillPortions: =0
+                              Height: =If(DetailDemande.Size = ScreenSize.Small, 124, 66)
+                              LayoutDirection: =If(DetailDemande.Size = ScreenSize.Small, LayoutDirection.Vertical, LayoutDirection.Horizontal)
+                              LayoutGap: =8
+                            Children:
+                              - TileParcoursComplement:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Fill: =RGBA(249, 250, 251, 1)
+                                    FillPortions: =1
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    PaddingBottom: =8
+                                    PaddingTop: =8
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                  Children:
+                                    - TxtParcoursComplementVal:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(30, 64, 175, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: =Text(Round(Sum(Filter(colParcours, Type_Etape.Value = "Attente Complément"), Coalesce(Duree_Heures, 0)), 1)) & " h"
+                                    - TxtParcoursComplementLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Align: =Align.Center
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =11
+                                          Text: ="Temps complément"
+                              - TileParcoursTransferts:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    Fill: =RGBA(249, 250, 251, 1)
+                                    FillPortions: =1
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Vertical
+                                    PaddingBottom: =8
+                                    PaddingTop: =8
+                                    RadiusBottomLeft: =8
+                                    RadiusBottomRight: =8
+                                    RadiusTopLeft: =8
+                                    RadiusTopRight: =8
+                                  Children:
+                                    - TxtParcoursTransfertsVal:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(180, 83, 9, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =16
+                                          Text: =Text(Max(CountRows(Filter(colParcours, Type_Etape.Value = "Attente")) - 1, 0))
+                                    - TxtParcoursTransfertsLbl:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Align: =Align.Center
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =11
+                                          Text: ="Nb. transferts"
+                  - GalleryParcours:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        FillPortions: =1
+                        Height: =Self.AllItemsCount * (Self.TemplateHeight + Self.TemplatePadding)
+                        Items: =colParcours
+                        TemplatePadding: =8
+                        TemplateSize: =78
+                        Width: =Parent.Width
+                      Children:
+                        - ParcoursRowCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              Fill: =RGBA(249, 250, 251, 1)
+                              Height: =Parent.TemplateHeight
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutGap: =4
+                              PaddingBottom: =8
+                              PaddingLeft: =12
+                              PaddingRight: =12
+                              PaddingTop: =8
+                              RadiusBottomLeft: =8
+                              RadiusBottomRight: =8
+                              RadiusTopLeft: =8
+                              RadiusTopRight: =8
+                              Width: =Parent.TemplateWidth
+                            Children:
+                              - ParcoursRowLine1:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =20
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =8
+                                  Children:
+                                    - TxtParcoursRowEtape:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(140, 12, 20, 1)
+                                          FontWeight: =FontWeight.Bold
+                                          Size: =13
+                                          Text: =Coalesce(ThisItem.Type_Etape.Value, "—")
+                                    - TxtParcoursRowService:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(112, 112, 112, 1)
+                                          Size: =12
+                                          Text: ="· " & Coalesce(ThisItem.Service, "—") & If(IsBlank(ThisItem.Gestionnaire.DisplayName), "", " · " & ThisItem.Gestionnaire.DisplayName)
+                              - ParcoursRowLine2:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =24
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutGap: =6
+                                  Children:
+                                    - TxtParcoursRowPeriode:
+                                        Control: ModernText
+                                        Properties:
+                                          AutoHeight: =true
+                                          Color: =RGBA(144, 144, 144, 1)
+                                          Size: =11
+                                          Text: |-
+                                            =Text(ThisItem.Date_Debut, "dd/mm/yy hh:mm")
+                                                & " → "
+                                                & If(IsBlank(ThisItem.Date_Fin), "en cours", Text(ThisItem.Date_Fin, "dd/mm/yy hh:mm"))
+                                                & "  ("
+                                                & If(IsBlank(ThisItem.Date_Fin), Text(DateDiff(ThisItem.Date_Debut, Now(), TimeUnit.Hours)), Text(Round(Coalesce(ThisItem.Duree_Heures, 0), 1)))
+                                                & " h)"
+                  - TxtParcoursEmpty:
+                      Control: ModernText
+                      Properties:
+                        Align: =Align.Center
+                        AutoHeight: =true
+                        Color: =RGBA(144, 144, 144, 1)
+                        Size: =13
+                        Text: ="Aucune donnée de parcours disponible."
+                        Visible: =CountRows(colParcours) = 0
+                        Width: =Parent.Width
       - DialogOverlay:
           Control: GroupContainer
           Variant: ManualLayout
@@ -1535,6 +1949,7 @@ Screens:
                         "transferer", 420,
                         "assigner", 280,
                         "complement", 320,
+                        "retour_service", 240,
                         210
                     )
                   LayoutAlignItems: =LayoutAlignItems.Stretch
@@ -1569,6 +1984,7 @@ Screens:
                               "assigner", "Assigner à un gestionnaire",
                               "cloturer", "Confirmer la réception ?",
                               "complement", "Demande de complément",
+                              "retour_service", "Retour au service précédent ?",
                               ""
                           )
                   - TxtDialogBody:
@@ -1587,6 +2003,7 @@ Screens:
                               "assigner", "choisissez le gestionnaire à qui l'assigner.",
                               "cloturer", "vous confirmez la bonne réception ; la demande sera clôturée.",
                               "complement", "expliquez les informations manquantes attendues de l'agent (obligatoire).",
+                              "retour_service", "la demande repartira vers " & varRetourPrevStep.Service & " (" & varRetourPrevStep.Gestionnaire.DisplayName & ").",
                               ""
                           )
                   - InpMotifRejet:
@@ -1612,6 +2029,7 @@ Screens:
                                       CountRows(TypeRulesActuelles.Services_A_Transferer) = 0
                                           || ID in TypeRulesActuelles.Services_A_Transferer.Id
                                           || ID in TypeRulesActuelles.Service_Par_Defaut.Id
+                                          || ID = varSelectedDemande.Service_Precedent_ID
                                   )
                           )
                         Visible: =varActionDialog = "transferer"
@@ -1703,6 +2121,29 @@ Screens:
                                             Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
                                             Commentaire_Action: "Prise en charge effective",
                                             Type_Modification: {Value: "Assignation"}
+                                        });
+                                        With(
+                                            {_openStep: LookUp(Temps_Parcours_Demande, Demande_ID = Text(varSelectedDemande.ID) && Num_Mouvement = varSelectedDemande.Num_Mouvement_Cours && IsBlank(Date_Fin))},
+                                            If(
+                                                Not(IsBlank(_openStep)),
+                                                Patch(Temps_Parcours_Demande, _openStep, {
+                                                    Date_Fin: Now(),
+                                                    Duree_Heures: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 60,
+                                                    Duree_Jours: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 1440
+                                                })
+                                            )
+                                        );
+                                        Patch(Temps_Parcours_Demande, Defaults(Temps_Parcours_Demande), {
+                                            Title: varSelectedDemande.Titre & " - M" & (varSelectedDemande.Num_Mouvement_Cours + 1),
+                                            Demande_ID: Text(varSelectedDemande.ID),
+                                            Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Type_Etape: {Value: "Traitement"},
+                                            Service: varSelectedDemande.Service_Actuel_ID.Value,
+                                            Gestionnaire: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Date_Debut: Now(),
+                                            Statut: "En cours",
+                                            Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Commentaire: "Prise en charge effective"
                                         }),
                                         Notify("Échec de la prise en charge : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
@@ -1714,7 +2155,18 @@ Screens:
                                     ),
                                     "valider",
                                     IfError(
-                                        Patch(Demandes, varSelectedDemande, {Statut_Actuel: {Value: "Validé"}}),
+                                        Patch(Demandes, LookUp(Demandes, ID = varSelectedDemande.ID), {Statut_Actuel: {Value: "Validé"}, Num_Mouvement_Cours: varSelectedDemande.Num_Mouvement_Cours + 1});
+                                        With(
+                                            {_openStep: LookUp(Temps_Parcours_Demande, Demande_ID = Text(varSelectedDemande.ID) && Num_Mouvement = varSelectedDemande.Num_Mouvement_Cours && IsBlank(Date_Fin))},
+                                            If(
+                                                Not(IsBlank(_openStep)),
+                                                Patch(Temps_Parcours_Demande, _openStep, {
+                                                    Date_Fin: Now(),
+                                                    Duree_Heures: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 60,
+                                                    Duree_Jours: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 1440
+                                                })
+                                            )
+                                        ),
                                         Notify("Échec de la validation : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
                                         Refresh(Demandes);
@@ -1723,7 +2175,18 @@ Screens:
                                     ),
                                     "rejeter",
                                     IfError(
-                                        Patch(Demandes, varSelectedDemande, {Statut_Actuel: {Value: "Rejeté"}, Motif_Rejet: Trim(InpMotifRejet.Text)}),
+                                        Patch(Demandes, LookUp(Demandes, ID = varSelectedDemande.ID), {Statut_Actuel: {Value: "Rejeté"}, Motif_Rejet: Trim(InpMotifRejet.Text), Num_Mouvement_Cours: varSelectedDemande.Num_Mouvement_Cours + 1});
+                                        With(
+                                            {_openStep: LookUp(Temps_Parcours_Demande, Demande_ID = Text(varSelectedDemande.ID) && Num_Mouvement = varSelectedDemande.Num_Mouvement_Cours && IsBlank(Date_Fin))},
+                                            If(
+                                                Not(IsBlank(_openStep)),
+                                                Patch(Temps_Parcours_Demande, _openStep, {
+                                                    Date_Fin: Now(),
+                                                    Duree_Heures: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 60,
+                                                    Duree_Jours: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 1440
+                                                })
+                                            )
+                                        ),
                                         Notify("Échec du rejet : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
                                         Refresh(Demandes);
@@ -1754,6 +2217,28 @@ Screens:
                                             Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
                                             Commentaire_Action: Trim(TxtTransferComment.Text),
                                             Type_Modification: {Value: "Transfert"}
+                                        });
+                                        With(
+                                            {_openStep: LookUp(Temps_Parcours_Demande, Demande_ID = Text(varSelectedDemande.ID) && Num_Mouvement = varSelectedDemande.Num_Mouvement_Cours && IsBlank(Date_Fin))},
+                                            If(
+                                                Not(IsBlank(_openStep)),
+                                                Patch(Temps_Parcours_Demande, _openStep, {
+                                                    Date_Fin: Now(),
+                                                    Duree_Heures: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 60,
+                                                    Duree_Jours: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 1440
+                                                })
+                                            )
+                                        );
+                                        Patch(Temps_Parcours_Demande, Defaults(Temps_Parcours_Demande), {
+                                            Title: varSelectedDemande.Titre & " - M" & (varSelectedDemande.Num_Mouvement_Cours + 1),
+                                            Demande_ID: Text(varSelectedDemande.ID),
+                                            Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Type_Etape: {Value: "Attente"},
+                                            Service: DdServiceCible.Selected.Title,
+                                            Date_Debut: Now(),
+                                            Statut: "En cours",
+                                            Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Commentaire: Trim(TxtTransferComment.Text)
                                         }),
                                         Notify("Échec du transfert : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
@@ -1794,6 +2279,29 @@ Screens:
                                             Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
                                             Commentaire_Action: "Assignation par le superviseur",
                                             Type_Modification: {Value: "Assignation"}
+                                        });
+                                        With(
+                                            {_openStep: LookUp(Temps_Parcours_Demande, Demande_ID = Text(varSelectedDemande.ID) && Num_Mouvement = varSelectedDemande.Num_Mouvement_Cours && IsBlank(Date_Fin))},
+                                            If(
+                                                Not(IsBlank(_openStep)),
+                                                Patch(Temps_Parcours_Demande, _openStep, {
+                                                    Date_Fin: Now(),
+                                                    Duree_Heures: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 60,
+                                                    Duree_Jours: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 1440
+                                                })
+                                            )
+                                        );
+                                        Patch(Temps_Parcours_Demande, Defaults(Temps_Parcours_Demande), {
+                                            Title: varSelectedDemande.Titre & " - M" & (varSelectedDemande.Num_Mouvement_Cours + 1),
+                                            Demande_ID: Text(varSelectedDemande.ID),
+                                            Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Type_Etape: {Value: "Traitement"},
+                                            Service: varSelectedDemande.Service_Actuel_ID.Value,
+                                            Gestionnaire: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(DdGestionnaireCible.Selected.Utilisateur.Email), DisplayName: DdGestionnaireCible.Selected.Utilisateur.DisplayName, Email: DdGestionnaireCible.Selected.Utilisateur.Email, Department: "", JobTitle: "", Picture: ""},
+                                            Date_Debut: Now(),
+                                            Statut: "En cours",
+                                            Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Commentaire: "Assignation par le superviseur"
                                         }),
                                         Notify("Échec de l'assignation : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
@@ -1805,7 +2313,18 @@ Screens:
                                     ),
                                     "cloturer",
                                     IfError(
-                                        Patch(Demandes, varSelectedDemande, {Statut_Actuel: {Value: "Clôturé"}}),
+                                        Patch(Demandes, LookUp(Demandes, ID = varSelectedDemande.ID), {Statut_Actuel: {Value: "Clôturé"}, Num_Mouvement_Cours: varSelectedDemande.Num_Mouvement_Cours + 1});
+                                        With(
+                                            {_openStep: LookUp(Temps_Parcours_Demande, Demande_ID = Text(varSelectedDemande.ID) && Num_Mouvement = varSelectedDemande.Num_Mouvement_Cours && IsBlank(Date_Fin))},
+                                            If(
+                                                Not(IsBlank(_openStep)),
+                                                Patch(Temps_Parcours_Demande, _openStep, {
+                                                    Date_Fin: Now(),
+                                                    Duree_Heures: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 60,
+                                                    Duree_Jours: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 1440
+                                                })
+                                            )
+                                        ),
                                         Notify("Échec de la clôture : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
                                         Refresh(Demandes);
@@ -1843,12 +2362,79 @@ Screens:
                                             ObjectID: Text(varSelectedDemande.ID),
                                             Message: Trim(TxtDemandeComplement.Text),
                                             IsRead: false
+                                        });
+                                        Patch(Temps_Parcours_Demande, Defaults(Temps_Parcours_Demande), {
+                                            Title: varSelectedDemande.Titre & " - M" & (varSelectedDemande.Num_Mouvement_Cours + 1),
+                                            Demande_ID: Text(varSelectedDemande.ID),
+                                            Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Type_Etape: {Value: "Attente Complément"},
+                                            Service: varSelectedDemande.Service_Actuel_ID.Value,
+                                            Date_Debut: Now(),
+                                            Statut: "En attente complément",
+                                            Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Commentaire: Trim(TxtDemandeComplement.Text)
                                         }),
                                         Notify("Échec de la demande de complément : " & FirstError.Message, NotificationType.Error),
                                         Set(varActionDialog, "");
                                         Refresh(Demandes);
                                         Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
                                         Notify("Demande de complément envoyée à l'agent.", NotificationType.Success)
+                                    ),
+                                    "retour_service",
+                                    IfError(
+                                        Set(varPollMode, "assign");
+                                        Patch(Demandes, LookUp(Demandes, ID = varSelectedDemande.ID), {
+                                            Service_Actuel_ID: {Id: LookUp(Services_Siege, Title = varRetourPrevStep.Service, ID), Value: varRetourPrevStep.Service},
+                                            Gestionnaire_Assigne: varRetourPrevStep.Gestionnaire,
+                                            Statut_Actuel: {Value: "En cours"},
+                                            Type_Modification: {Value: "Retour transfert"},
+                                            Num_Mouvement_Cours: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Date_Dernier_Mouvement: Now(),
+                                            Alerte_Retard_Active: false,
+                                            Service_Precedent_ID: LookUp(Services_Siege, Title = varRetourPrevStep.Service, ID)
+                                        });
+                                        Patch(Historique_Demandes, Defaults(Historique_Demandes), {
+                                            Title: varSelectedDemande.Titre & " - M" & (varSelectedDemande.Num_Mouvement_Cours + 1),
+                                            Demande_ID: Text(varSelectedDemande.ID),
+                                            Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Service_A_Ce_Moment: varRetourPrevStep.Service,
+                                            Gestionnaire_A_Ce_Moment: varRetourPrevStep.Gestionnaire,
+                                            Statut_A_Ce_Moment: "En cours",
+                                            Date_Debut_Etape: Now(),
+                                            Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Commentaire_Action: "Retour au service précédent",
+                                            Type_Modification: {Value: "Retour transfert"}
+                                        });
+                                        With(
+                                            {_openStep: LookUp(Temps_Parcours_Demande, Demande_ID = Text(varSelectedDemande.ID) && Num_Mouvement = varSelectedDemande.Num_Mouvement_Cours && IsBlank(Date_Fin))},
+                                            If(
+                                                Not(IsBlank(_openStep)),
+                                                Patch(Temps_Parcours_Demande, _openStep, {
+                                                    Date_Fin: Now(),
+                                                    Duree_Heures: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 60,
+                                                    Duree_Jours: DateDiff(_openStep.Date_Debut, Now(), TimeUnit.Minutes) / 1440
+                                                })
+                                            )
+                                        );
+                                        Patch(Temps_Parcours_Demande, Defaults(Temps_Parcours_Demande), {
+                                            Title: varSelectedDemande.Titre & " - M" & (varSelectedDemande.Num_Mouvement_Cours + 1),
+                                            Demande_ID: Text(varSelectedDemande.ID),
+                                            Num_Mouvement: varSelectedDemande.Num_Mouvement_Cours + 1,
+                                            Type_Etape: {Value: "Traitement"},
+                                            Service: varRetourPrevStep.Service,
+                                            Gestionnaire: varRetourPrevStep.Gestionnaire,
+                                            Date_Debut: Now(),
+                                            Statut: "En cours",
+                                            Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                            Commentaire: "Retour au service précédent"
+                                        }),
+                                        Notify("Échec du retour au service précédent : " & FirstError.Message, NotificationType.Error),
+                                        Set(varActionDialog, "");
+                                        Refresh(Demandes);
+                                        Set(varSelectedDemande, LookUp(Demandes, ID = varSelectedDemande.ID));
+                                        Set(varPollCount, 0);
+                                        Set(varPolling, true);
+                                        Notify("Demande retournée au service précédent — " & varRetourPrevStep.Service & ", " & varRetourPrevStep.Gestionnaire.DisplayName & ".", NotificationType.Success)
                                     )
                                 )
                               Text: ="Confirmer"

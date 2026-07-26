@@ -523,32 +523,47 @@ Screens:
                                                   || (Not(IsBlank(DpNDDeadline.SelectedDate)) && Not(IsBlank(DdNDDeadlineHeure.Selected.Value)))),
                                           Set(varSubmitting, true);
                                           IfError(
-                                              Patch(
-                                                  Demandes,
-                                                  Defaults(Demandes),
+                                              With(
                                                   {
-                                                      Titre: Trim(InpNDTitre.Text),
-                                                      Type_Demande_ID: {Id: DdNDType.Selected.ID, Value: DdNDType.Selected.Titre},
-                                                      Service_Actuel_ID: {Id: DdNDService.Selected.ID, Value: DdNDService.Selected.Title},
-                                                      Description: InpNDDescription.Text,
-                                                      Niveau_Urgence: {Value: RadNDUrgence.Selected.Value},
-                                                      Agent_Demandeur: {
-                                                          Claims: "i:0#.f|membership|" & Lower(User().Email),
-                                                          DisplayName: User().FullName,
-                                                          Email: User().Email,
-                                                          Department: "",
-                                                          JobTitle: "",
-                                                          Picture: ""
-                                                      },
-                                                      Statut_Actuel: {Value: "Soumis"},
-                                                      Date_Soumission: Now(),
-                                                      Num_Mouvement_Cours: 1,
-                                                      Alerte_Retard_Active: false,
-                                                      Deadline_Metier: If(Coalesce(DdNDType.Selected.Deadline_Obligatoire, false), DateAdd(DpNDDeadline.SelectedDate, DdNDDeadlineHeure.Selected.Value, TimeUnit.Hours), Blank()),
-                                                      Deadline_Metier_Active: Coalesce(DdNDType.Selected.Deadline_Obligatoire, false),
-                                                      Statut_Deadline: If(Coalesce(DdNDType.Selected.Deadline_Obligatoire, false), {Value: "Normale"}, Blank()),
-                                                      Alerte_Deadline_Envoyee: false
-                                                  }
+                                                      _newDemande: Patch(
+                                                          Demandes,
+                                                          Defaults(Demandes),
+                                                          {
+                                                              Titre: Trim(InpNDTitre.Text),
+                                                              Type_Demande_ID: {Id: DdNDType.Selected.ID, Value: DdNDType.Selected.Titre},
+                                                              Service_Actuel_ID: {Id: DdNDService.Selected.ID, Value: DdNDService.Selected.Title},
+                                                              Description: InpNDDescription.Text,
+                                                              Niveau_Urgence: {Value: RadNDUrgence.Selected.Value},
+                                                              Agent_Demandeur: {
+                                                                  Claims: "i:0#.f|membership|" & Lower(User().Email),
+                                                                  DisplayName: User().FullName,
+                                                                  Email: User().Email,
+                                                                  Department: "",
+                                                                  JobTitle: "",
+                                                                  Picture: ""
+                                                              },
+                                                              Statut_Actuel: {Value: "Soumis"},
+                                                              Date_Soumission: Now(),
+                                                              Num_Mouvement_Cours: 1,
+                                                              Alerte_Retard_Active: false,
+                                                              Deadline_Metier: If(Coalesce(DdNDType.Selected.Deadline_Obligatoire, false), DateAdd(DpNDDeadline.SelectedDate, DdNDDeadlineHeure.Selected.Value, TimeUnit.Hours), Blank()),
+                                                              Deadline_Metier_Active: Coalesce(DdNDType.Selected.Deadline_Obligatoire, false),
+                                                              Statut_Deadline: If(Coalesce(DdNDType.Selected.Deadline_Obligatoire, false), {Value: "Normale"}, Blank()),
+                                                              Alerte_Deadline_Envoyee: false
+                                                          }
+                                                      )
+                                                  },
+                                                  Patch(Temps_Parcours_Demande, Defaults(Temps_Parcours_Demande), {
+                                                      Title: Trim(InpNDTitre.Text) & " - M1",
+                                                      Demande_ID: Text(_newDemande.ID),
+                                                      Num_Mouvement: 1,
+                                                      Type_Etape: {Value: "Attente"},
+                                                      Service: DdNDService.Selected.Title,
+                                                      Date_Debut: Now(),
+                                                      Statut: "Soumis",
+                                                      Actionneur: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser", Claims: "i:0#.f|membership|" & Lower(User().Email), DisplayName: User().FullName, Email: User().Email, Department: "", JobTitle: "", Picture: ""},
+                                                      Commentaire: ""
+                                                  })
                                               ),
                                               Set(varSubmitting, false);
                                               Notify("Échec de la soumission : " & FirstError.Message, NotificationType.Error),
