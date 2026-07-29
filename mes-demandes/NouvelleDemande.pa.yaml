@@ -5,13 +5,22 @@ Screens:
       OnVisible: |-
         =Set(varTriedSubmitND, false);
         Set(varSubmitting, false);
+        Set(varIAPanelOpen, false);
+        Set(varIALoading, false);
+        Set(varIAErreurSaisie, false);
+        Set(varIAErreurAppel, "");
+        Set(varIAResultat, Blank());
+        Set(varIAConfirmerEcrasement, false);
+        Set(varIAAppliedType, Blank());
+        Set(varIAAppliedService, Blank());
         Reset(InpNDTitre);
         Reset(DdNDType);
         Reset(DdNDService);
         Reset(RadNDUrgence);
         Reset(InpNDDescription);
         Reset(DpNDDeadline);
-        Reset(DdNDDeadlineHeure)
+        Reset(DdNDDeadlineHeure);
+        Reset(InpIATexteRequete)
     Children:
       - NDScreenContainer:
           Control: GroupContainer
@@ -99,7 +108,7 @@ Screens:
                         DropShadow: =DropShadow.Semilight
                         Fill: =RGBA(255, 255, 255, 1)
                         FillPortions: =0
-                        Height: =924 + If(Coalesce(DdNDType.Selected.Deadline_Obligatoire, false), 98, 0)
+                        Height: =898 + If(Coalesce(DdNDType.Selected.Deadline_Obligatoire, false), 98, 0)
                         LayoutAlignItems: =LayoutAlignItems.Stretch
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutGap: =16
@@ -118,24 +127,53 @@ Screens:
                             Variant: AutoLayout
                             Properties:
                               FillPortions: =0
-                              Height: =26
+                              Height: =42
                               LayoutAlignItems: =LayoutAlignItems.Stretch
                               LayoutDirection: =LayoutDirection.Vertical
                               LayoutGap: =8
                             Children:
-                              - TxtSectionDemande:
-                                  Control: ModernText
-                                  Properties:
-                                    AutoHeight: =true
-                                    Color: =RGBA(140, 12, 20, 1)
-                                    FontWeight: =FontWeight.Semibold
-                                    Size: =12
-                                    Text: ="Demande"
                               - RectSectionDemandeSep:
                                   Control: Rectangle
                                   Properties:
                                     Fill: =RGBA(229, 231, 235, 1)
                                     Height: =1
+                              - SectionDemandeTitleRow:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    FillPortions: =0
+                                    Height: =32
+                                    LayoutAlignItems: =LayoutAlignItems.Center
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                                  Children:
+                                    - TxtSectionDemande:
+                                        Control: ModernText
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          AutoHeight: =true
+                                          Color: =RGBA(140, 12, 20, 1)
+                                          FontWeight: =FontWeight.Semibold
+                                          Size: =12
+                                          Text: ="Demande"
+                                    - BtnNDAssistantIA:
+                                        Control: ModernButton
+                                        Properties:
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Appearance: ='ButtonCanvas.Appearance'.Transparent
+                                          BasePaletteColor: =RGBA(140, 12, 20, 1)
+                                          Height: =28
+                                          Icon: ="Sparkle"
+                                          OnSelect: |-
+                                            =Set(varIAPanelOpen, true);
+                                            Set(varIALoading, false);
+                                            Set(varIAErreurSaisie, false);
+                                            Set(varIAErreurAppel, "");
+                                            Set(varIAResultat, Blank());
+                                            Set(varIAConfirmerEcrasement, false);
+                                            Reset(InpIATexteRequete)
+                                          Text: ="Assistant IA"
+                                          Width: =130
                         - BlockTitre:
                             Control: GroupContainer
                             Variant: AutoLayout
@@ -226,6 +264,7 @@ Screens:
                                   Properties:
                                     AccessibleLabel: ="Type de demande (obligatoire)"
                                     BorderColor: =RGBA(229, 231, 235, 1)
+                                    Default: =varIAAppliedType
                                     Height: =40
                                     ItemDisplayText: =ThisItem.Titre
                                     Items: =SortByColumns(Types_Demandes, "Title", SortOrder.Ascending)
@@ -279,10 +318,13 @@ Screens:
                                     AccessibleLabel: ="Service destinataire (obligatoire)"
                                     BorderColor: =RGBA(229, 231, 235, 1)
                                     Default: |-
-                                      =If(
-                                          CountRows(DdNDType.Selected.Service_Par_Defaut) > 0,
-                                          LookUp(Services_Siege, ID = First(DdNDType.Selected.Service_Par_Defaut).Id),
-                                          Blank()
+                                      =Coalesce(
+                                          varIAAppliedService,
+                                          If(
+                                              CountRows(DdNDType.Selected.Service_Par_Defaut) > 0,
+                                              LookUp(Services_Siege, ID = First(DdNDType.Selected.Service_Par_Defaut).Id),
+                                              Blank()
+                                          )
                                       )
                                     Height: =40
                                     ItemDisplayText: =ThisItem.Title
@@ -364,29 +406,6 @@ Screens:
                                     Size: =12
                                     Text: ="Veuillez renseigner la date limite souhaitée."
                                     Visible: =varTriedSubmitND && Coalesce(DdNDType.Selected.Deadline_Obligatoire, false) && (IsBlank(DpNDDeadline.SelectedDate) || IsBlank(DdNDDeadlineHeure.Selected.Value))
-                        - SectionDetailsHeader:
-                            Control: GroupContainer
-                            Variant: AutoLayout
-                            Properties:
-                              FillPortions: =0
-                              Height: =26
-                              LayoutAlignItems: =LayoutAlignItems.Stretch
-                              LayoutDirection: =LayoutDirection.Vertical
-                              LayoutGap: =8
-                            Children:
-                              - TxtSectionDetails:
-                                  Control: ModernText
-                                  Properties:
-                                    AutoHeight: =true
-                                    Color: =RGBA(140, 12, 20, 1)
-                                    FontWeight: =FontWeight.Semibold
-                                    Size: =12
-                                    Text: ="Détails"
-                              - RectSectionDetailsSep:
-                                  Control: Rectangle
-                                  Properties:
-                                    Fill: =RGBA(229, 231, 235, 1)
-                                    Height: =1
                         - BlockDescription:
                             Control: GroupContainer
                             Variant: AutoLayout
@@ -574,3 +593,273 @@ Screens:
                                       )
                                     Text: ="Soumettre"
                                     Width: =160
+      - IAOverlay:
+          Control: GroupContainer
+          Variant: ManualLayout
+          Properties:
+            Height: =Parent.Height
+            Visible: =Coalesce(varIAPanelOpen, false)
+            Width: =Parent.Width
+          Children:
+            - RectIAScrim:
+                Control: Rectangle
+                Properties:
+                  Fill: =RGBA(17, 24, 39, 0.45)
+                  Height: =Parent.Height
+                  OnSelect: =Set(varIAPanelOpen, false)
+                  Width: =Parent.Width
+            - IACard:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  DropShadow: =DropShadow.Regular
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =620
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutGap: =12
+                  PaddingBottom: =20
+                  PaddingLeft: =20
+                  PaddingRight: =20
+                  PaddingTop: =20
+                  RadiusBottomLeft: =12
+                  RadiusBottomRight: =12
+                  RadiusTopLeft: =12
+                  RadiusTopRight: =12
+                  Width: =If(NouvelleDemande.Size = ScreenSize.Small, Parent.Width - 40, 480)
+                  X: =(Parent.Width - Self.Width) / 2
+                  Y: =(Parent.Height - Self.Height) / 2
+                Children:
+                  - TxtIATitle:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
+                        FontWeight: =FontWeight.Bold
+                        Size: =16
+                        Text: ="Assistant IA"
+                  - TxtIABanner:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =12
+                        Text: ="L’Assistant IA propose automatiquement les informations ci-dessous. Une validation humaine reste nécessaire avant l’enregistrement"
+                        Width: =Parent.Width
+                  - TxtIALblTexte:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(140, 12, 20, 1)
+                        Size: =12
+                        Text: ="Texte à analyser"
+                  - InpIATexteRequete:
+                      Control: ModernTextInput
+                      Properties:
+                        AccessibleLabel: ="Texte à analyser par l’assistant IA"
+                        BorderColor: =RGBA(229, 231, 235, 1)
+                        Default: =InpNDDescription.Text
+                        Height: =80
+                        Placeholder: ="Décrivez la demande à analyser..."
+                        Type: =TextInputType.Multiline
+                  - TxtIAErreurSaisie:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(220, 38, 38, 1)
+                        Size: =12
+                        Text: ="Veuillez décrire votre demande avant de lancer l’analyse."
+                        Visible: =varIAErreurSaisie
+                  - BtnIALancer:
+                      Control: ModernButton
+                      Properties:
+                        Appearance: ='ButtonCanvas.Appearance'.Primary
+                        BasePaletteColor: =RGBA(140, 12, 20, 1)
+                        DisplayMode: =If(varIALoading, DisplayMode.Disabled, DisplayMode.Edit)
+                        Height: =40
+                        OnSelect: |-
+                          =Set(varIAErreurSaisie, IsBlank(Trim(InpIATexteRequete.Text)));
+                          If(
+                              Not(varIAErreurSaisie),
+                              Set(varIAErreurAppel, "");
+                              Set(varIAResultat, Blank());
+                              Set(varIAConfirmerEcrasement, false);
+                              Set(varIALoading, true);
+                              IfError(
+                                  Set(varIAResultat, Flow_AI_Request_Analysis.Run(Trim(InpIATexteRequete.Text))),
+                                  Set(varIALoading, false);
+                                  Set(varIAErreurAppel, "L’assistant IA est momentanément indisponible. Réessayez plus tard ou continuez sans assistance."),
+                                  Set(varIALoading, false)
+                              )
+                          )
+                        Text: =If(IsBlank(varIAErreurAppel), "Lancer l’analyse", "Réessayer")
+                        Visible: =IsBlank(varIAResultat)
+                        Width: =160
+                  - TxtIALoading:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(112, 112, 112, 1)
+                        Size: =13
+                        Text: ="Analyse en cours..."
+                        Visible: =varIALoading
+                  - TxtIAErreurAppel:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(220, 38, 38, 1)
+                        Size: =13
+                        Text: =varIAErreurAppel
+                        Visible: =Not(IsBlank(varIAErreurAppel))
+                  - IAResultBlock:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =260
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutGap: =6
+                        Visible: =Not(IsBlank(varIAResultat))
+                      Children:
+                        - TxtIAType:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(31, 41, 55, 1)
+                              Size: =13
+                              Text: |-
+                                ="Type de demande proposé : " & Coalesce(varIAResultat.type_demande_propose, "—")
+                              Width: =Parent.Width
+                        - TxtIABranche:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(31, 41, 55, 1)
+                              Size: =13
+                              Text: |-
+                                ="Branche contrat : " & Coalesce(varIAResultat.branche_contrat, "—")
+                              Width: =Parent.Width
+                        - TxtIAConfiance:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(31, 41, 55, 1)
+                              Size: =13
+                              Text: |-
+                                ="Confiance : " & Coalesce(varIAResultat.final_confidence, "—")
+                              Width: =Parent.Width
+                        - TxtIAStatut:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: |-
+                                =If(
+                                  varIAResultat.decision_status = "DECISION_CONFIRMED",
+                                  RGBA(6, 95, 70, 1),
+                                  RGBA(146, 64, 14, 1)
+                                )
+                              FontWeight: =FontWeight.Semibold
+                              Size: =13
+                              Text: |-
+                                ="Statut : " & Coalesce(varIAResultat.decision_status, "—")
+                              Width: =Parent.Width
+                        - TxtIAExplication:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(112, 112, 112, 1)
+                              Size: =12
+                              Text: =Coalesce(varIAResultat.explanation, "—")
+                              Width: =Parent.Width
+                        - TxtIAMessageValidation:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(146, 64, 14, 1)
+                              FontWeight: =FontWeight.Semibold
+                              Size: =12
+                              Text: =Coalesce(varIAResultat.assistant_message, "")
+                              Width: =Parent.Width
+                        - TxtIAService:
+                            Control: ModernText
+                            Properties:
+                              AutoHeight: =true
+                              Color: =RGBA(31, 41, 55, 1)
+                              Size: =13
+                              Text: |-
+                                ="Service proposé : " & Coalesce(varIAResultat.service_propose, "—")
+                              Width: =Parent.Width
+                  - TxtIAConfirmerEcrasement:
+                      Control: ModernText
+                      Properties:
+                        AutoHeight: =true
+                        Color: =RGBA(217, 119, 6, 1)
+                        Size: =12
+                        Text: ="Une valeur existe déjà. Voulez-vous remplacer la valeur actuelle par la proposition IA ?"
+                        Visible: =varIAConfirmerEcrasement
+                  - IAButtonsRow:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        FillPortions: =0
+                        Height: =40
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutGap: =10
+                        LayoutJustifyContent: =LayoutJustifyContent.End
+                      Children:
+                        - BtnIAFermer:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Outline
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Height: =40
+                              OnSelect: =Set(varIAPanelOpen, false)
+                              Text: ="Fermer"
+                              Width: =110
+                        - BtnIAAnnulerEcrasement:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Outline
+                              BasePaletteColor: =RGBA(112, 112, 112, 1)
+                              Height: =40
+                              OnSelect: =Set(varIAConfirmerEcrasement, false)
+                              Text: ="Annuler"
+                              Visible: =varIAConfirmerEcrasement
+                              Width: =110
+                        - BtnIAAppliquer:
+                            Control: ModernButton
+                            Properties:
+                              Appearance: ='ButtonCanvas.Appearance'.Primary
+                              BasePaletteColor: =RGBA(140, 12, 20, 1)
+                              Height: =40
+                              OnSelect: |-
+                                =If(
+                                    Not(varIAConfirmerEcrasement) && (Not(IsBlank(DdNDType.Selected.ID)) || Not(IsBlank(DdNDService.Selected.ID))),
+                                    Set(varIAConfirmerEcrasement, true),
+                                    Set(varIAConfirmerEcrasement, false);
+                                    If(
+                                        Not(IsBlank(varIAResultat.type_demande_propose)),
+                                        Set(varIAAppliedType, LookUp(Types_Demandes, Titre = varIAResultat.type_demande_propose))
+                                    );
+                                    If(
+                                        Not(IsBlank(varIAResultat.service_propose)),
+                                        Set(varIAAppliedService, LookUp(Services_Siege, Title = varIAResultat.service_propose))
+                                    );
+                                    Reset(DdNDType);
+                                    Reset(DdNDService);
+                                    If(
+                                        Not(IsBlank(varIAResultat.type_demande_propose)) && IsBlank(varIAAppliedType.ID),
+                                        Notify("Le type proposé par l’IA « " & varIAResultat.type_demande_propose & " » ne correspond à aucun type existant — non appliqué.", NotificationType.Warning)
+                                    );
+                                    If(
+                                        Not(IsBlank(varIAResultat.service_propose)) && IsBlank(varIAAppliedService.ID),
+                                        Notify("Le service proposé par l’IA « " & varIAResultat.service_propose & " » ne correspond à aucun service existant — non appliqué.", NotificationType.Warning)
+                                    );
+                                    Set(varIAPanelOpen, false);
+                                    Notify("Propositions IA appliquées — vérifiez les champs avant de soumettre.", NotificationType.Success)
+                                )
+                              Text: =If(varIAConfirmerEcrasement, "Confirmer le remplacement", "Appliquer les propositions")
+                              Visible: =Not(IsBlank(varIAResultat)) && (Not(IsBlank(varIAResultat.service_propose)) || Not(IsBlank(varIAResultat.type_demande_propose)))
+                              Width: =220
